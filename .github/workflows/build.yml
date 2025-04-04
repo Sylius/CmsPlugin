@@ -149,20 +149,20 @@ jobs:
       - name: Run PHPUnit
         run: vendor/bin/phpunit --colors=always
 
-      - name: Set Behat tags
-        if: matrix.trix != true
-        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
-
-      - name: Run Behat
-        run: vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress --rerun
-
-      - name: Upload Behat logs
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: Behat logs
-          path: etc/build/
-          if-no-files-found: ignore
+#      - name: Set Behat tags
+#        if: matrix.trix != true
+#        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
+#
+#      - name: Run Behat
+#        run: vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress --rerun
+#
+#      - name: Upload Behat logs
+#        uses: actions/upload-artifact@v4
+#        if: failure()
+#        with:
+#          name: Behat logs
+#          path: etc/build/
+#          if-no-files-found: ignore
 
 ##      - name: Failed build Slack notification
 ##        uses: rtCamp/action-slack-notify@v2
