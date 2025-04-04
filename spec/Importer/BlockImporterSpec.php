@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\CmsPlugin\Importer;
@@ -11,7 +20,6 @@ use Sylius\CmsPlugin\Importer\BlockImporterInterface;
 use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterChannelsResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
-use Sylius\CmsPlugin\Resolver\Importer\ImporterLocalesResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterProductsInTaxonsResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterProductsResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterTaxonsResolverInterface;

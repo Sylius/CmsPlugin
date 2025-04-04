@@ -1,13 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\CmsPlugin\Provider;
 
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProvider;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class ResourceTemplateProviderSpec extends ObjectBehavior
 {
