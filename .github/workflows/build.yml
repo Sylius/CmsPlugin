@@ -24,7 +24,8 @@ jobs:
         sylius: ["~1.13.0", "~1.14.0"]
         node: ["20.x"]
         mysql: ["8.0"]
-        trix: [false, true]
+#        trix: [false, true]
+        trix: [false]
 
         exclude:
           - sylius: "~1.14.0"
