@@ -111,9 +111,9 @@
         </service>
 
         <service id="sylius_cms.form.type.wysiwyg" class="Sylius\CmsPlugin\Form\Type\WysiwygType">
-            <argument type="service" id="sylius_cms_plugin.resolver.wysiwyg_strategy_resolver" />
+            <argument type="service" id="sylius_cms.resolver.wysiwyg_strategy_resolver" />
             <call method="setStrategy">
-                <argument type="string">%sylius_cms_plugin.wysiwyg_editor%</argument>
+                <argument type="string">%sylius_cms.wysiwyg_editor%</argument>
             </call>
             <tag name="form.type" />
         </service>
@@ -128,6 +128,6 @@
 
         <service id="sylius_cms.form.data_transformer.content_element_checker" class="Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker"/>
 
-        <service id="sylius_cms_plugin.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
+        <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
     </services>
 </container>
