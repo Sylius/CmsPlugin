@@ -85,7 +85,7 @@
                 <argument key="ckeditor" type="service" id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.ckeditor"/>
                 <argument key="trix" type="service" id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.trix" />
             </argument>
-            <argument>%bitbag_sylius_cms_plugin.wysiwyg_editor%</argument>
+            <argument>%sylius_cms_plugin.wysiwyg_editor%</argument>
         </service>
     </services>
 </container>

@@ -113,11 +113,12 @@
             <argument type="service" id="sylius_cms.form.data_transformer.content_element_checker" />
             <tag name="sylius_cms.content_elements.type" key="%sylius_cms.content_elements.type.pages_collection%" />
             <tag name="form.type" />
+        </service>
 
         <service id="bitbag_sylius_cms_plugin.form.type.wysiwyg" class="BitBag\SyliusCmsPlugin\Form\Type\WysiwygType">
             <argument type="service" id="bitbag_sylius_cms_plugin.resolver.wysiwyg_strategy_resolver" />
             <call method="setStrategy">
-                <argument type="string">%bitbag_sylius_cms_plugin.wysiwyg_editor%</argument>
+                <argument type="string">%sylius_cms_plugin.wysiwyg_editor%</argument>
             </call>
             <tag name="form.type" />
         </service>

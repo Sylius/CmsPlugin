@@ -1,6 +1,6 @@
 imports:
-    - { resource: "@BitBagSyliusCmsPlugin/Resources/config/config.yml" }
-    - { resource: "@BitBagSyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
+    - { resource: "@SyliusCmsPlugin/Resources/config/config.yml" }
+    - { resource: "@SyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
 
 parameters:
     fixtures_dir: "%kernel.project_dir%/Resources/fixtures"
@@ -65,7 +65,7 @@ sylius_fixtures:
                                             </div>
                                             <p>With this feature, you can render any block you want on the product page, like size table, delivery information, or even promotion banner.</p>
                                             <p>It's done with a simple controller render:</p>
-                                            <pre>{{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_section_code', {'sectionCode' : 'products', 'template' : '@BitBagSyliusCmsPlugin/Shop/Block/index.html.twig'})) }}</pre>
+                                            <pre>{{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_section_code', {'sectionCode' : 'products', 'template' : '@SyliusCmsPlugin/Shop/Block/index.html.twig'})) }}</pre>
                             product_info_block:
                                 channels:
                                 - "FASHION_WEB"
@@ -76,7 +76,7 @@ sylius_fixtures:
                                             <div class="ignored info ui message">On the other hand, the block on the right is a block associated with specific products.</div>
                                             <p>This approach can be helpful with displaying some content dedicated to specific products, like size table or product story</p>
                                             <p>The way you render it is similar to the one from above example:</p>
-                                            <pre>{{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_product_code', {'productCode' : product.code, 'template' : '@BitBagSyliusCmsPlugin/Shop/Block/index.html.twig'})) }}</pre>
+                                            <pre>{{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_product_code', {'productCode' : product.code, 'template' : '@SyliusCmsPlugin/Shop/Block/index.html.twig'})) }}</pre>
                             homepage_intro:
                                 channels:
                                 - "FASHION_WEB"
