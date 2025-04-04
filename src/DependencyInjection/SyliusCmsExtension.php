@@ -21,12 +21,14 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
 
         $container->setParameter('sylius_cms.templates.pages', $config['templates']['pages']);
         $container->setParameter('sylius_cms.templates.blocks', $config['templates']['blocks']);
+
+        $container->setParameter('sylius_cms_plugin.wysiwyg_editor', $config['wysiwyg_editor']);
     }
 
     public function prepend(ContainerBuilder $container): void
     {
         $config = $this->getCurrentConfiguration($container);
-        $container->setParameter('sylius_cms.fixtures_dir', __DIR__.'/../Resources/config/fixtures');
+        $container->setParameter('sylius_cms.fixtures_dir', __DIR__ . '/../Resources/config/fixtures');
 
         $this->registerResources('sylius_cms', 'doctrine/orm', $config['resources'], $container);
 

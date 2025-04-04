@@ -5,6 +5,7 @@ twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
         - '@SyliusCmsPlugin/Form/ckeditor_widget.html.twig'
+        - '@SyliusCmsPlugin/Widget/_trixWidget.html.twig'
 
 services:
     _defaults:

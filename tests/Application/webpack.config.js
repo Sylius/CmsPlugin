@@ -1,6 +1,6 @@
 const path = require('path');
 const Encore = require('@symfony/webpack-encore');
-const [cmsShop, cmsAdmin] = require('../../webpack.config.js')
+const createCmsConfigs  = require('../../webpack.config.js')
 
 const syliusBundles = path.resolve(__dirname, '../../vendor/sylius/sylius/src/Sylius/Bundle/');
 const uiBundleScripts = path.resolve(syliusBundles, 'UiBundle/Resources/private/js/');
@@ -46,3 +46,9 @@ adminConfig.externals = Object.assign({}, adminConfig.externals, { window: 'wind
 adminConfig.name = 'admin';
 
 module.exports = [shopConfig, adminConfig, cmsShop, cmsAdmin];
+
+const [shopConfig, adminConfig] = createCmsConfigs({
+    wysiwyg: 'ckeditor' // 'ckeditor' | 'trix'
+});
+
+module.exports = [shopConfig, adminConfig, bitbagCmsShop, bitbagCmsAdmin];
