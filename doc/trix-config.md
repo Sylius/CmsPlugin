@@ -12,7 +12,7 @@ twig:
 2. Add the file `config/packages/sylius_cms_plugin.yaml` (if it doesn't exist) and add the following configuration:
 
 ```yaml
-bit_bag_sylius_cms:
+sylius_cms_plugin:
     wysiwyg_editor: trix
 ```
 
