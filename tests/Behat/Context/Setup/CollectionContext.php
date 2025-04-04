@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
@@ -64,7 +73,7 @@ final class CollectionContext implements Context
         $this->saveCollection($collection);
     }
 
-    private function createCollection(?string $code = null, string $name = null): CollectionInterface
+    private function createCollection(?string $code = null, ?string $name = null): CollectionInterface
     {
         /** @var CollectionInterface $collection */
         $collection = $this->collectionFactory->createNew();

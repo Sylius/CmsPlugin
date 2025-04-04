@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Doctrine\ORM\Extension;
@@ -26,7 +35,7 @@ final class EnabledAndAvailableExtension implements QueryCollectionExtensionInte
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = [],
     ): void {
         $this->addEnabledAndChannelCondition($queryBuilder, $queryNameGenerator, $resourceClass);
@@ -37,7 +46,7 @@ final class EnabledAndAvailableExtension implements QueryCollectionExtensionInte
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
         array $identifiers,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = [],
     ): void {
         $this->addEnabledAndChannelCondition($queryBuilder, $queryNameGenerator, $resourceClass);

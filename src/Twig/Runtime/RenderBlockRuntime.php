@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Runtime;
@@ -21,7 +30,7 @@ final class RenderBlockRuntime implements RenderBlockRuntimeInterface
     ) {
     }
 
-    public function renderBlock(string $code, ?string $template = null, ProductInterface|TaxonInterface|array $context = null): string
+    public function renderBlock(string $code, ?string $template = null, array|ProductInterface|TaxonInterface|null $context = null): string
     {
         $block = $this->blockResourceResolver->findOrLog($code);
         if (null === $block) {

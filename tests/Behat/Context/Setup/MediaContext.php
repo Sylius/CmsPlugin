@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
@@ -80,7 +89,7 @@ final class MediaContext implements Context
         ?string $name = null,
         ?string $content = null,
         ?string $fileType = null,
-        ChannelInterface $channel = null,
+        ?ChannelInterface $channel = null,
     ): MediaInterface {
         /** @var MediaInterface $media */
         $media = $this->mediaFactory->createNew();

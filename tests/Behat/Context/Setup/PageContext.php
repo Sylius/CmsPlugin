@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Cms Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
@@ -172,7 +181,7 @@ final class PageContext implements Context
     private function createPage(
         ?string $code = null,
         ?string $name = null,
-        ChannelInterface $channel = null,
+        ?ChannelInterface $channel = null,
     ): PageInterface {
         /** @var PageInterface $page */
         $page = $this->pageFactory->createNew();
