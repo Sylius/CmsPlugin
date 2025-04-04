@@ -39,7 +39,7 @@ composer require bitbag/cms-plugin --no-scripts
 
 return [
     ...
-    BitBag\SyliusCmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
+    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true], // WYSIWYG editor
     Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
 ];

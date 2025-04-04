@@ -11,7 +11,7 @@ default:
                 - sylius_cms.behat.context.setup.collection
 
                 - sylius_cms.behat.context.ui.admin.media
-                - sylius_cms_plugin.behat.context.ui.admin.trix_wysiwyg
+                - sylius_cms.behat.context.ui.admin.trix_wysiwyg
                 - sylius_cms_plugin.behat.context.ui.admin.media
             filters:
                 tags: "@managing_media&&@ui"
