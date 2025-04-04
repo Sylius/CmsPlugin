@@ -78,12 +78,12 @@
             <argument type="service" id="sylius_cms.assigner.locales" />
         </service>
 
-        <service id="bitbag_sylius_cms_plugin.resolver.wysiwyg_strategy_resolver"
-                 class="BitBag\SyliusCmsPlugin\Resolver\WysiwygStrategyResolver"
+        <service id="sylius_cms_plugin.resolver.wysiwyg_strategy_resolver"
+                 class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver"
         >
             <argument type="collection">
-                <argument key="ckeditor" type="service" id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.ckeditor"/>
-                <argument key="trix" type="service" id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.trix" />
+                <argument key="ckeditor" type="service" id="sylius_cms_plugin.form.wysiwyg_strategy.ckeditor"/>
+                <argument key="trix" type="service" id="sylius_cms_plugin.form.wysiwyg_strategy.trix" />
             </argument>
             <argument>%sylius_cms_plugin.wysiwyg_editor%</argument>
         </service>

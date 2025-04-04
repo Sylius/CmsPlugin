@@ -14,7 +14,7 @@ default:
                 - sylius_cms.behat.context.setup.content_template
 
                 - sylius_cms.behat.context.ui.admin.block
-                - bitbag_sylius_cms_plugin.behat.context.ui.admin.trix_wysiwyg
-                - bitbag_sylius_cms_plugin.behat.context.ui.admin.block
+                - sylius_cms.behat.context.ui.admin.trix_wysiwyg
+                - sylius_cms.behat.context.ui.admin.block
             filters:
                 tags: "@managing_blocks&&@ui"

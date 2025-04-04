@@ -71,8 +71,8 @@
             <argument type="service" id="sylius_cms.behat.random_string_generator"/>
         </service>
 
-        <service id="bitbag_sylius_cms_plugin.behat.context.ui.admin.trix_wysiwyg"
-                 class="Tests\BitBag\SyliusCmsPlugin\Behat\Context\Ui\Admin\TrixWysiwygContext"
+        <service id="sylius_cms.behat.context.ui.admin.trix_wysiwyg"
+                 class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\TrixWysiwygContext"
         >
         </service>
     </services>

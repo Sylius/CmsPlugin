@@ -5,7 +5,7 @@ return [
     ...
 
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true], 
-    BitBag\SyliusCmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
+    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
 ];
 ```
 
