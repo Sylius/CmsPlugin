@@ -1,14 +1,8 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Entity;
+namespace Sylius\CmsPlugin\Entity;
 
 use Sylius\Component\Channel\Model\ChannelsAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -21,12 +15,12 @@ interface PageInterface extends
     ResourceInterface,
     TranslatableInterface,
     ToggleableInterface,
-    ProductsAwareInterface,
-    SectionableInterface,
+    CollectibleInterface,
     TimestampableInterface,
     ChannelsAwareInterface,
-    ContentableInterface,
-    SlugAwareInterface
+    SlugAwareInterface,
+    ContentElementsAwareInterface,
+    TeaserInterface
 {
     public function getCode(): ?string;
 
@@ -40,25 +34,13 @@ interface PageInterface extends
 
     public function setMetaDescription(?string $metaDescription): void;
 
-    public function getContent(): ?string;
-
-    public function setContent(?string $content): void;
-
     public function getName(): ?string;
 
     public function setName(?string $name): void;
 
-    public function getNameWhenLinked(): ?string;
+    public function getTemplate(): ?string;
 
-    public function setNameWhenLinked(?string $nameWhenLinked): void;
-
-    public function getBreadcrumb(): ?string;
-
-    public function setBreadcrumb(?string $breadcrumb): void;
-
-    public function getDescriptionWhenLinked(): ?string;
-
-    public function setDescriptionWhenLinked(?string $descriptionWhenLinked): void;
+    public function setTemplate(?string $template): void;
 
     public function getTitle(): ?string;
 

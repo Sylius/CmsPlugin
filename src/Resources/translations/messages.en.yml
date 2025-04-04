@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Blocks
+        block: Block
         pages: Pages
+        page: Page
         content_management: Content management
         cms: Content management
         enabled: Enabled
@@ -15,23 +17,21 @@ bitbag_sylius_cms_plugin:
         name: Name
         path: Path
         slug: Slug
+        meta_title: Meta title
         meta_keywords: Meta keywords
         meta_description: Meta description
         content: Content
-        faq: FAQ
         code: Code
         contents: Contents
         images: Images
         image: Image
         link: Link
-        faq_header: FAQ
-        faq_subheader: Manage frequently asked questions
-        frequently_asked_questions: Frequently asked questions
+        link_content: Link content
         question: Question
         answer: Answer
-        sections: Sections
-        sections_header: Sections
-        sections_subheader: Manage your sections
+        collections: Collections
+        collections_header: Collections
+        collections_subheader: Manage your collections
         position: Position
         channels: Channels
         preview: Preview
@@ -60,3 +60,46 @@ bitbag_sylius_cms_plugin:
         publish_at: Publish at
         page_will_be_publish_at: This page will be publish at
         save_with_original_name: Save with original name
+        content_elements:
+            title: Content
+            type:
+                textarea: Textarea
+                single_media: Single media
+                multiple_media: Multiple media
+                heading: Heading
+                products_carousel: Products carousel
+                products_carousel_by_taxon: Products carousel by Taxon
+                taxons_list: Taxons list
+                products_grid: Products grid
+                products_grid_by_taxon: Products grid by Taxon
+                pages_collection: Pages collection
+                spacer: Spacer
+                spacer_height: Spacer height in pixels
+            heading_type: Heading type
+            template: Content elements template
+        taxon: Taxon
+        seo: SEO
+        display_for_products:
+            label: Display for products
+            help: Select products in which this block will be displayed
+        display_for_products_in_taxons:
+            label: Display for products in taxons
+            help: This block will be displayed for products in selected taxons. Only "Main Taxon" is taken.
+        display_for_taxons:
+            label: Display for taxons
+            help: Select taxons in which this block will be displayed
+        manage_block_display: Manage block display
+        templates: Templates
+        template: Template
+        content_templates: Content Templates
+        new_template: New template
+        edit_template: Edit template
+        use_page_template: Use page template
+        use_this_template: Use this template
+        load_template_confirmation_modal_text: This operation will erase current content elements configuration. Are you sure you want to proceed?
+        teaser:
+            header: Teaser
+            title: Teaser Title
+            content: Teaser Content
+            image: Teaser Image
+            help: It's a small preview of the page. It is used during rendering a collection of pages.

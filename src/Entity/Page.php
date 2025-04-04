@@ -1,46 +1,44 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Entity;
+namespace Sylius\CmsPlugin\Entity;
 
+use Sylius\CmsPlugin\Entity\Trait\ChannelsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\CollectibleTrait;
+use Sylius\CmsPlugin\Entity\Trait\ContentElementsAwareTrait;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
-use Sylius\Component\Resource\Model\TranslationInterface;
+use Sylius\Resource\Model\TranslationInterface;
 
 class Page implements PageInterface
 {
     use ToggleableTrait;
-    use ProductsAwareTrait;
-    use SectionableTrait;
+    use CollectibleTrait;
     use TimestampableTrait;
     use ChannelsAwareTrait;
+    use ContentElementsAwareTrait;
     use TranslatableTrait {
         __construct as protected initializeTranslationsCollection;
     }
 
-    /** @var int */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $code;
+    protected ?string $code = null;
 
-    /** @var \DateTimeImmutable|null */
-    protected $publishAt;
+    protected ?string $name = null;
+
+    protected ?string $template = null;
+
+    protected ?\DateTimeImmutable $publishAt;
 
     public function __construct()
     {
-        $this->initializeProductsCollection();
-        $this->initializeSectionsCollection();
-        $this->initializeTranslationsCollection();
+        $this->initializeCollectionsCollection();
         $this->initializeChannelsCollection();
+        $this->initializeTranslationsCollection();
+        $this->initializeContentElementsCollection();
 
         $this->createdAt = new \DateTime();
     }
@@ -110,94 +108,69 @@ class Page implements PageInterface
         $pageTranslationInterface->setMetaDescription($metaDescription);
     }
 
-    public function getContent(): ?string
+    public function getTeaserTitle(): ?string
     {
         /** @var PageTranslationInterface $pageTranslationInterface */
         $pageTranslationInterface = $this->getPageTranslation();
 
-        return $pageTranslationInterface->getContent();
+        return $pageTranslationInterface->getTeaserTitle();
     }
 
-    public function setContent(?string $content): void
+    public function setTeaserTitle(?string $teaserTitle): void
     {
         /** @var PageTranslationInterface $pageTranslationInterface */
         $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setContent($content);
+        $pageTranslationInterface->setTeaserTitle($teaserTitle);
+    }
+
+    public function getTeaserContent(): ?string
+    {
+        /** @var PageTranslationInterface $pageTranslationInterface */
+        $pageTranslationInterface = $this->getPageTranslation();
+
+        return $pageTranslationInterface->getTeaserContent();
+    }
+
+    public function setTeaserContent(?string $teaserContent): void
+    {
+        /** @var PageTranslationInterface $pageTranslationInterface */
+        $pageTranslationInterface = $this->getPageTranslation();
+        $pageTranslationInterface->setTeaserContent($teaserContent);
+    }
+
+    public function getTeaserImage(): ?MediaInterface
+    {
+        /** @var PageTranslationInterface $pageTranslationInterface */
+        $pageTranslationInterface = $this->getPageTranslation();
+
+        return $pageTranslationInterface->getTeaserImage();
+    }
+
+    public function setTeaserImage(?MediaInterface $teaserImage): void
+    {
+        /** @var PageTranslationInterface $pageTranslationInterface */
+        $pageTranslationInterface = $this->getPageTranslation();
+        $pageTranslationInterface->setTeaserImage($teaserImage);
     }
 
     public function getName(): ?string
     {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-
-        return $pageTranslationInterface->getName();
+        return $this->name;
     }
 
     public function setName(?string $name): void
     {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setName($name);
+        $this->name = $name;
     }
 
-    public function getNameWhenLinked(): ?string
+    public function getTemplate(): ?string
     {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-
-        return $pageTranslationInterface->getNameWhenLinked();
+        return $this->template;
     }
 
-    public function setNameWhenLinked(?string $nameWhenLinked): void
+    public function setTemplate(?string $template): void
     {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setNameWhenLinked($nameWhenLinked);
-    }
-
-    public function getDescriptionWhenLinked(): ?string
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-
-        return $pageTranslationInterface->getDescriptionWhenLinked();
-    }
-
-    public function setDescriptionWhenLinked(?string $descriptionWhenLinked): void
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setDescriptionWhenLinked($descriptionWhenLinked);
-    }
-
-    public function getBreadcrumb(): ?string
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-
-        return $pageTranslationInterface->getBreadcrumb();
-    }
-
-    public function setBreadcrumb(?string $breadcrumb): void
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setBreadcrumb($breadcrumb);
-    }
-
-    public function getImage(): ?MediaInterface
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-
-        return $pageTranslationInterface->getImage();
-    }
-
-    public function setImage(?MediaInterface $image): void
-    {
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $this->getPageTranslation();
-        $pageTranslationInterface->setImage($image);
+        $this->template = $template;
     }
 
     public function getTitle(): ?string
@@ -215,19 +188,6 @@ class Page implements PageInterface
         $pageTranslationInterface->setTitle($title);
     }
 
-    /**
-     * @return PageTranslationInterface|TranslationInterface
-     */
-    protected function getPageTranslation(): TranslationInterface
-    {
-        return $this->getTranslation();
-    }
-
-    protected function createTranslation(): PageTranslationInterface
-    {
-        return new PageTranslation();
-    }
-
     public function getPublishAt(): ?\DateTimeImmutable
     {
         return $this->publishAt;
@@ -236,5 +196,15 @@ class Page implements PageInterface
     public function setPublishAt(?\DateTimeImmutable $publishAt): void
     {
         $this->publishAt = $publishAt;
+    }
+
+    protected function getPageTranslation(): TranslationInterface
+    {
+        return $this->getTranslation();
+    }
+
+    protected function createTranslation(): PageTranslationInterface
+    {
+        return new PageTranslation();
     }
 }

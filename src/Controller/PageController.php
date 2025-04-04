@@ -1,20 +1,16 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Controller;
+namespace Sylius\CmsPlugin\Controller;
 
-use BitBag\SyliusCmsPlugin\Entity\PageInterface;
-use BitBag\SyliusCmsPlugin\Entity\PageTranslationInterface;
-use BitBag\SyliusCmsPlugin\Resolver\PageResourceResolverInterface;
 use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
+use Sylius\CmsPlugin\Resolver\PageResourceResolverInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Resource\ResourceActions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,10 +21,45 @@ final class PageController extends ResourceController
     use ResourceDataProcessingTrait;
     use MediaPageControllersCommonDependencyInjectionsTrait;
 
-    /** @var PageResourceResolverInterface */
-    private $pageResourceResolver;
+    private PageResourceResolverInterface $pageResourceResolver;
 
     public const FILTER = 'sylius_admin_product_original';
+
+    public const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/Shop/Page/show.html.twig';
+
+    public function showAction(Request $request): Response
+    {
+        $configuration = $this->getRequestConfiguration($request);
+
+        $this->isGrantedOr403($configuration, ResourceActions::SHOW);
+
+        $slug = $request->attributes->get('slug');
+
+        /** @var PageRepositoryInterface $pageRepository */
+        $pageRepository = $this->get('sylius_cms.repository.page');
+
+        /** @var LocaleContextInterface $localeContext */
+        $localeContext = $this->get('sylius.context.locale');
+
+        /** @var ChannelContextInterface $channelContext */
+        $channelContext = $this->get('sylius.context.channel');
+
+        Assert::notNull($channelContext->getChannel()->getCode());
+
+        $page = $pageRepository->findOneEnabledBySlugAndChannelCode(
+            $slug,
+            $localeContext->getLocaleCode(),
+            $channelContext->getChannel()->getCode(),
+        );
+
+        if (null === $page) {
+            throw $this->createNotFoundException('Page not found');
+        }
+
+        return $this->render($page->getTemplate() ?? self::DEFAULT_TEMPLATE, [
+            'page' => $page,
+        ]);
+    }
 
     public function renderLinkAction(Request $request): Response
     {
@@ -76,8 +107,6 @@ final class PageController extends ResourceController
         $page->setFallbackLocale($request->get('_locale', $defaultLocale));
         $page->setCurrentLocale($request->get('_locale', $defaultLocale));
 
-        $this->resolveImage($page);
-
         $this->formErrorsFlashHelper->addFlashErrors($form);
 
         if (!$configuration->isHtmlRequest()) {
@@ -88,24 +117,9 @@ final class PageController extends ResourceController
         return $this->render($configuration->getTemplate(ResourceActions::CREATE . '.html'), [
             'resource' => $page,
             'preview' => true,
+            'template' => $page->getTemplate() ?? self::DEFAULT_TEMPLATE,
             $this->metadata->getName() => $page,
         ]);
-    }
-
-    private function resolveImage(PageInterface $page): void
-    {
-        /** @var PageTranslationInterface $translation */
-        $translation = $page->getTranslation();
-
-        $image = $translation->getImage();
-
-        if (null === $image || null === $image->getPath()) {
-            return;
-        }
-        $this->setResourceMediaPath($image);
-        /** @var PageTranslationInterface $pageTranslationInterface */
-        $pageTranslationInterface = $page->getTranslation();
-        $pageTranslationInterface->setImage($image);
     }
 
     public function setPageResourceResolver(PageResourceResolverInterface $pageResourceResolver): void

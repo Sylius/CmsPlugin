@@ -4,6 +4,8 @@
     {% include '@SyliusShop/Product/Show/_breadcrumb.html.twig' %}
     <div class="ui hidden divider"></div>
 
+    {{ sylius_cms_render_block('black_friday_banner_product', null, product) }}
+
     <div class="ui two column stackable grid">
         <div class="column">
             {{ sonata_block_render_event('sylius.shop.product.show.before_images', {'product': product}) }}
@@ -50,17 +52,11 @@
         </div>
     </div>
 
-    {{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_section_code', {'sectionCode' : 'products', 'template' : '@BitBagSyliusCmsPlugin/Shop/Block/index.html.twig'})) }}
-
-    {{ render(path('bitbag_sylius_cms_plugin_shop_block_index_by_product_code', {'productCode' : product.code, 'template' : '@BitBagSyliusCmsPlugin/Shop/Block/index.html.twig'})) }}
-
-    {{ bitbag_cms_render_product_pages(product) }}
-
     {{ sonata_block_render_event('sylius.shop.product.show.before_tabs', {'product': product}) }}
 
     {% include '@SyliusShop/Product/Show/_tabs.html.twig' %}
 
     {{ sonata_block_render_event('sylius.shop.product.show.before_associations', {'product': product}) }}
 
-    {% include '@SyliusShop/Product/Show/_associations.html.twig' %}
+    {{ sylius_cms_render_block('specified_products_in_taxons', null, product) }}
 {% endblock %}

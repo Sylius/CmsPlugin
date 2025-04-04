@@ -1,8 +1,53 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
+        collections: Kolekce
         blocks: Bloky
+        block: Blok
         pages: Stránky
+        page: Stránka
         title: Titul
+        content_elements:
+            title: Obsah
+            type:
+                textarea: Textarea
+                single_media: Jediné médium
+                multiple_media: Více médií
+                heading: Nadpis
+                products_carousel: Produkty v karuselu
+                products_carousel_by_taxon: Produkty v karuselu podle taxonu
+                taxons_list: Seznam taxonů
+                products_grid: Produkty v mřížce
+                products_grid_by_taxon: Produkty v mřížce podle taxonu
+                pages_collection: Kolekce stránek
+                spacer: Oddělovač
+                spacer_height: Výška oddělovače v pixelech
+            heading_type: Typ nadpisu
+            template: Šablona prvků obsahu
+        taxon: Taxon
+        display_for_products:
+            label: Zobrazit pro produkty
+            help: Vyberte produkty, ve kterých se bude tento blok zobrazovat
+        display_for_products_in_taxons:
+            label: Zobrazit pro produkty v taxonech
+            help: Tento blok bude zobrazen pro produkty ve vybraných taxonech. Pouze "Hlavní taxon" je brán v úvahu.
+        display_for_taxons:
+            label: Zobrazit pro taxony
+            help: Vyberte taxony, ve kterých se bude tento blok zobrazovat
+        manage_block_display: Správa zobrazení bloku
+        templates: Šablony
+        template: Šablona
+        content_templates: Obsahové šablony
+        new_template: Nová šablona
+        edit_template: Upravit šablonu
+        use_page_template: Použít šablonu stránky
+        use_this_template: Použít tuto šablonu
+        load_template_confirmation_modal_text: Tato operace vymaže aktuální konfiguraci prvků obsahu. Opravdu si přejete pokračovat?
+        teaser:
+            header: Ukázka
+            title: Název ukázky
+            content: Obsah ukázky
+            image: Obrázek ukázky
+            help: Jedná se o malý náhled stránky. Používá se při vykreslování kolekce stránek.
     cms:
         content_management: Obsahový management
         cms: Obsahový management
@@ -19,6 +64,7 @@ bitbag_sylius_cms_plugin:
         products: Produkty
         name: Název
         slug: Slug
+        meta_title: Meta titul
         meta_keywords: Meta klíčová slova
         meta_description: Meta popis
         content: Obsah

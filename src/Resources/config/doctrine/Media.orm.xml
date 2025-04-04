@@ -5,12 +5,14 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="BitBag\SyliusCmsPlugin\Entity\Media" table="bitbag_cms_media">
+    <mapped-superclass name="Sylius\CmsPlugin\Entity\Media" table="sylius_cms_media">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
 
         <field name="code" column="code" type="string" length="250" unique="true"/>
+
+        <field name="name" column="name" type="string" nullable="true"/>
 
         <field name="type" column="type" type="string" length="250"/>
 
@@ -24,38 +26,20 @@
 
         <field name="height" column="height" type="integer" nullable="true"/>
 
-        <many-to-many field="sections" target-entity="BitBag\SyliusCmsPlugin\Entity\SectionInterface">
-            <join-table name="bitbag_cms_media_sections">
-                <join-columns>
-                    <join-column name="media_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="section_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
-
-        <many-to-many field="products" target-entity="Sylius\Component\Product\Model\ProductInterface">
-            <join-table name="bitbag_cms_media_products">
-                <join-columns>
-                    <join-column name="media_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="product_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <many-to-many field="collections" target-entity="Sylius\CmsPlugin\Entity\CollectionInterface" mapped-by="media" />
 
         <many-to-many field="channels" target-entity="Sylius\Component\Channel\Model\ChannelInterface">
-            <join-table name="bitbag_cms_media_channels">
+            <join-table name="sylius_cms_media_channels">
                 <join-columns>
-                    <join-column name="block_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                    <join-column name="media_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
                 </join-columns>
                 <inverse-join-columns>
                     <join-column name="channel_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
+
+        <one-to-many field="pages" target-entity="Sylius\CmsPlugin\Entity\PageTranslationInterface" mapped-by="teaserImage"/>
 
     </mapped-superclass>
 </doctrine-mapping>

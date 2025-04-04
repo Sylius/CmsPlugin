@@ -1,4 +1,4 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     block:
         image:
             mime_types: Only PNG, SVG and JPEG files are allowed.
@@ -37,22 +37,7 @@ bitbag_sylius_cms_plugin:
         content:
             not_blank: Content cannot be blank.
             min_length: Content must be at least {{ limit }} characters long.
-    frequently_asked_question:
-        code:
-            unique: There is an existing FAQ with this code.
-            not_blank: Code cannot be blank.
-            min_length: Code must be at least {{ limit }} characters long.
-            max_length: Code can not be longer than {{ limit }} characters.
-        position:
-            unique: There is an existing FAQ with this position.
-            not_blank: Position cannot be blank.
-        question:
-            not_blank: Question cannot be blank.
-            min_length: Question must be at least {{ limit }} characters long.
-        answer:
-            not_blank: Answer cannot be blank.
-            min_length: Answer must be at least {{ limit }} characters long.
-    section:
+    collection:
         code:
             unique: There is an existing section with this code.
             not_blank: Code cannot be blank.
@@ -66,3 +51,9 @@ bitbag_sylius_cms_plugin:
         file:
             type_image: Przesłanego pliku nie można oznaczyć jako obraz.
             type_video: Przesłanego pliku nie można oznaczyć jako wideo.
+    template:
+        name:
+            unique: Istnieje już szablon o tej nazwie.
+            not_blank: Nazwa nie może być pusta.
+            min_length: Nazwa musi mieć co najmniej {{ limit }} znaków.
+            max_length: Nazwa nie może mieć więcej niż {{ limit }} znaków.

@@ -1,0 +1,60 @@
+sylius_cms_admin_collection:
+    resource: |
+        alias: sylius_cms.collection
+        section: admin
+        templates: '@SyliusCmsPlugin/CrudUi'
+        redirect: update
+        grid: sylius_cms_admin_collection
+        except: ['show']
+        permission: true
+        vars:
+            all:
+                header: sylius_cms.ui.collections_header
+                subheader: sylius_cms.ui.collections_subheader
+                templates:
+                    form: "@SyliusCmsPlugin/Collection/Crud/_form.html.twig"
+            index:
+                icon: grid layout
+    type: sylius.resource
+
+sylius_cms_admin_ajax_collection_by_name_phrase:
+    path: /ajax/collections/search
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: sylius_cms.controller.collection::indexAction
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePart
+                arguments:
+                    phrase: $phrase
+
+sylius_cms_admin_ajax_page_collection_by_name_phrase:
+    path: /ajax/collections/page/search
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: sylius_cms.controller.collection::indexAction
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePartAndType
+                arguments:
+                    phrase: $phrase
+                    type: page
+
+sylius_cms_admin_ajax_collection_by_code:
+    path: /ajax/collections/code
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: sylius_cms.controller.collection::indexAction
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findBy
+                arguments: [code: $code]

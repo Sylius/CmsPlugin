@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Blocs
+        block: Bloc
         pages: Pages
+        page: Page
         content_management: Gestion de contenu
         cms: Gestion de contenu
         enabled: Activée
@@ -13,23 +15,21 @@ bitbag_sylius_cms_plugin:
         page_related_products: Produits liés à la page
         name: Nom
         slug: Slug
+        meta_title: Meta Titre
         meta_keywords: Meta Mots-clés
         meta_description: Meta Description
         content: Contenu
-        faq: FAQ
         code: Code
         contents: Contenu
         images: Images
         image: Image
         link: Link
-        faq_header: FAQ
-        faq_subheader: Gérer votre FAQ
-        frequently_asked_questions: Questions fréquentes (FAQ)
+        link_content: Contenu du lien
         question: Question
         answer: Réponse
-        sections: Sections
-        sections_header: Sections
-        sections_subheader: Gérer vos sections
+        collections: Collections
+        collections_header: Collections
+        collections_subheader: Gérer vos collections
         position: Position
         channels: Canaux
         preview: Prévisualisation
@@ -53,3 +53,45 @@ bitbag_sylius_cms_plugin:
         successfully_imported: Les données ont été importées.
         form_was_submitted_with_errors: "Le formulaire a les erreurs suivantes :"
         title: Titre
+        content_elements:
+            title: Contenu
+            type:
+                textarea: Textarea
+                single_media: Média unique
+                multiple_media: Médias multiples
+                heading: En-tête
+                products_carousel: Produits en carrousel
+                products_carousel_by_taxon: Produits en carrousel par taxon
+                taxons_list: Liste de taxons
+                products_grid: Produits en grille
+                products_grid_by_taxon: Produits en grille par taxon
+                pages_collection: Collection de pages
+                spacer: Espacement
+                spacer_height: Hauteur de l'espacement en pixels
+            heading_type: Type d'en-tête
+            template: Modèle d'éléments de contenu
+        taxon: Taxon
+        display_for_products:
+            label: Afficher pour les produits
+            help: Ce bloc sera affiché pour les produits sélectionnés
+        display_for_products_in_taxons:
+            label: Afficher pour les produits dans les taxons
+            help: Ce bloc sera affiché pour les produits des taxons sélectionnés. Seul le « taxon principal » est pris en compte.
+        display_for_taxons:
+            label: Afficher pour les taxons
+            help: Ce bloc sera affiché pour les taxons sélectionnés
+        manage_block_display: Gérer l'affichage du bloc
+        templates: Modèles
+        template: Modèle
+        content_templates: Modèles de contenu
+        new_template: Nouveau modèle
+        edit_template: Modifier le modèle
+        use_page_template: Utiliser le modèle de page
+        use_this_template: Utiliser ce modèle
+        load_template_confirmation_modal_text: Cette opération effacera la configuration actuelle des éléments de contenu. Êtes-vous sûr de vouloir continuer ?
+        teaser:
+            header: Aperçu
+            title: Titre de l'aperçu
+            content: Contenu de l'aperçu
+            image: Image de l'aperçu
+            help: Il s'agit d'un petit aperçu de la page. Il est utilisé lors du rendu d'une collection de pages.

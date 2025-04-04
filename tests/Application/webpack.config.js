@@ -7,14 +7,14 @@ const uiBundleResources = path.resolve(syliusBundles, 'UiBundle/Resources/privat
 
 // Shop config
 Encore
-  .setOutputPath('public/build/shop/')
-  .setPublicPath('/build/shop')
-  .addEntry('shop-entry', './assets/shop/entry.js')
-  .disableSingleRuntimeChunk()
-  .cleanupOutputBeforeBuild()
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(Encore.isProduction())
-  .enableSassLoader();
+    .setOutputPath('public/build/shop/')
+    .setPublicPath('/build/shop')
+    .addEntry('shop-entry', './assets/shop/entry.js')
+    .disableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
+    .enableSassLoader();
 
 const shopConfig = Encore.getWebpackConfig();
 
@@ -27,14 +27,14 @@ Encore.reset();
 
 // Admin config
 Encore
-  .setOutputPath('public/build/admin/')
-  .setPublicPath('/build/admin')
-  .addEntry('admin-entry', './assets/admin/entry.js')
-  .disableSingleRuntimeChunk()
-  .cleanupOutputBeforeBuild()
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(Encore.isProduction())
-  .enableSassLoader();
+    .setOutputPath('public/build/admin/')
+    .setPublicPath('/build/admin')
+    .addEntry('admin-entry', './assets/admin/entry.js')
+    .disableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
+    .enableSassLoader();
 
 const adminConfig = Encore.getWebpackConfig();
 
@@ -44,8 +44,8 @@ adminConfig.resolve.alias['sylius/bundle'] = syliusBundles;
 adminConfig.externals = Object.assign({}, adminConfig.externals, { window: 'window', document: 'document' });
 adminConfig.name = 'admin';
 
-const [bitbagCmsShop, bitbagCmsAdmin] = createCmsConfigs({
+const [CmsShop, CmsAdmin] = createCmsConfigs({
     wysiwyg: 'ckeditor' // 'ckeditor' | 'trix'
 });
 
-module.exports = [shopConfig, adminConfig, bitbagCmsShop, bitbagCmsAdmin];
+module.exports = [shopConfig, adminConfig, CmsShop, CmsAdmin];

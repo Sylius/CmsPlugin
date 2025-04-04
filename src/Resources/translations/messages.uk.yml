@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Блоки
+        block: Блок
         pages: Сторінки
+        page: Сторінка
         content_management: Наповнення
         cms: Управління Наповненням
         enabled: Вкл
@@ -13,23 +15,21 @@ bitbag_sylius_cms_plugin:
         page_related_products: Супутні товари
         name: Назва
         slug: Шлях
+        meta_title: Заголовок (мета)
         meta_keywords: Ключові слова (мета)
         meta_description: Опис (мета)
         content: Вміст
-        faq: FAQ
         code: Код
         contents: Містить
         images: Зображення
         image: Зображення
         link: Посилання
-        faq_header: FAQ
-        faq_subheader: Управління FAQ
-        frequently_asked_questions: FAQ
+        link_content: Вміст посилання
         question: Питання
         answer: Відповідь
-        sections: Розділи
-        sections_header: Розділи
-        sections_subheader: Управління розділами
+        collections: Колекції
+        collections_header: Колекції
+        collections_subheader: Керуйте своїми колекціями
         position: Позиція
         channels: Канали
         preview: Попередній перегляд
@@ -52,3 +52,45 @@ bitbag_sylius_cms_plugin:
         csv_file: CSV файл
         successfully_imported: Дані успішно імпортовані
         title: заголовок
+        content_elements:
+            title: Зміст
+            type:
+                textarea: Textarea
+                single_media: Одиночне медіа
+                multiple_media: Кілька медіа
+                heading: Заголовок
+                products_carousel: Продукти в каруселі
+                products_carousel_by_taxon: Продукти в каруселі за таксоном
+                taxons_list: Список таксонів
+                products_grid: Продукти в сітці
+                products_grid_by_taxon: Продукти в сітці за таксоном
+                pages_collection: Колекція сторінок
+                spacer: Роздільник
+                spacer_height: Висота роздільника в пікселях
+            heading_type: Тип заголовка
+            template: Шаблон елементів контенту
+        taxon: Таксон
+        display_for_products:
+            label: Дисплей для продуктів
+            help: Цей блок буде відображатися для вибраних продуктів
+        display_for_products_in_taxons:
+            label: Дисплей для таксонів
+            help: Цей блок відображатиметься для продуктів у вибраних таксонах. Береться лише «Основний таксон».
+        display_for_taxons:
+            label: Дисплей для таксонів
+            help: Виберіть таксони, в яких буде відображатися цей блок
+        manage_block_display: Керування відображенням блоку
+        templates: Шаблони
+        template: Шаблон
+        content_templates: Шаблони контенту
+        new_template: Новий шаблон
+        edit_template: Редагувати шаблон
+        use_page_template: Використовувати шаблон сторінки
+        use_this_template: Використовувати цей шаблон
+        load_template_confirmation_modal_text: Ця операція видалить поточну конфігурацію елементів контенту. Ви впевнені, що хочете продовжити?
+        teaser:
+            header: Анонс
+            title: Заголовок анонсу
+            content: Контент анонсу
+            image: Зображення анонсу
+            help: Це невеликий попередній перегляд сторінки. Використовується при рендерингу колекції сторінок.

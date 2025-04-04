@@ -1,0 +1,23 @@
+sylius_cms_shop_collection_show:
+    path: /collection/{code}
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.collection::showAction
+        _sylius:
+            template: $template
+            repository:
+                method: findOneByCode
+                arguments:
+                    - $code
+
+sylius_cms_shop_collection_show_codes:
+    path: /collections/{codes}
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.collection::indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findByCodes
+                arguments:
+                    - $codes

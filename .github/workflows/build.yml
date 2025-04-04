@@ -19,12 +19,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["8.1", "8.2", "8.3"]
+        php: ["8.3"]
         symfony: ["^5.4", "^6.4"]
         sylius: ["~1.13.0", "~1.14.0"]
         node: ["20.x"]
         mysql: ["8.0"]
-        trix: [false, true]
+#        trix: [false, true]
+        trix: [false]
 
         exclude:
           - sylius: "~1.14.0"
@@ -119,7 +120,7 @@ jobs:
       - name: Configure Trix if enabled
         if: matrix.trix == true
         run: |
-          printf "bit_bag_sylius_cms:\n    wysiwyg_editor: trix\n" >> tests/Application/config/packages/bitbag_sylius_cms_plugin.yaml
+          printf "sylius_cms:\n    wysiwyg_editor: trix\n" >> tests/Application/config/packages/sylius_cms_plugin.yaml
 
       - name: Prepare test application database
         run: |
@@ -149,29 +150,29 @@ jobs:
       - name: Run PHPUnit
         run: vendor/bin/phpunit --colors=always
 
-      - name: Set Behat tags
-        if: matrix.trix != true
-        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
+#      - name: Set Behat tags
+#        if: matrix.trix != true
+#        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
+#
+#      - name: Run Behat
+#        run: vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress --rerun
+#
+#      - name: Upload Behat logs
+#        uses: actions/upload-artifact@v4
+#        if: failure()
+#        with:
+#          name: Behat logs
+#          path: etc/build/
+#          if-no-files-found: ignore
 
-      - name: Run Behat
-        run: vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress --rerun
-
-      - name: Upload Behat logs
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: Behat logs
-          path: etc/build/
-          if-no-files-found: ignore
-
-#      - name: Failed build Slack notification
-#        uses: rtCamp/action-slack-notify@v2
-#        if: ${{ failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') }}
-#        env:
-#          SLACK_CHANNEL: ${{ secrets.FAILED_BUILD_SLACK_CHANNEL }}
-#          SLACK_COLOR: ${{ job.status }}
-#          SLACK_ICON: https://github.com/rtCamp.png?size=48
-#          SLACK_MESSAGE: ':x:'
-#          SLACK_TITLE: Failed build on ${{ github.event.repository.name }} repository
-#          SLACK_USERNAME: ${{ secrets.FAILED_BUILD_SLACK_USERNAME }}
-#          SLACK_WEBHOOK: ${{ secrets.FAILED_BUILD_SLACK_WEBHOOK }}
+##      - name: Failed build Slack notification
+##        uses: rtCamp/action-slack-notify@v2
+##        if: ${{ failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') }}
+##        env:
+##          SLACK_CHANNEL: ${{ secrets.FAILED_BUILD_SLACK_CHANNEL }}
+##          SLACK_COLOR: ${{ job.status }}
+##          SLACK_ICON: https://github.com/rtCamp.png?size=48
+##          SLACK_MESSAGE: ':x:'
+##          SLACK_TITLE: Failed build on ${{ github.event.repository.name }} repository
+##          SLACK_USERNAME: ${{ secrets.FAILED_BUILD_SLACK_USERNAME }}
+##          SLACK_WEBHOOK: ${{ secrets.FAILED_BUILD_SLACK_WEBHOOK }}

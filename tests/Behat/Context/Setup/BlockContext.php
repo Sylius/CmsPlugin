@@ -1,22 +1,19 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusCmsPlugin\Behat\Context\Setup;
+namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use BitBag\SyliusCmsPlugin\Entity\BlockInterface;
-use BitBag\SyliusCmsPlugin\Repository\BlockRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Entity\ContentConfiguration;
+use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
+use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Tests\BitBag\SyliusCmsPlugin\Behat\Service\RandomStringGeneratorInterface;
+use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
+use Tests\Sylius\CmsPlugin\Behat\Service\RandomStringGeneratorInterface;
 
 final class BlockContext implements Context
 {
@@ -50,24 +47,31 @@ final class BlockContext implements Context
     }
 
     /**
-     * @Given there is a block with :code code and :content content
+     * @Given there is a block with :code code
      */
-    public function thereIsABlockWithCodeAndContent(string $code, string $content): void
+    public function thereIsABlockWithCodeAndContent(string $code): void
     {
-        $block = $this->createBlock($code, $content);
+        $block = $this->createBlock($code);
+
+        $this->saveBlock($block);
+    }
+
+    /**
+     * @Given there is a block with :code code and :contentElement content element
+     */
+    public function thereIsABlockWithCodeAndContentElement(string $code, string $contentElement): void
+    {
+        $block = $this->createBlockWithContentElement($code, $contentElement);
 
         $this->saveBlock($block);
     }
 
     private function createBlock(
         ?string $code = null,
-        ?string $content = null,
         ChannelInterface $channel = null,
     ): BlockInterface {
         /** @var BlockInterface $block */
         $block = $this->blockFactory->createNew();
-
-        $block->setCurrentLocale('en_US');
 
         if (null === $channel && $this->sharedStorage->has('channel')) {
             $channel = $this->sharedStorage->get('channel');
@@ -77,13 +81,24 @@ final class BlockContext implements Context
             $code = $this->randomStringGenerator->generate();
         }
 
-        if (null === $content) {
-            $content = $this->randomStringGenerator->generate();
-        }
-
         $block->setCode($code);
-        $block->setContent($content);
         $block->addChannel($channel);
+
+        return $block;
+    }
+
+    private function createBlockWithContentElement(string $code, string $contentElement): BlockInterface
+    {
+        $block = $this->createBlock($code);
+
+        /** @var ContentConfigurationInterface $contentConfiguration */
+        $contentConfiguration = new ContentConfiguration();
+        $contentConfiguration->setType(mb_strtolower($contentElement));
+        $contentConfiguration->setLocale('en_US');
+        $contentConfiguration->setConfiguration(ContentElementHelper::getExampleConfigurationByContentElement($contentElement));
+        $contentConfiguration->setBlock($block);
+
+        $block->addContentElement($contentConfiguration);
 
         return $block;
     }

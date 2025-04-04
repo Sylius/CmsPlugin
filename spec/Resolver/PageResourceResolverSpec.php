@@ -1,31 +1,23 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace spec\BitBag\SyliusCmsPlugin\Resolver;
+namespace spec\Sylius\CmsPlugin\Resolver;
 
-use BitBag\SyliusCmsPlugin\Entity\PageInterface;
-use BitBag\SyliusCmsPlugin\Repository\PageRepositoryInterface;
-use BitBag\SyliusCmsPlugin\Resolver\PageResourceResolver;
-use BitBag\SyliusCmsPlugin\Resolver\PageResourceResolverInterface;
 use PhpSpec\ObjectBehavior;
 use Psr\Log\LoggerInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
+use Sylius\CmsPlugin\Resolver\PageResourceResolver;
+use Sylius\CmsPlugin\Resolver\PageResourceResolverInterface;
 
 final class PageResourceResolverSpec extends ObjectBehavior
 {
     public function let(
         PageRepositoryInterface $pageRepository,
-        LocaleContextInterface $localeContext,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ) {
-        $this->beConstructedWith($pageRepository, $localeContext, $logger);
+        $this->beConstructedWith($pageRepository, $logger);
     }
 
     public function it_is_initializable(): void
@@ -40,16 +32,14 @@ final class PageResourceResolverSpec extends ObjectBehavior
 
     public function it_logs_warning_if_page_was_not_found(
         PageRepositoryInterface $pageRepository,
-        LocaleContextInterface $localeContext,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ) {
-        $localeContext->getLocaleCode()->willReturn('en_US');
-        $pageRepository->findOneEnabledByCode('homepage_banner', 'en_US')->willReturn(null);
+        $pageRepository->findOneEnabledByCode('homepage_banner')->willReturn(null);
 
         $logger
             ->warning(sprintf(
                 'Page with "%s" code was not found in the database.',
-                'homepage_banner'
+                'homepage_banner',
             ))
             ->shouldBeCalled()
         ;
@@ -59,11 +49,9 @@ final class PageResourceResolverSpec extends ObjectBehavior
 
     public function it_returns_page_if_found_in_database(
         PageRepositoryInterface $pageRepository,
-        LocaleContextInterface $localeContext,
-        PageInterface $page
+        PageInterface $page,
     ) {
-        $localeContext->getLocaleCode()->willReturn('en_US');
-        $pageRepository->findOneEnabledByCode('homepage_banner', 'en_US')->willReturn($page);
+        $pageRepository->findOneEnabledByCode('homepage_banner')->willReturn($page);
 
         $this->findOrLog('homepage_banner')->shouldReturn($page);
     }

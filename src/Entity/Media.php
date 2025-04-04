@@ -1,67 +1,55 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Entity;
+namespace Sylius\CmsPlugin\Entity;
 
-use BitBag\SyliusCmsPlugin\MediaProvider\FilenameHelper;
+use Sylius\CmsPlugin\Entity\Trait\ChannelsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\CollectibleTrait;
+use Sylius\CmsPlugin\Entity\Trait\PagesCollectionTrait;
+use Sylius\CmsPlugin\MediaProvider\FilenameHelper;
 use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
-use Sylius\Component\Resource\Model\TranslationInterface;
+use Sylius\Resource\Model\TranslationInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
 
 class Media implements MediaInterface
 {
     use ToggleableTrait;
-    use SectionableTrait;
-    use ProductsAwareTrait;
+    use CollectibleTrait;
     use ChannelsAwareTrait;
+    use PagesCollectionTrait;
     use TranslatableTrait {
         __construct as protected initializeTranslationsCollection;
     }
 
-    /** @var int */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $type;
+    protected ?string $type;
 
-    /** @var string|null */
-    protected $code;
+    protected ?string $code = null;
 
-    /** @var string|null */
-    protected $path;
+    protected ?string $name;
 
-    /** @var UploadedFile|null */
-    protected $file;
+    protected ?string $path = null;
 
-    /** @var string|null */
-    protected $mimeType;
+    protected ?UploadedFile $file = null;
 
-    /** @var string */
-    protected $originalPath;
+    protected ?string $mimeType;
 
-    /** @var int|null */
-    protected $width;
+    protected string $originalPath;
 
-    /** @var int|null */
-    protected $height;
+    protected ?int $width;
 
-    /** @var bool */
-    protected $saveWithOriginalName = false;
+    protected ?int $height;
+
+    protected bool $saveWithOriginalName = false;
 
     public function __construct()
     {
         $this->initializeTranslationsCollection();
-        $this->initializeSectionsCollection();
-        $this->initializeProductsCollection();
+        $this->initializeCollectionsCollection();
         $this->initializeChannelsCollection();
     }
 
@@ -88,6 +76,16 @@ class Media implements MediaInterface
     public function setCode(?string $code): void
     {
         $this->code = $code;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 
     public function getPath(): ?string
@@ -123,21 +121,6 @@ class Media implements MediaInterface
     public function setMimeType(?string $mimeType): void
     {
         $this->mimeType = $mimeType;
-    }
-
-    public function getName(): ?string
-    {
-        /** @var MediaTranslationInterface $mediaTranslationInterface */
-        $mediaTranslationInterface = $this->getMediaTranslation();
-
-        return $mediaTranslationInterface->getName();
-    }
-
-    public function setName(?string $name): void
-    {
-        /** @var MediaTranslationInterface $mediaTranslationInterface */
-        $mediaTranslationInterface = $this->getMediaTranslation();
-        $mediaTranslationInterface->setName($name);
     }
 
     public function getDownloadName(): string
@@ -220,9 +203,6 @@ class Media implements MediaInterface
         $this->saveWithOriginalName = $saveWithOriginalName;
     }
 
-    /**
-     * @return MediaTranslationInterface|TranslationInterface
-     */
     protected function getMediaTranslation(): TranslationInterface
     {
         return $this->getTranslation();

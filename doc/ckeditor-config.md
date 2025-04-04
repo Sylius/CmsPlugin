@@ -5,7 +5,7 @@ return [
     ...
 
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true], 
-    BitBag\SyliusCmsPlugin\BitBagSyliusCmsPlugin::class  => ['all' => true],
+    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
 ];
 ```
 
@@ -32,7 +32,7 @@ For more information regarding the `4.22.1` tag, please visit the #485 issue.
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
-        - '@BitBagSyliusCmsPlugin/Form/ckeditor_widget.html.twig'
+        - '@SyliusCmsPlugin/Form/ckeditor_widget.html.twig'
 ```
 
 4. Import required CKeditor config in your `config/packages/_sylius.yaml` file:
@@ -42,7 +42,7 @@ twig:
 imports:
     ...
     
-    - { resource: "@BitBagSyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
+    - { resource: "@SyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
 ```
 
 Continue with the next installation steps

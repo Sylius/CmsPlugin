@@ -71,64 +71,36 @@ Sylius\Component\Core\Model\ProductVariant:
   product_variant1:
     product: '@product1'
     code: "code1"
-
-BitBag\SyliusCmsPlugin\Entity\BlockTranslation:
-  block1_translation:
-    name: 'translation_name_en_US'
-    locale: 'en_US'
-    content: 'translation_content_en_US'
-    link: 'translation_link_en_US'
-  block2_translation:
-    name: 'translation_name_en_US'
-    locale: 'en_US'
-    content: 'translation_content_en_US'
-    link: 'translation_link_en_US'
-  block3_translation:
-    name: 'translation_name_en_US'
-    locale: 'en_US'
-    content: 'translation_content_en_US'
-    link: 'translation_link_en_US'
-BitBag\SyliusCmsPlugin\Entity\Block:
+Sylius\CmsPlugin\Entity\Block:
   block1:
     code: 'block1-code'
+    name: 'block1-name'
     enabled: true
-    products:
-      - '@product1'
-    sections:
-      - '@section1'
+    collections:
+      - '@collection1'
     channels:
       - '@channel'
-    translations:
-      - '@block1_translation'
-    taxons:
-      - '@taxon'
   block2:
     code: 'block2-code'
+    name: 'block2-name'
     enabled: true
-    products:
-      - '@product2'
-    sections:
-      - '@section2'
+    collections:
+      - '@collection2'
     channels:
       - '@channel'
-    translations:
-      - '@block2_translation'
   block3:
     code: 'block3-code'
-    enabled: false
-    products:
-      - '@product3'
-    sections:
-      - '@section3'
+    name: 'block3-name'
+    enabled: true
+    collections:
+      - '@collection3'
     channels:
       - '@channel'
-    translations:
-      - '@block3_translation'
-BitBag\SyliusCmsPlugin\Entity\Section:
-  section1:
-    code: 'section1-code'
-  section2:
-    code: 'section2-code'
-  section3:
-    code: 'section3-code'
+Sylius\CmsPlugin\Entity\Collection:
+  collection1:
+    code: 'collection1-code'
+  collection2:
+    code: 'collection2-code'
+  collection3:
+    code: 'collection3-code'
 

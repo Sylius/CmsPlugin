@@ -1,14 +1,8 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusCmsPlugin\Behat\Page\Shop\Page;
+namespace Tests\Sylius\CmsPlugin\Behat\Page\Shop\Page;
 
 use Behat\Mink\Element\NodeElement;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
@@ -17,7 +11,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
 {
     public function getRouteName(): string
     {
-        return 'bitbag_sylius_cms_plugin_shop_page_show';
+        return 'sylius_cms_shop_page_show';
     }
 
     public function hasName(string $name): bool
@@ -44,13 +38,13 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
         return true;
     }
 
-    public function hasSections(array $sectionNames): bool
+    public function hasCollections(array $collectionNames): bool
     {
-        $sectionsOnPage = $this->getElement('sections')->findAll('css', 'a');
+        $collectionsOnPage = $this->getElement('collections')->findAll('css', 'a');
 
-        /** @var NodeElement $sectionOnPage */
-        foreach ($sectionsOnPage as $sectionOnPage) {
-            if (false === in_array($sectionOnPage->getText(), $sectionNames, true)) {
+        /** @var NodeElement $collectionOnPage */
+        foreach ($collectionsOnPage as $collectionOnPage) {
+            if (false === in_array($collectionOnPage->getText(), $collectionNames, true)) {
                 return false;
             }
         }
@@ -73,15 +67,21 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
         return $this->getSession()->evaluateScript('return document.title') === $title;
     }
 
+    public function hasCustomLayoutCode(): bool
+    {
+        return $this->hasElement('custom-layout');
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
-            'name' => '.bitbag-page-name',
-            'content' => '.bitbag-page-content',
-            'products' => '.bitbag-page-products',
-            'sections' => '.bitbag-page-sections',
-            'link' => '.bitbag-page-link',
+            'name' => '.cms-page-name',
+            'content' => '.cms-page-content',
+            'products' => '.cms-page-products',
+            'collections' => '.cms-page-collections',
+            'link' => '.cms-page-link',
             'page-image' => '.page-image',
+            'custom-layout' => '.custom-layout',
         ]);
     }
 }

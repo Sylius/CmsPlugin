@@ -1,66 +1,66 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Menu;
+namespace Sylius\CmsPlugin\Menu;
 
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 final class ContentManagementMenuBuilder
 {
+    public function __construct(private MenuReorderInterface $menuReorder)
+    {
+    }
+
     public function buildMenu(MenuBuilderEvent $menuBuilderEvent): void
     {
         $menu = $menuBuilderEvent->getMenu();
 
         $cmsRootMenuItem = $menu
-            ->addChild('bitbag_cms')
-            ->setLabel('bitbag_sylius_cms_plugin.ui.cms')
+            ->addChild('sylius_cms')
+            ->setLabel('sylius_cms.ui.cms')
+        ;
+
+        $cmsRootMenuItem
+            ->addChild('collections', [
+                'route' => 'sylius_cms_admin_collection_index',
+            ])
+            ->setLabel('sylius_cms.ui.collections')
+            ->setLabelAttribute('icon', 'grid layout')
+        ;
+
+        $cmsRootMenuItem
+            ->addChild('templates', [
+                'route' => 'sylius_cms_admin_template_index',
+            ])
+            ->setLabel('sylius_cms.ui.content_templates')
+            ->setLabelAttribute('icon', 'clone')
+        ;
+
+        $cmsRootMenuItem
+            ->addChild('pages', [
+                'route' => 'sylius_cms_admin_page_index',
+            ])
+            ->setLabel('sylius_cms.ui.pages')
+            ->setLabelAttribute('icon', 'sticky note')
         ;
 
         $cmsRootMenuItem
             ->addChild('blocks', [
-                'route' => 'bitbag_sylius_cms_plugin_admin_block_index',
+                'route' => 'sylius_cms_admin_block_index',
             ])
-            ->setLabel('bitbag_sylius_cms_plugin.ui.blocks')
+            ->setLabel('sylius_cms.ui.blocks')
             ->setLabelAttribute('icon', 'block layout')
         ;
 
         $cmsRootMenuItem
             ->addChild('media', [
-                'route' => 'bitbag_sylius_cms_plugin_admin_media_index',
+                'route' => 'sylius_cms_admin_media_index',
             ])
-            ->setLabel('bitbag_sylius_cms_plugin.ui.media')
+            ->setLabel('sylius_cms.ui.media')
             ->setLabelAttribute('icon', 'file')
         ;
 
-        $cmsRootMenuItem
-            ->addChild('pages', [
-                'route' => 'bitbag_sylius_cms_plugin_admin_page_index',
-            ])
-            ->setLabel('bitbag_sylius_cms_plugin.ui.pages')
-            ->setLabelAttribute('icon', 'sticky note')
-        ;
-
-        $cmsRootMenuItem
-            ->addChild('faq', [
-                'route' => 'bitbag_sylius_cms_plugin_admin_frequently_asked_question_index',
-            ])
-            ->setLabel('bitbag_sylius_cms_plugin.ui.faq')
-            ->setLabelAttribute('icon', 'help')
-        ;
-
-        $cmsRootMenuItem
-            ->addChild('sections', [
-                'route' => 'bitbag_sylius_cms_plugin_admin_section_index',
-            ])
-            ->setLabel('bitbag_sylius_cms_plugin.ui.sections')
-            ->setLabelAttribute('icon', 'grid layout')
-        ;
+        $this->menuReorder->reorder($menu, 'sylius_cms', 'marketing');
     }
 }

@@ -11,7 +11,7 @@ Feature: Managing cms pages
     @ui
     Scenario: Deleting page
         Given there is a page in the store
-        When I go to the pages page
+        When I go to the cms pages page
         And I delete this page
         Then I should be notified that the page has been deleted
         And I should see empty list of pages
@@ -26,16 +26,25 @@ Feature: Managing cms pages
     Scenario: Updating page
         Given there is a page in the store
         When I want to edit this page
-        And I fill "Code, Content" fields
+        And I fill "Code, Name" fields
         And I update it
         Then I should be notified that the page was updated
 
     @ui
-    Scenario: Updating page with image
-        Given there is a page in the store
-        And there is an existing "image" media with "aston-martin" code
+    Scenario: Updating page with textarea content element
+        Given there is a page in the store with "Textarea" content element
         When I want to edit this page
-        And I fill "Code, Content" fields
-        And I choose "aston-martin" media as image
+        And I fill "Code, Name" fields
+        And I change textarea content element value to "New content"
         And I update it
         Then I should be notified that the page was updated
+        And I should see "New content" in the textarea content element
+
+    @ui @javascript
+    Scenario: Deleting content element in page
+        Given there is a page in the store with "Textarea" content element
+        When I want to edit this page
+        And I delete the content element
+        And I update it
+        Then I should be notified that the page was updated
+        And I should not see "Textarea" content element in the Content elements section

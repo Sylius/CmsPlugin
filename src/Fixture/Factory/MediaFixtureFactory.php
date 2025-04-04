@@ -1,22 +1,15 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Fixture\Factory;
+namespace Sylius\CmsPlugin\Fixture\Factory;
 
-use BitBag\SyliusCmsPlugin\Assigner\ChannelsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Assigner\ProductsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Assigner\SectionsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Entity\MediaInterface;
-use BitBag\SyliusCmsPlugin\Entity\MediaTranslationInterface;
-use BitBag\SyliusCmsPlugin\Repository\MediaRepositoryInterface;
-use BitBag\SyliusCmsPlugin\Resolver\MediaProviderResolverInterface;
+use Sylius\CmsPlugin\Assigner\ChannelsAssignerInterface;
+use Sylius\CmsPlugin\Assigner\CollectionsAssignerInterface;
+use Sylius\CmsPlugin\Entity\MediaInterface;
+use Sylius\CmsPlugin\Entity\MediaTranslationInterface;
+use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
+use Sylius\CmsPlugin\Resolver\MediaProviderResolverInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -27,8 +20,7 @@ final class MediaFixtureFactory implements FixtureFactoryInterface
         private FactoryInterface $mediaTranslationFactory,
         private MediaProviderResolverInterface $mediaProviderResolver,
         private MediaRepositoryInterface $mediaRepository,
-        private ProductsAssignerInterface $productsAssigner,
-        private SectionsAssignerInterface $sectionsAssigner,
+        private CollectionsAssignerInterface $collectionsAssigner,
         private ChannelsAssignerInterface $channelAssigner,
     ) {
     }
@@ -45,13 +37,7 @@ final class MediaFixtureFactory implements FixtureFactoryInterface
                 $this->mediaRepository->remove($media);
             }
 
-            if (null !== $fields['number']) {
-                for ($i = 0; $i < $fields['number']; ++$i) {
-                    $this->createMedia(md5(uniqid()), $fields);
-                }
-            } else {
-                $this->createMedia($code, $fields);
-            }
+            $this->createMedia($code, $fields);
         }
     }
 
@@ -61,6 +47,7 @@ final class MediaFixtureFactory implements FixtureFactoryInterface
         $media = $this->mediaFactory->createNew();
         $media->setType($mediaData['type']);
         $media->setCode($code);
+        $media->setName($mediaData['name']);
         $media->setEnabled($mediaData['enabled']);
         $media->setFile(new UploadedFile($mediaData['path'], $mediaData['original_name']));
 
@@ -71,15 +58,13 @@ final class MediaFixtureFactory implements FixtureFactoryInterface
             $mediaTranslation = $this->mediaTranslationFactory->createNew();
 
             $mediaTranslation->setLocale($localeCode);
-            $mediaTranslation->setName($translation['name']);
             $mediaTranslation->setContent($translation['content']);
             $mediaTranslation->setAlt($translation['alt']);
             $mediaTranslation->setLink($translation['link']);
             $media->addTranslation($mediaTranslation);
         }
 
-        $this->sectionsAssigner->assign($media, $mediaData['sections']);
-        $this->productsAssigner->assign($media, $mediaData['productCodes']);
+        $this->collectionsAssigner->assign($media, $mediaData['collections']);
         $this->channelAssigner->assign($media, $mediaData['channels']);
 
         $this->mediaRepository->add($media);

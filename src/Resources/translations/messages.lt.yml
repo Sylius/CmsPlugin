@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Blokai
+        block: Blokas
         pages: Puslapiai
+        page: Puslapis
         content_management: Turinio valdymas
         cms: Turinio valdymas
         enabled: Įjungta
@@ -13,23 +15,21 @@ bitbag_sylius_cms_plugin:
         page_related_products: Su puslapiu susiję produktai
         name: Pavadinimas
         slug: Šliužas (nuorodos dalis)
+        meta_title: Meta pavadinimas
         meta_keywords: Meta raktiniai žodžiai
         meta_description: Meta aprašymas
         content: Turinys
-        faq: DUK
         code: Kodas
         contents: Turinys
         images: Paveikslai
         image: Paveikslas
         link: Nuoroda
-        faq_header: DUK
-        faq_subheader: Dažniausiai užduodamų klausimų tvarkymas
-        frequently_asked_questions: Dažniausiai užduodami klausimai
+        link_content: Nuorodos turinys
         question: Klausimas
         answer: Atsakymas
-        sections: Blokų grupė
-        sections_header: Blokų grupė
-        sections_subheader: Blokų grupių tvarkymas
+        collections: Kolekcijos
+        collections_header: Kolekcijos
+        collections_subheader: Tvarkykite savo kolekcijas
         position: Pozicija
         channels: Kanalai
         preview: Peržiūra
@@ -52,4 +52,45 @@ bitbag_sylius_cms_plugin:
         csv_file: CSV failas
         successfully_imported: Duomenys sėkmingai importuoti.
         form_was_submitted_with_errors: "Forma pateikta su klaidomis:"
-
+        content_elements:
+            title: Turinys
+            type:
+                textarea: Textarea
+                single_media: Vienas medijos elementas
+                multiple_media: Kelios medijos elementai
+                heading: Antraštė
+                products_carousel: Produktų karuselė
+                products_carousel_by_taxon: Produktų karuselė pagal taksoną
+                taxons_list: Taksonų sąrašas
+                products_grid: Produktų tinklelis
+                products_grid_by_taxon: Produktų tinklelis pagal taksoną
+                pages_collection: Puslapių kolekcija
+                spacer: Tarpo elementas
+                spacer_height: Tarpo aukštis pikseliais
+            heading_type: Antraštės tipas
+            template: Turinio elementų šablonas
+        taxon: Taksonas
+        display_for_products:
+            label: Rodyti produktams
+            help: Pasirinkite produktus, kuriuose šis blokas bus rodomas
+        display_for_products_in_taxons:
+            label: Rodyti produktams
+            help: Šis blokas bus rodomas produktams pasirinktuose taksonuose. Paimamas tik „Pagrindinis taksonas“.
+        display_for_taxons:
+            label: Rodyti taksonams
+            help: Pasirinkite taksonus, kuriuose šis blokas bus rodomas
+        manage_block_display: Bloko rodymo valdymas
+        templates: Šablonai
+        template: Šablonas
+        content_templates: Turinys šablonai
+        new_template: Naujas šablonas
+        edit_template: Redaguoti šabloną
+        use_page_template: Naudoti puslapio šabloną
+        use_this_template: Naudoti šį šabloną
+        load_template_confirmation_modal_text: Ši operacija ištrins dabartinę turinio elementų konfigūraciją. Ar tikrai norite tęsti?
+        teaser:
+            header: Anonsas
+            title: Anonso pavadinimas
+            content: Anonso turinys
+            image: Anonso nuotrauka
+            help: Tai mažas puslapio peržiūra. Ji naudojama kuriant puslapių kolekciją.

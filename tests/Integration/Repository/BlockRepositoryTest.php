@@ -1,19 +1,12 @@
 <?php
 
-/*
- * This file has been created by developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * You can find more information about us on https://bitbag.io and write us
- * an email on hello@bitbag.io.
- */
-
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusCmsPlugin\Integration\Repository;
+namespace Tests\Sylius\CmsPlugin\Integration\Repository;
 
 use ApiTestCase\JsonApiTestCase;
-use BitBag\SyliusCmsPlugin\Entity\BlockInterface;
-use BitBag\SyliusCmsPlugin\Repository\BlockRepositoryInterface;
+use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
 
 class BlockRepositoryTest extends JsonApiTestCase
 {
@@ -35,27 +28,14 @@ class BlockRepositoryTest extends JsonApiTestCase
         self::assertNull($block3);
     }
 
-    public function test_it_finds_enabled_block_by_section_code(): void
+    public function test_it_finds_enabled_block_by_collection_code(): void
     {
-        $this->loadFixturesFromFile('BlockRepositoryTest/test_it_finds_block_by_section_code.yml');
+        $this->loadFixturesFromFile('BlockRepositoryTest/test_it_finds_block_by_collection_code.yml');
 
         $blockRepository = $this->getRepository();
 
-        $block_array1 = $blockRepository->findBySectionCode('section1-code', 'en_US', 'code');
-        $block_array3 = $blockRepository->findBySectionCode('section3-code', 'en_US', 'code');
-
-        self::assertNotEmpty($block_array1);
-        self::assertEmpty($block_array3);
-    }
-
-    public function test_it_finds_enabled_block_by_product_code(): void
-    {
-        $this->loadFixturesFromFile('BlockRepositoryTest/test_it_finds_block_by_product_code.yml');
-
-        $blockRepository = $this->getRepository();
-
-        $block_array1 = $blockRepository->findByProductCode('MUG_SW', 'en_US', 'code');
-        $block_array3 = $blockRepository->findByProductCode('MUG_SW3', 'en_US', 'code');
+        $block_array1 = $blockRepository->findByCollectionCode('collection1-code', 'code');
+        $block_array3 = $blockRepository->findByCollectionCode('collection3-code', 'code');
 
         self::assertNotEmpty($block_array1);
         self::assertEmpty($block_array3);

@@ -1,20 +1,13 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Importer;
+namespace Sylius\CmsPlugin\Importer;
 
-use BitBag\SyliusCmsPlugin\Entity\MediaInterface;
-use BitBag\SyliusCmsPlugin\Repository\MediaRepositoryInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ImporterProductsResolverInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ImporterSectionsResolverInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ResourceResolverInterface;
+use Sylius\CmsPlugin\Entity\MediaInterface;
+use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
+use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
@@ -24,8 +17,7 @@ final class MediaImporter extends AbstractImporter implements MediaImporterInter
     public function __construct(
         private ResourceResolverInterface $mediaResourceResolver,
         private LocaleContextInterface $localeContext,
-        private ImporterSectionsResolverInterface $importerSectionsResolver,
-        private ImporterProductsResolverInterface $importerProductsResolver,
+        private ImporterCollectionsResolverInterface $importerCollectionsResolver,
         ValidatorInterface $validator,
         private MediaRepositoryInterface $mediaRepository,
     ) {
@@ -51,10 +43,9 @@ final class MediaImporter extends AbstractImporter implements MediaImporterInter
             $media->setAlt($this->getTranslatableColumnValue(self::ALT_COLUMN, $locale, $row));
         }
 
-        $this->importerSectionsResolver->resolve($media, $this->getColumnValue(self::SECTIONS_COLUMN, $row));
-        $this->importerProductsResolver->resolve($media, $this->getColumnValue(self::PRODUCTS_COLUMN, $row));
+        $this->importerCollectionsResolver->resolve($media, $this->getColumnValue(self::COLLECTIONS_COLUMN, $row));
 
-        $this->validateResource($media, ['bitbag']);
+        $this->validateResource($media, ['cms']);
 
         $this->mediaRepository->add($media);
     }

@@ -8,95 +8,24 @@
       "@type": "Block",
       "id": "@integer@",
       "code": "block1-code",
-      "enabled": true,
-      "sections": [
-        {
-          "@id": "/api/v2/shop/cms-plugin/sections/@integer@",
-          "@type": "Section",
-          "id": "@integer@",
-          "code": "section1-code"
-        }
-      ],
-      "products": [
-        "/api/v2/shop/products/MUG_SW"
-      ],
-      "channels": [
-        "/api/v2/shop/channels/code"
-      ],
-      "translations": {
-        "en_US": {
-          "@type": "BlockTranslation",
-          "name": "translation_name_en_US",
-          "content": "translation_content_en_US",
-          "link": "translation_link_en_US"
-        }
-      },
-      "taxons": [
-        {
-          "@id": "/api/v2/shop/taxons/menu_category",
-          "@type": "Taxon"
-        }
-      ]
+      "name": "block1-name",
+      "enabled": true
     },
     {
       "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
       "@type": "Block",
       "id": "@integer@",
       "code": "block2-code",
-      "enabled": true,
-      "sections": [
-        {
-          "@id": "/api/v2/shop/cms-plugin/sections/@integer@",
-          "@type": "Section",
-          "id": "@integer@",
-          "code": "section2-code"
-        }
-      ],
-      "products": [
-        "/api/v2/shop/products/MUG_SW2"
-      ],
-      "channels": [
-        "/api/v2/shop/channels/code"
-      ],
-      "translations": {
-        "en_US": {
-          "@type": "BlockTranslation",
-          "name": "translation_name_en_US",
-          "content": "translation_content_en_US",
-          "link": "translation_link_en_US"
-        }
-      },
-      "taxons": []
+      "name": "block2-name",
+      "enabled": true
     },
     {
       "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
       "@type": "Block",
       "id": "@integer@",
       "code": "block3-code",
-      "enabled": false,
-      "sections": [
-        {
-          "@id": "/api/v2/shop/cms-plugin/sections/@integer@",
-          "@type": "Section",
-          "id": "@integer@",
-          "code": "section3-code"
-        }
-      ],
-      "products": [
-        "/api/v2/shop/products/MUG_SW3"
-      ],
-      "channels": [
-        "/api/v2/shop/channels/code"
-      ],
-      "translations": {
-        "en_US": {
-          "@type": "BlockTranslation",
-          "name": "translation_name_en_US",
-          "content": "translation_content_en_US",
-          "link": "translation_link_en_US"
-        }
-      },
-      "taxons": []
+      "name": "block3-name",
+      "enabled": true
     }
   ],
   "hydra:totalItems": 3

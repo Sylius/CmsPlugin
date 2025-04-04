@@ -18,16 +18,37 @@ Feature: Managing cms blocks
 
     @ui @javascript
     Scenario: Updating block
-        Given there is a block with "store_phone_number" code and "123456789" content
+        Given there is a block with "store_phone_number" code
         When I go to the update "store_phone_number" block page
-        And I fill the content with "987654321"
+        And I fill the name with "Store phone number" if the name field is empty
         And I update it
         Then I should be notified that the block has been successfully updated
 
     @ui
+    Scenario: Updating block textarea content element
+        Given there is a block with "store_phone_number" code and "Textarea" content element
+        When I go to the update "store_phone_number" block page
+        And I fill the name with "Store phone number" if the name field is empty
+        And I change textarea content element value to "New content"
+        And I update it
+        Then I should be notified that the block has been successfully updated
+        And I should see "New content" in the textarea content element
+
+    @ui @javascript
+    Scenario: Deleting content element in block
+        Given there is a block with "store_phone_number" code and "Textarea" content element
+        When I go to the update "store_phone_number" block page
+        And I fill the name with "Store phone number" if the name field is empty
+        And I delete the content element
+        And I update it
+        Then I should be notified that the block has been successfully updated
+        And I should not see "Textarea" content element in the Content elements section
+
+    @ui
     Scenario: Disabling block
-        Given there is an existing block with "bitbag_quote" code
-        When I go to the update "bitbag_quote" block page
+        Given there is an existing block with "sylius_quote" code
+        When I go to the update "sylius_quote" block page
+        And I fill the name with "BitBag quote" if the name field is empty
         And I disable it
         And I update it
         Then I should be notified that the block has been successfully updated

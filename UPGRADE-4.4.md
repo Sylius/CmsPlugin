@@ -11,7 +11,7 @@ The configuration has been split and the `fos_ck_editor` configuration is requir
 imports:
     ...
     
-    - { resource: "@BitBagSyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
+    - { resource: "@SyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
 ```
 
 *Or copy contents of `vendor/BitBag/cms-plugin/src/Resources/config/fos_ck_editor/fos_ck_editor.yml` to `config/packages/fos_ck_editor.yaml` file.*

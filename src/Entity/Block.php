@@ -1,44 +1,44 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Entity;
+namespace Sylius\CmsPlugin\Entity;
 
+use Sylius\CmsPlugin\Entity\Trait\ChannelsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\CollectibleTrait;
+use Sylius\CmsPlugin\Entity\Trait\ContentElementsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\ProductsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\ProductsInTaxonsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\TaxonAwareTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
-use Sylius\Component\Resource\Model\TranslatableTrait;
-use Sylius\Component\Resource\Model\TranslationInterface;
 
 class Block implements BlockInterface
 {
     use ToggleableTrait;
-    use SectionableTrait;
+    use CollectibleTrait;
+    use ChannelsAwareTrait;
+    use ContentElementsAwareTrait;
     use ProductsAwareTrait;
     use TaxonAwareTrait;
-    use ChannelsAwareTrait;
-    use TranslatableTrait {
-        __construct as protected initializeTranslationsCollection;
-    }
+    use ProductsInTaxonsAwareTrait;
 
     public function __construct()
     {
-        $this->initializeTranslationsCollection();
-        $this->initializeSectionsCollection();
+        $this->initializeCollectionsCollection();
+        $this->initializeChannelsCollection();
+        $this->initializeContentElementsCollection();
         $this->initializeProductsCollection();
         $this->initializeTaxonCollection();
-        $this->initializeChannelsCollection();
+        $this->initializeProductsInTaxonsCollection();
     }
 
-    /** @var int|null */
-    protected $id;
+    protected ?int $id;
 
-    /** @var string|null */
-    protected $code;
+    protected ?string $code = null;
+
+    protected ?string $name;
+
+    protected ?string $template = null;
 
     public function getId(): ?int
     {
@@ -57,59 +57,21 @@ class Block implements BlockInterface
 
     public function getName(): ?string
     {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-
-        return $blockTranslationInterface->getName();
+        return $this->name;
     }
 
     public function setName(?string $name): void
     {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-        $blockTranslationInterface->setName($name);
+        $this->name = $name;
     }
 
-    public function getContent(): ?string
+    public function getTemplate(): ?string
     {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-
-        return $blockTranslationInterface->getContent();
+        return $this->template;
     }
 
-    public function setContent(?string $content): void
+    public function setTemplate(?string $template): void
     {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-        $blockTranslationInterface->setContent($content);
-    }
-
-    public function getLink(): ?string
-    {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-
-        return $blockTranslationInterface->getLink();
-    }
-
-    public function setLink(?string $link): void
-    {
-        /** @var BlockTranslationInterface $blockTranslationInterface */
-        $blockTranslationInterface = $this->getBlockTranslation();
-        $blockTranslationInterface->setLink($link);
-    }
-
-    /**
-     * @return BlockTranslationInterface|TranslationInterface
-     */
-    protected function getBlockTranslation(): TranslationInterface
-    {
-        return $this->getTranslation();
-    }
-
-    protected function createTranslation(): BlockTranslationInterface
-    {
-        return new BlockTranslation();
+        $this->template = $template;
     }
 }

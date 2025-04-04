@@ -1,32 +1,24 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Resolver;
+namespace Sylius\CmsPlugin\Resolver;
 
-use BitBag\SyliusCmsPlugin\Entity\PageInterface;
-use BitBag\SyliusCmsPlugin\Repository\PageRepositoryInterface;
 use Psr\Log\LoggerInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
 
 final class PageResourceResolver implements PageResourceResolverInterface
 {
     public function __construct(
         private PageRepositoryInterface $pageRepository,
-        private LocaleContextInterface $localeContext,
         private LoggerInterface $logger,
     ) {
     }
 
     public function findOrLog(string $code): ?PageInterface
     {
-        $page = $this->pageRepository->findOneEnabledByCode($code, $this->localeContext->getLocaleCode());
+        $page = $this->pageRepository->findOneEnabledByCode($code);
 
         if (false === $page instanceof PageInterface) {
             $this->logger->warning(sprintf(

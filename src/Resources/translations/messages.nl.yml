@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Blokken
+        block: Blok
         pages: Pagina's
+        page: Pagina
         content_management: Beheer inhoud
         cms: Beheer inhoud
         enabled: Ingeschakeld
@@ -16,21 +18,61 @@ bitbag_sylius_cms_plugin:
         page_related_products: Pagina gerelateerde producten
         name: Naam
         slug: Slug
+        meta_title: Meta titel
         meta_keywords: Meta sleutelwoorden
         meta_description: Meta omschrijving
         content: Inhoud
-        faq: Veelgestelde vragen
         code: Code
         contents: Inhoud
         images: Afbeeldingen
         link: Link
-        faq_header: Veelgestelde vragen
-        faq_subheader: Beheer veelgestelde vragen
-        frequently_asked_questions: Veelgestelde vragen
+        link_content: Link inhoud
         question: Vraag
         answer: Antwoord
-        sections: Secties
-        sections_header: Secties
-        sections_subheader: Beheer secties
+        collections: Collecties
+        collections_header: Collecties
+        collections_subheader: Beheer collecties
         position: Positie
         title: Titel
+        content_elements:
+            title: Inhoud
+            type:
+                textarea: Textarea
+                single_media: Enkel medium
+                multiple_media: Meerdere media
+                heading: Kop
+                products_carousel: Producten in carrousel
+                products_carousel_by_taxon: Producten in carrousel per taxon
+                taxons_list: Taxon lijst
+                products_grid: Producten grid
+                products_grid_by_taxon: Producten grid per taxon
+                pages_collection: Pagina collectie
+                spacer: Afstandhouder
+                spacer_height: Hoogte van de afstandhouder in pixels
+            heading_type: Kop type
+            template: Sjabloon voor inhoudselementen
+        taxon: Taxon
+        display_for_products:
+            label: Display voor producten
+            help: Selecteer producten waarin dit blok wordt weergegeven
+        display_for_products_in_taxons:
+            label: Display voor producten in taxons
+            help: Dit blok wordt weergegeven voor producten in geselecteerde taxonen. Alleen "Hoofdtaxon" wordt gebruikt.
+        display_for_taxons:
+            label: Display voor taxons
+            help: Selecteer taxonen waarin dit blok wordt weergegeven
+        manage_block_display: Beheer blok weergave
+        templates: Sjablonen
+        template: Sjabloon
+        content_templates: Inhoudsjablonen
+        new_template: Nieuwe sjabloon
+        edit_template: Sjabloon bewerken
+        use_page_template: Sjabloon voor pagina gebruiken
+        use_this_template: Deze sjabloon gebruiken
+        load_template_confirmation_modal_text: Deze actie zal de huidige configuratie van inhoudselementen wissen. Weet je zeker dat je verder wilt gaan?
+        teaser:
+            header: Voorbeeld
+            title: Voorbeeldtitel
+            content: Voorbeeldinhoud
+            image: Voorbeeldafbeelding
+            help: Dit is een kleine preview van de pagina. Het wordt gebruikt bij het renderen van een verzameling pagina's.

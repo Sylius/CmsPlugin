@@ -1,56 +1,57 @@
 sylius_grid:
     grids:
-        bitbag_sylius_cms_plugin_admin_page:
+        sylius_cms_admin_page:
             driver:
                 name: doctrine/orm
                 options:
-                    class: "%bitbag_sylius_cms_plugin.model.page.class%"
-                    repository:
-                        method: createListQueryBuilder
-                        arguments: ["%locale%"]
+                    class: "%sylius_cms.model.page.class%"
             sorting:
                 code: asc
             limits: [10, 25, 50]
             fields:
-                page_image:
+                name:
                     type: twig
-                    label: bitbag_sylius_cms_plugin.ui.image
+                    label: sylius_cms.ui.name
+                    sortable: name
                     path: .
                     options:
-                        template: "@BitBagSyliusCmsPlugin/Grid/Field/page_image.html.twig"
+                        template: "@SyliusCmsPlugin/Grid/Field/name.html.twig"
                 code:
                     type: string
-                    label: bitbag_sylius_cms_plugin.ui.code
+                    label: sylius_cms.ui.code
                     sortable: ~
-                name:
-                    type: string
-                    label: bitbag_sylius_cms_plugin.ui.name
-                    sortable: translation.name
-                slug:
-                    type: string
-                    label: bitbag_sylius_cms_plugin.ui.slug
-                    sortable: translation.slug
-                sections:
+                enabled:
                     type: twig
-                    label: bitbag_sylius_cms_plugin.ui.sections
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                collections:
+                    type: twig
+                    label: sylius_cms.ui.collections
                     path: .
                     options:
-                        template: "@BitBagSyliusCmsPlugin/Grid/Field/sections.html.twig"
+                        template: "@SyliusCmsPlugin/Grid/Field/collections.html.twig"
+                channels:
+                    type: twig
+                    label: sylius_cms.ui.channels
+                    path: .
+                    options:
+                        template: "@SyliusCmsPlugin/Grid/Field/channels.html.twig"
             filters:
                 search:
                     type: string
                     label: sylius.ui.search
                     options:
                         fields: [code]
-                sections:
+                collections:
                     type: entity
-                    label: bitbag_sylius_cms_plugin.ui.sections
+                    label: sylius_cms.ui.collections
                     form_options:
-                        class: "%bitbag_sylius_cms_plugin.model.section.class%"
+                        class: "%sylius_cms.model.collection.class%"
                         choice_label: name
                         choice_value: code
                     options:
-                        fields: [sections.code]
+                        fields: [collections.code]
             actions:
                 main:
                     import:

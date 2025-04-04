@@ -1,33 +1,38 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Form\Type;
+namespace Sylius\CmsPlugin\Form\Type;
 
-use BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
-use BitBag\SyliusCmsPlugin\Resolver\WysiwygStrategyResolverInterface;
+use Sylius\CmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
+use Sylius\CmsPlugin\Resolver\WysiwygStrategyResolverInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class WysiwygType extends AbstractType
 {
     private WysiwygStrategyInterface $strategy;
 
-    public function __construct(private WysiwygStrategyResolverInterface $strategyResolver)
-    {
+    public function __construct(
+        private WysiwygStrategyResolverInterface $strategyResolver,
+        private UrlGeneratorInterface $urlGenerator,
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $this->strategy->configureOptions($resolver);
+
+        $resolver->setDefaults([
+            'label' => 'sylius_cms.ui.content',
+            'config' => [
+                'filebrowserUploadUrl' => $this->urlGenerator->generate('sylius_cms_admin_upload_editor_image'),
+                'bodyId' => 'cms-ckeditor',
+            ],
+        ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

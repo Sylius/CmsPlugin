@@ -1,41 +1,29 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Fixture\Factory;
+namespace Sylius\CmsPlugin\Fixture\Factory;
 
-use BitBag\SyliusCmsPlugin\Assigner\ChannelsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Assigner\ProductsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Assigner\SectionsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Assigner\TaxonsAssignerInterface;
-use BitBag\SyliusCmsPlugin\Entity\BlockInterface;
-use BitBag\SyliusCmsPlugin\Entity\BlockTranslationInterface;
-use BitBag\SyliusCmsPlugin\Repository\BlockRepositoryInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\CmsPlugin\Assigner\ChannelsAssignerInterface;
+use Sylius\CmsPlugin\Assigner\CollectionsAssignerInterface;
+use Sylius\CmsPlugin\Assigner\ProductsAssignerInterface;
+use Sylius\CmsPlugin\Assigner\ProductsInTaxonsAssignerInterface;
+use Sylius\CmsPlugin\Assigner\TaxonsAssignerInterface;
+use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Entity\ContentConfiguration;
+use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class BlockFixtureFactory implements FixtureFactoryInterface
 {
     public function __construct(
         private FactoryInterface $blockFactory,
-        private FactoryInterface $blockTranslationFactory,
         private BlockRepositoryInterface $blockRepository,
-        private ProductRepositoryInterface $productRepository,
-        private ChannelContextInterface $channelContext,
-        private LocaleContextInterface $localeContext,
+        private CollectionsAssignerInterface $collectionsAssigner,
+        private ChannelsAssignerInterface $channelAssigner,
         private ProductsAssignerInterface $productsAssigner,
         private TaxonsAssignerInterface $taxonsAssigner,
-        private SectionsAssignerInterface $sectionsAssigner,
-        private ChannelsAssignerInterface $channelAssigner,
+        private ProductsInTaxonsAssignerInterface $productsInTaxonsAssigner,
     ) {
     }
 
@@ -51,13 +39,7 @@ final class BlockFixtureFactory implements FixtureFactoryInterface
                 $this->blockRepository->remove($block);
             }
 
-            if (null !== $fields['number']) {
-                for ($i = 0; $i < $fields['number']; ++$i) {
-                    $this->createBlock(md5(uniqid()), $fields);
-                }
-            } else {
-                $this->createBlock($code, $fields);
-            }
+            $this->createBlock($code, $fields);
         }
     }
 
@@ -66,44 +48,31 @@ final class BlockFixtureFactory implements FixtureFactoryInterface
         /** @var BlockInterface $block */
         $block = $this->blockFactory->createNew();
 
-        $products = $blockData['products'];
-        if (null !== $products) {
-            $this->resolveProducts($block, $products);
-        }
-
-        $this->sectionsAssigner->assign($block, $blockData['sections']);
-        $this->productsAssigner->assign($block, $blockData['productCodes']);
-        $this->taxonsAssigner->assign($block, $blockData['taxons']);
-        $this->channelAssigner->assign($block, $blockData['channels']);
-
         $block->setCode($code);
+        $block->setName($blockData['name']);
         $block->setEnabled($blockData['enabled']);
 
-        foreach ($blockData['translations'] as $localeCode => $translation) {
-            /** @var BlockTranslationInterface $blockTranslation */
-            $blockTranslation = $this->blockTranslationFactory->createNew();
+        $this->collectionsAssigner->assign($block, $blockData['collections']);
+        $this->channelAssigner->assign($block, $blockData['channels']);
+        $this->productsAssigner->assign($block, $blockData['products']);
+        $this->taxonsAssigner->assign($block, $blockData['taxons']);
+        $this->productsInTaxonsAssigner->assign($block, $blockData['products_in_taxons']);
 
-            $blockTranslation->setLocale($localeCode);
-            $blockTranslation->setName($translation['name']);
-            $blockTranslation->setContent($translation['content']);
-            $blockTranslation->setLink($translation['link']);
-            $block->addTranslation($blockTranslation);
+        foreach ($blockData['content_elements'] as $locale => $data) {
+            foreach ($data as $contentElementData) {
+                $contentElementData['data'] = array_filter($contentElementData['data'], static function ($value) {
+                    return !empty($value);
+                });
+
+                $contentConfiguration = new ContentConfiguration();
+                $contentConfiguration->setType($contentElementData['type']);
+                $contentConfiguration->setConfiguration($contentElementData['data']);
+                $contentConfiguration->setLocale($locale);
+                $contentConfiguration->setBlock($block);
+                $block->addContentElement($contentConfiguration);
+            }
         }
 
         $this->blockRepository->add($block);
-    }
-
-    private function resolveProducts(BlockInterface $block, int $limit): void
-    {
-        /** @var ChannelInterface $channel */
-        $channel = $this->channelContext->getChannel();
-        $products = $this->productRepository->findLatestByChannel(
-            $channel,
-            $this->localeContext->getLocaleCode(),
-            $limit,
-        );
-        foreach ($products as $product) {
-            $block->addProduct($product);
-        }
     }
 }

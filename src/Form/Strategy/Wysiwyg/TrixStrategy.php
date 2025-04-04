@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg;
+namespace Sylius\CmsPlugin\Form\Strategy\Wysiwyg;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,11 +17,11 @@ final class TrixStrategy extends AbstractWysiwygStrategy
 {
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['block_prefix'] = 'bitbag_sylius_cms_plugin_trix_strategy';
+        $view->vars['block_prefix'] = 'sylius_cms_plugin_trix_strategy';
     }
 
     public function getBlockPrefix(): string
     {
-        return 'bitbag_sylius_cms_plugin_trix_strategy';
+        return 'sylius_cms_plugin_trix_strategy';
     }
 }

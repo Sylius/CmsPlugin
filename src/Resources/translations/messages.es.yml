@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Bloques
+        block: Bloque
         pages: Páginas
+        page: Página
         content_management: Gestión de contenido
         cms: Gestión de contenido
         enabled: Activo
@@ -16,22 +18,62 @@ bitbag_sylius_cms_plugin:
         page_related_products: Productos relacionados
         name: Nombre
         slug: Slug
+        meta_title: Meta título
         meta_keywords: Meta keywords
         meta_description: Meta descripción
         content: Contenido
-        faq: Preguntas frecuentes
         code: Código
         contents: Contenido
         images: Imágenes
         image: Imagen
         link: Enlace
-        faq_header: Preguntas frecuentes
-        faq_subheader: Gestiona tus preguntas frecuentes
-        frequently_asked_questions: Preguntas frecuentes
+        link_content: Contenido del enlace
         question: Pregunta
         answer: Respuesta
-        sections: Secciones
-        sections_header: Secciones
-        sections_subheader: Gestiona tus secciones
+        collections: Colecciones
+        collections_header: Colecciones
+        collections_subheader: Gestiona tus colecciones
         position: Posición
         title: Título
+        content_elements:
+            title: Contenido
+            type:
+                textarea: Textarea
+                single_media: Medio único
+                multiple_media: Múltiples medios
+                heading: Encabezado
+                products_carousel: Productos en carrusel
+                products_carousel_by_taxon: Productos en carrusel por taxón
+                taxons_list: Lista de taxones
+                products_grid: Productos en cuadrícula
+                products_grid_by_taxon: Productos en cuadrícula por taxón
+                pages_collection: Colección de páginas
+                spacer: Separador
+                spacer_height: Altura del separador en píxeles
+            heading_type: Tipo de encabezado
+            template: Plantilla de elementos de contenido
+        taxon: Taxón
+        display_for_products:
+            label: Mostrar para productos
+            help: Seleccione productos en los que se mostrará este bloque
+        display_for_products_in_taxons:
+            label: Mostrar para productos en taxones
+            help: Este bloque se mostrará para productos en los taxones seleccionados. Solo se considera el "Taxón principal".
+        display_for_taxons:
+            label: Mostrar para taxones
+            help: Seleccione taxones en los que se mostrará este bloque
+        manage_block_display: Administrar visualización de bloques
+        templates: Plantillas
+        template: Plantilla
+        content_templates: Plantillas de contenido
+        new_template: Nueva plantilla
+        edit_template: Editar plantilla
+        use_page_template: Usar plantilla de página
+        use_this_template: Usar esta plantilla
+        load_template_confirmation_modal_text: Esta operación borrará la configuración actual de los elementos de contenido. ¿Está seguro de que desea continuar?
+        teaser:
+            header: Avance
+            title: Título del avance
+            content: Contenido del avance
+            image: Imagen del avance
+            help: Es una pequeña vista previa de la página. Se utiliza al renderizar una colección de páginas.

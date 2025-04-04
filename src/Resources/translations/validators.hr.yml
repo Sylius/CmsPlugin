@@ -1,4 +1,4 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     block:
         image:
             mime_types: Samo su PNG, SVG ili JPG formati dopušteni.
@@ -37,24 +37,9 @@ bitbag_sylius_cms_plugin:
         content:
             not_blank: Sadržaj ne može biti prazan.
             min_length: Sadržaj mora sadržavati minimlano {{ limit }} znakova.
-    frequently_asked_question:
+    collection:
         code:
-            unique: Postoji FAQ sa istim kodom.
-            not_blank: Kod ne može biti prazan.
-            min_length: Kod mora sadržavati minimalno {{ limit }} znaka.
-            max_length: Kod ne može biti duži od {{ limit }} znakova.
-        position:
-            unique: Postoji FAQ sa istom pozicijom.
-            not_blank: Pozicija ne može biti prazna.
-        question:
-            not_blank: Pitanje ne može biti prazno.
-            min_length: Pitanje mora sadržavati minimalno {{ limit }} znaka.
-        answer:
-            not_blank: Odgovor ne može biti prazan.
-            min_length: Odgovor mora sadržavati minimalno {{ limit }} znaka.
-    section:
-        code:
-            unique: Postoji kategorija sa istim kodom.
+            unique: Postoji kolekcija sa istim kodom.
             not_blank: Kod ne može biti prazan.
             min_length: Kod mora sadržavati minimalno {{ limit }} znaka.
             max_length: Kod ne može biti duži od {{ limit }} znakova.
@@ -62,3 +47,9 @@ bitbag_sylius_cms_plugin:
             not_blank: Naziv ne može biti prazan.
             min_length: Naziv mora sadržavati minimalno {{ limit }} znaka.
             max_length: Naziv mora biti duži od {{ limit }} znakova.
+    template:
+        name:
+            unique: Već postoji predložak s tim imenom.
+            not_blank: Ime ne može biti prazno.
+            min_length: Ime mora biti dugo najmanje {{ limit }} znakova.
+            max_length: Ime ne smije biti duže od {{ limit }} znakova.

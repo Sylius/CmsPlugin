@@ -1,23 +1,21 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace spec\BitBag\SyliusCmsPlugin\Importer;
+namespace spec\Sylius\CmsPlugin\Importer;
 
-use BitBag\SyliusCmsPlugin\Entity\BlockInterface;
-use BitBag\SyliusCmsPlugin\Repository\BlockRepositoryInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ImporterChannelsResolverInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ImporterProductsResolverInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ImporterSectionsResolverInterface;
-use BitBag\SyliusCmsPlugin\Resolver\ResourceResolverInterface;
 use PhpSpec\ObjectBehavior;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Importer\BlockImporter;
+use Sylius\CmsPlugin\Importer\BlockImporterInterface;
+use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterChannelsResolverInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterLocalesResolverInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterProductsInTaxonsResolverInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterProductsResolverInterface;
+use Sylius\CmsPlugin\Resolver\Importer\ImporterTaxonsResolverInterface;
+use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -25,58 +23,58 @@ final class BlockImporterSpec extends ObjectBehavior
 {
     public function let(
         ResourceResolverInterface $blockResourceResolver,
-        LocaleContextInterface $localeContext,
-        ImporterSectionsResolverInterface $importerSectionsResolver,
+        ImporterCollectionsResolverInterface $importerCollectionsResolver,
         ImporterChannelsResolverInterface $importerChannelsResolver,
         ImporterProductsResolverInterface $importerProductsResolver,
+        ImporterTaxonsResolverInterface $importerTaxonsResolver,
+        ImporterProductsInTaxonsResolverInterface $importerProductsInTaxonsResolver,
         ValidatorInterface $validator,
-        BlockRepositoryInterface $blockRepository
+        BlockRepositoryInterface $blockRepository,
     ) {
         $this->beConstructedWith(
             $blockResourceResolver,
-            $localeContext,
-            $importerSectionsResolver,
+            $importerCollectionsResolver,
             $importerChannelsResolver,
             $importerProductsResolver,
+            $importerTaxonsResolver,
+            $importerProductsInTaxonsResolver,
             $validator,
-            $blockRepository
+            $blockRepository,
         );
     }
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType(\BitBag\SyliusCmsPlugin\Importer\BlockImporter::class);
-        $this->shouldImplement(\BitBag\SyliusCmsPlugin\Importer\BlockImporterInterface::class);
+        $this->shouldHaveType(BlockImporter::class);
+        $this->shouldImplement(BlockImporterInterface::class);
     }
 
     public function it_imports_block(
         ResourceResolverInterface $blockResourceResolver,
-        LocaleContextInterface $localeContext,
-        ImporterSectionsResolverInterface $importerSectionsResolver,
+        ImporterCollectionsResolverInterface $importerCollectionsResolver,
         ImporterChannelsResolverInterface $importerChannelsResolver,
         ImporterProductsResolverInterface $importerProductsResolver,
+        ImporterTaxonsResolverInterface $importerTaxonsResolver,
+        ImporterProductsInTaxonsResolverInterface $importerProductsInTaxonsResolver,
         ValidatorInterface $validator,
         BlockRepositoryInterface $blockRepository,
-        BlockInterface $block
+        BlockInterface $block,
     ) {
-        $row = ['name_pl' => 'name', 'content_pl' => 'content', 'link_pl' => 'link', 'code' => 'block_code'];
+        $row = ['name' => 'block_name', 'code' => 'block_code', 'enabled' => '1'];
 
         $blockResourceResolver->getResource('block_code')->willReturn($block);
 
-        $localeContext->getLocaleCode()->willReturn('en_US');
-
         $block->setCode('block_code')->shouldBeCalled();
-        $block->setFallbackLocale('en_US')->shouldBeCalled();
-        $block->setCurrentLocale('pl')->shouldBeCalled();
-        $block->setName('name')->shouldBeCalled();
-        $block->setLink('link')->shouldBeCalled();
-        $block->setContent('content')->shouldBeCalled();
+        $block->setName('block_name')->shouldBeCalled();
+        $block->setEnabled(true)->shouldBeCalled();
 
-        $importerSectionsResolver->resolve($block, null)->shouldBeCalled();
+        $importerCollectionsResolver->resolve($block, null)->shouldBeCalled();
         $importerChannelsResolver->resolve($block, null)->shouldBeCalled();
         $importerProductsResolver->resolve($block, null)->shouldBeCalled();
+        $importerTaxonsResolver->resolve($block, null)->shouldBeCalled();
+        $importerProductsInTaxonsResolver->resolve($block, null)->shouldBeCalled();
 
-        $validator->validate($block, null, ['bitbag'])->willReturn(new ConstraintViolationList());
+        $validator->validate($block, null, ['cms'])->willReturn(new ConstraintViolationList());
 
         $blockRepository->add($block)->shouldBeCalled();
 

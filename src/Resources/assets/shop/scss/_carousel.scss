@@ -1,0 +1,27 @@
+.carousel-wrapper {
+    position: relative;
+
+    .products-carousel {
+        margin: 0 -1em;
+    }
+
+    .products-carousel-nav {
+        .products-carousel-left {
+            left: 30px;
+        }
+
+        .products-carousel-right {
+            right: 30px;
+        }
+
+        .products-carousel-left, .products-carousel-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .products-carousel-item {
+        padding: 5px 1em;
+    }
+}

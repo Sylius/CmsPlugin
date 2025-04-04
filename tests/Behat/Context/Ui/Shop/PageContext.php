@@ -1,19 +1,13 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusCmsPlugin\Behat\Context\Ui\Shop;
+namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
 use Sylius\Behat\Service\SharedStorageInterface;
-use Tests\BitBag\SyliusCmsPlugin\Behat\Page\Shop\Page\IndexPageInterface;
-use Tests\BitBag\SyliusCmsPlugin\Behat\Page\Shop\Page\ShowPageInterface;
+use Tests\Sylius\CmsPlugin\Behat\Page\Shop\Page\IndexPageInterface;
+use Tests\Sylius\CmsPlugin\Behat\Page\Shop\Page\ShowPageInterface;
 use Webmozart\Assert\Assert;
 
 final class PageContext implements Context
@@ -44,11 +38,11 @@ final class PageContext implements Context
     }
 
     /**
-     * @When I go to the section pages list for the :sectionCode section
+     * @When I go to the collection pages list for the :collectionCode collection
      */
-    public function iGoToTheSectionPagesListForTheSection(string $sectionCode): void
+    public function iGoToTheCollectionPagesListForTheCollection(string $collectionCode): void
     {
-        $this->indexPage->open(['sectionCode' => $sectionCode]);
+        $this->indexPage->open(['collectionCode' => $collectionCode]);
     }
 
     /**
@@ -84,11 +78,11 @@ final class PageContext implements Context
     }
 
     /**
-     * @Then I should also see :firstSectionName and :secondSectionName sections associated with this page
+     * @Then I should also see :firstCollectionName and :secondCollectionName collections associated with this page
      */
-    public function iShouldAlsoSeeSectionsAssociatedWithThisPage(string ...$sectionsNames): void
+    public function iShouldAlsoSeeCollectionsAssociatedWithThisPage(string ...$collectionsNames): void
     {
-        Assert::true($this->showPage->hasSections($sectionsNames));
+        Assert::true($this->showPage->hasCollections($collectionsNames));
     }
 
     /**
@@ -113,5 +107,13 @@ final class PageContext implements Context
     public function iShouldSeePageTitle(string $title): void
     {
         Assert::true($this->showPage->hasTitle($title));
+    }
+
+    /**
+     * @Then The rendered page should contain custom layout code
+     */
+    public function theRenderedPageShouldContainCustomLayoutCode()
+    {
+        Assert::true($this->showPage->hasCustomLayoutCode());
     }
 }

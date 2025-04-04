@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Bloki
+        block: Blok
         pages: Strony
+        page: Strona
         content_management: Zarządzanie treścią
         cms: Zarządzanie treścią
         enabled: Włączony
@@ -16,26 +18,66 @@ bitbag_sylius_cms_plugin:
         page_related_products: Produkty powiązane ze stroną
         name: Nazwa
         slug: Link
+        meta_title: Tytuł meta
         meta_keywords: Słowa kluczowe
         meta_description: Opis sekcji meta
         content: Treść
-        faq: FAQ
         code: Kod
         contents: Treść
         images: Zdjęcia
         image: Zdjęcie
         link: Link
-        faq_header: FAQ
-        faq_subheader: Zarządzaj najczęściej zadawanymi pytaniami
-        frequently_asked_questions: Najczęściej zadawane pytania
+        link_content: Treść linka
         question: Pytanie
         answer: Odpowiedź
-        sections: Sekcje
-        sections_header: Sekcje
-        sections_subheader: Zarządzaj sekcjami
+        collections: Kolekcje
+        collections_header: Kolekcje
+        collections_subheader: Zarządzaj kolekcjami
         position: Pozycja
         title: Tytuł
         empty_name: Brak nazwy
         publish_at: Opublikuj
         page_will_be_publish_at: Strona zostanie opublikowana
         save_with_original_name: Zapisz z oryginalną nazwą
+        content_elements:
+            title: Treść
+            type:
+                textarea: Textarea
+                single_media: Pojedyncze media
+                multiple_media: Wiele mediów
+                heading: Nagłówek
+                products_carousel: Karuzela produktów
+                products_carousel_by_taxon: Karuzela produktów według taksonomii
+                taxons_list: Lista taksonomii
+                products_grid: Siatka produktów
+                products_grid_by_taxon: Siatka produktów według taksonomii
+                pages_collection: Kolekcja stron
+                spacer: Odstęp
+                spacer_height: Wysokość odstępu w pikselach
+            heading_type: Typ nagłówka
+            template: Szablon elementów treści
+        taxon: Taksonomia
+        display_for_products:
+            label: Wyświetlaj dla produktów
+            help: Wybierz produkty, dla których ten blok będzie wyświetlany
+        display_for_products_in_taxons:
+            label: Wyświetlaj dla produktów w taksonomiach
+            help: Ten blok będzie wyświetlany dla produktów w wybranych taksonomiach. Tylko "Główna taksonomia" jest brana pod uwagę.
+        display_for_taxons:
+            label: Wyświetlaj dla taksonomii
+            help: Wybież taksonomie, dla których ten blok będzie wyświetlany
+        manage_block_display: Zarządzaj wyświetlaniem bloku
+        templates: Szablony
+        template: Szablon
+        content_templates: Szablony treści
+        new_template: Nowy szablon
+        edit_template: Edytuj szablon
+        use_page_template: Użyj szablonu strony
+        use_this_template: Użyj tego szablonu
+        load_template_confirmation_modal_text: Ta operacja spowoduje usunięcie bieżącej konfiguracji elementów zawartości. Czy na pewno chcesz kontynuować?
+        teaser:
+            header: Zapowiedź
+            title: Tytuł zapowiedzi
+            content: Treść zapowiedzi
+            image: Obrazek zapowiedzi
+            help: To mały podgląd strony. Używa się go podczas renderowania kolekcji stron.

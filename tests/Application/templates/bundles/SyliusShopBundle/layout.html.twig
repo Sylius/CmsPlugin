@@ -16,12 +16,12 @@
         <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 
         <style>
-            .bitbag-page a, .bitbag-page a:hover {
+            .cms-page a, .cms-page a:hover {
                 color: rgba(0, 0, 0, .87);
                 width: 100%;
             }
 
-            .bitbag-image-block a, .bitbag-image-block a:hover, .bitbag-image-block a:focus {
+            .cms-image-block a, .cms-image-block a:hover, .cms-image-block a:focus {
                 color: #333333;
             }
 
@@ -29,13 +29,13 @@
                 margin-top: 1rem;
             }
 
-            .bitbag-page, .bitbag-frequently-asked-question {
+            .cms-page {
                 padding-top: 1rem;
                 padding-bottom: 1rem;
                 border-bottom: 1px solid rgba(34, 36, 38, .15);
             }
 
-            .bitbag-page:hover {
+            .cms-page:hover {
                 background: rgba(0, 0, 0, .03);
             }
 
@@ -61,8 +61,7 @@
             }
 
             .cms-logo {
-                margin-top: 20px;
-                margin-bottom: 20px;
+                padding: 20px !important;
             }
 
             pre {
@@ -103,15 +102,15 @@
                 {{ sonata_block_render_event('sylius.shop.layout.after_header') }}
 
                 <div class="ui large stackable menu">
-                    {{ render(url('sylius_shop_partial_taxon_index_by_code', {'code': 'category', 'template': '@SyliusShop/Taxon/_horizontalMenu.html.twig'})) }}
-                    {{ render(path('bitbag_sylius_cms_plugin_shop_page_show_link_by_code', {'code' : 'about', 'template' : '@BitBagSyliusCmsPlugin/Shop/Page/Show/_link.html.twig'})) }}
-                    <a href="{{ path('bitbag_sylius_cms_plugin_shop_page_index_by_section_code', {'sectionCode' : 'blog'}) }}"
+                    {{ render(url('sylius_shop_partial_taxon_index_by_code', {'code': 'MENU_CATEGORY', 'template': '@SyliusShop/Taxon/_horizontalMenu.html.twig'})) }}
+                    <a href="{{ path('sylius_cms_shop_page_show', {'slug' : 'blog'}) }}"
                        class="item">
                         Blog
                         <span class="ui teal label">NEW</span>
                     </a>
-                    <a href="{{ path('bitbag_sylius_cms_plugin_shop_frequently_asked_question_index') }}" class="item">
-                        FAQs
+                    <a href="{{ path('sylius_cms_shop_page_show', {'slug' : 'faq'}) }}"
+                       class="item">
+                        FAQ
                         <span class="ui teal label">NEW</span>
                     </a>
                     <a href="{{ path('sylius_admin_login') }}" class="item">

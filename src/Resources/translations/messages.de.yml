@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Blöcke
+        block: Block
         pages: Seiten
+        page: Seite
         content_management: Inhaltsverwaltung
         cms: Inhaltsverwaltung
         enabled: Aktiviert
@@ -20,6 +22,7 @@ bitbag_sylius_cms_plugin:
         empty_name: Leerer Name
         publish_at: Veröffentlichen am
         page_will_be_publish_at: Diese Seite wird veröffentlicht am
+        meta_title: Meta Titel
         meta_keywords: Meta Stichwörter
         meta_description: Meta Beschreibung
         content: Inhalt
@@ -28,13 +31,12 @@ bitbag_sylius_cms_plugin:
         images: Bilder
         image: Bild
         link: Link
+        link_content: Link-Inhalt
         title: Titel
         csv_file: CSV-Datei
-        sections: Sektionen
-        sections_header: Sektionen
-        sections_subheader: Verwalte deine Sektionen
-        faq_subheader: Verwalte häufig gestellte Fragen
-        frequently_asked_questions: Häufig gestellte Fragen
+        collections: Sammlungen
+        collections_header: Sammlungen
+        collections_subheader: Verwalten Sie Ihre Sammlungen
         question: Frage
         answer: Antwort
         channels: Ausgabekanäle
@@ -54,3 +56,45 @@ bitbag_sylius_cms_plugin:
         import: Importieren
         successfully_imported: Die Daten wurden importiert.
         form_was_submitted_with_errors: "Das Formular wurde mit folgenden Fehlern übermittelt:"
+        content_elements:
+            title: Inhalt
+            type:
+                textarea: Textarea
+                single_media: Einzelmedium
+                multiple_media: Mehrere Medien
+                heading: Überschrift
+                products_carousel: Produkte im Karussell
+                products_carousel_by_taxon: Produkte im Karussell nach Taxon
+                taxons_list: Taxon-Liste
+                products_grid: Produkte im Raster
+                products_grid_by_taxon: Produkte im Raster nach Taxon
+                pages_collection: Seitenkollektion
+                spacer: Abstandshalter
+                spacer_height: Höhe des Abstandshalters in Pixeln
+            heading_type: Überschrift-Typ
+            template: Inhaltselementvorlage
+        taxon: Taxon
+        display_for_products:
+            label: Display für Produkte
+            help: Wählen Sie Produkte aus, in denen dieser Block angezeigt wird
+        display_for_products_in_taxons:
+            label: Display für Produkte in Taxons
+            help: Dieser Block wird für Produkte in ausgewählten Taxonen angezeigt. Nur „Haupttaxon“ ist belegt.
+        display_for_taxons:
+            label: Display für Taxons
+            help: Wählen Sie Taxonen aus, in denen dieser Block angezeigt wird
+        manage_block_display: Blockanzeige verwalten
+        templates: Vorlagen
+        template: Vorlage
+        content_templates: Inhaltsvorlagen
+        new_template: Neue Vorlage
+        edit_template: Vorlage bearbeiten
+        use_page_template: Seitenschablone verwenden
+        use_this_template: Diese Vorlage verwenden
+        load_template_confirmation_modal_text: Dieser Vorgang wird die aktuelle Konfiguration der Inhaltselemente löschen. Sind Sie sicher, dass Sie fortfahren möchten?
+        teaser:
+            header: Vorschau
+            title: Vorschau-Titel
+            content: Vorschau-Inhalt
+            image: Vorschau-Bild
+            help: Es ist eine kleine Vorschau der Seite. Sie wird beim Rendern einer Sammlung von Seiten verwendet.

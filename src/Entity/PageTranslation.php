@@ -1,65 +1,29 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Entity;
+namespace Sylius\CmsPlugin\Entity;
 
+use Sylius\CmsPlugin\Entity\Trait\TeaserTrait;
 use Sylius\Component\Resource\Model\AbstractTranslation;
 
 class PageTranslation extends AbstractTranslation implements PageTranslationInterface
 {
-    /** @var int */
-    protected $id;
+    use TeaserTrait;
 
-    /** @var string|null */
-    protected $slug;
+    protected ?int $id;
 
-    /** @var MediaInterface|null */
-    protected $image;
+    protected ?string $slug = null;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $title = null;
 
-    /** @var string|null */
-    protected $content;
+    protected ?string $metaKeywords;
 
-    /** @var string|null */
-    protected $metaKeywords;
-
-    /** @var string|null */
-    protected $metaDescription;
-
-    /** @var string|null */
-    protected $nameWhenLinked;
-
-    /** @var string|null */
-    protected $descriptionWhenLinked;
-
-    /** @var string|null */
-    protected $breadcrumb;
-
-    /** @var string|null */
-    protected $title;
+    protected ?string $metaDescription;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(?string $content): void
-    {
-        $this->content = $content;
     }
 
     public function getSlug(): ?string
@@ -70,56 +34,6 @@ class PageTranslation extends AbstractTranslation implements PageTranslationInte
     public function setSlug(?string $slug): void
     {
         $this->slug = $slug;
-    }
-
-    public function getImage(): ?MediaInterface
-    {
-        return $this->image;
-    }
-
-    public function setImage(?MediaInterface $image): void
-    {
-        $this->image = $image;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getBreadcrumb(): ?string
-    {
-        return $this->breadcrumb;
-    }
-
-    public function setBreadcrumb(?string $breadcrumb): void
-    {
-        $this->breadcrumb = $breadcrumb;
-    }
-
-    public function getNameWhenLinked(): ?string
-    {
-        return $this->nameWhenLinked;
-    }
-
-    public function setNameWhenLinked(?string $nameWhenLinked): void
-    {
-        $this->nameWhenLinked = $nameWhenLinked;
-    }
-
-    public function getDescriptionWhenLinked(): ?string
-    {
-        return $this->descriptionWhenLinked;
-    }
-
-    public function setDescriptionWhenLinked(?string $descriptionWhenLinked): void
-    {
-        $this->descriptionWhenLinked = $descriptionWhenLinked;
     }
 
     public function getMetaKeywords(): ?string

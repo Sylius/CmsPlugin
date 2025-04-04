@@ -1,29 +1,42 @@
 <?php
 
-/*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
-
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Form\Type;
+namespace Sylius\CmsPlugin\Form\Type;
 
-use BitBag\SyliusCmsPlugin\Entity\BlockInterface;
-use BitBag\SyliusCmsPlugin\Form\Type\Translation\BlockTranslationType;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAutocompleteChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\Bundle\TaxonomyBundle\Form\Type\TaxonAutocompleteChoiceType;
+use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
+use Sylius\Component\Locale\Model\LocaleInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Valid;
 
 final class BlockType extends AbstractResourceType
 {
+    private array $locales = [];
+
+    public function __construct(
+        private RepositoryInterface $localeRepository,
+        private ResourceTemplateProviderInterface $templateProvider,
+        string $dataClass,
+        array $validationGroups = [],
+    ) {
+        parent::__construct($dataClass, $validationGroups);
+
+        /** @var LocaleInterface[] $locales */
+        $locales = $this->localeRepository->findAll();
+        foreach ($locales as $locale) {
+            $this->locales[$locale->getName()] = $locale->getCode();
+        }
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var BlockInterface $block */
@@ -31,41 +44,79 @@ final class BlockType extends AbstractResourceType
 
         $builder
             ->add('code', TextType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.code',
+                'label' => 'sylius_cms.ui.code',
                 'disabled' => null !== $block->getCode(),
             ])
-            ->add('sections', SectionAutocompleteChoiceType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.sections',
+            ->add('name', TextType::class, [
+                'label' => 'sylius_cms.ui.name',
+            ])
+            ->add('templates', ChoiceType::class, [
+                'label' => 'sylius_cms.ui.template',
+                'choices' => $this->templateProvider->getBlockTemplates(),
+                'mapped' => false,
+            ])
+            ->add('collections', CollectionAutocompleteChoiceType::class, [
+                'label' => 'sylius_cms.ui.collections',
                 'multiple' => true,
             ])
             ->add('enabled', CheckboxType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.enabled',
-            ])
-            ->add('products', ProductAutocompleteChoiceType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.products',
-                'multiple' => true,
-            ])
-            ->add('taxons', TaxonAutocompleteChoiceType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.taxons',
-                'multiple' => true,
+                'label' => 'sylius_cms.ui.enabled',
             ])
             ->add('channels', ChannelChoiceType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.channels',
+                'label' => 'sylius_cms.ui.channels',
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('translations', ResourceTranslationsType::class, [
-                'label' => 'bitbag_sylius_cms_plugin.ui.contents',
-                'entry_type' => BlockTranslationType::class,
-                'validation_groups' => ['bitbag_content'],
-                'constraints' => [new Valid()],
+            ->add('contentElements', CollectionType::class, [
+                'label' => false,
+                'entry_type' => ContentConfigurationType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'attr' => [
+                    'class' => 'content-elements-container',
+                ],
+            ])
+            ->add('products', ProductAutocompleteChoiceType::class, [
+                'label' => 'sylius_cms.ui.display_for_products.label',
+                'multiple' => true,
+                'help' => 'sylius_cms.ui.display_for_products.help',
+            ])
+            ->add('productsInTaxons', TaxonAutocompleteChoiceType::class, [
+                'label' => 'sylius_cms.ui.display_for_products_in_taxons.label',
+                'multiple' => true,
+                'help' => 'sylius_cms.ui.display_for_products_in_taxons.help',
+            ])
+            ->add('taxons', TaxonAutocompleteChoiceType::class, [
+                'label' => 'sylius_cms.ui.display_for_taxons.label',
+                'multiple' => true,
+                'help' => 'sylius_cms.ui.display_for_taxons.help',
+            ])
+            ->add('contentTemplate', TemplateBlockAutocompleteChoiceType::class, [
+                'label' => false,
+                'mapped' => false,
+            ])
+            ->add('locale', ChoiceType::class, [
+                'choices' => $this->locales,
+                'mapped' => false,
+                'label' => 'sylius.ui.locale',
+                'attr' => [
+                    'class' => 'locale-selector',
+                ],
             ])
         ;
+
+        PageType::addContentElementLocaleListener($builder);
+        PageType::addTemplateListener($builder);
     }
 
     public function getBlockPrefix(): string
     {
-        return 'bitbag_sylius_cms_plugin_block';
+        return 'sylius_cms_block';
     }
 }

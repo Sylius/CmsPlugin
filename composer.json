@@ -13,7 +13,6 @@
     "sylius/sylius": "^1.13",
     "league/csv": "^9.1",
     "friendsofsymfony/ckeditor-bundle": "^2.0",
-    "instaclick/php-webdriver": "^1.4",
     "symfony/webpack-encore-bundle": "^1.12"
   },
   "require-dev": {
@@ -31,15 +30,16 @@
     "friends-of-behat/suite-settings-extension": "^1.0",
     "friends-of-behat/symfony-extension": "^2.1",
     "friends-of-behat/variadic-extension": "^1.3",
+    "instaclick/php-webdriver": "^1.4",
     "lchrusciel/api-test-case": "^4.1 || ^5.0",
-    "matthiasnoback/symfony-config-test": "^4.0 || ^5.1",
+    "matthiasnoback/symfony-config-test": "^5.1",
     "phpspec/phpspec": "^7.2",
     "phpstan/extension-installer": "^1.0",
     "phpstan/phpstan": "^1.8.1",
     "phpstan/phpstan-doctrine": "^1.3",
     "phpstan/phpstan-strict-rules": "^1.3.0",
     "phpstan/phpstan-webmozart-assert": "^1.2.0",
-    "phpunit/phpunit": "^9.5 || ^10.5",
+    "phpunit/phpunit": "^10.5",
     "polishsymfonycommunity/symfony-mocker-container": "^1.0",
     "robertfausk/behat-panther-extension": "^1.1",
     "sylius-labs/coding-standard": "^4.2",
@@ -51,26 +51,19 @@
     "symfony/runtime": "^5.4 || ^6.4",
     "symfony/web-profiler-bundle": "^5.4 || ^6.4"
   },
-  "conflict": {
-    "symfony/symfony": "4.1.8",
-    "symfony/browser-kit": "4.1.8",
-    "symfony/dom-crawler": "4.1.8",
-    "symfony/routing": "4.1.8",
-    "symfony/doctrine-bridge": "4.4.16"
-  },
   "suggest": {
-    "stefandoorn/sitemap-plugin": "^2.0@alpha"
+    "stefandoorn/sitemap-plugin": "^2.2"
   },
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "BitBag\\SyliusCmsPlugin\\": "src/",
-      "Tests\\BitBag\\SyliusCmsPlugin\\": "tests/"
+      "Sylius\\CmsPlugin\\": "src/",
+      "Tests\\Sylius\\CmsPlugin\\": "tests/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "spec\\BitBag\\SyliusCmsPlugin\\": "spec/"
+      "spec\\Sylius\\CmsPlugin\\": "spec/"
     },
     "classmap": ["tests/Application/Kernel.php"]
   },

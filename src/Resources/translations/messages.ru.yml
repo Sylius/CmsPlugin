@@ -1,7 +1,9 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     ui:
         blocks: Блоки
+        block: Блок
         pages: Страницы
+        page: Страница
         content_management: Наполнение
         cms: Управление наполнением
         enabled: Вкл
@@ -13,23 +15,21 @@ bitbag_sylius_cms_plugin:
         page_related_products: Cопутствующие товары
         name: Имя
         slug: Путь
+        meta_title: Заголовок (мета)
         meta_keywords: Ключевые слова (мета)
         meta_description: Описание (мета)
         content: Содержимое
-        faq: FAQ
         code: Код
         contents: Содержит
         images: Изображения
         image: Изображение
         link: Ссылка
-        faq_header: FAQ
-        faq_subheader: Управление часто задаваемыми вопросами
-        frequently_asked_questions: Часто задаваемые вопросы
+        link_content: Содержимое ссылки
         question: Вопрос
         answer: Ответ
-        sections: Разделы
-        sections_header: Разделы
-        sections_subheader: Управление разделами
+        collections: Коллекции
+        collections_header: Коллекции
+        collections_subheader: Управляйте своими коллекциями
         position: Позиция
         channels: Каналы
         preview: Предпросмотр
@@ -52,3 +52,45 @@ bitbag_sylius_cms_plugin:
         csv_file: CSV файл
         successfully_imported: Данные успешно импортированы
         title: заглавие
+        content_elements:
+            title: Содержание
+            type:
+                textarea: Textarea
+                single_media: Одиночный медиа
+                multiple_media: Несколько медиа
+                heading: Заголовок
+                products_carousel: Продукты в карусели
+                products_carousel_by_taxon: Продукты в карусели по таксону
+                taxons_list: Список таксонов
+                products_grid: Продукты в сетке
+                products_grid_by_taxon: Продукты в сетке по таксону
+                pages_collection: Коллекция страниц
+                spacer: Пробел
+                spacer_height: Высота пробела в пикселях
+            heading_type: Тип заголовка
+            template: Шаблон элементов контента
+        taxon: Таксон
+        display_for_products:
+            label: Отображать для товаров
+            help: Выберите товары, для которых этот блок будет отображаться
+        display_for_products_in_taxons:
+            label: Отображать для товаров в таксономиях
+            help: Этот блок будет отображаться для товаров в выбранных таксонах. Берется только «Основной таксон».
+        display_for_taxons:
+            label: Отображать для таксонов
+            help: Выберите таксоны, в которых будет отображаться этот блок
+        manage_block_display: Управление отображением блоков
+        templates: Шаблоны
+        template: Шаблон
+        content_templates: Шаблоны контента
+        new_template: Новый шаблон
+        edit_template: Редактировать шаблон
+        use_page_template: Использовать шаблон страницы
+        use_this_template: Использовать этот шаблон
+        load_template_confirmation_modal_text: Эта операция удалит текущую конфигурацию элементов контента. Вы уверены, что хотите продолжить?
+        teaser:
+            header: Анонс
+            title: Заголовок анонса
+            content: Содержание анонса
+            image: Изображение анонса
+            help: Это небольшой предварительный просмотр страницы. Он используется при отображении коллекции страниц.

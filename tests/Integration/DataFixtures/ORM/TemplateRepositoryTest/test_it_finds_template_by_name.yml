@@ -1,0 +1,19 @@
+Sylius\CmsPlugin\Entity\Template:
+    template1:
+        name: 'template1-name'
+        type: 'page'
+    template2:
+        name: 'template2-name'
+        type: 'page'
+    template3:
+        name: 'template3-name'
+        type: 'page'
+    template4:
+        name: 'template4-name'
+        type: 'block'
+    template5:
+        name: 'template5-name'
+        type: 'block'
+    template6:
+        name: 'template6-name'
+        type: 'block'

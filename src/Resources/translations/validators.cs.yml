@@ -1,4 +1,4 @@
-bitbag_sylius_cms_plugin:
+sylius_cms:
     block:
         image:
             mime_types: Pouze PNG, SVG a JPEG soubory jsou povoleny.
@@ -43,25 +43,9 @@ bitbag_sylius_cms_plugin:
         content:
             not_blank: Obsah nemůže být prázdný.
             min_length: Obsah musí mít alespoň {{ limit }} znaků.
-    frequently_asked_question:
+    collection:
         code:
-            unique: S tímto kódem již existují často kladené dotazy.
-            not_blank: Kód nesmí být prázdný.
-            min_length: Kód musí mít alespoň {{ limit }} znaků.
-            max_length: Kód nemůže být delší než {{ limit }} znaků.
-            regex: Kód se může skládat pouze z písmen, číslic, pomlček a podtržítek.
-        position:
-            unique: Na této pozici již existují často kladené dotazy.
-            not_blank: Pozice nemůže být prázdná.
-        question:
-            not_blank: Otázka nemůže být prázdná.
-            min_length: Otázka musí mít alespoň {{ limit }} znaků.
-        answer:
-            not_blank: Odpověď nemůže být prázdná.
-            min_length: Odpověď musí obsahovat alespoň {{ limit }} znaků.
-    section:
-        code:
-            unique: Existuje již sekce s tímto kódem.
+            unique: Existuje již kolekce s tímto kódem.
             not_blank: Kód nesmí být prázdný.
             min_length: Kód musí mít alespoň {{ limit }} znaků.
             max_length: Kód nemůže být delší než {{ limit }} znaků.
@@ -96,3 +80,9 @@ bitbag_sylius_cms_plugin:
     import:
         not_blank: Importovaný soubor nemůže být prázdný.
         invalid_format: Nahrajte platný CSV soubor pro import.
+    template:
+        name:
+            unique: Šablona s tímto názvem již existuje.
+            not_blank: Název nesmí být prázdný.
+            min_length: Název musí mít alespoň {{ limit }} znaků.
+            max_length: Název nesmí být delší než {{ limit }} znaků.

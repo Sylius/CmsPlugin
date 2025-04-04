@@ -1,21 +1,12 @@
 <?php
 
-/*
- * This file has been created by developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * You can find more information about us on https://bitbag.io and write us
- * an email on hello@bitbag.io.
- */
-
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusCmsPlugin\Integration\Repository;
+namespace Tests\Sylius\CmsPlugin\Integration\Repository;
 
 use ApiTestCase\JsonApiTestCase;
-use BitBag\SyliusCmsPlugin\Entity\PageInterface;
-use BitBag\SyliusCmsPlugin\Repository\PageRepositoryInterface;
-use Sylius\Component\Core\Model\Product;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
 
 class PageRepositoryTest extends JsonApiTestCase
 {
@@ -50,56 +41,14 @@ class PageRepositoryTest extends JsonApiTestCase
         self::assertNull($page3);
     }
 
-    public function test_it_finds_enabled_page_by_section_code(): void
+    public function test_it_finds_enabled_page_by_collection_code(): void
     {
-        $this->loadFixturesFromFile('PageRepositoryTest/test_it_finds_page_by_section_code.yml');
+        $this->loadFixturesFromFile('PageRepositoryTest/test_it_finds_page_by_collection_code.yml');
 
         $pageRepository = $this->getRepository();
 
-        $page1_array = $pageRepository->findBySectionCode('section1-code', 'en_US');
-        $page3_array = $pageRepository->findBySectionCode('section3-code', 'en_US');
-
-        self::assertNotEmpty($page1_array);
-        self::assertEmpty($page3_array);
-    }
-
-    public function test_it_finds_enabled_page_by_product(): void
-    {
-        $this->loadFixturesFromFile('PageRepositoryTest/test_it_finds_page_by_product.yml');
-
-        $pageRepository = $this->getRepository();
-
-        /** @var ProductRepositoryInterface $productRepository */
-        $productRepository = $this->getEntityManager()->getRepository(Product::class);
-
-        /** @var Product $product1 */
-        $product1 = $productRepository->findOneByCode('MUG_SW');
-        /** @var Product $product3 */
-        $product3 = $productRepository->findOneByCode('MUG_SW3');
-
-        $page1_array = $pageRepository->findByProduct($product1, 'code', null);
-        $page3_array = $pageRepository->findByProduct($product3, 'code', null);
-
-        self::assertNotEmpty($page1_array);
-        self::assertEmpty($page3_array);
-    }
-
-    public function test_it_finds_enabled_page_by_product_and_section_code(): void
-    {
-        $this->loadFixturesFromFile('PageRepositoryTest/test_it_finds_page_by_product_and_section_code.yml');
-
-        $pageRepository = $this->getRepository();
-
-        /** @var ProductRepositoryInterface $productRepository */
-        $productRepository = $this->getEntityManager()->getRepository(Product::class);
-
-        /** @var Product $product1 */
-        $product1 = $productRepository->findOneByCode('MUG_SW');
-        /** @var Product $product3 */
-        $product3 = $productRepository->findOneByCode('MUG_SW3');
-
-        $page1_array = $pageRepository->findByProductAndSectionCode($product1, 'section1-code', 'code', null);
-        $page3_array = $pageRepository->findByProductAndSectionCode($product3, 'section3-code', 'code', null);
+        $page1_array = $pageRepository->findByCollectionCode('collection1-code');
+        $page3_array = $pageRepository->findByCollectionCode('collection3-code');
 
         self::assertNotEmpty($page1_array);
         self::assertEmpty($page3_array);
