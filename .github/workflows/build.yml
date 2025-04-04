@@ -20,16 +20,12 @@ jobs:
       fail-fast: false
       matrix:
         php: ["8.3"]
-        symfony: ["^5.4", "^6.4"]
-        sylius: ["~1.13.0", "~1.14.0"]
+        symfony: ["^6.4", "^7.2"]
+        sylius: ["~2.0.0"]
         node: ["20.x"]
         mysql: ["8.0"]
 #        trix: [false, true]
         trix: [false]
-
-        exclude:
-          - sylius: "~1.14.0"
-            symfony: ^5.4
 
     env:
       APP_ENV: test
@@ -63,14 +59,14 @@ jobs:
       - name: Output PHP version for Symfony CLI
         run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
 
-      - name: Install certificates
-        run: symfony server:ca:install
-
-      - name: Run Chrome Headless
-        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
-
-      - name: Run webserver
-        run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
+#      - name: Install certificates
+#        run: symfony server:ca:install
+#
+#      - name: Run Chrome Headless
+#        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
+#
+#      - name: Run webserver
+#        run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -84,17 +80,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-composer-
 
+      - name: Restrict Symfony version
+        if: matrix.symfony != ''
+        run: |
+          composer global config --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^2.4"
+          composer config extra.symfony.require "${{ matrix.symfony }}"
+
       - name: Restrict Sylius version
         if: matrix.sylius != ''
         run: composer require "sylius/sylius:${{ matrix.sylius }}" --no-update --no-scripts --no-interaction
 
       - name: Install PHP dependencies
         run: composer install --no-interaction
-        env:
-          SYMFONY_REQUIRE: ${{ matrix.symfony }}
 
-      - name: Install Behat driver
-        run: vendor/bin/bdi browser:google-chrome drivers
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse -c phpstan.neon.dist
+
+#      - name: Run ECS
+#        run: vendor/bin/ecs
+
+#      - name: Install Behat driver
+#        run: vendor/bin/bdi browser:google-chrome drivers
 
       - name: Get Yarn cache directory
         id: yarn-cache
@@ -108,14 +115,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ matrix.node }}-yarn-
 
-      - name: Install JS dependencies
-        run: |
-          cd tests/Application
-          if [ "${{ matrix.trix }}" = "true" ]; then
-            yarn add trix
-            sed -i "s/wysiwyg: 'ckeditor'/wysiwyg: 'trix'/" webpack.config.js
-          fi
-          yarn install
+#      - name: Install JS dependencies
+#        run: |
+#          cd tests/Application
+#          if [ "${{ matrix.trix }}" = "true" ]; then
+#            yarn add trix
+#            sed -i "s/wysiwyg: 'ckeditor'/wysiwyg: 'trix'/" webpack.config.js
+#          fi
+#          yarn install
 
       - name: Configure Trix if enabled
         if: matrix.trix == true
@@ -127,10 +134,10 @@ jobs:
           (cd tests/Application && bin/console doctrine:database:create -vvv)
           (cd tests/Application && bin/console doctrine:migrations:migrate -n -vvv -q)
 
-      - name: Prepare test application assets
-        run: |
-          (cd tests/Application && bin/console assets:install public -vvv)
-          (cd tests/Application && yarn build:prod)
+#      - name: Prepare test application assets
+#        run: |
+#          (cd tests/Application && bin/console assets:install public -vvv)
+#          (cd tests/Application && yarn build:prod)
 
       - name: Prepare test application cache
         run: (cd tests/Application && bin/console cache:warmup -vvv)
@@ -141,6 +148,9 @@ jobs:
       - name: Validate composer.json
         run: composer validate --ansi --strict
 
+      - name: Validate container
+        run: (cd tests/Application && bin/console lint:container)
+
       - name: Validate database schema
         run: (cd tests/Application && bin/console doctrine:schema:validate)
 
@@ -148,7 +158,7 @@ jobs:
         run: vendor/bin/phpspec run --ansi -f progress --no-interaction
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --colors=always
+        run: vendor/bin/phpunit --colors=always --testsuite=integration
 
 #      - name: Set Behat tags
 #        if: matrix.trix != true

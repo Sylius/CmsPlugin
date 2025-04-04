@@ -7,7 +7,7 @@
         <service id="sylius_cms.behat.context.ui.admin.block" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\BlockContext">
             <argument type="service" id="sylius.behat.shared_storage"/>
             <argument type="service" id="sylius.behat.current_page_resolver"/>
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius.behat.notification_checker.admin"/>
             <argument type="service" id="sylius_cms.behat.page.admin.block.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.block.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.block.update"/>
@@ -18,7 +18,7 @@
         <service id="sylius_cms.behat.context.ui.admin.page" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\PageContext">
             <argument type="service" id="sylius.behat.shared_storage"/>
             <argument type="service" id="sylius.behat.current_page_resolver"/>
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius.behat.notification_checker.admin"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.update"/>
@@ -29,7 +29,7 @@
         <service id="sylius_cms.behat.context.ui.admin.collection" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\CollectionContext">
             <argument type="service" id="sylius.behat.shared_storage"/>
             <argument type="service" id="sylius.behat.current_page_resolver"/>
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius.behat.notification_checker.admin"/>
             <argument type="service" id="sylius_cms.behat.page.admin.collection.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.collection.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.collection.update"/>
@@ -48,7 +48,7 @@
 
         <service id="sylius_cms.behat.context.ui.admin.media" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\MediaContext">
             <argument type="service" id="sylius.behat.current_page_resolver"/>
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius.behat.notification_checker.admin"/>
             <argument type="service" id="sylius_cms.behat.page.admin.media.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.media.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.media.update"/>
@@ -63,7 +63,7 @@
         <service id="sylius_cms.behat.context.ui.admin.content_template" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\ContentTemplateContext">
             <argument type="service" id="sylius.behat.shared_storage"/>
             <argument type="service" id="sylius.behat.current_page_resolver"/>
-            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="sylius.behat.notification_checker.admin"/>
             <argument type="service" id="sylius_cms.behat.page.admin.template.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.template.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.template.update"/>

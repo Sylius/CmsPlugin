@@ -21,3 +21,5 @@ tests/Application/web/*
 
 /etc/build/*
 !/etc/build/.gitkeep
+
+.phpunit.result.cache
