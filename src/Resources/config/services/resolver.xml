@@ -82,7 +82,7 @@
                  class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver"
         >
             <argument type="collection">
-                <argument key="ckeditor" type="service" id="sylius_cms_plugin.form.wysiwyg_strategy.ckeditor"/>
+                <argument key="ckeditor" type="service" id="sylius_cms.form.wysiwyg_strategy.ckeditor"/>
                 <argument key="trix" type="service" id="sylius_cms_plugin.form.wysiwyg_strategy.trix" />
             </argument>
             <argument>%sylius_cms_plugin.wysiwyg_editor%</argument>

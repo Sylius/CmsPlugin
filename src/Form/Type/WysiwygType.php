@@ -10,7 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class WysiwygType extends AbstractType
 {
@@ -18,21 +17,12 @@ final class WysiwygType extends AbstractType
 
     public function __construct(
         private WysiwygStrategyResolverInterface $strategyResolver,
-        private UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $this->strategy->configureOptions($resolver);
-
-        $resolver->setDefaults([
-            'label' => 'sylius_cms.ui.content',
-            'config' => [
-                'filebrowserUploadUrl' => $this->urlGenerator->generate('sylius_cms_admin_upload_editor_image'),
-                'bodyId' => 'cms-ckeditor',
-            ],
-        ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
