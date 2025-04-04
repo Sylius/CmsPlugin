@@ -11,13 +11,6 @@ const createConfigs = (pluginName, options = {}) => {
     const getConfig = (type) => {
         Encore.reset();
 
-    Encore.setOutputPath(`public/build/${pluginName}/${type}/`)
-        .setPublicPath(`/build/${pluginName}/${type}/`)
-        .addEntry(`sylius-${pluginName}-${type}`, path.resolve(__dirname, `./src/Resources/assets/${type}/entry.js`))
-        .disableSingleRuntimeChunk()
-        .cleanupOutputBeforeBuild()
-        .enableSourceMaps(!Encore.isProduction())
-        .enableSassLoader();
         let entryFile = 'entry.js';
         if (type !== 'shop') {
             entryFile = mergedOptions.wysiwyg === 'trix'
@@ -37,11 +30,11 @@ const createConfigs = (pluginName, options = {}) => {
             .enableSourceMaps(!Encore.isProduction())
             .enableSassLoader();
 
-    const config = Encore.getWebpackConfig();
-    config.name = `sylius-${pluginName}-${type}`;
+        const config = Encore.getWebpackConfig();
+        config.name = `sylius-${pluginName}-${type}`;
 
-    return config;
-};
+        return config;
+    };
 
     return [
         getConfig('shop'),
@@ -55,13 +48,13 @@ Encore.setOutputPath(`src/Resources/public/build/`)
     // Ckeditor
     .addEntry(`sylius-${pluginName}-admin`, path.resolve(__dirname, `./src/Resources/assets/admin/entry.js`))
     // Trix
-    // .addEntry(`bitbag-${pluginName}-admin`, path.resolve(__dirname, `./src/Resources/assets/admin/trix-entry.js`))
+    // .addEntry(`sylius-${pluginName}-admin`, path.resolve(__dirname, `./src/Resources/assets/admin/trix-entry.js`))
     .cleanupOutputBeforeBuild()
     .disableSingleRuntimeChunk()
     .enableSassLoader();
 
 const distConfig = Encore.getWebpackConfig();
-distConfig.name = `cms-plugin-dist`;
+distConfig.name = `sylius-plugin-dist`;
 
 Encore.reset();
 
