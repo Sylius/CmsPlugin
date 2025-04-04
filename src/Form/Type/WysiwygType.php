@@ -18,7 +18,7 @@ final class WysiwygType extends AbstractType
 
     public function __construct(
         private WysiwygStrategyResolverInterface $strategyResolver,
-        private UrlGeneratorInterface $urlGenerator
+        private UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
