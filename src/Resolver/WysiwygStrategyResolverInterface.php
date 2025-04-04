@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Resolver;
+namespace Sylius\CmsPlugin\Resolver;
 
-use BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
+use Sylius\CmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
 
 interface WysiwygStrategyResolverInterface
 {

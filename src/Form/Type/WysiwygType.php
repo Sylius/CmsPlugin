@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
-use BitBag\SyliusCmsPlugin\Resolver\WysiwygStrategyResolverInterface;
+use Sylius\CmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
+use Sylius\CmsPlugin\Resolver\WysiwygStrategyResolverInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

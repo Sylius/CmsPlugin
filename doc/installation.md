@@ -151,7 +151,7 @@ In order to make plugin finally work you need to declare "route", in admin _scri
 
 ```
 <script>
-    const route = "{{ path('bitbag_sylius_cms_plugin_admin_ajax_media_by_name_phrase')|escape('js') }}";
+    const route = "{{ path('sylius_cms_plugin_admin_ajax_media_by_name_phrase')|escape('js') }}";
 </script>
 ```
 

@@ -9,7 +9,7 @@ twig:
         - '@SyliusCmsPlugin/Widget/_trixWidget.html.twig'
 ```
 
-2. Add the file `config/packages/bitbag_sylius_cms_plugin.yaml` (if it doesn't exist) and add the following configuration:
+2. Add the file `config/packages/sylius_cms_plugin.yaml` (if it doesn't exist) and add the following configuration:
 
 ```yaml
 bit_bag_sylius_cms:

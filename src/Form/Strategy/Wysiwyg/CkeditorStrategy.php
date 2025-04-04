@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg;
+namespace Sylius\CmsPlugin\Form\Strategy\Wysiwyg;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,9 +23,9 @@ final class CkeditorStrategy extends AbstractWysiwygStrategy
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label' => 'bitbag_sylius_cms_plugin.ui.content',
+            'label' => 'sylius_cms_plugin.ui.content',
             'config' => [
-                'filebrowserUploadUrl' => $this->urlGenerator->generate('bitbag_sylius_cms_plugin_admin_upload_editor_image'),
+                'filebrowserUploadUrl' => $this->urlGenerator->generate('sylius_cms_plugin_admin_upload_editor_image'),
                 'bodyId' => 'bitbag-ckeditor',
             ],
         ]);
