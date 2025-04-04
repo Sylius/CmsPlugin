@@ -10,13 +10,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class WysiwygType extends AbstractType
 {
     private WysiwygStrategyInterface $strategy;
 
-    public function __construct(private WysiwygStrategyResolverInterface $strategyResolver)
-    {
+    public function __construct(
+        private WysiwygStrategyResolverInterface $strategyResolver,
+        private UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
