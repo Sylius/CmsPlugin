@@ -30,7 +30,7 @@ final class RenderBlockRuntime implements RenderBlockRuntimeInterface
     ) {
     }
 
-    public function renderBlock(string $code, ?string $template = null, array|ProductInterface|TaxonInterface $context = null): string
+    public function renderBlock(string $code, ?string $template = null, array|ProductInterface|TaxonInterface|null $context = null): string
     {
         $block = $this->blockResourceResolver->findOrLog($code);
         if (null === $block) {
