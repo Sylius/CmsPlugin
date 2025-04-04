@@ -11,7 +11,7 @@ Take [the BlockTranslationType](../src/Form/Type/Translation/BlockTranslationTyp
 
 ## Configuration
 
-If you want to customize any behavior of the CKEditor, you have to override one of these files: [CKEditor config](../src/Resources/config/fos_ck_editor/fos_ck_editor.yml) or [CKEditor js config](../src/Resources/views/Form/ckeditor_widget.html.twig)
+If you want to customize any behavior of the CKEditor, you have to override one of these files: [CKEditor config](../config/fos_ck_editor/fos_ck_editor.yml) or [CKEditor js config](../templates/Form/ckeditor_widget.html.twig)
 
 **Useful links:**
 - [CKEditor configuration](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html)

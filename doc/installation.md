@@ -78,7 +78,7 @@ twig:
 
 imports:
       ...
-      - { resource: "@SyliusCmsPlugin/Resources/config/config.yml" }
+      - { resource: "@SyliusCmsPlugin/config/config.yml" }
 
 ##### 5. Import routing in your `config/routes.yaml` file:
 
@@ -87,7 +87,7 @@ imports:
 # config/routes.yaml
 ...
 sylius_cms:
-    resource: "@SyliusCmsPlugin/Resources/config/routing.yml"
+    resource: "@SyliusCmsPlugin/config/routing.yml"
 ```
 
 4. Install assets:

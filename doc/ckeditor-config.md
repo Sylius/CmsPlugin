@@ -42,7 +42,7 @@ twig:
 imports:
     ...
     
-    - { resource: "@SyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
+    - { resource: "@SyliusCmsPlugin/config/fos_ck_editor/fos_ck_editor.yml" }
 ```
 
 Continue with the next installation steps

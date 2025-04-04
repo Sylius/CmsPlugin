@@ -1,2 +1,2 @@
 sylius_cms:
-    resource: "@SyliusCmsPlugin/Resources/config/routing.yml"
+    resource: "@SyliusCmsPlugin/config/routing.yml"

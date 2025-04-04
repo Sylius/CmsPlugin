@@ -30,7 +30,7 @@ If you don't know how to override templates yet,
 read [Sylius template customization guide](http://docs.sylius.org/en/latest/customization/template.html).
 
 You can create a template under `app/templates/bundles/SyliusCmsPlugin/Shop/ContentElement` location.
-Available templates you can override can be found under [this location](../src/Resources/views/Shop/ContentElement).
+Available templates you can override can be found under [this location](../templates/Shop/ContentElement).
 
 ### Creating a new content element
 
