@@ -21,6 +21,11 @@ with content elements to your storefront.
   - [Pages](doc/use_case_pages.md)
   - [Blocks](doc/use_case_blocks.md)
   - [Media](doc/use_case_media.md)
+---
+
+# Important documents 
+---
+
 - [Installation](doc/installation.md)
 - [Upgrading](UPGRADE.md)
 - [Collections](doc/collections.md)
@@ -36,6 +41,27 @@ with content elements to your storefront.
 - [Sitemap](doc/sitemap.md)
 - [Customization](doc/customization.md)
 
+# Usage
+ ---
+  Check how the **SyliusCMSPlugin** works in practice - **[click here](https://github.com/BitBagCommerce/SyliusCmsPlugin/blob/master/doc/use_case.md)**
+
+---
+
+If you need some help with Sylius development, don't be hesitated to contact us directly. You can fill the form on [this site](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms) or send us an e-mail at hello@bitbag.io!
+
+---
+
+[![](https://bitbag.io/wp-content/uploads/2021/08/sylius-badges-transparent-wide.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
+
+# Demo
+---
+We created a demo app with some useful use-cases of plugins! Visit http://demo.sylius.com/ to take a look at it.
+
+**If you need an overview of Sylius' capabilities, schedule a consultation with our expert.**
+
+[![](https://bitbag.io/wp-content/uploads/2020/10/button_free_consulatation-1.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
+
+# Additional resources for developers
 ## Community
 
 ---- 

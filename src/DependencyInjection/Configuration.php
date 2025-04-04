@@ -51,6 +51,11 @@ final class Configuration implements ConfigurationInterface
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
+        $rootNode
+            ->children()
+                ->enumNode('wysiwyg_editor')
+                    ->values(['trix', 'ckeditor'])
+                    ->defaultValue('ckeditor');
         $this->addResourcesSection($rootNode);
         $this->addTemplatesSection($rootNode);
 
@@ -196,6 +201,8 @@ final class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+
+        return $treeBuilder;
     }
 
     private function addTemplatesSection(ArrayNodeDefinition $node): void

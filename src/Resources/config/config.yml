@@ -3,6 +3,7 @@ imports:
     - { resource: "@SyliusCmsPlugin/Resources/config/grids.yml" }
     - { resource: "@SyliusCmsPlugin/Resources/config/services.xml" }
     - { resource: "@SyliusCmsPlugin/Resources/config/fixtures/*.yaml"}
+    - { resource: "@SyliusCmsPlugin/Resources/config/resources.yml" }
 
 parameters:
     sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"

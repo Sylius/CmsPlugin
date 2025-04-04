@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
+use BitBag\SyliusCmsPlugin\Resolver\WysiwygStrategyResolverInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class WysiwygType extends AbstractType
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    private WysiwygStrategyInterface $strategy;
+
+    public function __construct(private WysiwygStrategyResolverInterface $strategyResolver)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $this->strategy->configureOptions($resolver);
+
         $resolver->setDefaults([
             'label' => 'sylius_cms.ui.content',
             'config' => [
@@ -26,13 +32,23 @@ final class WysiwygType extends AbstractType
         ]);
     }
 
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $this->strategy->buildView($view, $form, $options);
+    }
+
     public function getParent(): string
     {
-        return CKEditorType::class;
+        return $this->strategy->getParent();
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_wysiwyg';
+        return $this->strategy->getBlockPrefix();
+    }
+
+    public function setStrategy(string $strategy): void
+    {
+        $this->strategy = $this->strategyResolver->getStrategy($strategy);
     }
 }

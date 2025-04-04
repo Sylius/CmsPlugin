@@ -113,6 +113,19 @@
             <argument type="service" id="sylius_cms.form.data_transformer.content_element_checker" />
             <tag name="sylius_cms.content_elements.type" key="%sylius_cms.content_elements.type.pages_collection%" />
             <tag name="form.type" />
+
+        <service id="bitbag_sylius_cms_plugin.form.type.wysiwyg" class="BitBag\SyliusCmsPlugin\Form\Type\WysiwygType">
+            <argument type="service" id="bitbag_sylius_cms_plugin.resolver.wysiwyg_strategy_resolver" />
+            <call method="setStrategy">
+                <argument type="string">%bitbag_sylius_cms_plugin.wysiwyg_editor%</argument>
+            </call>
+            <tag name="form.type" />
+        </service>
+
+        <service id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.ckeditor"
+                 class="BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\CkeditorStrategy"
+        >
+            <argument type="service" id="router.default" />
         </service>
 
         <service id="sylius_cms.form.type.data_transformer.multiple_media_to_codes" class="Sylius\CmsPlugin\Form\DataTransformer\MultipleMediaToCodesTransformer">
@@ -120,6 +133,10 @@
         </service>
 
         <service id="sylius_cms.form.data_transformer.content_element_checker" class="Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker"/>
+
+        <service id="bitbag_sylius_cms_plugin.form.wysiwyg_strategy.trix"
+                 class="BitBag\SyliusCmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy"
+        />
     </services>
 
 </container>

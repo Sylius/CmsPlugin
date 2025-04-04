@@ -86,3 +86,5 @@ including [Collections](use_case_collections.md), [Content Templates](use_case_c
 These tiles offer functionalities for managing CMS segments. 
 Together, they enable administrators to efficiently create, edit, and organize content within the Sylius e-commerce system,
 resulting in a more engaging and personalized user experience.
+
+If someone would like to learn even more about the plugin they can read a blogpost about this specific plugin under this [link](https://bitbag.io/pl/blog/how-to-build-a-blog-in-sylius-based-on-bitbagcmsplugin).
