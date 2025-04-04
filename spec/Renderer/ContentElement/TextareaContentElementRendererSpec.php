@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sylius Cms Plugin package.
+ * This file is part of the Sylius CMS Plugin package.
  *
  * (c) Sylius Sp. z o.o.
  *

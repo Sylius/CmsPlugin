@@ -34,7 +34,7 @@ return static function (ECSConfig $config): void {
             'location' => 'after_open',
             'comment_type' => HeaderCommentFixer::HEADER_COMMENT,
             'header' => <<<TEXT
-This file is part of the Sylius Cms Plugin package.
+This file is part of the Sylius CMS Plugin package.
 
 (c) Sylius Sp. z o.o.
 
