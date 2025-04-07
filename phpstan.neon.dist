@@ -3,8 +3,3 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
-
-    excludePaths:
-        # Test dependencies
-        - 'tests/Application/app/**.php'
-        - 'tests/Application/src/**.php'
