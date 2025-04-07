@@ -19,6 +19,7 @@ interface BlocksCollectionInterface
 {
     public function initializeBlocksCollection(): void;
 
+    /** @return Collection<array-key, BlockInterface> */
     public function getBlocks(): ?Collection;
 
     public function hasBlock(BlockInterface $block): bool;

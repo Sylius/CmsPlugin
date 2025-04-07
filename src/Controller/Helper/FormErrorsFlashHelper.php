@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Controller\Helper;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class FormErrorsFlashHelper implements FormErrorsFlashHelperInterface
@@ -40,7 +41,8 @@ final class FormErrorsFlashHelper implements FormErrorsFlashHelperInterface
 
         $message = $this->translator->trans('sylius_cms.ui.form_was_submitted_with_errors') . ' ' . rtrim(implode(' ', $errors));
 
-        $session = $this->requestStack->getSession()->getFlashBag();
-        $session->set('error', $message);
+        /** @var FlashBagAwareSessionInterface $session */
+        $session = $this->requestStack->getSession();
+        $session->getFlashBag()->set('error', $message);
     }
 }

@@ -15,7 +15,9 @@ namespace Sylius\CmsPlugin\Provider;
 
 interface ResourceTemplateProviderInterface
 {
+    /** @return array<array-key, string> */
     public function getPageTemplates(): array;
 
+    /** @return array<array-key, string> */
     public function getBlockTemplates(): array;
 }

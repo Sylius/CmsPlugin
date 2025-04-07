@@ -19,8 +19,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class ContentElementType extends AbstractType
 {
+    /** @var array<string, string> */
     private array $contentElements = [];
 
+    /** @param iterable<string, string> $contentElementTypes */
     public function __construct(
         private iterable $contentElementTypes,
     ) {

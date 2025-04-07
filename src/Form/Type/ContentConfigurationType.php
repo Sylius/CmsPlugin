@@ -20,14 +20,18 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormTypeInterface;
 use Twig\Environment;
 
 final class ContentConfigurationType extends AbstractResourceType
 {
+    /** @var array<string, string> */
     private array $actionTypes = [];
 
+    /** @var array<string, string> */
     private array $actionConfigurationTypes;
 
+    /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
     public function __construct(
         string $dataClass,
         array $validationGroups,
@@ -80,7 +84,7 @@ final class ContentConfigurationType extends AbstractResourceType
                 $this->addConfigurationTypeToForm($event);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
-                /** @var array|null $data */
+                /** @var array<mixed>|null $data */
                 $data = $event->getData();
                 if (null === $data) {
                     return;

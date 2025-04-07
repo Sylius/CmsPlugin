@@ -19,6 +19,7 @@ interface ContentElementsAwareInterface
 {
     public function initializeContentElementsCollection(): void;
 
+    /** @return Collection<array-key, ContentConfigurationInterface> */
     public function getContentElements(): Collection;
 
     public function hasContentElement(ContentConfigurationInterface $contentElement): bool;

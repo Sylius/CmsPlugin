@@ -17,5 +17,6 @@ use Sylius\CmsPlugin\Entity\ProductsAwareInterface;
 
 interface ProductsAssignerInterface
 {
+    /** @param array<string> $productsCodes */
     public function assign(ProductsAwareInterface $productsAware, array $productsCodes): void;
 }

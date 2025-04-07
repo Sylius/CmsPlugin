@@ -19,6 +19,7 @@ interface ProviderInterface
 {
     public function getTemplate(): string;
 
+    /** @param array<string, mixed> $options */
     public function render(
         MediaInterface $media,
         ?string $template = null,

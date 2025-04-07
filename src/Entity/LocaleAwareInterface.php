@@ -20,6 +20,7 @@ interface LocaleAwareInterface
 {
     public function initializeLocalesCollection(): void;
 
+    /** @return Collection<array-key, LocaleInterface> */
     public function getLocales(): Collection;
 
     public function hasLocale(LocaleInterface $locale): bool;

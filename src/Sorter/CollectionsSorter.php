@@ -30,6 +30,11 @@ final class CollectionsSorter implements CollectionsSorterInterface
         return $result;
     }
 
+    /**
+     * @param array<array-key, array<string, mixed>> $currentResult
+     *
+     * @return array<array-key, array<string, mixed>>
+     */
     private function updateCollectionsArray(PageInterface $page, array $currentResult): array
     {
         Assert::isIterable($page->getCollections());

@@ -29,12 +29,8 @@ final class MenuReorder implements MenuReorderInterface
         if (null !== $newMenuItem && false !== $targetPosition) {
             $menuItems = array_slice($menuItems, 0, $targetPosition + 1, true) +
                 [$newItemKey => $newMenuItem] +
-                array_slice($menuItems, $targetPosition + 1, null, true);
-
-            $menuItems = array_filter($menuItems, static function ($item) {
-                return $item instanceof ItemInterface;
-            });
-
+                array_slice($menuItems, $targetPosition + 1, null, true)
+            ;
             $menu->setChildren($menuItems);
         }
     }

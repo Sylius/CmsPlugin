@@ -54,11 +54,13 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
         return '@SyliusCmsPlugin/src/Migrations';
     }
 
+    /** @return string[] */
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
         return ['Sylius\Bundle\CoreBundle\Migrations'];
     }
 
+    /** @return array<array-key, mixed> */
     private function getCurrentConfiguration(ContainerBuilder $container): array
     {
         /** @var ConfigurationInterface $configuration */

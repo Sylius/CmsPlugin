@@ -21,8 +21,10 @@ interface ContentConfigurationInterface extends ResourceInterface
 
     public function setType(?string $type): void;
 
+    /** @return array<string, mixed> */
     public function getConfiguration(): array;
 
+    /** @param array<string, mixed> $configuration */
     public function setConfiguration(array $configuration): void;
 
     public function getLocale(): ?string;

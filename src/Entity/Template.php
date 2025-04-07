@@ -21,6 +21,7 @@ class Template implements TemplateInterface
 
     protected ?string $type;
 
+    /** @var array<array-key, mixed> */
     protected array $contentElements = [];
 
     public function getId(): ?int

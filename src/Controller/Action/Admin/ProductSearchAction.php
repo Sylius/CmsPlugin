@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Controller\Action\Admin;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandler;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ProductSearchAction
 {
+    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
     public function __construct(
         private ProductRepositoryInterface $productRepository,
         private LocaleContextInterface $localeContext,

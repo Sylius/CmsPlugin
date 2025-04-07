@@ -16,10 +16,11 @@ namespace Sylius\CmsPlugin\Resolver;
 use BadFunctionCallException;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 final class ResourceResolver implements ResourceResolverInterface
 {
+    /** @param RepositoryInterface<ResourceInterface> $repository */
     public function __construct(
         private RepositoryInterface $repository,
         private FactoryInterface $factory,
@@ -32,7 +33,6 @@ final class ResourceResolver implements ResourceResolverInterface
      */
     public function getResource(string $identifier, string $factoryMethod = 'createNew'): ResourceInterface
     {
-        /** @var ResourceInterface|null $resource */
         $resource = $this->repository->findOneBy([$this->uniqueColumn => $identifier]);
         if (null !== $resource) {
             return $resource;

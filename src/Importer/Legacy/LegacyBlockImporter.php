@@ -21,12 +21,13 @@ use Sylius\CmsPlugin\Resolver\Importer\ImporterChannelsResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
 use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockImporterInterface
 {
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(
         private ResourceResolverInterface $blockResourceResolver,
         private ImporterCollectionsResolverInterface $importerCollectionsResolver,
@@ -61,7 +62,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 'h2',
                 $this->getTranslatableColumnValue(self::NAME_COLUMN, $locale, $row),
             );
-            if ($heading) {
+            if (null !== $heading) {
                 $heading->setBlock($block);
                 $block->addContentElement($heading);
             }
@@ -70,7 +71,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale,
                 $this->getTranslatableColumnValue(self::IMAGE_COLUMN, $locale, $row),
             );
-            if ($singleMedia) {
+            if (null !== $singleMedia) {
                 $singleMedia->setBlock($block);
                 $block->addContentElement($singleMedia);
             }
@@ -79,7 +80,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale,
                 $this->getTranslatableColumnValue(self::CONTENT_COLUMN, $locale, $row),
             );
-            if ($content) {
+            if (null !== $content) {
                 $content->setBlock($block);
                 $block->addContentElement($content);
             }
@@ -92,7 +93,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale->getCode(),
                 $this->getColumnValue(self::PRODUCTS_COLUMN, $row),
             );
-            if ($productsGrid) {
+            if (null !== $productsGrid) {
                 $productsGrid->setBlock($block);
                 $block->addContentElement($productsGrid);
             }
@@ -107,6 +108,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
         return 'block_legacy';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

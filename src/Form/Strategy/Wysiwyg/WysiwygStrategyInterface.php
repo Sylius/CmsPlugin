@@ -21,6 +21,7 @@ interface WysiwygStrategyInterface
 {
     public function configureOptions(OptionsResolver $resolver): void;
 
+    /** @param array<string, mixed> $options */
     public function buildView(FormView $view, FormInterface $form, array $options): void;
 
     public function getParent(): string;

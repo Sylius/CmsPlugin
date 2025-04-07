@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 
+use Doctrine\Common\Collections\Collection;
+use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -22,6 +24,7 @@ final class MultipleMediaContentElementType extends AbstractType
 {
     public const TYPE = 'multiple_media';
 
+    /** @param DataTransformerInterface<array<string>|null, Collection<array-key, MediaInterface>> $mediaToCodesTransformer */
     public function __construct(private DataTransformerInterface $mediaToCodesTransformer)
     {
     }

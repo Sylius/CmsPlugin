@@ -22,12 +22,13 @@ use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
 use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 final class LegacyPageImporter extends AbstractImporter implements LegacyPageImporterInterface
 {
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(
         private ResourceResolverInterface $pageResourceResolver,
         private LocaleContextInterface $localeContext,
@@ -74,7 +75,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
                 'h2',
                 $this->getTranslatableColumnValue(self::NAME_COLUMN, $locale, $row),
             );
-            if ($heading) {
+            if (null !== $heading) {
                 $heading->setPage($page);
                 $page->addContentElement($heading);
             }
@@ -83,7 +84,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
                 $locale,
                 $this->getTranslatableColumnValue(self::IMAGE_COLUMN, $locale, $row),
             );
-            if ($singleMedia) {
+            if (null !== $singleMedia) {
                 $singleMedia->setPage($page);
                 $page->addContentElement($singleMedia);
             }
@@ -92,7 +93,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
                 $locale,
                 $this->getTranslatableColumnValue(self::CONTENT_COLUMN, $locale, $row),
             );
-            if ($content) {
+            if (null !== $content) {
                 $content->setPage($page);
                 $page->addContentElement($content);
             }
@@ -105,7 +106,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
                 $locale->getCode(),
                 $this->getColumnValue(self::PRODUCTS_COLUMN, $row),
             );
-            if ($productsGrid) {
+            if (null !== $productsGrid) {
                 $productsGrid->setPage($page);
                 $page->addContentElement($productsGrid);
             }
@@ -122,6 +123,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
         return 'page_legacy';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

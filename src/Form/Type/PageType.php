@@ -19,7 +19,7 @@ use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\PageTranslationType;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -31,8 +31,10 @@ use Symfony\Component\Form\FormEvents;
 
 final class PageType extends AbstractResourceType
 {
+    /** @var array<string, string|null> */
     private array $locales = [];
 
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(
         private RepositoryInterface $localeRepository,
         private ResourceTemplateProviderInterface $templateProvider,
@@ -127,7 +129,7 @@ final class PageType extends AbstractResourceType
 
             if (isset($data['contentElements'])) {
                 foreach ($data['contentElements'] as &$contentElement) {
-                    if (empty($contentElement['locale'])) {
+                    if (!isset($contentElement['locale']) || '' === $contentElement['locale']) {
                         $contentElement['locale'] = $selectedLocale;
                     }
                 }

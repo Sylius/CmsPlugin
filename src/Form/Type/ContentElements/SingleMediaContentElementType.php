@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 
 use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
+use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker;
 use Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\ReversedTransformer;
@@ -25,6 +26,7 @@ final class SingleMediaContentElementType extends AbstractType
 {
     public const TYPE = 'single_media';
 
+    /** @param RepositoryInterface<MediaInterface> $mediaRepository */
     public function __construct(
         private RepositoryInterface $mediaRepository,
         private ContentElementDataTransformerChecker $contentElementDataTransformerChecker,

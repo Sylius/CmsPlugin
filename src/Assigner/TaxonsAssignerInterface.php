@@ -17,5 +17,6 @@ use Sylius\CmsPlugin\Entity\TaxonAwareInterface;
 
 interface TaxonsAssignerInterface
 {
+    /** @param array<string> $taxonCodes */
     public function assign(TaxonAwareInterface $taxonAware, array $taxonCodes): void;
 }

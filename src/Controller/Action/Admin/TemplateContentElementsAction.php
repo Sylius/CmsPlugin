@@ -14,11 +14,12 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Controller\Action\Admin;
 
 use Sylius\CmsPlugin\Entity\TemplateInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class TemplateContentElementsAction
 {
+    /** @param RepositoryInterface<TemplateInterface> $templateRepository */
     public function __construct(private RepositoryInterface $templateRepository)
     {
     }

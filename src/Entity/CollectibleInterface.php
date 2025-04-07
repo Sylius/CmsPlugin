@@ -19,9 +19,7 @@ interface CollectibleInterface
 {
     public function initializeCollectionsCollection(): void;
 
-    /**
-     * @return Collection|CollectionInterface[]
-     */
+    /** @return Collection<array-key, CollectionInterface> */
     public function getCollections(): ?Collection;
 
     public function hasCollection(CollectionInterface $collection): bool;

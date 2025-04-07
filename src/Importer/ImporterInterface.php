@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Importer;
 
 interface ImporterInterface
 {
+    /** @param array<array-key, mixed> $row */
     public function import(array $row): void;
 
     public function getResourceCode(): string;

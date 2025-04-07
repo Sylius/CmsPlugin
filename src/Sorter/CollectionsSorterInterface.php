@@ -15,5 +15,10 @@ namespace Sylius\CmsPlugin\Sorter;
 
 interface CollectionsSorterInterface
 {
+    /**
+     * @param array<int, array<string, mixed>> $pages
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function sortByCollections(array $pages): array;
 }

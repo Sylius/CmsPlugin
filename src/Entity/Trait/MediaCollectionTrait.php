@@ -19,6 +19,7 @@ use Sylius\CmsPlugin\Entity\MediaInterface;
 
 trait MediaCollectionTrait
 {
+    /** @var Collection<array-key, MediaInterface> */
     protected Collection $media;
 
     public function initializeMediaCollection(): void

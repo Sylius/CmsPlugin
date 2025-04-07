@@ -17,5 +17,6 @@ use Sylius\Component\Channel\Model\ChannelsAwareInterface;
 
 interface ChannelsAssignerInterface
 {
+    /** @param array<string> $channelsCodes */
     public function assign(ChannelsAwareInterface $channelsAware, array $channelsCodes): void;
 }

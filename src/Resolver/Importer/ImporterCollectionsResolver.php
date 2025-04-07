@@ -24,7 +24,7 @@ final class ImporterCollectionsResolver implements ImporterCollectionsResolverIn
 
     public function resolve(CollectibleInterface $collectionable, ?string $collectionsRow): void
     {
-        if (empty($collectionsRow)) {
+        if (null === $collectionsRow || '' === $collectionsRow) {
             return;
         }
 

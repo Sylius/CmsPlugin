@@ -15,10 +15,11 @@ namespace Sylius\CmsPlugin\Fixture\Factory;
 
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 final class TemplateFixtureFactory implements FixtureFactoryInterface
 {
+    /** @param RepositoryInterface<TemplateInterface> $templateRepository */
     public function __construct(
         private FactoryInterface $templateFactory,
         private RepositoryInterface $templateRepository,
@@ -41,6 +42,7 @@ final class TemplateFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $pageData */
     private function createPage(array $pageData): void
     {
         /** @var TemplateInterface $template */

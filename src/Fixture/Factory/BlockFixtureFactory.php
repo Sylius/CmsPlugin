@@ -52,6 +52,7 @@ final class BlockFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $blockData */
     private function createBlock(string $code, array $blockData): void
     {
         /** @var BlockInterface $block */
@@ -70,7 +71,7 @@ final class BlockFixtureFactory implements FixtureFactoryInterface
         foreach ($blockData['content_elements'] as $locale => $data) {
             foreach ($data as $contentElementData) {
                 $contentElementData['data'] = array_filter($contentElementData['data'], static function ($value) {
-                    return !empty($value);
+                    return null !== $value && '' !== $value;
                 });
 
                 $contentConfiguration = new ContentConfiguration();

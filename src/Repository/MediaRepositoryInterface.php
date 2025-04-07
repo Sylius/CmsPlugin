@@ -15,8 +15,10 @@ namespace Sylius\CmsPlugin\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Sylius\CmsPlugin\Entity\MediaInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Resource\Model\ResourceInterface;
 
+/** @extends RepositoryInterface<MediaInterface> */
 interface MediaRepositoryInterface extends RepositoryInterface
 {
     public function createListQueryBuilder(string $locale): QueryBuilder;
@@ -26,5 +28,10 @@ interface MediaRepositoryInterface extends RepositoryInterface
         string $channelCode,
     ): ?MediaInterface;
 
+    /**
+     * @param array<string> $mediaType
+     *
+     * @return array<ResourceInterface>
+     */
     public function findByNamePart(string $phrase, array $mediaType): array;
 }

@@ -51,6 +51,7 @@ final class PageFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $pageData */
     private function createPage(
         string $code,
         array $pageData,
@@ -80,7 +81,7 @@ final class PageFixtureFactory implements FixtureFactoryInterface
 
             /** @var MediaInterface|null $mediaImage */
             $mediaImage = $this->mediaRepository->findOneBy(['code' => $translation['teaser_image']]);
-            if ($mediaImage) {
+            if (null !== $mediaImage) {
                 $pageTranslation->setTeaserImage($mediaImage);
             }
 
@@ -90,7 +91,7 @@ final class PageFixtureFactory implements FixtureFactoryInterface
         foreach ($pageData['content_elements'] as $locale => $data) {
             foreach ($data as $contentElementData) {
                 $contentElementData['data'] = array_filter($contentElementData['data'], static function ($value) {
-                    return !empty($value);
+                    return null !== $value && '' !== $value;
                 });
 
                 $contentConfiguration = new ContentConfiguration();

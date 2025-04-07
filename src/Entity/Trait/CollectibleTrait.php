@@ -25,6 +25,7 @@ use Sylius\CmsPlugin\Entity\PageInterface;
 
 trait CollectibleTrait
 {
+    /** @var Collection<array-key, CollectionInterface> */
     protected Collection $collections;
 
     public function initializeCollectionsCollection(): void
