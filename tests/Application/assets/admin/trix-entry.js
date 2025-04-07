@@ -1,1 +1,1 @@
-import '../../../../src/Resources/assets/admin/trix-entry';
+import '../../../../assets/admin/trix-entry';

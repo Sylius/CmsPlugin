@@ -1,1 +1,1 @@
-import '../../../../src/Resources/assets/admin/entry';
+import '../../../../assets/admin/entry';
