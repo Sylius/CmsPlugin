@@ -6,6 +6,7 @@ imports:
 
 parameters:
     sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"
+    sylius_cms_api_platform_mapping_path: 'vendor/sylius/cms-plugin/config/api_platform/'
     sylius_validation_group: [cms]
     sylius_cms.form.type.block.validation_groups: "%sylius_validation_group%"
     sylius_cms.form.type.content_configuration.validation_groups: "%sylius_validation_group%"
@@ -17,6 +18,11 @@ parameters:
     sylius_cms.form.type.media.validation_groups: "%sylius_validation_group%"
     sylius_cms.form.type.template.validation_groups: "%sylius_validation_group%"
     sylius_cms.uploader.filesystem: sylius_cms_media
+
+api_platform:
+    mapping:
+        paths:
+            - '%sylius_cms_api_platform_mapping_path%'
 
 jms_serializer:
     metadata:

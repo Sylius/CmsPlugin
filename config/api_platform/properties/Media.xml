@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+ This file is part of the Sylius CMS Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<properties
+    xmlns="https://api-platform.com/schema/metadata/properties-3.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://api-platform.com/schema/metadata/properties-3.0 https://api-platform.com/schema/metadata/properties-3.0.xsd"
+>
+    <property resource="%sylius_cms.model.media.class%" name="id" identifier="true" writable="false"/>
+    <property resource="%sylius_cms.model.media.class%" name="code" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="type" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="path" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="mimeType" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="enabled" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="width" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="height" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="saveWithOriginalName" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="collections" writable="false" />
+    <property resource="%sylius_cms.model.media.class%" name="channels" writable="false" />
+</properties>

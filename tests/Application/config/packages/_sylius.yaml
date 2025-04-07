@@ -5,10 +5,12 @@ imports:
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
-    - { resource: "../parameters.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/config.yml" }
 
 parameters:
+    locale: en_US
     sylius_core.public_dir: '%kernel.project_dir%/public'
+    sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/../../config/api_platform/'
 
 sylius_api:
     enabled: true

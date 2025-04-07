@@ -1,19 +1,19 @@
 {
-  "@context": "/api/v2/contexts/Block",
-  "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
-  "@type": "Block",
-  "id": "@integer@",
-  "code": "block1-code",
-  "name": "block1-name",
-  "enabled": true,
-  "collections": [
-    "/api/v2/shop/cms-plugin/collections/@integer@"
-  ],
-  "channels": [
-    "/api/v2/shop/channels/code"
-  ],
-  "contentElements": [],
-  "products": [],
-  "taxons": [],
-  "productsInTaxons": []
+    "@context": "/api/v2/contexts/Block",
+    "@id": "/api/v2/shop/cms/blocks/@integer@",
+    "@type": "Block",
+    "id": "@integer@",
+    "code": "block1-code",
+    "name": "block1-name",
+    "enabled": true,
+    "collections": [
+        "/api/v2/shop/cms/collections/@integer@"
+    ],
+    "channels": [
+        "/api/v2/shop/channels/code"
+    ],
+    "contentElements": [],
+    "products": [],
+    "taxons": [],
+    "productsInTaxons": []
 }

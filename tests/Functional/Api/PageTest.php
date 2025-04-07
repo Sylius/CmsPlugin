@@ -31,7 +31,7 @@ class PageTest extends FunctionalTestCase
     {
         /** @var PageInterface $page */
         $page = $this->getRepository()->findOneEnabledByCode('page1-code', 'en_US');
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/pages/' . $page->getId(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/pages/' . $page->getId(), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/PageTest/test_it_get_page_by_id', Response::HTTP_OK);
@@ -39,7 +39,7 @@ class PageTest extends FunctionalTestCase
 
     public function test_pages_response(): void
     {
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/pages', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/pages', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/PageTest/test_it_get_pages', Response::HTTP_OK);

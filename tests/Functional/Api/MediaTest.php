@@ -32,7 +32,7 @@ class MediaTest extends FunctionalTestCase
         /** @var MediaInterface $media */
         $media = $this->getRepository()->findOneEnabledByCode('media1-code', 'code');
 
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/media/' . $media->getId(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/media/' . $media->getId(), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/MediaTest/test_it_get_media_by_id', Response::HTTP_OK);
@@ -40,7 +40,7 @@ class MediaTest extends FunctionalTestCase
 
     public function test_medias_response(): void
     {
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/media', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/media', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/MediaTest/test_it_get_media', Response::HTTP_OK);
