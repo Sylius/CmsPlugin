@@ -32,11 +32,11 @@ Customise vendor routing in the file `app/Resources/SyliusCmsPlugin/config/routi
 Add:
 ```
 sylius_cms_admin:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin.yml"
     prefix: /admin
 
 sylius_cms_shop:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/shop.yml"
+    resource: "@SyliusCmsPlugin/config/routing/shop.yml"
     prefix: /
 
 sylius_sitemap:

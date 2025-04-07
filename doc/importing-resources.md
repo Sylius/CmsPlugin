@@ -213,7 +213,7 @@ sylius_grid:
 ### Overriding the importer grid template
 
 Create an `_importForm.html.twig` file under `app/Resources/SyliusCmsPlugin/views/Grid/Form` location. Take a look at
-the default [_importForm.html.twig](../src/Resources/views/Grid/Form/_importForm.html.twig) file.
+the default [_importForm.html.twig](../templates/Grid/Form/_importForm.html.twig) file.
 
 ### Example
 

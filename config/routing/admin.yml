@@ -1,26 +1,26 @@
 sylius_cms_admin_block:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/block.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/block.yml"
 
 sylius_cms_admin_page:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/page.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/page.yml"
 
 sylius_cms_admin_collection:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/collection.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/collection.yml"
 
 sylius_cms_admin_media:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/media.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/media.yml"
 
 sylius_cms_admin_product:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/product.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/product.yml"
 
 sylius_cms_admin_taxon:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/taxon.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/taxon.yml"
 
 sylius_cms_admin_locale:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/locale.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/locale.yml"
 
 sylius_cms_admin_template:
-    resource: "@SyliusCmsPlugin/Resources/config/routing/admin/template.yml"
+    resource: "@SyliusCmsPlugin/config/routing/admin/template.yml"
 
 sylius_cms_admin_ajax_generate_page_slug:
     path: /page/generate-slug

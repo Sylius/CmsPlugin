@@ -51,4 +51,4 @@ If you don't know how to override templates yet,
 read [Sylius template customization guide](http://docs.sylius.org/en/latest/customization/template.html).
 
 Even if you can pass template argument to render media resource, you can change the global templates under `app/templates/bundles/SyliusCmsPlugin/Shop/Media` location.
-Available templates you can override can be found under [this location](../src/Resources/views/Shop/Media).
+Available templates you can override can be found under [this location](../templates/Shop/Media).

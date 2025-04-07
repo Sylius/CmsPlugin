@@ -37,7 +37,7 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
     public function prepend(ContainerBuilder $container): void
     {
         $config = $this->getCurrentConfiguration($container);
-        $container->setParameter('sylius_cms.fixtures_dir', __DIR__ . '/../Resources/config/fixtures');
+        $container->setParameter('sylius_cms.fixtures_dir', __DIR__ . '/../../config/fixtures');
 
         $this->registerResources('sylius_cms', 'doctrine/orm', $config['resources'], $container);
 
@@ -51,7 +51,7 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
 
     protected function getMigrationsDirectory(): string
     {
-        return '@SyliusCmsPlugin/Migrations';
+        return '@SyliusCmsPlugin/src/Migrations';
     }
 
     protected function getNamespacesOfMigrationsExecutedBefore(): array
