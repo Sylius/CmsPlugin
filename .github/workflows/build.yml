@@ -126,8 +126,7 @@ jobs:
 
       - name: Configure Trix if enabled
         if: matrix.trix == true
-        run: |
-          printf "sylius_cms:\n    wysiwyg_editor: trix\n" >> tests/Application/config/packages/sylius_cms_plugin.yaml
+        run: mv tests/Application/config/integration/trix_wysiwyg.yaml tests/Application/config/packages/sylius_cms_plugin.yaml
 
       - name: Prepare test application database
         run: |
