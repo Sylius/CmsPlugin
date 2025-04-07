@@ -32,4 +32,9 @@ final class SyliusCmsPlugin extends Bundle
         $container->addCompilerPass(new MediaProviderPass());
         $container->addCompilerPass(new ContentElementPass());
     }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }

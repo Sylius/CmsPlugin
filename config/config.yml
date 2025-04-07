@@ -1,8 +1,8 @@
 imports:
-    - { resource: "@SyliusCmsPlugin/Resources/config/fos_ck_editor/fos_ck_editor.yml" }
-    - { resource: "@SyliusCmsPlugin/Resources/config/grids.yml" }
-    - { resource: "@SyliusCmsPlugin/Resources/config/services.xml" }
-    - { resource: "@SyliusCmsPlugin/Resources/config/fixtures/*.yaml"}
+    - { resource: "@SyliusCmsPlugin/config/fos_ck_editor/fos_ck_editor.yml" }
+    - { resource: "@SyliusCmsPlugin/config/grids.yml" }
+    - { resource: "@SyliusCmsPlugin/config/services.xml" }
+    - { resource: "@SyliusCmsPlugin/config/fixtures/*.yaml"}
 
 parameters:
     sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"
@@ -23,7 +23,7 @@ jms_serializer:
         directories:
             cms-section:
                 namespace_prefix: "Sylius\\CmsPlugin"
-                path: "@SyliusCmsPlugin/Resources/config/serializer"
+                path: "@SyliusCmsPlugin/config/serializer"
 
 knp_gaufrette:
     adapters:
