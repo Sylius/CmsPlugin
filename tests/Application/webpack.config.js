@@ -1,51 +1,66 @@
 const path = require('path');
 const Encore = require('@symfony/webpack-encore');
-const createCmsConfigs  = require('../../webpack.config.js')
-const syliusBundles = path.resolve(__dirname, '../../vendor/sylius/sylius/src/Sylius/Bundle/');
-const uiBundleScripts = path.resolve(syliusBundles, 'UiBundle/Resources/private/js/');
-const uiBundleResources = path.resolve(syliusBundles, 'UiBundle/Resources/private/');
 
-// Shop config
+const SyliusAdmin = require('@sylius-ui/admin');
+const SyliusShop = require('@sylius-ui/shop');
+
+// WYSIWYG mode – switch to 'trix' if needed
+const wysiwyg = 'ckeditor';
+
+const adminEntry = wysiwyg === 'trix'
+    ? './assets/admin/trix-entry.js'
+    : './assets/admin/entry.js';
+
+// Shop config (from @sylius-ui/shop)
+const shopConfig = SyliusShop.getWebpackConfig(path.resolve(__dirname));
+
+// Admin config (from @sylius-ui/admin)
+const adminConfig = SyliusAdmin.getWebpackConfig(path.resolve(__dirname));
+
+// App shop config
 Encore
-    .setOutputPath('public/build/shop/')
-    .setPublicPath('/build/shop')
-    .addEntry('shop-entry', './assets/shop/entry.js')
+    .setOutputPath('public/build/app/shop')
+    .setPublicPath('/build/app/shop')
+    .addEntry('app-shop-entry', './assets/shop/entry.js')
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableSassLoader();
 
-const shopConfig = Encore.getWebpackConfig();
+const appShopConfig = Encore.getWebpackConfig();
 
-shopConfig.resolve.alias['sylius/ui'] = uiBundleScripts;
-shopConfig.resolve.alias['sylius/ui-resources'] = uiBundleResources;
-shopConfig.resolve.alias['sylius/bundle'] = syliusBundles;
-shopConfig.name = 'shop';
+appShopConfig.externals = Object.assign({}, appShopConfig.externals, {
+    window: 'window',
+    document: 'document',
+});
+appShopConfig.name = 'app.shop';
 
 Encore.reset();
 
-// Admin config
+// App admin config
 Encore
-    .setOutputPath('public/build/admin/')
-    .setPublicPath('/build/admin')
-    .addEntry('admin-entry', './assets/admin/entry.js')
+    .setOutputPath('public/build/app/admin')
+    .setPublicPath('/build/app/admin')
+    .addEntry('app-admin-entry', adminEntry)
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableSassLoader();
 
-const adminConfig = Encore.getWebpackConfig();
+const appAdminConfig = Encore.getWebpackConfig();
 
-adminConfig.resolve.alias['sylius/ui'] = uiBundleScripts;
-adminConfig.resolve.alias['sylius/ui-resources'] = uiBundleResources;
-adminConfig.resolve.alias['sylius/bundle'] = syliusBundles;
-adminConfig.externals = Object.assign({}, adminConfig.externals, { window: 'window', document: 'document' });
-adminConfig.name = 'admin';
-
-const [CmsShop, CmsAdmin] = createCmsConfigs({
-    wysiwyg: 'ckeditor' // 'ckeditor' | 'trix'
+appAdminConfig.externals = Object.assign({}, appAdminConfig.externals, {
+    window: 'window',
+    document: 'document',
 });
+appAdminConfig.name = 'app.admin';
 
-module.exports = [shopConfig, adminConfig, CmsShop, CmsAdmin];
+module.exports = [shopConfig, adminConfig, appShopConfig, appAdminConfig];

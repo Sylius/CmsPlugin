@@ -3,5 +3,5 @@ webpack_encore:
     builds:
         shop: '%kernel.project_dir%/public/build/shop'
         admin: '%kernel.project_dir%/public/build/admin'
-        cms_shop: '%kernel.project_dir%/public/build/sylius/cms/shop'
-        cms_admin: '%kernel.project_dir%/public/build/sylius/cms/admin'
+        app.shop: '%kernel.project_dir%/public/build/app/shop'
+        app.admin: '%kernel.project_dir%/public/build/app/admin'

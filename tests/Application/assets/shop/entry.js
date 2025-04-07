@@ -1,2 +1,2 @@
-import 'sylius/bundle/ShopBundle/Resources/private/entry';
+import '../../../../src/Resources/assets/shop/entry';
 import './styles.scss';
