@@ -20,6 +20,7 @@ interface ProductsAwareInterface
 {
     public function initializeProductsCollection(): void;
 
+    /** @return Collection<array-key, ProductInterface> */
     public function getProducts(): Collection;
 
     public function hasProduct(ProductInterface $product): bool;

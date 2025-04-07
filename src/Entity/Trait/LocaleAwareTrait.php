@@ -19,6 +19,7 @@ use Sylius\Component\Locale\Model\LocaleInterface;
 
 trait LocaleAwareTrait
 {
+    /** @var Collection<array-key, LocaleInterface> */
     protected Collection $locales;
 
     public function initializeLocalesCollection(): void

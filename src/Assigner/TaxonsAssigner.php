@@ -20,6 +20,7 @@ use Webmozart\Assert\Assert;
 
 final class TaxonsAssigner implements TaxonsAssignerInterface
 {
+    /** @param TaxonRepositoryInterface<TaxonInterface> $taxonRepository */
     public function __construct(private TaxonRepositoryInterface $taxonRepository)
     {
     }

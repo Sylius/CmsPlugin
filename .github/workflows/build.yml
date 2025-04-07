@@ -98,7 +98,7 @@ jobs:
         run: vendor/bin/phpstan analyse -c phpstan.neon.dist
 
       - name: Run ECS
-        run: vendor/bin/ecs
+        run: vendor/bin/ecs check
 
 #      - name: Install Behat driver
 #        run: vendor/bin/bdi browser:google-chrome drivers

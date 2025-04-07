@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Controller\Action\Admin;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandler;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class TaxonSearchAction
 {
+    /** @param TaxonRepositoryInterface<TaxonInterface> $taxonRepository */
     public function __construct(
         private TaxonRepositoryInterface $taxonRepository,
         private LocaleContextInterface $localeContext,

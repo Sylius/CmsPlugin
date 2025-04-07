@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class ResourceTemplateProvider implements ResourceTemplateProviderInterface
 {
+    /** @var array<string, array<string>> */
     private array $templates = [];
 
     public function __construct(ParameterBagInterface $params)

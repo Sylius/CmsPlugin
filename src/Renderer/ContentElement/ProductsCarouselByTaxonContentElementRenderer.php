@@ -15,12 +15,17 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentElementType;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 
 final class ProductsCarouselByTaxonContentElementRenderer extends AbstractContentElement
 {
+    /**
+     * @param ProductRepositoryInterface<ProductInterface> $productRepository
+     * @param TaxonRepositoryInterface<TaxonInterface> $taxonRepository
+     */
     public function __construct(
         private ProductRepositoryInterface $productRepository,
         private TaxonRepositoryInterface $taxonRepository,

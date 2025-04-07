@@ -16,7 +16,8 @@ namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
 use Sylius\Bundle\TaxonomyBundle\Form\Type\TaxonAutocompleteChoiceType;
 use Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\ReversedTransformer;
@@ -25,6 +26,7 @@ final class ProductsGridByTaxonContentElementType extends AbstractType
 {
     public const TYPE = 'products_grid_by_taxon';
 
+    /** @param RepositoryInterface<TaxonInterface> $taxonRepository */
     public function __construct(
         private RepositoryInterface $taxonRepository,
         private ContentElementDataTransformerChecker $contentElementDataTransformerChecker,

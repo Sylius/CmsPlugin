@@ -17,5 +17,10 @@ use Symfony\Component\Form\FormView;
 
 interface TranslationFormReduceRuntimeInterface
 {
+    /**
+     * @param array<string> $fields
+     *
+     * @return array<int|string, array<string, FormView>>
+     */
     public function reduceTranslationForm(FormView $form, array $fields): array;
 }

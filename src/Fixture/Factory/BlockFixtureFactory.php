@@ -52,6 +52,7 @@ final class BlockFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $blockData */
     private function createBlock(string $code, array $blockData): void
     {
         /** @var BlockInterface $block */

@@ -25,7 +25,9 @@ interface TemplateInterface extends ResourceInterface
 
     public function setType(?string $type): void;
 
+    /** @return array<array-key, mixed> */
     public function getContentElements(): array;
 
+    /** @param array<array-key, mixed> $contentElements */
     public function setContentElements(array $contentElements): void;
 }

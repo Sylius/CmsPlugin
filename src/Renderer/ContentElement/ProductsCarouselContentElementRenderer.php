@@ -15,10 +15,12 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselContentElementType;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 
 final class ProductsCarouselContentElementRenderer extends AbstractContentElement
 {
+    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
     public function __construct(
         private ProductRepositoryInterface $productRepository,
     ) {

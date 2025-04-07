@@ -15,10 +15,13 @@ namespace Sylius\CmsPlugin\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Sylius\CmsPlugin\Entity\PageInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Resource\Model\ResourceInterface;
 
+/** @extends RepositoryInterface<PageInterface> */
 interface PageRepositoryInterface extends RepositoryInterface
 {
+    /** @return array<ResourceInterface> */
     public function findEnabled(bool $enabled): array;
 
     public function findOneEnabledByCode(string $code): ?PageInterface;
@@ -31,7 +34,9 @@ interface PageRepositoryInterface extends RepositoryInterface
 
     public function createShopListQueryBuilder(string $collectionCode, string $channelCode): QueryBuilder;
 
+    /** @return array<ResourceInterface> */
     public function findByCollectionCode(string $collectionCode): array;
 
+    /** @return array<ResourceInterface> */
     public function findByNamePart(string $phrase): array;
 }

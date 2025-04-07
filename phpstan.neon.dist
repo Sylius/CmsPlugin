@@ -1,18 +1,14 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+
 parameters:
-    level: 8
+    level: 6
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
 
     excludePaths:
-        # Sitemap dependent providers
-        - 'src/SitemapProvider'
-        - 'src/Importer/AbstractImporter'
-        - 'tests/Application/config/bootstrap.php'
-        - 'tests/Fixture/PageFixtureTest.php'
-        - 'src/Controller/Helper'
-    ignoreErrors:
-        - identifier: missingType.iterableValue
-        - identifier: missingType.generics
-        - '#.*NodeParentInterface.*#'
-        - '#should return Sylius\\Component\\Resource\\Model\\TranslationInterface but returns Sylius\\Resource\\Model\\TranslationInterface\.#'
+        # Test dependencies
+        - 'tests/Application/app/**.php'
+        - 'tests/Application/src/**.php'

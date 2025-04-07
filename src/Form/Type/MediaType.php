@@ -25,16 +25,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class MediaType extends AbstractResourceType
 {
-    private array $providers;
-
+    /** @param array<string, string> $providers */
     public function __construct(
         string $dataClass,
         array $validationGroups = [],
-        array $providers = [],
+        private array $providers = [],
     ) {
         parent::__construct($dataClass, $validationGroups);
-
-        $this->providers = $providers;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

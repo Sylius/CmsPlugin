@@ -14,16 +14,20 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Repository;
 
 use Sylius\CmsPlugin\Entity\BlockInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Resource\Model\ResourceInterface;
 
+/** @extends RepositoryInterface<BlockInterface> */
 interface BlockRepositoryInterface extends RepositoryInterface
 {
     public function findEnabledByCode(string $code, string $channelCode): ?BlockInterface;
 
+    /** @return array<ResourceInterface> */
     public function findByCollectionCode(
         string $collectionCode,
         string $channelCode,
     ): array;
 
+    /** @return array<ResourceInterface> */
     public function findByNamePart(string $phrase): array;
 }

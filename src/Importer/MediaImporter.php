@@ -64,6 +64,7 @@ final class MediaImporter extends AbstractImporter implements MediaImporterInter
         return 'media';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 
 use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
+use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker;
 use Sylius\CmsPlugin\Form\Type\PageCollectionAutocompleteChoiceType;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\ReversedTransformer;
@@ -25,6 +26,7 @@ final class PagesCollectionContentElementType extends AbstractType
 {
     public const TYPE = 'pages_collection';
 
+    /** @param RepositoryInterface<CollectionInterface> $collectionRepository */
     public function __construct(
         private RepositoryInterface $collectionRepository,
         private ContentElementDataTransformerChecker $contentElementDataTransformerChecker,

@@ -17,5 +17,6 @@ use Sylius\CmsPlugin\Entity\CollectibleInterface;
 
 interface CollectionsAssignerInterface
 {
+    /** @param array<string> $collectionsCodes */
     public function assign(CollectibleInterface $collectionsAware, array $collectionsCodes): void;
 }

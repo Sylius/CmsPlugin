@@ -20,6 +20,7 @@ use Webmozart\Assert\Assert;
 
 final class ChannelsAssigner implements ChannelsAssignerInterface
 {
+    /** @param ChannelRepositoryInterface<ChannelInterface> $channelRepository */
     public function __construct(private ChannelRepositoryInterface $channelRepository)
     {
     }

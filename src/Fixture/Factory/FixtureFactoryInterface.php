@@ -15,5 +15,6 @@ namespace Sylius\CmsPlugin\Fixture\Factory;
 
 interface FixtureFactoryInterface
 {
+    /** @param array<array-key, array<string, mixed>> $data */
     public function load(array $data): void;
 }

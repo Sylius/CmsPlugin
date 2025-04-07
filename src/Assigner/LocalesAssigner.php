@@ -15,11 +15,12 @@ namespace Sylius\CmsPlugin\Assigner;
 
 use Sylius\CmsPlugin\Entity\LocaleAwareInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class LocalesAssigner implements LocalesAssignerInterface
 {
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(private RepositoryInterface $localeRepository)
     {
     }

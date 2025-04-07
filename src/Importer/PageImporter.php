@@ -71,6 +71,7 @@ final class PageImporter extends AbstractImporter implements PageImporterInterfa
         return 'page';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

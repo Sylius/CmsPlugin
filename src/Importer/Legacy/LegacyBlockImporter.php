@@ -21,12 +21,13 @@ use Sylius\CmsPlugin\Resolver\Importer\ImporterChannelsResolverInterface;
 use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
 use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockImporterInterface
 {
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(
         private ResourceResolverInterface $blockResourceResolver,
         private ImporterCollectionsResolverInterface $importerCollectionsResolver,
@@ -107,6 +108,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
         return 'block_legacy';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

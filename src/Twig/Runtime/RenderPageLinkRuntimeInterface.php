@@ -18,6 +18,7 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 interface RenderPageLinkRuntimeInterface extends RuntimeExtensionInterface
 {
+    /** @param array<string, mixed> $options */
     public function renderLinkForCode(
         Environment $environment,
         string $code,
@@ -25,5 +26,6 @@ interface RenderPageLinkRuntimeInterface extends RuntimeExtensionInterface
         ?string $template = null,
     ): string;
 
+    /** @param array<string, mixed> $options */
     public function getLinkForCode(string $code, array $options = []): string;
 }

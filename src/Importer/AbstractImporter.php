@@ -26,21 +26,29 @@ abstract class AbstractImporter implements ImporterInterface
     {
     }
 
-    protected function getColumnValue(string $column, array $row)
+    /** @param array<string> $row */
+    protected function getColumnValue(string $column, array $row): ?string
     {
         return $row[$column] ?? null;
     }
 
+    /** @param array<string> $row */
     protected function getTranslatableColumnValue(
         string $column,
-        $locale,
+        string $locale,
         array $row,
-    ) {
+    ): ?string {
         $column = str_replace('__locale__', '_' . $locale, $column);
 
         return $row[$column] ?? null;
     }
 
+    /**
+     * @param array<string> $translatableColumns
+     * @param array<string> $columns
+     *
+     * @return array<string>
+     */
     protected function getAvailableLocales(array $translatableColumns, array $columns): array
     {
         $locales = [];
@@ -60,6 +68,7 @@ abstract class AbstractImporter implements ImporterInterface
         return array_unique($locales);
     }
 
+    /** @param array<string> $groups */
     protected function validateResource(ResourceInterface $resource, array $groups): void
     {
         $errors = $this->validator->validate($resource, null, $groups);
@@ -68,7 +77,7 @@ abstract class AbstractImporter implements ImporterInterface
             $message = '';
 
             foreach ($errors as $error) {
-                $message .= lcfirst(rtrim($error->getMessage(), '.')) . ', ';
+                $message .= lcfirst(rtrim((string) $error->getMessage(), '.')) . ', ';
             }
 
             $message = ucfirst(rtrim($message, ', ')) . '.';

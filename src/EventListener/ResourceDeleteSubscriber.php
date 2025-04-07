@@ -112,6 +112,7 @@ final class ResourceDeleteSubscriber implements EventSubscriberInterface
         return str_starts_with($route, 'sylius_cms');
     }
 
+    /** @param array<string, string> $syliusParameters */
     private function isAdminSection(array $syliusParameters): bool
     {
         return array_key_exists('section', $syliusParameters) && 'admin' === $syliusParameters['section'];

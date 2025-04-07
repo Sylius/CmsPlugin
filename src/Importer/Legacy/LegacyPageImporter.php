@@ -22,12 +22,13 @@ use Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolverInterface;
 use Sylius\CmsPlugin\Resolver\ResourceResolverInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 final class LegacyPageImporter extends AbstractImporter implements LegacyPageImporterInterface
 {
+    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
     public function __construct(
         private ResourceResolverInterface $pageResourceResolver,
         private LocaleContextInterface $localeContext,
@@ -122,6 +123,7 @@ final class LegacyPageImporter extends AbstractImporter implements LegacyPageImp
         return 'page_legacy';
     }
 
+    /** @return array<string> */
     private function getTranslatableColumns(): array
     {
         return [

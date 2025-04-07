@@ -19,6 +19,7 @@ class ContentConfiguration implements ContentConfigurationInterface
 
     protected ?string $type;
 
+    /** @var array<string, mixed> */
     protected array $configuration = [];
 
     protected ?string $locale = null;

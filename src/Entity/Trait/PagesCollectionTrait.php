@@ -19,6 +19,7 @@ use Sylius\CmsPlugin\Entity\PageInterface;
 
 trait PagesCollectionTrait
 {
+    /** @var Collection<array-key, PageInterface> */
     protected Collection $pages;
 
     public function initializePagesCollection(): void

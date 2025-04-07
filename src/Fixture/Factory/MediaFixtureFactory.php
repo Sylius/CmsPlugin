@@ -50,6 +50,7 @@ final class MediaFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $mediaData */
     private function createMedia(string $code, array $mediaData): void
     {
         /** @var MediaInterface $media */

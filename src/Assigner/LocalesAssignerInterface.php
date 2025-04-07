@@ -17,5 +17,6 @@ use Sylius\CmsPlugin\Entity\LocaleAwareInterface;
 
 interface LocalesAssignerInterface
 {
+    /** @param array<string> $localesCodes */
     public function assign(LocaleAwareInterface $localesAware, array $localesCodes): void;
 }

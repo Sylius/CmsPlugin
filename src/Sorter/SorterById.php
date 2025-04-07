@@ -13,8 +13,15 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Sorter;
 
+use Sylius\Component\Resource\Model\ResourceInterface;
+
 final class SorterById
 {
+    /**
+     * @param array<int, ResourceInterface> $elements
+     *
+     * @return array<int, ResourceInterface>
+     */
     public static function sort(array $elements, string $direction = 'asc'): array
     {
         usort($elements, static function ($element1, $element2) use ($direction) {

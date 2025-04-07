@@ -20,6 +20,7 @@ use Webmozart\Assert\Assert;
 
 final class ProductsAssigner implements ProductsAssignerInterface
 {
+    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
     public function __construct(private ProductRepositoryInterface $productRepository)
     {
     }

@@ -19,6 +19,7 @@ interface MediaCollectionInterface
 {
     public function initializeMediaCollection(): void;
 
+    /** @return Collection<array-key, MediaInterface> */
     public function getMedia(): ?Collection;
 
     public function hasMedium(MediaInterface $media): bool;

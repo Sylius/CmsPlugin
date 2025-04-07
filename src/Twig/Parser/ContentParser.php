@@ -19,8 +19,11 @@ use Webmozart\Assert\Assert;
 
 final class ContentParser implements ContentParserInterface
 {
-    public function __construct(private Environment $twigEnvironment, private array $enabledFunctions)
-    {
+    /** @param array<string> $enabledFunctions */
+    public function __construct(
+        private Environment $twigEnvironment,
+        private array $enabledFunctions,
+    ) {
     }
 
     public function parse(string $input): string
@@ -49,6 +52,7 @@ final class ContentParser implements ContentParserInterface
         return $input;
     }
 
+    /** @return array<string>|null */
     private function getFunctionArguments(string $functionName, string $input): ?array
     {
         $start = '{{ ' . $functionName . '(';
@@ -68,6 +72,10 @@ final class ContentParser implements ContentParserInterface
         return null;
     }
 
+    /**
+     * @param array<string, TwigFunction> $functions
+     * @param array<string> $arguments
+     */
     private function callFunction(
         array $functions,
         string $functionName,

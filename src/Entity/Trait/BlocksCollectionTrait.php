@@ -19,6 +19,7 @@ use Sylius\CmsPlugin\Entity\BlockInterface;
 
 trait BlocksCollectionTrait
 {
+    /** @var Collection<array-key, BlockInterface> */
     protected Collection $blocks;
 
     public function initializeBlocksCollection(): void

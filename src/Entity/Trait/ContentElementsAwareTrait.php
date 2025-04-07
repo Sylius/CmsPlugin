@@ -24,6 +24,7 @@ use Sylius\CmsPlugin\Entity\Page;
  */
 trait ContentElementsAwareTrait
 {
+    /** @var Collection<array-key, ContentConfigurationInterface> */
     protected Collection $contentElements;
 
     public function initializeContentElementsCollection(): void

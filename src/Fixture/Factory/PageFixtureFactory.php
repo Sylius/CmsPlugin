@@ -51,6 +51,7 @@ final class PageFixtureFactory implements FixtureFactoryInterface
         }
     }
 
+    /** @param array<string, mixed> $pageData */
     private function createPage(
         string $code,
         array $pageData,

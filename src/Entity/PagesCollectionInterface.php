@@ -19,6 +19,7 @@ interface PagesCollectionInterface
 {
     public function initializePagesCollection(): void;
 
+    /** @return Collection<array-key, PageInterface> */
     public function getPages(): ?Collection;
 
     public function hasPage(PageInterface $page): bool;

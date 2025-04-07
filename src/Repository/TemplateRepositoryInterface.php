@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Repository;
 
+use Sylius\Resource\Model\ResourceInterface;
+
 interface TemplateRepositoryInterface
 {
+    /** @return array<ResourceInterface> */
     public function findTemplatesByNamePart(string $phrase, string $type): array;
 }
