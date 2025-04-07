@@ -4,13 +4,6 @@ const Encore = require('@symfony/webpack-encore');
 const SyliusAdmin = require('@sylius-ui/admin');
 const SyliusShop = require('@sylius-ui/shop');
 
-// WYSIWYG mode – switch to 'trix' if needed
-const wysiwyg = 'ckeditor';
-
-const adminEntry = wysiwyg === 'trix'
-    ? './assets/admin/trix-entry.js'
-    : './assets/admin/entry.js';
-
 // Shop config (from @sylius-ui/shop)
 const shopConfig = SyliusShop.getWebpackConfig(path.resolve(__dirname));
 
@@ -41,11 +34,11 @@ appShopConfig.name = 'app.shop';
 
 Encore.reset();
 
-// App admin config
+// App admin config: CKEditor entry
 Encore
     .setOutputPath('public/build/app/admin')
     .setPublicPath('/build/app/admin')
-    .addEntry('app-admin-entry', adminEntry)
+    .addEntry('app-admin-ckeditor-entry', './assets/admin/entry.js') // classic CKEditor
     .addAliases({
         '@vendor': path.resolve(__dirname, '../../vendor'),
     })
@@ -55,12 +48,42 @@ Encore
     .enableVersioning(Encore.isProduction())
     .enableSassLoader();
 
-const appAdminConfig = Encore.getWebpackConfig();
+const appAdminCkeditorConfig = Encore.getWebpackConfig();
 
-appAdminConfig.externals = Object.assign({}, appAdminConfig.externals, {
+appAdminCkeditorConfig.externals = Object.assign({}, appAdminCkeditorConfig.externals, {
     window: 'window',
     document: 'document',
 });
-appAdminConfig.name = 'app.admin';
+appAdminCkeditorConfig.name = 'app.admin.ckeditor';
 
-module.exports = [shopConfig, adminConfig, appShopConfig, appAdminConfig];
+Encore.reset();
+
+// App admin config: Trix entry
+Encore
+    .setOutputPath('public/build/app/admin')
+    .setPublicPath('/build/app/admin')
+    .addEntry('app-admin-trix-entry', './assets/admin/trix-entry.js') // trix version
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
+    .disableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
+    .enableSassLoader();
+
+const appAdminTrixConfig = Encore.getWebpackConfig();
+
+appAdminTrixConfig.externals = Object.assign({}, appAdminTrixConfig.externals, {
+    window: 'window',
+    document: 'document',
+});
+appAdminTrixConfig.name = 'app.admin.trix';
+
+module.exports = [
+    shopConfig,
+    adminConfig,
+    appShopConfig,
+    appAdminCkeditorConfig,
+    appAdminTrixConfig
+];
