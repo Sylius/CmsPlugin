@@ -1,2 +1,2 @@
-import './js/cms/bitbag-trix-editor';
+import './js/cms/trix-editor';
 import './scss/main.scss';
