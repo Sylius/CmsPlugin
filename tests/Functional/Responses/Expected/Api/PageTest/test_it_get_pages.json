@@ -1,29 +1,29 @@
 {
-  "@context": "/api/v2/contexts/Page",
-  "@id": "/api/v2/shop/cms-plugin/pages",
-  "@type": "hydra:Collection",
-  "hydra:member": [
-    {
-      "@id": "/api/v2/shop/cms-plugin/pages/@integer@",
-      "@type": "Page",
-      "id": "@integer@",
-      "code": "page1-code",
-      "name": null
-    },
-    {
-      "@id": "/api/v2/shop/cms-plugin/pages/@integer@",
-      "@type": "Page",
-      "id": "@integer@",
-      "code": "page2-code",
-      "name": null
-    },
-    {
-      "@id": "/api/v2/shop/cms-plugin/pages/@integer@",
-      "@type": "Page",
-      "id": "@integer@",
-      "code": "page3-code",
-      "name": null
-    }
-  ],
-  "hydra:totalItems": 3
+    "@context": "/api/v2/contexts/Page",
+    "@id": "/api/v2/shop/cms/pages",
+    "@type": "hydra:Collection",
+    "hydra:totalItems": 3,
+    "hydra:member": [
+        {
+            "@id": "/api/v2/shop/cms/pages/@integer@",
+            "@type": "Page",
+            "id": "@integer@",
+            "code": "page1-code",
+            "name": null
+        },
+        {
+            "@id": "/api/v2/shop/cms/pages/@integer@",
+            "@type": "Page",
+            "id": "@integer@",
+            "code": "page2-code",
+            "name": null
+        },
+        {
+            "@id": "/api/v2/shop/cms/pages/@integer@",
+            "@type": "Page",
+            "id": "@integer@",
+            "code": "page3-code",
+            "name": null
+        }
+    ]
 }

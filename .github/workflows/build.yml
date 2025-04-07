@@ -157,7 +157,7 @@ jobs:
         run: vendor/bin/phpspec run --ansi -f progress --no-interaction
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --colors=always --testsuite=integration
+        run: vendor/bin/phpunit --colors=always
 
 #      - name: Set Behat tags
 #        if: matrix.trix != true

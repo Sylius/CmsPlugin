@@ -1,32 +1,32 @@
 {
-  "@context": "/api/v2/contexts/Block",
-  "@id": "/api/v2/shop/cms-plugin/blocks",
-  "@type": "hydra:Collection",
-  "hydra:member": [
-    {
-      "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
-      "@type": "Block",
-      "id": "@integer@",
-      "code": "block1-code",
-      "name": "block1-name",
-      "enabled": true
-    },
-    {
-      "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
-      "@type": "Block",
-      "id": "@integer@",
-      "code": "block2-code",
-      "name": "block2-name",
-      "enabled": true
-    },
-    {
-      "@id": "/api/v2/shop/cms-plugin/blocks/@integer@",
-      "@type": "Block",
-      "id": "@integer@",
-      "code": "block3-code",
-      "name": "block3-name",
-      "enabled": true
-    }
-  ],
-  "hydra:totalItems": 3
+    "@context": "/api/v2/contexts/Block",
+    "@id": "/api/v2/shop/cms/blocks",
+    "@type": "hydra:Collection",
+    "hydra:member": [
+        {
+            "@id": "/api/v2/shop/cms/blocks/@integer@",
+            "@type": "Block",
+            "id": "@integer@",
+            "code": "block1-code",
+            "name": "block1-name",
+            "enabled": true
+        },
+        {
+            "@id": "/api/v2/shop/cms/blocks/@integer@",
+            "@type": "Block",
+            "id": "@integer@",
+            "code": "block2-code",
+            "name": "block2-name",
+            "enabled": true
+        },
+        {
+            "@id": "/api/v2/shop/cms/blocks/@integer@",
+            "@type": "Block",
+            "id": "@integer@",
+            "code": "block3-code",
+            "name": "block3-name",
+            "enabled": true
+        }
+    ],
+    "hydra:totalItems": 3
 }

@@ -31,7 +31,7 @@ class CollectionTest extends FunctionalTestCase
     {
         /** @var CollectionInterface $collection */
         $collection = $this->getRepository()->findOneByCode('collection1-code');
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/collections/' . $collection->getId(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/collections/' . $collection->getId(), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/CollectionTest/test_it_get_collection_by_id', Response::HTTP_OK);
@@ -39,7 +39,7 @@ class CollectionTest extends FunctionalTestCase
 
     public function test_collections_response(): void
     {
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/collections', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/collections', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/CollectionTest/test_it_get_collections', Response::HTTP_OK);

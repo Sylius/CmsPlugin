@@ -31,7 +31,7 @@ class BlockTest extends FunctionalTestCase
     {
         /** @var BlockInterface $block */
         $block = $this->getRepository()->findEnabledByCode('block1-code', 'code');
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/blocks/' . $block->getId(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/blocks/' . $block->getId(), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/BlockTest/test_it_get_block_by_id', Response::HTTP_OK);
@@ -39,7 +39,7 @@ class BlockTest extends FunctionalTestCase
 
     public function test_blocks_response(): void
     {
-        $this->client->request('GET', '/api/v2/shop/cms-plugin/blocks', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/api/v2/shop/cms/blocks', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'Api/BlockTest/test_it_get_blocks', Response::HTTP_OK);
