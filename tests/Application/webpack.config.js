@@ -1,51 +1,89 @@
 const path = require('path');
 const Encore = require('@symfony/webpack-encore');
-const createCmsConfigs  = require('../../webpack.config.js')
-const syliusBundles = path.resolve(__dirname, '../../vendor/sylius/sylius/src/Sylius/Bundle/');
-const uiBundleScripts = path.resolve(syliusBundles, 'UiBundle/Resources/private/js/');
-const uiBundleResources = path.resolve(syliusBundles, 'UiBundle/Resources/private/');
 
-// Shop config
+const SyliusAdmin = require('@sylius-ui/admin');
+const SyliusShop = require('@sylius-ui/shop');
+
+// Shop config (from @sylius-ui/shop)
+const shopConfig = SyliusShop.getWebpackConfig(path.resolve(__dirname));
+
+// Admin config (from @sylius-ui/admin)
+const adminConfig = SyliusAdmin.getWebpackConfig(path.resolve(__dirname));
+
+// App shop config
 Encore
-    .setOutputPath('public/build/shop/')
-    .setPublicPath('/build/shop')
-    .addEntry('shop-entry', './assets/shop/entry.js')
+    .setOutputPath('public/build/app/shop')
+    .setPublicPath('/build/app/shop')
+    .addEntry('app-shop-entry', './assets/shop/entry.js')
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableSassLoader();
 
-const shopConfig = Encore.getWebpackConfig();
+const appShopConfig = Encore.getWebpackConfig();
 
-shopConfig.resolve.alias['sylius/ui'] = uiBundleScripts;
-shopConfig.resolve.alias['sylius/ui-resources'] = uiBundleResources;
-shopConfig.resolve.alias['sylius/bundle'] = syliusBundles;
-shopConfig.name = 'shop';
+appShopConfig.externals = Object.assign({}, appShopConfig.externals, {
+    window: 'window',
+    document: 'document',
+});
+appShopConfig.name = 'app.shop';
 
 Encore.reset();
 
-// Admin config
+// App admin config: CKEditor entry
 Encore
-    .setOutputPath('public/build/admin/')
-    .setPublicPath('/build/admin')
-    .addEntry('admin-entry', './assets/admin/entry.js')
+    .setOutputPath('public/build/app/admin')
+    .setPublicPath('/build/app/admin')
+    .addEntry('app-admin-ckeditor-entry', './assets/admin/entry.js') // classic CKEditor
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableSassLoader();
 
-const adminConfig = Encore.getWebpackConfig();
+const appAdminCkeditorConfig = Encore.getWebpackConfig();
 
-adminConfig.resolve.alias['sylius/ui'] = uiBundleScripts;
-adminConfig.resolve.alias['sylius/ui-resources'] = uiBundleResources;
-adminConfig.resolve.alias['sylius/bundle'] = syliusBundles;
-adminConfig.externals = Object.assign({}, adminConfig.externals, { window: 'window', document: 'document' });
-adminConfig.name = 'admin';
-
-const [CmsShop, CmsAdmin] = createCmsConfigs({
-    wysiwyg: 'ckeditor' // 'ckeditor' | 'trix'
+appAdminCkeditorConfig.externals = Object.assign({}, appAdminCkeditorConfig.externals, {
+    window: 'window',
+    document: 'document',
 });
+appAdminCkeditorConfig.name = 'app.admin.ckeditor';
 
-module.exports = [shopConfig, adminConfig, CmsShop, CmsAdmin];
+Encore.reset();
+
+// App admin config: Trix entry
+Encore
+    .setOutputPath('public/build/app/admin')
+    .setPublicPath('/build/app/admin')
+    .addEntry('app-admin-trix-entry', './assets/admin/trix-entry.js') // trix version
+    .addAliases({
+        '@vendor': path.resolve(__dirname, '../../vendor'),
+    })
+    .disableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
+    .enableSassLoader();
+
+const appAdminTrixConfig = Encore.getWebpackConfig();
+
+appAdminTrixConfig.externals = Object.assign({}, appAdminTrixConfig.externals, {
+    window: 'window',
+    document: 'document',
+});
+appAdminTrixConfig.name = 'app.admin.trix';
+
+module.exports = [
+    shopConfig,
+    adminConfig,
+    appShopConfig,
+    appAdminCkeditorConfig,
+    appAdminTrixConfig
+];
