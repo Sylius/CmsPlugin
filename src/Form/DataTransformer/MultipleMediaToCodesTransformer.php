@@ -18,9 +18,8 @@ use Doctrine\Common\Collections\Collection;
 use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
 use Symfony\Component\Form\DataTransformerInterface;
-use Webmozart\Assert\Assert;
 
-/** @implements DataTransformerInterface<array<string>|null, Collection<array-key, MediaInterface>> */
+/** @implements DataTransformerInterface<array<string|null>, Collection<array-key, MediaInterface>> */
 final class MultipleMediaToCodesTransformer implements DataTransformerInterface
 {
     public function __construct(private MediaRepositoryInterface $mediaRepository)
@@ -30,9 +29,7 @@ final class MultipleMediaToCodesTransformer implements DataTransformerInterface
     /** @return Collection<array-key, MediaInterface> */
     public function transform(mixed $value): Collection
     {
-        Assert::nullOrIsArray($value);
-
-        if (empty($value)) {
+        if (null === $value || [] === $value) {
             return new ArrayCollection();
         }
 
@@ -42,11 +39,12 @@ final class MultipleMediaToCodesTransformer implements DataTransformerInterface
     /** @return array<string|null> */
     public function reverseTransform(mixed $value): array
     {
-        Assert::isInstanceOf($value, Collection::class);
+        if (null === $value) {
+            return [];
+        }
 
         $mediaCodes = [];
 
-        /** @var MediaInterface $media */
         foreach ($value as $media) {
             $mediaCodes[] = $media->getCode();
         }

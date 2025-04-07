@@ -36,7 +36,7 @@ final class ProductsCarouselContentElementRenderer extends AbstractContentElemen
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_carousel']['products'];
         $products = $this->productRepository->findBy(['code' => $productsCodes]);
-        if (empty($products)) {
+        if ([] === $products) {
             return '';
         }
 

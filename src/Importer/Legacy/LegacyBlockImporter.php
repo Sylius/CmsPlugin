@@ -62,7 +62,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 'h2',
                 $this->getTranslatableColumnValue(self::NAME_COLUMN, $locale, $row),
             );
-            if ($heading) {
+            if (null !== $heading) {
                 $heading->setBlock($block);
                 $block->addContentElement($heading);
             }
@@ -71,7 +71,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale,
                 $this->getTranslatableColumnValue(self::IMAGE_COLUMN, $locale, $row),
             );
-            if ($singleMedia) {
+            if (null !== $singleMedia) {
                 $singleMedia->setBlock($block);
                 $block->addContentElement($singleMedia);
             }
@@ -80,7 +80,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale,
                 $this->getTranslatableColumnValue(self::CONTENT_COLUMN, $locale, $row),
             );
-            if ($content) {
+            if (null !== $content) {
                 $content->setBlock($block);
                 $block->addContentElement($content);
             }
@@ -93,7 +93,7 @@ final class LegacyBlockImporter extends AbstractImporter implements LegacyBlockI
                 $locale->getCode(),
                 $this->getColumnValue(self::PRODUCTS_COLUMN, $row),
             );
-            if ($productsGrid) {
+            if (null !== $productsGrid) {
                 $productsGrid->setBlock($block);
                 $block->addContentElement($productsGrid);
             }

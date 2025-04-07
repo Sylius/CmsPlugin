@@ -58,7 +58,7 @@ abstract class AbstractImporter implements ImporterInterface
                 if (str_starts_with($column, $translatableColumn)) {
                     $localePart = substr($column, strlen($translatableColumn));
 
-                    if (preg_match('/^[a-z]{2}(_[A-Z]{2})?$/', $localePart)) {
+                    if (1 === preg_match('/^[a-z]{2}(_[A-Z]{2})?$/', $localePart)) {
                         $locales[] = $localePart;
                     }
                 }

@@ -129,7 +129,7 @@ final class PageType extends AbstractResourceType
 
             if (isset($data['contentElements'])) {
                 foreach ($data['contentElements'] as &$contentElement) {
-                    if (empty($contentElement['locale'])) {
+                    if (!isset($contentElement['locale']) || '' === $contentElement['locale']) {
                         $contentElement['locale'] = $selectedLocale;
                     }
                 }

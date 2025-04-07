@@ -24,7 +24,7 @@ final class ImporterLocalesResolver implements ImporterLocalesResolverInterface
 
     public function resolve(LocaleAwareInterface $localesAware, ?string $localesRow): void
     {
-        if (empty($localesRow)) {
+        if (null === $localesRow || '' === $localesRow) {
             return;
         }
 

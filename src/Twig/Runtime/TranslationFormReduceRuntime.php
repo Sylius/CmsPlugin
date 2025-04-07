@@ -32,7 +32,7 @@ final class TranslationFormReduceRuntime implements TranslationFormReduceRuntime
                 $localeReducedForm[$field] = $localeForm->children[$field];
             }
 
-            if (!empty($localeReducedForm)) {
+            if ([] !== $localeReducedForm) {
                 $reducedForm[$localeKey] = $localeReducedForm;
             }
         }
