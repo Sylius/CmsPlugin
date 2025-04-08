@@ -33,7 +33,7 @@ trait CollectibleTrait
         $this->collections = new ArrayCollection();
     }
 
-    public function getCollections(): ?Collection
+    public function getCollections(): Collection
     {
         return $this->collections;
     }

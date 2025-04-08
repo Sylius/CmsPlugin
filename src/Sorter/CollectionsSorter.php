@@ -37,7 +37,6 @@ final class CollectionsSorter implements CollectionsSorterInterface
      */
     private function updateCollectionsArray(PageInterface $page, array $currentResult): array
     {
-        Assert::isIterable($page->getCollections());
         foreach ($page->getCollections() as $collection) {
             $collectionCode = $collection->getCode();
             Assert::notNull($collectionCode);

@@ -35,7 +35,6 @@
         "matthiasnoback/symfony-config-test": "^5.1",
         "mockery/mockery": "^1.6",
         "phpstan/extension-installer": "^1.0",
-        "phpspec/phpspec": "^7.5",
         "phpstan/phpstan": "^1.12",
         "phpstan/phpstan-doctrine": "^1.5",
         "phpstan/phpstan-strict-rules": "^1.0",
@@ -60,7 +59,8 @@
     "autoload": {
         "psr-4": {
             "Sylius\\CmsPlugin\\": "src/",
-            "Tests\\Sylius\\CmsPlugin\\": "tests/"
+            "Tests\\Sylius\\CmsPlugin\\": "tests/",
+            "Tests\\Sylius\\CmsPlugin\\Unit\\": "tests/Unit"
         }
     },
     "autoload-dev": {
