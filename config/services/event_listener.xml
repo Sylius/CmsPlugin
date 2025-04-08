@@ -14,11 +14,5 @@
             <tag name="kernel.event_listener" event="sylius_cms.media.pre_create" method="uploadMedia" />
             <tag name="kernel.event_listener" event="sylius_cms.media.pre_update" method="uploadMedia" />
         </service>
-
-        <service id="sylius.event_subscriber.resource_delete" class="Sylius\CmsPlugin\EventListener\ResourceDeleteSubscriber">
-            <argument type="service" id="router" />
-            <argument type="service" id="request_stack" />
-            <tag name="kernel.event_subscriber" event="kernel.exception" />
-        </service>
     </services>
 </container>
