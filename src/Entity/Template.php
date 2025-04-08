@@ -15,11 +15,11 @@ namespace Sylius\CmsPlugin\Entity;
 
 class Template implements TemplateInterface
 {
-    protected ?int $id;
+    protected mixed $id = null;
 
-    protected ?string $name;
+    protected ?string $name = null;
 
-    protected ?string $type;
+    protected ?string $type = null;
 
     /** @var array<array-key, mixed> */
     protected array $contentElements = [];
