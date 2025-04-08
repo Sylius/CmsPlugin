@@ -16,7 +16,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://api-platform.com/schema/metadata/resources-3.0 https://api-platform.com/schema/metadata/resources-3.0.xsd"
 >
-    <resource class="%sylius_cms.model.media.class%" shortName="Media">
+    <resource class="%sylius_cms.model.media.class%">
         <operations>
             <operation
                 name="sylius_cms_api_shop_media_get_collection"
