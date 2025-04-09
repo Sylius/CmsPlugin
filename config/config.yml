@@ -3,7 +3,7 @@ imports:
     - { resource: "@SyliusCmsPlugin/config/grids.yml" }
     - { resource: "@SyliusCmsPlugin/config/services.xml" }
     - { resource: "@SyliusCmsPlugin/config/fixtures/*.yaml"}
-    - { resource: '@SyliusCmsPlugin/config/app/twig_hooks/**/*.yaml' }
+    - { resource: '@SyliusCmsPlugin/config/twig_hooks/**/*.yaml' }
 
 parameters:
     sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"

@@ -91,8 +91,8 @@
         </service>
 
         <service
-                id="sylius_cms.twig.component.templates.form"
-                class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            id="sylius_cms.twig.component.template.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
         >
             <argument type="service" id="sylius_cms.repository.template" />
             <argument type="service" id="form.factory" />

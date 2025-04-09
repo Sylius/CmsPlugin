@@ -1,22 +1,20 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.template.update.content':
+        'sylius_cms.admin.template.create.content':
             form:
                 component: 'sylius_cms:template:form'
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
                     template: '@SyliusCmsPlugin/admin/template/form.html.twig'
-                configuration:
-                    method: 'PUT'
                 priority: 0
 
-        'sylius_admin.template.update.content.form':
+        'sylius_cms.admin.template.create.content.form':
             sections:
                 template: '@SyliusCmsPlugin/admin/template/form/sections.html.twig'
                 priority: 0
 
-        'sylius_admin.template.update.content.form.sections':
+        'sylius_cms.admin.template.create.content.form.sections':
             general:
                 template: '@SyliusCmsPlugin/admin/template/form/sections/general.html.twig'
                 priority: 0
@@ -24,7 +22,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/template/form/sections/elements.html.twig'
                 priority: 0
 
-        'sylius_admin.template.update.content.form.sections.general':
+        'sylius_cms.admin.template.create.content.form.sections.general':
             default:
                 enabled: false
             name:
@@ -34,7 +32,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/template/form/sections/general/type.html.twig'
                 priority: 100
 
-        'sylius_admin.template.update.content.form.sections.elements':
+        'sylius_cms.admin.template.create.content.form.sections.elements':
             default:
                 enabled: false
             content_elements:
