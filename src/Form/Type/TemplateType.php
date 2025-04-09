@@ -37,7 +37,6 @@ final class TemplateType extends AbstractResourceType
             ])
             ->add('contentElements', LiveCollectionType::class, [
                 'entry_type' => ContentElementType::class,
-                'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

@@ -89,5 +89,17 @@
         <service id="sylius_cms.twig.runtime.translation_form_reduce" class="Sylius\CmsPlugin\Twig\Runtime\TranslationFormReduceRuntime">
             <tag name="twig.runtime" />
         </service>
+
+        <service
+                id="sylius_cms.twig.component.templates.form"
+                class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="sylius.repository.country" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.template.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\TemplateType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:template:form" />
+        </service>
     </services>
 </container>
