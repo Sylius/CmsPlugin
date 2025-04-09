@@ -23,7 +23,7 @@ class Collection implements CollectionInterface
     use BlocksCollectionTrait;
     use MediaCollectionTrait;
 
-    protected ?int $id;
+    protected ?int $id = null;
 
     protected ?string $code = null;
 
