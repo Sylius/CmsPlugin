@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
-use Sylius\CmsPlugin\Entity\MediaInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;

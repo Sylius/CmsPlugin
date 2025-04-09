@@ -74,7 +74,9 @@ final class CollectionType extends AbstractResourceType
                 return;
             }
 
-            $this->addContentField($event->getForm(), $data->getType());
+            $type = $data->getType() ?? self::PAGE;
+
+            $this->addContentField($event->getForm(), $type);
         });
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
@@ -97,21 +99,21 @@ final class CollectionType extends AbstractResourceType
         switch ($type) {
             case self::PAGE:
                 $form->add('pages', PageAutocompleteChoiceType::class, [
-                    'label' => 'sylius_cms.ui.pages',
                     'multiple' => true,
                 ]);
+
                 break;
             case self::BLOCK:
                 $form->add('blocks', BlockAutocompleteChoiceType::class, [
-                    'label' => 'sylius_cms.ui.blocks',
                     'multiple' => true,
                 ]);
+
                 break;
             case self::MEDIA:
                 $form->add('media', MediaAutocompleteChoiceType::class, [
-                    'label' => 'sylius_cms.ui.media',
                     'multiple' => true,
                 ]);
+
                 break;
         }
     }

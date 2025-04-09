@@ -101,5 +101,17 @@
 
             <tag name="sylius.live_component.admin" key="sylius_cms:template:form" />
         </service>
+
+        <service
+                id="sylius_cms.twig.component.collection.form"
+                class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="sylius_cms.repository.collection" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.collection.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\CollectionType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:collection:form" />
+        </service>
     </services>
 </container>
