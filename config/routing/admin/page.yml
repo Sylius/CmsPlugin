@@ -2,19 +2,18 @@ sylius_cms_admin_page:
     resource: |
         alias: sylius_cms.page
         section: admin
-        templates: '@SyliusCmsPlugin/CrudUi'
+        templates: "@SyliusAdmin\\shared\\crud"
         redirect: update
         grid: sylius_cms_admin_page
+        form:
+            type: Sylius\CmsPlugin\Form\Type\PageType
         except: ['show']
         permission: true
         vars:
             all:
                 header: sylius_cms.ui.pages_header
                 subheader: sylius_cms.ui.pages_subheader
-                templates:
-                    form: "@SyliusCmsPlugin/Page/Crud/_form.html.twig"
-            index:
-                icon: sticky note
+                hook_prefix: 'sylius_cms.admin.page'
     type: sylius.resource
 
 sylius_cms_admin_page_preview:
