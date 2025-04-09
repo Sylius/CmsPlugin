@@ -15,9 +15,9 @@ namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
 final class TemplateType extends AbstractResourceType
 {
@@ -34,9 +34,8 @@ final class TemplateType extends AbstractResourceType
                     'sylius_cms.ui.block' => 'block',
                 ],
             ])
-            ->add('contentElements', CollectionType::class, [
+            ->add('contentElements', LiveCollectionType::class, [
                 'entry_type' => ContentElementType::class,
-                'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
