@@ -18,34 +18,36 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
+use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_block',
+    route: 'sylius_admin_entity_autocomplete',
+)]
 final class BlockAutocompleteChoiceType extends AbstractType
 {
+    public function __construct(
+        private readonly string $blockClass,
+    ) {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'resource' => 'sylius_cms.block',
-            'choice_name' => 'name',
+            'class' => $this->blockClass,
+            'choice_label' => 'name',
             'choice_value' => 'code',
         ]);
     }
 
-    public function buildView(
-        FormView $view,
-        FormInterface $form,
-        array $options,
-    ): void {
-        $view->vars['remote_criteria_type'] = 'contains';
-        $view->vars['remote_criteria_name'] = 'phrase';
-    }
-
     public function getBlockPrefix(): string
     {
-        return 'sylius_block_autocomplete_choice';
+        return 'sylius_cms_block_autocomplete';
     }
 
     public function getParent(): string
     {
-        return ResourceAutocompleteChoiceType::class;
+        return BaseEntityAutocompleteType::class;
     }
 }
