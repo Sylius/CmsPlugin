@@ -15,10 +15,10 @@ return static function (ECSConfig $config): void {
     $config->parallel();
     $config->paths([
         'src/',
-        'spec/',
         'tests/Behat/',
         'tests/Functional/',
         'tests/Integration/',
+        'tests/Unit/',
     ]);
     $config->skip([
         InlineDocCommentDeclarationSniff::class . '.MissingVariable',
