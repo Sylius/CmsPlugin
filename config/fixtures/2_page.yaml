@@ -217,10 +217,10 @@ sylius_fixtures:
                       data:
                         products_grid:
                           products:
-                            - "Raglan_grey_&_black_Tee"
-                            - "Loose_white_designer_T_Shirt"
-                            - "Sport_basic_white_T_Shirt"
-                            - "Ribbed_copper_slim_fit_Tee"
+                            - "Ethereal_Drift_T_Shirt"
+                            - "Quantum_Pulse_T_Shirt"
+                            - "Celestial_Harmony_T_Shirt"
+                            - "Nebula_Dream_T_Shirt"
                     subheading3:
                       type: "heading"
                       data:
