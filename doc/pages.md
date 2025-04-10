@@ -18,7 +18,6 @@ Once you created a page in the admin panel, you can render page in two ways:
 
 By rendering a page link template:
 
-[//]: # (TODO: linia do wygenerowania linka )
 ```twig
 {{ render(path('sylius_cms_shop_page_show_link_by_code', {'code' : 'about', 'template' : '@SyliusCmsPlugin/shop/page/link.html.twig'})) }}
 ```
