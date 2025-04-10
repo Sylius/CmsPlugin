@@ -116,9 +116,10 @@ final class BlockType extends AbstractResourceType
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_taxons.help',
             ])
-            ->add('contentTemplate', TemplateBlockAutocompleteChoiceType::class, [
+            ->add('contentTemplate', TemplateAutocompleteChoiceType::class, [
+                'type' => 'block',
+                'label' => false,
                 'mapped' => false,
-                'multiple' => false,
             ])
             ->add('locale', ChoiceType::class, [
                 'choices' => $this->locales,

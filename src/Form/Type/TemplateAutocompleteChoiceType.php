@@ -17,17 +17,22 @@ use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_template',
+    route: 'sylius_admin_entity_autocomplete',
+)]
 final class TemplateAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(protected readonly string $templateClass)
+    public function __construct(private readonly string $templateClass)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired('type');
+        $resolver->setDefined('type');
         $resolver->setAllowedValues('type', ['page', 'block']);
         $resolver->setDefaults([
             'class' => $this->templateClass,

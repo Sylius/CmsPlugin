@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius CMS Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Normalizer;
@@ -10,11 +19,12 @@ use Symfony\Component\OptionsResolver\Options;
 
 /**
  * @internal
+ *
  * @see \Symfony\Bridge\Doctrine\Form\Type\EntityType::configureOptions()
  */
 final class TypedQueryBuilderNormalizer
 {
-    public static function normalize(Options $options, QueryBuilder|callable|null $queryBuilder): QueryBuilder
+    public static function normalize(Options $options, callable|QueryBuilder|null $queryBuilder): QueryBuilder
     {
         if (\is_callable($queryBuilder)) {
             $queryBuilder = $queryBuilder($options['em']->getRepository($options['class']));

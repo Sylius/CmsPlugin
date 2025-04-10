@@ -89,7 +89,8 @@ final class PageType extends AbstractResourceType
                 'time_widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('contentTemplate', TemplatePageAutocompleteChoiceType::class, [
+            ->add('contentTemplate', TemplateAutocompleteChoiceType::class, [
+                'type' => 'page',
                 'label' => 'sylius_cms.ui.content_elements.template',
                 'mapped' => false,
             ])
