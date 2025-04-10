@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Sylius\CmsPlugin\Entity\MediaInterface;
+use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
@@ -30,11 +32,21 @@ final class MediaAutocompleteChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setDefined('type');
+        $resolver->setAllowedValues('type', [
+            MediaInterface::IMAGE_TYPE,
+            MediaInterface::FILE_TYPE,
+            MediaInterface::VIDEO_TYPE,
+            null,
+        ]);
         $resolver->setDefaults([
             'class' => $this->mediaClass,
             'choice_label' => 'name',
             'choice_value' => 'code',
+            'type' => null,
         ]);
+
+        $resolver->setNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }
 
     public function getBlockPrefix(): string
