@@ -1,0 +1,17 @@
+{% set selected_element = hookable_metadata.context.form.type.vars.value %}
+{% set field_map = {
+    'page': 'pages',
+    'block': 'blocks',
+    'media': 'media'
+} %}
+{% set selected_element = field_map[selected_element]|default('pages') %}
+
+{{ form_label(hookable_metadata.context.form[selected_element]) }}
+{{ form_errors(hookable_metadata.context.form[selected_element]) }}
+
+<div class="row">
+    <div class="col">
+        {{ form_widget(hookable_metadata.context.form[selected_element], sylius_test_form_attribute('collection-element-type')) }}
+        {{ form_errors(hookable_metadata.context.form[selected_element]) }}
+    </div>
+</div>
