@@ -19,28 +19,27 @@ use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
 #[AsEntityAutocompleteField(
-    alias: 'sylius_cms_admin_collection',
+    alias: 'sylius_cms_collection',
     route: 'sylius_admin_entity_autocomplete',
 )]
 final class CollectionAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(private string $collectionClass)
+    public function __construct(private readonly string $mediaClass)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'class' => $this->collectionClass,
+            'class' => $this->mediaClass,
             'choice_label' => 'name',
-            'choice_value' => 'id',
-            'multiple' => true,
+            'choice_value' => 'code',
         ]);
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_collection_autocomplete_choice';
+        return 'sylius_cms_collection_autocomplete_choice';
     }
 
     public function getParent(): string
