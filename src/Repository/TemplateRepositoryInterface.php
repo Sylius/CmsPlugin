@@ -19,6 +19,7 @@ use Sylius\Resource\Model\ResourceInterface;
 
 /**
  * @template T of TemplateInterface
+ *
  * @extends RepositoryInterface<T>
  */
 interface TemplateRepositoryInterface extends RepositoryInterface
