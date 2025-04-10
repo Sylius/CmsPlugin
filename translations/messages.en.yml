@@ -5,7 +5,7 @@ sylius_cms:
         pages: Pages
         page: Page
         content_management: Content management
-        cms: CMS
+        cms: Content management
         enabled: Enabled
         blocks_header: Blocks
         blocks_subheader: Manage your blocks
