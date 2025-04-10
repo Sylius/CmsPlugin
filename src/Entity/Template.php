@@ -59,7 +59,8 @@ class Template implements TemplateInterface
         $this->contentElements = $contentElements;
     }
 
-    public function __toString(): string {
-        return $this->name;
+    public function __toString(): string
+    {
+        return $this->name ?? '';
     }
 }

@@ -113,7 +113,7 @@ final class ContentConfigurationType extends AbstractResourceType
 
         $dataType = $data instanceof ContentConfigurationInterface ? $data->getType() : $data['type'] ?? null;
 
-        if ($dataType) {
+        if ($dataType !== null && $dataType !== '') {
             $actionConfigurationType = $this->actionConfigurationTypes[$dataType];
             $form->add('configuration', $actionConfigurationType, [
                 'label' => false,

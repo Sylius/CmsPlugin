@@ -14,7 +14,11 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Repository;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\CmsPlugin\Entity\TemplateInterface;
 
+/**
+ * @implements TemplateRepositoryInterface<TemplateInterface>
+ */
 class TemplateRepository extends EntityRepository implements TemplateRepositoryInterface
 {
     public function findTemplatesByNamePart(string $phrase, string $type): array

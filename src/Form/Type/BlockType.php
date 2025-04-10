@@ -18,6 +18,7 @@ use Sylius\Bundle\AdminBundle\Form\Type\TaxonAutocompleteType;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
@@ -35,7 +36,10 @@ final class BlockType extends AbstractResourceType
     /** @var array<string, string|null> */
     private array $locales = [];
 
-    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
+    /**
+     * @param RepositoryInterface<LocaleInterface> $localeRepository
+     * @param TemplateRepositoryInterface<TemplateInterface> $templateRepository
+     */
     public function __construct(
         private RepositoryInterface $localeRepository,
         private ResourceTemplateProviderInterface $templateProvider,
@@ -123,47 +127,49 @@ final class BlockType extends AbstractResourceType
                     'class' => 'locale-selector',
                 ],
             ])
-        ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
-            $data = $event->getData();
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
 
-            if (!isset($data['contentTemplate']) || empty($data['contentTemplate'])) {
-                return;
-            }
+                if (!isset($data['contentTemplate']) || $data['contentTemplate'] === '') {
+                    return;
+                }
 
-            $templateId = (int) $data['contentTemplate'];
-            $template = $this->templateRepository->find($templateId);
+                $templateId = (int) $data['contentTemplate'];
 
-            if (!$template || empty($template->getContentElements())) {
-                return;
-            }
+                /** @return TemplateInterface|null */
+                $template = $this->templateRepository->find($templateId);
 
-            $templateElementTypes = array_map(
-                static fn(array $element) => $element['type'],
-                $template->getContentElements()
-            );
+                if ($template === null || $template->getContentElements() === []) {
+                    return;
+                }
 
-            $existingElementTypes = array_map(
-                static fn(array $element) => $element['type'] ?? null,
-                $data['contentElements'] ?? []
-            );
+                $templateElementTypes = array_map(
+                    static fn (array $element) => $element['type'],
+                    $template->getContentElements(),
+                );
 
-            $allTypesExist = count(array_diff($templateElementTypes, $existingElementTypes)) === 0;
-            if ($allTypesExist) {
-                return;
-            }
+                $existingElementTypes = array_map(
+                    static fn (array $element) => $element['type'] ?? null,
+                    $data['contentElements'] ?? [],
+                );
 
-            $data['contentElements'] = [];
+                $allTypesExist = count(array_diff($templateElementTypes, $existingElementTypes)) === 0;
+                if ($allTypesExist) {
+                    return;
+                }
 
-            foreach ($template->getContentElements() as $element) {
-                $data['contentElements'][] = [
-                    'type' => $element['type'],
-                    'configuration' => [],
-                    'locale' => $data['locale'] ?? 'en_US',
-                ];
-            }
+                $data['contentElements'] = [];
 
-            $event->setData($data);
-        })
+                foreach ($template->getContentElements() as $element) {
+                    $data['contentElements'][] = [
+                        'type' => $element['type'],
+                        'configuration' => [],
+                        'locale' => $data['locale'] ?? 'en_US',
+                    ];
+                }
+
+                $event->setData($data);
+            })
         ;
 
         PageType::addContentElementLocaleListener($builder);
