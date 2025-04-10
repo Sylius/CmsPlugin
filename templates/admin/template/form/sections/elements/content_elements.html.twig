@@ -2,26 +2,30 @@
 {{ form_errors(hookable_metadata.context.form.contentElements) }}
 
 <div {{ sylius_test_html_attribute('content-elements') }}>
-    {% for content_element_form in hookable_metadata.context.form.contentElements %}
-        <div class="card mb-2" {{ sylius_test_html_attribute('content_element') }}>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
+    <div class="row mb-3">
+        {% for content_element_form in hookable_metadata.context.form.contentElements %}
+            <div class="col-12 col-md-6">
+                <div class="card mb-2" {{ sylius_test_html_attribute('content_element') }}>
+                    <div class="card-body">
                         <div class="row">
-                            {{ form_label(content_element_form.type, null, {label_attr: {class: 'col-form-label col-auto'}}) }}
                             <div class="col">
-                                {{ form_widget(content_element_form.type, sylius_test_form_attribute('content-element-type')) }}
-                                {{ form_errors(content_element_form.type) }}
+                                <div class="row">
+                                    {{ form_label(content_element_form.type, null, {label_attr: {class: 'col-form-label col-auto'}}) }}
+                                    <div class="col">
+                                        {{ form_widget(content_element_form.type, sylius_test_form_attribute('content-element-type')) }}
+                                        {{ form_errors(content_element_form.type) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto" {{ sylius_test_html_attribute('delete-element') }}>
+                                {{ form_widget(content_element_form.vars.button_delete, {attr: {class: 'btn btn-outline-danger'}}) }}
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto" {{ sylius_test_html_attribute('delete-province') }}>
-                        {{ form_row(content_element_form.vars.button_delete, {attr: {class: 'btn btn-outline-danger'}}) }}
-                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 
 {{ form_widget(hookable_metadata.context.form.contentElements.vars.button_add, sylius_test_form_attribute('add-content-element')) }}

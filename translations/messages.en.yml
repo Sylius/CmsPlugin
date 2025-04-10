@@ -29,6 +29,7 @@ sylius_cms:
         link_content: Link content
         question: Question
         answer: Answer
+        collection: Collection
         collections: Collections
         collections_header: Collections
         collections_subheader: Manage your collections

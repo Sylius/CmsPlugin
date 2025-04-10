@@ -13,46 +13,37 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
-use Sylius\CmsPlugin\Entity\MediaInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
+use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_media',
+    route: 'sylius_admin_entity_autocomplete',
+)]
 final class MediaAutocompleteChoiceType extends AbstractType
 {
+    public function __construct(private readonly string $mediaClass)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'resource' => 'sylius_cms.media',
-            'choice_name' => 'name',
+            'class' => $this->mediaClass,
+            'choice_label' => 'name',
             'choice_value' => 'code',
-            'media_type' => [
-                MediaInterface::IMAGE_TYPE,
-                MediaInterface::FILE_TYPE,
-                MediaInterface::VIDEO_TYPE,
-            ],
         ]);
-    }
-
-    public function buildView(
-        FormView $view,
-        FormInterface $form,
-        array $options,
-    ): void {
-        $view->vars['remote_criteria_type'] = 'contains';
-        $view->vars['remote_criteria_name'] = 'phrase';
-        $view->vars['media_type'] = $options['media_type'];
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_media_autocomplete_choice';
+        return 'sylius_cms_media_autocomplete';
     }
 
     public function getParent(): string
     {
-        return ResourceAutocompleteChoiceType::class;
+        return BaseEntityAutocompleteType::class;
     }
 }

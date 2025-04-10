@@ -22,12 +22,18 @@ final class ResourceTemplateProvider implements ResourceTemplateProviderInterfac
 
     public function __construct(ParameterBagInterface $params)
     {
-        if (is_array($params->get('sylius_cms.templates.pages'))) {
-            $this->templates['pages'] = $params->get('sylius_cms.templates.pages');
+        if ($params->has('sylius_cms.templates.pages')) {
+            $pageTemplates = $params->get('sylius_cms.templates.pages');
+            if (is_array($pageTemplates)) {
+                $this->templates['pages'] = $pageTemplates;
+            }
         }
 
-        if (is_array($params->get('sylius_cms.templates.blocks'))) {
-            $this->templates['blocks'] = $params->get('sylius_cms.templates.blocks');
+        if ($params->has('sylius_cms.templates.blocks')) {
+            $blockTemplates = $params->get('sylius_cms.templates.blocks');
+            if (is_array($blockTemplates)) {
+                $this->templates['blocks'] = $blockTemplates;
+            }
         }
     }
 

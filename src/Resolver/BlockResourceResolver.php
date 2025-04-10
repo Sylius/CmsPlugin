@@ -30,10 +30,10 @@ final class BlockResourceResolver implements BlockResourceResolverInterface
 
     public function findOrLog(string $code): ?BlockInterface
     {
-        $channel = $this->channelContext->getChannel();
-        Assert::notNull($channel->getCode());
-        $block = $this->blockRepository->findEnabledByCode($code, $channel->getCode());
+        $channelCode = $this->channelContext->getChannel()->getCode();
+        Assert::notNull($channelCode);
 
+        $block = $this->blockRepository->findEnabledByCode($code, $channelCode);
         if (false === $block instanceof BlockInterface) {
             $this->logger->warning(sprintf(
                 'Block with "%s" code was not found in the database.',

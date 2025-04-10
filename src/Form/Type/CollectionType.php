@@ -18,7 +18,9 @@ use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 
 final class CollectionType extends AbstractResourceType
 {
@@ -46,18 +48,6 @@ final class CollectionType extends AbstractResourceType
                     'sylius_cms.ui.media' => self::MEDIA,
                 ],
             ])
-            ->add('pages', PageAutocompleteChoiceType::class, [
-                'label' => 'sylius_cms.ui.pages',
-                'multiple' => true,
-            ])
-            ->add('blocks', BlockAutocompleteChoiceType::class, [
-                'label' => 'sylius_cms.ui.blocks',
-                'multiple' => true,
-            ])
-            ->add('media', MediaAutocompleteChoiceType::class, [
-                'label' => 'sylius_cms.ui.media',
-                'multiple' => true,
-            ])
             ->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event): void {
                 $formData = $event->getData();
                 switch ($formData['type']) {
@@ -77,10 +67,54 @@ final class CollectionType extends AbstractResourceType
 
                 $event->setData($formData);
             });
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+            $data = $event->getData();
+            if (null === $data) {
+                return;
+            }
+
+            $type = $data->getType() ?? self::PAGE;
+
+            $this->addContentField($event->getForm(), $type);
+        });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+            $data = $event->getData();
+            if (!isset($data['type'])) {
+                return;
+            }
+
+            $this->addContentField($event->getForm(), $data['type']);
+        });
     }
 
     public function getBlockPrefix(): string
     {
         return 'sylius_cms_collection';
+    }
+
+    private function addContentField(FormInterface $form, ?string $type): void
+    {
+        switch ($type) {
+            case self::PAGE:
+                $form->add('pages', PageAutocompleteChoiceType::class, [
+                    'multiple' => true,
+                ]);
+
+                break;
+            case self::BLOCK:
+                $form->add('blocks', BlockAutocompleteChoiceType::class, [
+                    'multiple' => true,
+                ]);
+
+                break;
+            case self::MEDIA:
+                $form->add('media', MediaAutocompleteChoiceType::class, [
+                    'multiple' => true,
+                ]);
+
+                break;
+        }
     }
 }

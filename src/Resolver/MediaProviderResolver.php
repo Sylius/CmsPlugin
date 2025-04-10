@@ -26,9 +26,11 @@ final class MediaProviderResolver implements MediaProviderResolverInterface
 
     public function resolveProvider(MediaInterface $media): ProviderInterface
     {
-        Assert::notNull($media->getType());
+        $type = $media->getType();
+        Assert::notNull($type);
+
         /** @var ProviderInterface $provider */
-        $provider = $this->providerRegistry->get($media->getType());
+        $provider = $this->providerRegistry->get($type);
 
         return $provider;
     }

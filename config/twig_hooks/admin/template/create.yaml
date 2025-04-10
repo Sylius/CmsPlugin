@@ -2,7 +2,7 @@ sylius_twig_hooks:
     hooks:
         'sylius_cms.admin.template.create.content':
             form:
-                component: 'sylius_cms:template:form'
+                component: 'sylius_cms:admin:template:form'
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
