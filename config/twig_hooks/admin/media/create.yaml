@@ -1,0 +1,50 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_cms.admin.media.create.content':
+            form:
+                component: 'sylius_cms:admin:media:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusCmsPlugin/admin/media/form.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.media.create.content.form':
+            sections:
+                template: '@SyliusCmsPlugin/admin/media/form/sections.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.media.create.content.form.sections':
+            general:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general.html.twig'
+                priority: 100
+
+        'sylius_cms.admin.media.create.content.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/code.html.twig'
+                priority: 300
+            name:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/name.html.twig'
+                priority: 200
+            enabled:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/enabled.html.twig'
+                priority: 100
+            channels:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/channels.html.twig'
+                priority: 100
+            collections:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/collections.html.twig'
+                priority: 100
+            type:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/type.html.twig'
+                priority: 100
+            file:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/general/file.html.twig'
+                priority: 100
+#            save_with_original_filename:
+#                template: '@SyliusCmsPlugin/admin/media/form/sections/general/save_with_original_filename.html.twig'
+#                priority: 100
+
+

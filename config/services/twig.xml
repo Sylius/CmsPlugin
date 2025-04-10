@@ -125,5 +125,17 @@
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:block:form" />
         </service>
+
+        <service
+            id="sylius_cms.twig.component.media.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="sylius_cms.repository.media" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.media.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\MediaType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
+        </service>
     </services>
 </container>
