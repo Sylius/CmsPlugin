@@ -155,7 +155,7 @@
             <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
             <argument type="service" id="sylius.generator.slug" />
 
-            <tag name="sylius.live_component.admin" key="sylius_cms:page:form" />
+            <tag name="sylius.live_component.admin" key="sylius_cms:admin:page:form" />
         </service>
     </services>
 </container>
