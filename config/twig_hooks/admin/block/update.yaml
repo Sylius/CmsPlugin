@@ -1,6 +1,6 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_cms.admin.block.create.content':
+        'sylius_cms.admin.block.update.content':
             form:
                 component: 'sylius_cms:block:form'
                 props:
@@ -9,12 +9,12 @@ sylius_twig_hooks:
                     template: '@SyliusCmsPlugin/admin/block/form.html.twig'
                 priority: 0
         
-        'sylius_cms.admin.block.create.content.form':
+        'sylius_cms.admin.block.update.content.form':
             sections:
                 template: '@SyliusCmsPlugin/admin/block/form/sections.html.twig'
                 priority: 0
         
-        'sylius_cms.admin.block.create.content.form.sections':
+        'sylius_cms.admin.block.update.content.form.sections':
             general:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general.html.twig'
                 priority: 200
@@ -24,8 +24,8 @@ sylius_twig_hooks:
             content:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/content.html.twig'
                 priority: 0
-            
-        'sylius_cms.admin.block.create.content.form.sections.general':
+        
+        'sylius_cms.admin.block.update.content.form.sections.general':
             default:
                 enabled: false
             code:
@@ -43,8 +43,8 @@ sylius_twig_hooks:
             collections:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/collections.html.twig'
                 priority: 0
-                
-        'sylius_cms.admin.block.create.content.form.sections.display_config':
+        
+        'sylius_cms.admin.block.update.content.form.sections.display_config':
             default:
                 enabled: false
             products:
@@ -56,8 +56,8 @@ sylius_twig_hooks:
             taxons:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/taxons.html.twig'
                 priority: 0
-                
-        'sylius_cms.admin.block.create.content.form.sections.content':
+        
+        'sylius_cms.admin.block.update.content.form.sections.content':
             default:
                 enabled: false
             locale:
