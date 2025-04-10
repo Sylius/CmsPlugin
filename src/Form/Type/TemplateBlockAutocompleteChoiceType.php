@@ -13,21 +13,28 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 
 #[AsEntityAutocompleteField(
-    alias: 'sylius_cms_admin_template_block',
+    alias: 'sylius_cms_template_block',
     route: 'sylius_admin_entity_autocomplete',
 )]
-final class TemplateBlockAutocompleteChoiceType extends AbstractTemplateAutocompleteChoiceType
+final class TemplateBlockAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(private string $templateClass)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::__construct($this->templateClass);
+        $resolver->setDefault('type', 'block');
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_template_block_autocomplete_choice';
+        return 'sylius_cms_admin_template_block_autocomplete_choice';
+    }
+
+    public function getParent(): string
+    {
+        return TemplateAutocompleteChoiceType::class;
     }
 }

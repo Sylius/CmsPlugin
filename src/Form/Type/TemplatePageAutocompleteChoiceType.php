@@ -13,10 +13,28 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-final class TemplatePageAutocompleteChoiceType extends AbstractTemplateAutocompleteChoiceType
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
+
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_template_page',
+    route: 'sylius_admin_entity_autocomplete',
+)]
+final class TemplatePageAutocompleteChoiceType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefault('type', 'page');
+    }
+
     public function getBlockPrefix(): string
     {
-        return 'sylius_template_page_autocomplete_choice';
+        return 'sylius_cms_admin_template_page_autocomplete_choice';
+    }
+
+    public function getParent(): string
+    {
+        return TemplateAutocompleteChoiceType::class;
     }
 }

@@ -91,7 +91,7 @@ final class PageType extends AbstractResourceType
                 'required' => false,
             ])
             ->add('contentTemplate', TemplatePageAutocompleteChoiceType::class, [
-                'label' => false,
+                'label' => 'sylius_cms.ui.content_elements.template',
                 'mapped' => false,
             ])
             ->add('contentElements', LiveCollectionType::class, [
