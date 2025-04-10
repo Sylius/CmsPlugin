@@ -19,12 +19,15 @@ use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
+use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
 final class BlockType extends AbstractResourceType
@@ -36,6 +39,7 @@ final class BlockType extends AbstractResourceType
     public function __construct(
         private RepositoryInterface $localeRepository,
         private ResourceTemplateProviderInterface $templateProvider,
+        private TemplateRepositoryInterface $templateRepository,
         string $dataClass,
         array $validationGroups = [],
     ) {
@@ -109,6 +113,7 @@ final class BlockType extends AbstractResourceType
             ])
             ->add('contentTemplate', TemplateBlockAutocompleteChoiceType::class, [
                 'mapped' => false,
+                'multiple' => false,
             ])
             ->add('locale', ChoiceType::class, [
                 'choices' => $this->locales,
@@ -118,6 +123,47 @@ final class BlockType extends AbstractResourceType
                     'class' => 'locale-selector',
                 ],
             ])
+        ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+            $data = $event->getData();
+
+            if (!isset($data['contentTemplate']) || empty($data['contentTemplate'])) {
+                return;
+            }
+
+            $templateId = (int) $data['contentTemplate'];
+            $template = $this->templateRepository->find($templateId);
+
+            if (!$template || empty($template->getContentElements())) {
+                return;
+            }
+
+            $templateElementTypes = array_map(
+                static fn(array $element) => $element['type'],
+                $template->getContentElements()
+            );
+
+            $existingElementTypes = array_map(
+                static fn(array $element) => $element['type'] ?? null,
+                $data['contentElements'] ?? []
+            );
+
+            $allTypesExist = count(array_diff($templateElementTypes, $existingElementTypes)) === 0;
+            if ($allTypesExist) {
+                return;
+            }
+
+            $data['contentElements'] = [];
+
+            foreach ($template->getContentElements() as $element) {
+                $data['contentElements'][] = [
+                    'type' => $element['type'],
+                    'configuration' => [],
+                    'locale' => $data['locale'] ?? 'en_US',
+                ];
+            }
+
+            $event->setData($data);
+        })
         ;
 
         PageType::addContentElementLocaleListener($builder);
