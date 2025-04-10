@@ -101,5 +101,17 @@
 
             <tag name="sylius.live_component.admin" key="sylius_cms:template:form" />
         </service>
+
+        <service
+            id="sylius_cms.twig.block.template.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="sylius_cms.repository.block" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.block.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\BlockType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:block:form" />
+        </service>
     </services>
 </container>

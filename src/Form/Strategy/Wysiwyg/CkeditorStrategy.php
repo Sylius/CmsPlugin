@@ -28,7 +28,7 @@ final class CkeditorStrategy extends AbstractWysiwygStrategy
         $resolver->setDefaults([
             'label' => 'sylius_cms_plugin.ui.content',
             'config' => [
-                'filebrowserUploadUrl' => $this->urlGenerator->generate('sylius_cms_plugin_admin_upload_editor_image'),
+                'filebrowserUploadUrl' => $this->urlGenerator->generate('sylius_cms_admin_upload_editor_image'),
                 'bodyId' => 'bitbag-ckeditor',
             ],
         ]);

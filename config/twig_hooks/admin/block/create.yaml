@@ -1,0 +1,67 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_cms.admin.block.create.content':
+            form:
+                component: 'sylius_cms:block:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusCmsPlugin/admin/block/form.html.twig'
+                priority: 0
+        
+        'sylius_cms.admin.block.create.content.form':
+            sections:
+                template: '@SyliusCmsPlugin/admin/block/form/sections.html.twig'
+                priority: 0
+        
+        'sylius_cms.admin.block.create.content.form.sections':
+            general:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/general.html.twig'
+                priority: 0
+            elements:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements.html.twig'
+                priority: 0
+            
+        'sylius_cms.admin.block.create.content.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/general/code.html.twig'
+                priority: 200
+            name:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/general/name.html.twig'
+                priority: 100
+            enabled:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/general/enabled.html.twig'
+                priority: 0
+                
+        'sylius_cms.admin.block.create.content.form.sections.elements':
+            default:
+                enabled: false
+            channels:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/channels.html.twig'
+                priority: 800
+            templates:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/templates.html.twig'
+                priority: 700
+            collections:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/collections.html.twig'
+                priority: 600
+            content_elements:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/content_elements.html.twig'
+                priority: 500
+            products:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/products.html.twig'
+                priority: 400
+            productsInTaxons:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/productsInTaxons.html.twig'
+                priority: 300
+            taxons:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/taxons.html.twig'
+                priority: 200
+            contentTemplate:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/contentTemplate.html.twig'
+                priority: 100
+            locale:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/elements/locale.html.twig'
+                priority: 0

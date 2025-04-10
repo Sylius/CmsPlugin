@@ -41,7 +41,7 @@ class Block implements BlockInterface
         $this->initializeProductsInTaxonsCollection();
     }
 
-    protected ?int $id;
+    protected ?int $id = null;
 
     protected ?string $code = null;
 
