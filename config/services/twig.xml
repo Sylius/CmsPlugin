@@ -144,5 +144,18 @@
         >
             <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
         </service>
+
+        <service
+            id="sylius_cms.twig.component.page.form"
+            class="Sylius\CmsPlugin\Twig\Component\Page\FormComponent"
+        >
+            <argument type="service" id="sylius_cms.repository.page" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.page.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
+            <argument type="service" id="sylius.generator.slug" />
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:page:form" />
+        </service>
     </services>
 </container>
