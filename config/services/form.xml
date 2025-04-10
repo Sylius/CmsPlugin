@@ -149,6 +149,12 @@
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
+        <service id="sylius_cms.form.type.collection_autocomplete" class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType">
+            <argument>%sylius_cms.model.collection.class%</argument>
+            <tag name="form.type" />
+            <tag name="ux.entity_autocomplete_field" />
+        </service>
+
         <service id="sylius_cms.form.type.template_autocomplete" class="Sylius\CmsPlugin\Form\Type\TemplateAutocompleteChoiceType">
             <argument>%sylius_cms.model.template.class%</argument>
             <tag name="form.type" />

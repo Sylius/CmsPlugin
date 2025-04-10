@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
@@ -32,8 +33,9 @@ final class CollectionAutocompleteChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'class' => $this->collectionClass,
-            'choice_label' => 'name',
-            'choice_value' => 'id',
+            'choice_name' => 'name',
+            'choice_value' => 'code',
+            'choice_label' => fn (CollectionInterface $collection): string => (string) $collection->getName(),
         ]);
     }
 
