@@ -17,30 +17,32 @@ sylius_cms_shop_page_show_link_by_code:
                     - $code
 
 sylius_cms_shop_page_index_by_collection_code:
-    path: /page/{collectionCode}
+    path: /pages/{collectionCode}
     methods: [GET]
     defaults:
         _controller: sylius_cms.controller.page.overriden::indexAction
         _sylius:
-            template: "@SyliusCmsPlugin/Shop/Page/index.html.twig"
+            template: "@SyliusCmsPlugin/shop/page/index.html.twig"
             grid: sylius_cms_shop_page
             repository:
                 method: findByCollectionCode
                 arguments:
                     - $collectionCode
 
+# TODO: Consider removing this, as it is not used in the code or in the documentation
 sylius_cms_shop_page_index_by_collection_code_no_grid:
     path: /pages/{collectionCode}/no-grid
     methods: [GET]
     defaults:
         _controller: sylius_cms.controller.page.overriden::indexAction
         _sylius:
-            template: "@SyliusCmsPlugin/Shop/Page/index.html.twig"
+            template: "@SyliusCmsPlugin/shop/page/index.html.twig"
             repository:
                 method: findByCollectionCode
                 arguments:
                     - $collectionCode
 
+# TODO: Consider removing this, as it is not used in the code or in the documentation
 sylius_cms_shop_page_index_by_collection_code_template:
     path: /pages-template/{collectionCode}
     methods: [GET]

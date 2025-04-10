@@ -25,7 +25,7 @@ final class TextareaContentElementRenderer extends AbstractContentElement
 
     public function render(ContentConfigurationInterface $contentConfiguration): string
     {
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'content' => $contentConfiguration->getConfiguration()['textarea'],
         ]);

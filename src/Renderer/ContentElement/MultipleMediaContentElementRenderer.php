@@ -52,7 +52,7 @@ final class MultipleMediaContentElementRenderer extends AbstractContentElement
             ];
         }
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'media' => $media,
         ]);

@@ -25,7 +25,7 @@ use Webmozart\Assert\Assert;
 
 final class BlockController extends ResourceController
 {
-    public const BLOCK_TEMPLATE = '@SyliusCmsPlugin/Shop/Block/show.html.twig';
+    public const BLOCK_TEMPLATE = '@SyliusCmsPlugin/shop/block/show.html.twig';
 
     public function renderBlockAction(Request $request): Response
     {

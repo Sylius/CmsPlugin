@@ -40,7 +40,7 @@ final class ProductsCarouselContentElementRenderer extends AbstractContentElemen
             return '';
         }
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'products' => $products,
         ]);

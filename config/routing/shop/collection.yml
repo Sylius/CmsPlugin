@@ -10,6 +10,7 @@ sylius_cms_shop_collection_show:
                 arguments:
                     - $code
 
+# TODO: Consider removing this, as it is not used in the code or in the documentation
 sylius_cms_shop_collection_show_codes:
     path: /collections/{codes}
     methods: [GET]

@@ -13,7 +13,7 @@
         <service id="sylius_cms.content_element.textarea" class="Sylius\CmsPlugin\Renderer\ContentElement\TextareaContentElementRenderer">
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_textarea.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/textarea.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\TextareaContentElementType"
             />
         </service>
@@ -23,7 +23,7 @@
             <argument type="service" id="sylius_cms.repository.media" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_single_media.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/single_media.html.twig"
             />
         </service>
 
@@ -32,14 +32,14 @@
             <argument type="service" id="sylius_cms.repository.media" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_multiple_media.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/multiple_media.html.twig"
             />
         </service>
 
         <service id="sylius_cms.content_element.heading" class="Sylius\CmsPlugin\Renderer\ContentElement\HeadingContentElementRenderer">
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_heading.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/heading.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\HeadingContentElementType"
             />
         </service>
@@ -48,7 +48,7 @@
             <argument type="service" id="sylius.repository.product" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_products_carousel.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselContentElementType"
             />
         </service>
@@ -58,7 +58,7 @@
             <argument type="service" id="sylius.repository.taxon" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_products_carousel.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
             />
         </service>
 
@@ -66,7 +66,7 @@
             <argument type="service" id="sylius.repository.product" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_products_grid.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridContentElementType"
             />
         </service>
@@ -76,7 +76,7 @@
             <argument type="service" id="sylius.repository.taxon" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_products_grid.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"
             />
         </service>
 
@@ -84,7 +84,7 @@
             <argument type="service" id="sylius.repository.taxon" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_taxons_list.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/taxons_list.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\TaxonsListContentElementType"
             />
         </service>
@@ -93,14 +93,14 @@
             <argument type="service" id="sylius_cms.repository.collection" />
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_pages_collection.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/pages_collection.html.twig"
             />
         </service>
 
         <service id="sylius_cms.content_element.spacer" class="Sylius\CmsPlugin\Renderer\ContentElement\SpacerContentElementRenderer">
             <tag
                 name="sylius_cms.content_element"
-                template="@SyliusCmsPlugin/Shop/ContentElement/_spacer.html.twig"
+                template="@SyliusCmsPlugin/shop/content_element/elements/spacer.html.twig"
                 form_type="Sylius\CmsPlugin\Form\Type\ContentElements\SpacerContentElementType"
             />
         </service>
