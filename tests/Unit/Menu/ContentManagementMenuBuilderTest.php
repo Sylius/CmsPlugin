@@ -50,7 +50,20 @@ final class ContentManagementMenuBuilderTest extends TestCase
 
         $menu->expects(self::once())->method('addChild')->with('sylius_cms')->willReturn($cmsRootMenuItem);
 
-        $cmsRootMenuItem->method('setLabel')->with('sylius_cms.ui.cms')->willReturn($cmsRootMenuItem);
+        $cmsRootMenuItem
+            ->expects(self::once())
+            ->method('setLabel')
+            ->with('sylius_cms.ui.cms')
+            ->willReturn($cmsRootMenuItem)
+        ;
+
+        $cmsRootMenuItem
+            ->expects(self::once())
+            ->method('setLabelAttribute')
+            ->with('icon', 'tabler:home-edit')
+            ->willReturn($cmsRootMenuItem)
+        ;
+
         $cmsRootMenuItem->method('addChild')->willReturnOnConsecutiveCalls(
             $collectionsItem,
             $templatesItem,
@@ -64,23 +77,11 @@ final class ContentManagementMenuBuilderTest extends TestCase
             ->with('sylius_cms.ui.collections')
             ->willReturn($collectionsItem)
         ;
-        $collectionsItem
-            ->expects(self::once())
-            ->method('setLabelAttribute')
-            ->with('icon', 'grid layout')
-            ->willReturn($collectionsItem)
-        ;
 
         $templatesItem
             ->expects(self::once())
             ->method('setLabel')
             ->with('sylius_cms.ui.content_templates')
-            ->willReturn($templatesItem)
-        ;
-        $templatesItem
-            ->expects(self::once())
-            ->method('setLabelAttribute')
-            ->with('icon', 'clone')
             ->willReturn($templatesItem)
         ;
 
@@ -90,12 +91,6 @@ final class ContentManagementMenuBuilderTest extends TestCase
             ->with('sylius_cms.ui.pages')
             ->willReturn($pagesItem)
         ;
-        $pagesItem
-            ->expects(self::once())
-            ->method('setLabelAttribute')
-            ->with('icon', 'sticky note')
-            ->willReturn($pagesItem)
-        ;
 
         $blocksItem
             ->expects(self::once())
@@ -103,23 +98,11 @@ final class ContentManagementMenuBuilderTest extends TestCase
             ->with('sylius_cms.ui.blocks')
             ->willReturn($blocksItem)
         ;
-        $blocksItem
-            ->expects(self::once())
-            ->method('setLabelAttribute')
-            ->with('icon', 'block layout')
-            ->willReturn($blocksItem)
-        ;
 
         $mediaItem
             ->expects(self::once())
             ->method('setLabel')
             ->with('sylius_cms.ui.media')
-            ->willReturn($mediaItem)
-        ;
-        $mediaItem
-            ->expects(self::once())
-            ->method('setLabelAttribute')
-            ->with('icon', 'file')
             ->willReturn($mediaItem)
         ;
 
