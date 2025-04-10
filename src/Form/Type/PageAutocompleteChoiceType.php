@@ -24,9 +24,8 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 )]
 final class PageAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(
-        private readonly string $pageClass,
-    ) {
+    public function __construct(private readonly string $pageClass)
+    {
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -24,9 +24,8 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 )]
 final class BlockAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(
-        private readonly string $blockClass,
-    ) {
+    public function __construct(private readonly string $blockClass)
+    {
     }
 
     public function configureOptions(OptionsResolver $resolver): void

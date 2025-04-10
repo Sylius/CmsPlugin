@@ -24,9 +24,8 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 )]
 final class MediaAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(
-        private readonly string $mediaClass,
-    ) {
+    public function __construct(private readonly string $mediaClass)
+    {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
