@@ -19,9 +19,8 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
 abstract class AbstractTemplateAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(
-        private string $templateClass,
-    ) {
+    public function __construct(private string $templateClass)
+    {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -30,7 +29,6 @@ abstract class AbstractTemplateAutocompleteChoiceType extends AbstractType
             'class' => $this->templateClass,
             'choice_name' => 'name',
             'choice_value' => 'id',
-            'multiple' => true,
         ]);
     }
 

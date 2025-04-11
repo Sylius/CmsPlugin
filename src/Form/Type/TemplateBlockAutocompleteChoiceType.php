@@ -21,9 +21,8 @@ use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 )]
 final class TemplateBlockAutocompleteChoiceType extends AbstractTemplateAutocompleteChoiceType
 {
-    public function __construct(
-        private string $templateClass,
-    ) {
+    public function __construct(private string $templateClass)
+    {
         parent::__construct($this->templateClass);
     }
 

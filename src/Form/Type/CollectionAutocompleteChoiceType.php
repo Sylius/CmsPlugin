@@ -24,9 +24,8 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 )]
 final class CollectionAutocompleteChoiceType extends AbstractType
 {
-    public function __construct(
-        private string $collectionClass,
-    ) {
+    public function __construct(private string $collectionClass)
+    {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
