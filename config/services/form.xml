@@ -131,7 +131,7 @@
 
         <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
 
-        <service id="sylius_cms.form.collection_autocomplete_choice_type"
+        <service id="sylius_cms.form.collection_autocomplete_choice"
                  class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType"
         >
             <argument>%sylius_cms.model.collection.class%</argument>
@@ -158,7 +158,7 @@
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.template_block_autocomplete_choice_type"
+        <service id="sylius_cms.form.template_block_autocomplete_choice"
                  class="Sylius\CmsPlugin\Form\Type\TemplateBlockAutocompleteChoiceType"
         >
             <argument>%sylius_cms.model.template.class%</argument>

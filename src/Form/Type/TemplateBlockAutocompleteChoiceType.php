@@ -22,9 +22,9 @@ use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 final class TemplateBlockAutocompleteChoiceType extends AbstractTemplateAutocompleteChoiceType
 {
     public function __construct(
-        private string $templactClass,
+        private string $templateClass,
     ) {
-        parent::__construct($this->templactClass);
+        parent::__construct($this->templateClass);
     }
 
     public function getBlockPrefix(): string

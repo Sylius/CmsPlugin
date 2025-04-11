@@ -2,7 +2,7 @@ sylius_twig_hooks:
     hooks:
         'sylius_cms.admin.block.update.content':
             form:
-                component: 'sylius_cms:block:form'
+                component: 'sylius_cms:admin:block:form'
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
@@ -51,7 +51,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/products.html.twig'
                 priority: 200
             productsInTaxons:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/productsInTaxons.html.twig'
+                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/products_in_taxons.html.twig'
                 priority: 100
             taxons:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/taxons.html.twig'
@@ -67,7 +67,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/content/templates.html.twig'
                 priority: 200
             contentTemplate:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content/contentTemplate.html.twig'
+                template: '@SyliusCmsPlugin/admin/block/form/sections/content/content_template.html.twig'
                 priority: 100
             content_elements:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/content/content_elements.html.twig'
