@@ -15,6 +15,7 @@
         <service id="sylius_cms.form.type.block" class="Sylius\CmsPlugin\Form\Type\BlockType">
             <argument type="service" id="sylius.repository.locale" />
             <argument type="service" id="sylius_cms.provider.resource_template" />
+            <argument type="service" id="sylius_cms.repository.template" />
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>%sylius_cms.form.type.block.validation_groups%</argument>
             <tag name="form.type" />
@@ -130,6 +131,15 @@
 
         <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
 
+        <service id="sylius_cms.form.collection_autocomplete_choice"
+                 class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType"
+        >
+            <argument>%sylius_cms.model.collection.class%</argument>
+
+            <tag name="form.type" />
+            <tag name="ux.entity_autocomplete_field" />
+        </service>
+
         <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteChoiceType">
             <argument>%sylius_cms.model.page.class%</argument>
             <tag name="form.type" />
@@ -144,6 +154,15 @@
 
         <service id="sylius_cms.form.type.media_autocomplete" class="Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType">
             <argument>%sylius_cms.model.media.class%</argument>
+            <tag name="form.type" />
+            <tag name="ux.entity_autocomplete_field" />
+        </service>
+
+        <service id="sylius_cms.form.template_block_autocomplete_choice"
+                 class="Sylius\CmsPlugin\Form\Type\TemplateBlockAutocompleteChoiceType"
+        >
+            <argument>%sylius_cms.model.template.class%</argument>
+
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>

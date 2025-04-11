@@ -111,12 +111,14 @@ final class ContentConfigurationType extends AbstractResourceType
 
         $form = $event->getForm();
 
-        $dataType = $data instanceof ContentConfigurationInterface ? $data->getType() : $data['type'];
+        $dataType = $data instanceof ContentConfigurationInterface ? $data->getType() : $data['type'] ?? null;
 
-        $actionConfigurationType = $this->actionConfigurationTypes[$dataType];
-        $form->add('configuration', $actionConfigurationType, [
-            'label' => false,
-        ]);
+        if ($dataType !== null && $dataType !== '') {
+            $actionConfigurationType = $this->actionConfigurationTypes[$dataType];
+            $form->add('configuration', $actionConfigurationType, [
+                'label' => false,
+            ]);
+        }
     }
 
     public function getBlockPrefix(): string

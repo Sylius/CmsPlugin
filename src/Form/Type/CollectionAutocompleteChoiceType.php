@@ -13,30 +13,29 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
+use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_admin_collection',
+    route: 'sylius_admin_entity_autocomplete',
+)]
 final class CollectionAutocompleteChoiceType extends AbstractType
 {
+    public function __construct(private string $collectionClass)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'resource' => 'sylius_cms.collection',
-            'choice_name' => 'name',
-            'choice_value' => 'code',
+            'class' => $this->collectionClass,
+            'choice_label' => 'name',
+            'choice_value' => 'id',
+            'multiple' => true,
         ]);
-    }
-
-    public function buildView(
-        FormView $view,
-        FormInterface $form,
-        array $options,
-    ): void {
-        $view->vars['remote_criteria_type'] = 'contains';
-        $view->vars['remote_criteria_name'] = 'phrase';
     }
 
     public function getBlockPrefix(): string
@@ -46,6 +45,6 @@ final class CollectionAutocompleteChoiceType extends AbstractType
 
     public function getParent(): string
     {
-        return ResourceAutocompleteChoiceType::class;
+        return BaseEntityAutocompleteType::class;
     }
 }

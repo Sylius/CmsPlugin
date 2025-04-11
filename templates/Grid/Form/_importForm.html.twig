@@ -1,17 +1,21 @@
-{% form_theme form '@SyliusCmsPlugin/Form/theme.html.twig' %}
 <div class="cms-import" data-bb-cms-wrapper data-bb-target="cms-import">
-    <form method="POST" enctype="multipart/form-data" action="{{ path('sylius_cms_admin_import_data', {'resourceName': app.request.get('resourceName')}) }}" novalidate="novalidate" class="ui form">
+    <form method="POST" enctype="multipart/form-data"
+          action="{{ path('sylius_cms_admin_import_data', {'resourceName': app.request.get('resourceName')}) }}"
+          class="d-flex gap-2 align-items-center flex-wrap" novalidate autocomplete="off">
 
-        <div class="ui action input">
-            <input type="text" placeholder="{{ 'sylius_cms.ui.csv_file'|trans }}" data-bb-cms-text="text" readonly>
+        <input type="text"
+               class="form-control form-control-sm"
+               placeholder="{{ 'sylius_cms.ui.csv_file'|trans }}"
+               data-bb-cms-text="text"
+               readonly
+               style="max-width: 200px;">
 
-            {{ form_widget(form.file, { 'attr': {'data-bb-cms-file': 'file'} }) }}
+        {{ form_widget(form.file, { 'attr': {'class': 'form-control form-control-sm', 'data-bb-cms-file': 'file', 'style': 'max-width: 200px;'} }) }}
 
-            <button class="ui teal left labeled icon button">
-                <i class="upload icon"></i>
-                {{ 'sylius_cms.ui.import'|trans }}
-            </button>
-        </div>
+        <button type="submit" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
+            <i class="bi bi-upload"></i>
+            {{ 'sylius_cms.ui.import'|trans }}
+        </button>
 
         {{ form_widget(form._token) }}
     </form>

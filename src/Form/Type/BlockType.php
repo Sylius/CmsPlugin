@@ -13,29 +13,37 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Sylius\Bundle\AdminBundle\Form\Type\ProductAutocompleteType;
+use Sylius\Bundle\AdminBundle\Form\Type\TaxonAutocompleteType;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
-use Sylius\Bundle\ProductBundle\Form\Type\ProductAutocompleteChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\Bundle\TaxonomyBundle\Form\Type\TaxonAutocompleteChoiceType;
 use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
+use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
 final class BlockType extends AbstractResourceType
 {
     /** @var array<string, string|null> */
     private array $locales = [];
 
-    /** @param RepositoryInterface<LocaleInterface> $localeRepository */
+    /**
+     * @param RepositoryInterface<LocaleInterface> $localeRepository
+     * @param TemplateRepositoryInterface<TemplateInterface> $templateRepository
+     */
     public function __construct(
         private RepositoryInterface $localeRepository,
         private ResourceTemplateProviderInterface $templateProvider,
+        private TemplateRepositoryInterface $templateRepository,
         string $dataClass,
         array $validationGroups = [],
     ) {
@@ -79,8 +87,7 @@ final class BlockType extends AbstractResourceType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('contentElements', CollectionType::class, [
-                'label' => false,
+            ->add('contentElements', LiveCollectionType::class, [
                 'entry_type' => ContentConfigurationType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -93,24 +100,24 @@ final class BlockType extends AbstractResourceType
                     'class' => 'content-elements-container',
                 ],
             ])
-            ->add('products', ProductAutocompleteChoiceType::class, [
+            ->add('products', ProductAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.display_for_products.label',
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_products.help',
             ])
-            ->add('productsInTaxons', TaxonAutocompleteChoiceType::class, [
+            ->add('productsInTaxons', TaxonAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.display_for_products_in_taxons.label',
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_products_in_taxons.help',
             ])
-            ->add('taxons', TaxonAutocompleteChoiceType::class, [
+            ->add('taxons', TaxonAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.display_for_taxons.label',
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_taxons.help',
             ])
             ->add('contentTemplate', TemplateBlockAutocompleteChoiceType::class, [
-                'label' => false,
                 'mapped' => false,
+                'multiple' => false,
             ])
             ->add('locale', ChoiceType::class, [
                 'choices' => $this->locales,
@@ -120,6 +127,49 @@ final class BlockType extends AbstractResourceType
                     'class' => 'locale-selector',
                 ],
             ])
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
+
+                if (!isset($data['contentTemplate']) || $data['contentTemplate'] === '') {
+                    return;
+                }
+
+                $templateId = (int) $data['contentTemplate'];
+
+                /** @return TemplateInterface|null */
+                $template = $this->templateRepository->find($templateId);
+
+                if ($template === null || $template->getContentElements() === []) {
+                    return;
+                }
+
+                $templateElementTypes = array_map(
+                    static fn (array $element) => $element['type'],
+                    $template->getContentElements(),
+                );
+
+                $existingElementTypes = array_map(
+                    static fn (array $element) => $element['type'] ?? null,
+                    $data['contentElements'] ?? [],
+                );
+
+                $allTypesExist = count(array_diff($templateElementTypes, $existingElementTypes)) === 0;
+                if ($allTypesExist) {
+                    return;
+                }
+
+                $data['contentElements'] = [];
+
+                foreach ($template->getContentElements() as $element) {
+                    $data['contentElements'][] = [
+                        'type' => $element['type'],
+                        'configuration' => [],
+                        'locale' => $data['locale'] ?? 'en_US',
+                    ];
+                }
+
+                $event->setData($data);
+            })
         ;
 
         PageType::addContentElementLocaleListener($builder);

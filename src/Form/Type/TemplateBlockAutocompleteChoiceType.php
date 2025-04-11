@@ -13,8 +13,19 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
+
+#[AsEntityAutocompleteField(
+    alias: 'sylius_cms_admin_template_block',
+    route: 'sylius_admin_entity_autocomplete',
+)]
 final class TemplateBlockAutocompleteChoiceType extends AbstractTemplateAutocompleteChoiceType
 {
+    public function __construct(private string $templateClass)
+    {
+        parent::__construct($this->templateClass);
+    }
+
     public function getBlockPrefix(): string
     {
         return 'sylius_template_block_autocomplete_choice';

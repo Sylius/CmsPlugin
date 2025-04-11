@@ -13,9 +13,16 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Repository;
 
+use Sylius\CmsPlugin\Entity\TemplateInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Sylius\Resource\Model\ResourceInterface;
 
-interface TemplateRepositoryInterface
+/**
+ * @template T of TemplateInterface
+ *
+ * @extends RepositoryInterface<T>
+ */
+interface TemplateRepositoryInterface extends RepositoryInterface
 {
     /** @return array<ResourceInterface> */
     public function findTemplatesByNamePart(string $phrase, string $type): array;
