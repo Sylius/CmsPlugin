@@ -1,0 +1,7 @@
+{% set page = hookable_metadata.context.page %}
+
+{% if hookable_metadata.context.published == true %}
+    {% if page.metaKeywords is not empty %}
+        <meta name="keywords" content="{{ page.metaKeywords }}"/>
+    {% endif %}
+{% endif %}

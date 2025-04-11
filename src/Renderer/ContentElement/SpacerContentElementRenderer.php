@@ -27,7 +27,7 @@ final class SpacerContentElementRenderer extends AbstractContentElement
     {
         $configuration = (int) $contentConfiguration->getConfiguration()['spacer'];
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'spacer_height' => $configuration,
         ]);

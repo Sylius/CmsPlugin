@@ -67,7 +67,7 @@ final class HeadingContentElementRendererTest extends TestCase
             'heading_type' => 'h1',
             'heading' => 'Sample Heading',
         ]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'heading_type' => 'h1',
             'heading_content' => 'Sample Heading',

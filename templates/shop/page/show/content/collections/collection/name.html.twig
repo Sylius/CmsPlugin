@@ -1,0 +1,3 @@
+{% set collection = hookable_metadata.context.collection %}
+
+<a href="{{ path('sylius_cms_shop_page_index_by_collection_code', {'collectionCode' : collection.code}) }}"  {{ sylius_test_html_attribute('cms-page-collection-link') }}>{{ collection.name }}</a>

@@ -1,3 +1,4 @@
+# TODO: Consider removing this, as it is not used in the code or in the documentation
 sylius_cms_shop_block_render:
     path: /block/{code}
     methods: [GET]
@@ -9,6 +10,7 @@ sylius_cms_shop_block_render:
                 arguments:
                     - $code
 
+# TODO: Consider removing this, as it is not used in the code or in the documentation
 sylius_cms_shop_block_index_by_collection_code:
     path: /blocks/collection/{collectionCode}
     methods: [GET]

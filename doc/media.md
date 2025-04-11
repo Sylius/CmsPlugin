@@ -39,7 +39,7 @@ app.media_provider.audio:
     arguments:
         - "@sylius_cms.media_uploader"
         - "@templating.engine.twig"
-        - "@@SyliusCmsPlugin/Shop/Media/Show/audio.html.twig"
+        - "@@SyliusCmsPlugin/shop/media/show/audio.html.twig"
         - "media/audio"
     tags:
         - { name: sylius_cms.media_provider, type: audio, label: sylius_cms.ui.audio_provider }

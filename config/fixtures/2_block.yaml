@@ -65,12 +65,12 @@ sylius_fixtures:
                       data:
                         products_carousel:
                           products:
-                            - "Everyday_white_basic_T_Shirt"
-                            - "Loose_white_designer_T_Shirt"
-                            - "Ribbed_copper_slim_fit_Tee"
-                            - "Sport_basic_white_T_Shirt"
-                            - "Raglan_grey_black_Tee"
-                            - "Oversize_white_cotton_T_Shirt"
+                            - "Starlight_Whisper_T_Shirt"
+                            - "Quantum_Pulse_T_Shirt"
+                            - "Swantastic_T_Shirt"
+                            - "Celestial_Harmony_T_Shirt"
+                            - "Lunar_Echo_T_Shirt"
+                            - "Galactic_Breeze_T_Shirt"
               homepage_banner_1:
                 name: "Homepage banner 1"
                 channels:
@@ -186,10 +186,10 @@ sylius_fixtures:
                       data:
                         products_grid:
                           products:
-                            - "Knitted_burgundy_winter_cap"
-                            - "Knitted_wool_blend_green_cap"
-                            - "Knitted_white_pompom_cap"
-                            - "Cashmere_blend_violet_beanie"
+                            - "Blissful_Breeze_Cap"
+                            - "Vibrant_Voyage_Cap"
+                            - "Elegant_Escape_Cap"
+                            - "Classic_Coastal_Cap"
               homepage_products_grid_by_taxon:
                 name: "See also our dress collection!"
                 channels:

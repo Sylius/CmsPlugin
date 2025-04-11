@@ -75,7 +75,7 @@ final class ProductsGridContentElementRendererTest extends TestCase
             'products_grid' => ['products' => ['code1', 'code2']],
         ]);
         $this->productRepositoryMock->expects(self::once())->method('findBy')->with(['code' => ['code1', 'code2']])->willReturn([$product1Mock, $product2Mock]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
         ])->willReturn('rendered template');

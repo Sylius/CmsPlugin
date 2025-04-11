@@ -1,0 +1,35 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_cms.shop.page.index':
+            content:
+                template: '@SyliusCmsPlugin/shop/page/index/content.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.index.content':
+            header:
+                template: '@SyliusCmsPlugin/shop/page/index/content/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.index.content.body':
+            pages:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body/pages.html.twig'
+                priority: 200
+            no_results:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body/no_results.html.twig'
+                priority: 100
+            pagination:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body/pagination.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.index.content.body.pages':
+            page:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body/pages/page.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.index.content.body.pages.page':
+            header:
+                template: '@SyliusCmsPlugin/shop/page/index/content/body/pages/page/header.html.twig'
+                priority: 0

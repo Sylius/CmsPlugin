@@ -40,7 +40,7 @@ final class ResourceTemplateProvider implements ResourceTemplateProviderInterfac
     public function getPageTemplates(): array
     {
         $keys = ['sylius.ui.default'];
-        $values = ['@SyliusCmsPlugin/Shop/Page/show.html.twig'];
+        $values = ['@SyliusCmsPlugin/shop/page/show.html.twig'];
 
         return array_combine(
             array_merge($keys, $this->templates['pages']),
@@ -51,7 +51,7 @@ final class ResourceTemplateProvider implements ResourceTemplateProviderInterfac
     public function getBlockTemplates(): array
     {
         $keys = ['sylius.ui.default'];
-        $values = ['@SyliusCmsPlugin/Shop/Block/show.html.twig'];
+        $values = ['@SyliusCmsPlugin/shop/block/show.html.twig'];
 
         return array_combine(
             array_merge($keys, $this->templates['blocks']),

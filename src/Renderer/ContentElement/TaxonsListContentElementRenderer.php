@@ -37,7 +37,7 @@ final class TaxonsListContentElementRenderer extends AbstractContentElement
         $taxonsCodes = $configuration['taxons_list']['taxons'];
         $taxons = $this->taxonRepository->findBy(['code' => $taxonsCodes]);
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'taxons' => $taxons,
         ]);

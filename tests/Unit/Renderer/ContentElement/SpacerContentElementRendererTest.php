@@ -64,7 +64,7 @@ final class SpacerContentElementRendererTest extends TestCase
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'spacer' => '40',
         ]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'spacer_height' => '40',
         ])->willReturn('rendered template');

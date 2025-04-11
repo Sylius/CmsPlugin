@@ -84,7 +84,7 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         ]);
         $this->taxonRepositoryMock->expects(self::once())->method('findOneBy')->with(['code' => 'taxon_code'])->willReturn($taxonMock);
         $this->productRepositoryMock->expects(self::once())->method('findByTaxon')->with($taxonMock)->willReturn([$product1Mock, $product2Mock]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
         ])->willReturn('rendered template');

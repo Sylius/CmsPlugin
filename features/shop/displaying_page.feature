@@ -36,4 +36,4 @@ Feature: Displaying pages
         And this page has "Title" name
         And this page also has "title" slug
         When I go to this page
-        Then I should see page title "Sylius"
+        Then I should see page title "United States"

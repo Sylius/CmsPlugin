@@ -49,7 +49,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
 
     public function hasCollections(array $collectionNames): bool
     {
-        $collectionsOnPage = $this->getElement('collections')->findAll('css', 'a');
+        $collectionsOnPage = $this->getElement('collections')->findAll('css', '[data-test-cms-page-collection-link]');
 
         /** @var NodeElement $collectionOnPage */
         foreach ($collectionsOnPage as $collectionOnPage) {
@@ -84,10 +84,10 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
-            'name' => '.cms-page-name',
+            'name' => '[data-test-cms-page-name]',
             'content' => '.cms-page-content',
             'products' => '.cms-page-products',
-            'collections' => '.cms-page-collections',
+            'collections' => '[data-test-cms-page-collections]',
             'link' => '.cms-page-link',
             'page-image' => '.page-image',
             'custom-layout' => '.custom-layout',

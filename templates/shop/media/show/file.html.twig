@@ -5,8 +5,8 @@
 
     <p>{{ sylius_cms_render_content(media) }}</p>
 
-    <a class="ui icon labeled primary button" href="{{ path('sylius_cms_shop_media_download', {'code': media.code}) }}">
-        <i class="download icon"></i>
+    <a class="btn btn-primary" href="{{ path('sylius_cms_shop_media_download', {'code': media.code}) }}">
+        {{ ux_icon('tabler:download', { class: 'icon' }) }}
         {{ 'sylius_cms.ui.download'|trans }}
     </a>
 </div>

@@ -19,7 +19,7 @@ use Twig\Environment;
 
 final class RenderCollectionRuntime implements RenderCollectionRuntimeInterface
 {
-    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/Shop/Collection/show.html.twig';
+    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/shop/collection/show.html.twig';
 
     public function __construct(
         private Environment $twig,

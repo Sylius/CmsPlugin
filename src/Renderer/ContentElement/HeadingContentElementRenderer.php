@@ -29,7 +29,7 @@ final class HeadingContentElementRenderer extends AbstractContentElement
         $headingType = $configuration['heading_type'];
         $headingContent = $configuration['heading'];
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'heading_type' => $headingType,
             'heading_content' => $headingContent,

@@ -94,7 +94,7 @@ final class TextContentElementRenderer extends AbstractContentElement
     {
         $text = $contentConfiguration->getConfiguration()['text'];
 
-        return $this->twig->render('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
             'text' => $text,
         ]);

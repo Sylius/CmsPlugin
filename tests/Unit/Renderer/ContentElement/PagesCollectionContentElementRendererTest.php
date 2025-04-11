@@ -76,7 +76,7 @@ final class PagesCollectionContentElementRendererTest extends TestCase
         $this->collectionRepositoryMock->expects(self::once())->method('findOneBy')->with(['code' => 'collection_code'])->willReturn($collectionMock);
         $pagesCollection = new ArrayCollection(['page1', 'page2']);
         $collectionMock->expects(self::once())->method('getPages')->willReturn($pagesCollection);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'collection' => $pagesCollection,
         ])->willReturn('rendered_output');

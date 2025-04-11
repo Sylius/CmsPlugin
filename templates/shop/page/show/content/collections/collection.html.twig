@@ -1,0 +1,5 @@
+{% set page = hookable_metadata.context.page %}
+
+{% for collection in page.collections %}
+    {% hook 'collection' with { collection } %}
+{% endfor %}
