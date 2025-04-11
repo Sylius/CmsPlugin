@@ -65,7 +65,7 @@ final class ContentElementHelper
     public static function getDefinedContentElements(): array
     {
         return [
-            'content_elements_select_type' => '.bb-collection-item:last-child .field > label:contains("Type") ~ select',
+            'content_elements_select_type' => '[data-test-content-element-type]',
             'content_elements_textarea' => '.field > label:contains("Textarea") ~ textarea',
             'content_elements_single_media_dropdown' => '.field > label:contains("Single media") ~ .cms-media-autocomplete',
             'content_elements_single_media_dropdown_item' => '.field > label:contains("Single media") ~ .cms-media-autocomplete > div.menu > div.item:contains("%item%")',
