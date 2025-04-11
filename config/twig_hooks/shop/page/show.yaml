@@ -8,7 +8,6 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/shop/page/metatags/description.html.twig'
                 priority: 0
 
-
         'sylius_cms.shop.page.show':
             content:
                 template: '@SyliusCmsPlugin/shop/page/show/content.html.twig'
