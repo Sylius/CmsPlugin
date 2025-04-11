@@ -57,6 +57,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
             ->getParent()
             ->getParent()
             ->getParent()
-            ->find('css', '.bb-collection-item-delete')->click();
+            ->getParent()
+            ->find('css', '[data-test-delete-element]')->click();
     }
 }
