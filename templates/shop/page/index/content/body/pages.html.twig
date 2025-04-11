@@ -1,0 +1,7 @@
+{% set resources = hookable_metadata.context.resources %}
+
+{% if resources.data|length > 0 %}
+    <div class="row" id="cms-pages">
+        {% hook 'pages' %}
+    </div>
+{% endif %}

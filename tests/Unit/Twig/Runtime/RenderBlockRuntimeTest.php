@@ -85,7 +85,7 @@ final class RenderBlockRuntimeTest extends TestCase
         $blockMock = $this->createMock(BlockInterface::class);
         $this->blockResourceResolverMock->expects(self::once())->method('findOrLog')->with('code')->willReturn($blockMock);
         $this->contentElementRendererStrategyMock->expects(self::once())->method('render')->with($blockMock)->willReturn('rendered content');
-        $this->templatingEngineMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/Block/show.html.twig', [
+        $this->templatingEngineMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/block/show.html.twig', [
             'content' => 'rendered content',
             'context' => null,
         ])->willReturn('rendered block');

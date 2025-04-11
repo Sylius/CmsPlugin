@@ -1,0 +1,10 @@
+{% set page = hookable_metadata.context.page %}
+
+{% if page.collections is not empty %}
+    <div class="cms-page-collections" {{ sylius_test_html_attribute('cms-page-collections') }}>
+        {% if page.collections|length > 0 %}
+            <strong> {{ 'sylius_cms.ui.collections'|trans }}: </strong>
+            {% hook 'collections' %}
+        {% endif %}
+    </div>
+{% endif %}

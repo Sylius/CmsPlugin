@@ -59,14 +59,15 @@ jobs:
       - name: Output PHP version for Symfony CLI
         run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
 
-#      - name: Install certificates
-#        run: symfony server:ca:install
-#
-#      - name: Run Chrome Headless
-#        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
-#
-#      - name: Run webserver
-#        run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
+      - name: Install certificates
+        run: symfony server:ca:install
+
+      -
+        name: Run Chrome Headless
+        run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
+
+      - name: Run webserver
+        run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -118,6 +119,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ matrix.node }}-yarn-
 
+      -
+        name: Install JS dependencies
+        run: (cd tests/Application && yarn install)
+
 #      - name: Install JS dependencies
 #        run: |
 #          cd tests/Application
@@ -136,10 +141,10 @@ jobs:
           (cd tests/Application && bin/console doctrine:database:create -vvv)
           (cd tests/Application && bin/console doctrine:migrations:migrate -n -vvv -q)
 
-#      - name: Prepare test application assets
-#        run: |
-#          (cd tests/Application && bin/console assets:install public -vvv)
-#          (cd tests/Application && yarn build:prod)
+      - name: Prepare test application assets
+        run: |
+          (cd tests/Application && bin/console assets:install public -vvv)
+          (cd tests/Application && yarn build:prod)
 
       - name: Prepare test application cache
         run: (cd tests/Application && bin/console cache:warmup -vvv)
@@ -163,25 +168,16 @@ jobs:
 #        if: matrix.trix != true
 #        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
 #
-#      - name: Run Behat
-#        run: vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress || vendor/bin/behat ${{ env.BEHAT_TAGS }} --colors --strict -vvv --no-interaction -f progress --rerun
-#
-#      - name: Upload Behat logs
-#        uses: actions/upload-artifact@v4
-#        if: failure()
-#        with:
-#          name: Behat logs
-#          path: etc/build/
-#          if-no-files-found: ignore
+      - name: Run Behat
+        run: vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
 
-##      - name: Failed build Slack notification
-##        uses: rtCamp/action-slack-notify@v2
-##        if: ${{ failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') }}
-##        env:
-##          SLACK_CHANNEL: ${{ secrets.FAILED_BUILD_SLACK_CHANNEL }}
-##          SLACK_COLOR: ${{ job.status }}
-##          SLACK_ICON: https://github.com/rtCamp.png?size=48
-##          SLACK_MESSAGE: ':x:'
-##          SLACK_TITLE: Failed build on ${{ github.event.repository.name }} repository
-##          SLACK_USERNAME: ${{ secrets.FAILED_BUILD_SLACK_USERNAME }}
-##          SLACK_WEBHOOK: ${{ secrets.FAILED_BUILD_SLACK_WEBHOOK }}
+      -
+        name: Upload Behat logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: "Behat logs - ${{ matrix.sylius }}-${{ github.run_id }}-${{ github.run_number }}"
+          path: etc/build/
+          if-no-files-found: ignore
+          compression-level: 6
+          overwrite: true

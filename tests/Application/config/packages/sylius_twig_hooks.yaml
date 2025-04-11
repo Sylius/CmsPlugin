@@ -1,0 +1,50 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.base#stylesheets':
+            app_styles:
+                template: 'admin/stylesheets.html.twig'
+        'sylius_admin.base#javascripts':
+            app_javascripts:
+                template: 'admin/javascripts.html.twig'
+
+        'sylius_shop.base#stylesheets':
+            app_styles:
+                template: 'shop/stylesheets.html.twig'
+        'sylius_shop.base#javascripts':
+            app_javascripts:
+                template: 'shop/javascripts.html.twig'
+
+        'sylius_shop.base.header.navbar.menu':
+            blog_item:
+                template: 'shop/header/navbar/menu/blog_item.html.twig'
+                priority: -100
+            faq_item:
+                template: 'shop/header/navbar/menu/faq_item.html.twig'
+                priority: -200
+
+        'sylius_shop.homepage.index':
+            banner:
+                enabled: false
+            latest_deals:
+                enabled: false
+            new_collection:
+                enabled: false
+            latest_products:
+                enabled: false
+            cms_page:
+                template: 'shop/homepage/index/cms_page.html.twig'
+
+        'sylius_shop.product.show.content':
+            black_friday_banner:
+                template: 'shop/product/show/content/black_friday_banner.html.twig'
+                priority: 150
+            product_listing:
+                enabled: false
+            products:
+                template: 'shop/product/show/content/products.html.twig'
+                priority: -100
+
+        'sylius_shop.product.index.content.body.main.header':
+            black_friday_banner:
+                template: 'shop/product/index/content/body/main/header/black_friday_banner.html.twig'
+                priority: -100

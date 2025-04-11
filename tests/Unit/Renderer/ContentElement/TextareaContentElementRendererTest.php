@@ -64,7 +64,7 @@ final class TextareaContentElementRendererTest extends TestCase
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'textarea' => 'Textarea content',
         ]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'content' => 'Textarea content',
         ])->willReturn('rendered template');

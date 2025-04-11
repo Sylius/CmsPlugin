@@ -21,7 +21,7 @@ use Twig\Environment;
 
 final class RenderBlockRuntime implements RenderBlockRuntimeInterface
 {
-    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/Shop/Block/show.html.twig';
+    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/shop/block/show.html.twig';
 
     public function __construct(
         private BlockResourceResolverInterface $blockResourceResolver,

@@ -75,7 +75,7 @@ final class TaxonsListContentElementRendererTest extends TestCase
             'taxons_list' => ['taxons' => ['code1', 'code2']],
         ]);
         $this->taxonRepositoryMock->expects(self::once())->method('findBy')->with(['code' => ['code1', 'code2']])->willReturn([$taxon1Mock, $taxon2Mock]);
-        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/ContentElement/index.html.twig', [
+        $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'taxons' => [$taxon1Mock, $taxon2Mock],
         ])->willReturn('rendered template');

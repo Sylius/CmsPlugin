@@ -19,7 +19,7 @@ use Twig\Environment;
 
 final class PageLinkRenderer implements PageLinkRendererInterface
 {
-    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/Shop/Page/link.html.twig';
+    private const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/shop/page/show/link.html.twig';
 
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,

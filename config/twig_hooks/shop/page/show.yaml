@@ -1,0 +1,48 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_cms.shop.page#metatags':
+            keywords:
+                template: '@SyliusCmsPlugin/shop/page/metatags/keywords.html.twig'
+                priority: 100
+            description:
+                template: '@SyliusCmsPlugin/shop/page/metatags/description.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show':
+            content:
+                template: '@SyliusCmsPlugin/shop/page/show/content.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show.content':
+            breadcrumbs:
+                template: '@SyliusCmsPlugin/shop/page/show/content/breadcrumbs.html.twig'
+                priority: 200
+            body:
+                template: '@SyliusCmsPlugin/shop/page/show/content/body.html.twig'
+                priority: 100
+            collections:
+                template: '@SyliusCmsPlugin/shop/page/show/content/collections.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show.content#not_published':
+            not_published:
+                template: '@SyliusCmsPlugin/shop/page/show/content/not_published.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show.content.body':
+            header:
+                template: '@SyliusCmsPlugin/shop/page/show/content/body/header.html.twig'
+                priority: 100
+            content_elements:
+                template: '@SyliusCmsPlugin/shop/page/show/content/body/content_elements.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show.content.collections':
+            collection:
+                template: '@SyliusCmsPlugin/shop/page/show/content/collections/collection.html.twig'
+                priority: 0
+
+        'sylius_cms.shop.page.show.content.collections.collection':
+            name:
+                template: '@SyliusCmsPlugin/shop/page/show/content/collections/collection/name.html.twig'
+                priority: 0

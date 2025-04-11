@@ -1,0 +1,7 @@
+<div class="container mt-4 mb-5">
+    {% if hookable_metadata.context.published == true %}
+        {% hook 'content' %}
+    {% else %}
+        {% hook 'content#not_published' %}
+    {% endif %}
+</div>

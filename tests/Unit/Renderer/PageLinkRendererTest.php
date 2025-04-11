@@ -50,7 +50,7 @@ final class PageLinkRendererTest extends TestCase
         $pageMock->expects(self::once())->method('getSlug')->willReturn('page-slug');
         $pageMock->expects(self::once())->method('getName')->willReturn('Page Name');
         $this->urlGeneratorMock->expects(self::once())->method('generate')->with('sylius_cms_shop_page_show', ['slug' => 'page-slug'], UrlGeneratorInterface::ABSOLUTE_URL)->willReturn('http://example.com/page-slug');
-        $this->twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/Shop/Page/link.html.twig', [
+        $this->twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/page/show/link.html.twig', [
             'link' => 'http://example.com/page-slug',
             'name' => 'Page Name',
         ])->willReturn('<a href="http://example.com/page-slug">Page Name</a>');

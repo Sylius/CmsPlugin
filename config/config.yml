@@ -44,10 +44,10 @@ knp_gaufrette:
 
 liip_imagine:
     loaders:
-        default:
+        sylius_image:
             filesystem:
                 data_root:
-                    - "%kernel.project_dir%/public"
+                    - "%sylius_core.public_dir%"
 
 #sylius_ui:
 #    events:

@@ -23,3 +23,5 @@ tests/Application/web/*
 !/etc/build/.gitkeep
 
 .phpunit.result.cache
+
+/behat.yaml

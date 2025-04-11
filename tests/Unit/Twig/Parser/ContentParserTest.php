@@ -52,12 +52,12 @@ final class ContentParserTest extends TestCase
 
     public function testParsesStringFunction(): void
     {
-        $input = "Let's render! {{ sylius_cms_render_block('intro', '@SyliusCmsPlugin/Shop/Block/show.html.twig') }}";
+        $input = "Let's render! {{ sylius_cms_render_block('intro', '@SyliusCmsPlugin/shop/block/show.html.twig') }}";
 
         $this->renderBlockRuntime
             ->expects(self::once())
             ->method('renderBlock')
-            ->with('intro', '@SyliusCmsPlugin/Shop/Block/show.html.twig')
+            ->with('intro', '@SyliusCmsPlugin/shop/block/show.html.twig')
             ->willReturn('parsed')
         ;
 
@@ -67,8 +67,8 @@ final class ContentParserTest extends TestCase
     public function testParsesStringFunctions(): void
     {
         $input = <<<TEXT
-Let's render! {{ sylius_cms_render_block('intro', '@SyliusCmsPlugin/Shop/Block/show.html.twig') }}
-Let's render twice! {{ sylius_cms_render_block('intro1', '@SyliusCmsPlugin/Shop/Block/show.html.twig') }}
+Let's render! {{ sylius_cms_render_block('intro', '@SyliusCmsPlugin/shop/block/show.html.twig') }}
+Let's render twice! {{ sylius_cms_render_block('intro1', '@SyliusCmsPlugin/shop/block/show.html.twig') }}
 TEXT;
 
         $this->renderBlockRuntime

@@ -45,7 +45,7 @@ final class ResourceTemplateProviderTest extends TestCase
     public function testReturnsDefaultAndCustomPageTemplates(): void
     {
         self::assertSame([
-            'sylius.ui.default' => '@SyliusCmsPlugin/Shop/Page/show.html.twig',
+            'sylius.ui.default' => '@SyliusCmsPlugin/shop/page/show.html.twig',
             '@CustomTemplate/Page.html.twig' => '@CustomTemplate/Page.html.twig',
         ], $this->resourceTemplateProvider->getPageTemplates());
     }
@@ -53,7 +53,7 @@ final class ResourceTemplateProviderTest extends TestCase
     public function testReturnsDefaultAndCustomBlockTemplates(): void
     {
         self::assertSame([
-            'sylius.ui.default' => '@SyliusCmsPlugin/Shop/Block/show.html.twig',
+            'sylius.ui.default' => '@SyliusCmsPlugin/shop/block/show.html.twig',
             '@CustomTemplate/Block.html.twig' => '@CustomTemplate/Block.html.twig',
         ], $this->resourceTemplateProvider->getBlockTemplates());
     }

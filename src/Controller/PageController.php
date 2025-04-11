@@ -34,7 +34,7 @@ final class PageController extends ResourceController
 
     public const FILTER = 'sylius_admin_product_original';
 
-    public const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/Shop/Page/show.html.twig';
+    public const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/shop/page/show.html.twig';
 
     public function showAction(Request $request): Response
     {

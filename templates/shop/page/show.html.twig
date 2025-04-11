@@ -1,0 +1,16 @@
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% set prefixes = ['sylius_cms.shop.page'] %}
+{% set published = (page.publishAt is not null and page.publishAt|date("Y-m-d H:i:s") < "now"|date("Y-m-d H:i:s") or page.publishAt is null) %}
+
+{%- block title -%}
+    {% if page.title is not empty and published == true  %}
+        {{ page.title }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock -%}
+
+{% block content %}
+    {% hook 'show' with { _prefixes: prefixes, page, published } %}
+{% endblock %}

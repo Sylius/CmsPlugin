@@ -1,0 +1,7 @@
+{% set page = hookable_metadata.context.page %}
+
+{% if hookable_metadata.context.published == true %}
+    {% if page.metaDescription is not empty %}
+        <meta name="description" content="{{ page.metaDescription }}"/>
+    {% endif %}
+{% endif %}
