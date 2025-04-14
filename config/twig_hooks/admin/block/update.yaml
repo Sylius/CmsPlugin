@@ -7,6 +7,8 @@ sylius_twig_hooks:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
                     template: '@SyliusCmsPlugin/admin/block/form.html.twig'
+                configuration:
+                    method: 'PUT'
                 priority: 0
         
         'sylius_cms.admin.block.update.content.form':

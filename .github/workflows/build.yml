@@ -173,8 +173,8 @@ jobs:
             vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop \
               || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
             
-            vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/admin/adding_block.feature \
-              || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/admin/adding_block.feature
+            vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/admin/block \
+              || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/admin/block
             
       -
         name: Upload Behat logs

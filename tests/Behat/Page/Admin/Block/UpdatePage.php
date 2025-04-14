@@ -66,6 +66,13 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function deleteContentElement(): void
     {
-        $this->getDocument()->find('css', '.bb-collection-item-delete')->click();
+        $deleteButton = $this->getDocument()->find('css', '[data-action="live#action"][data-live-action-param="removeCollectionItem"]');
+
+        if (null === $deleteButton) {
+            throw new \RuntimeException('Delete button for content element not found.');
+        }
+
+        $deleteButton->click();
+        $this->waitForFormUpdate();
     }
 }
