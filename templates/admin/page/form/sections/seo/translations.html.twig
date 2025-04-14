@@ -3,4 +3,4 @@
 {% set form = hookable_metadata.context.form %}
 {% set prefixes = hookable_metadata.prefixes %}
 
-{{ translations.with_hook(form.translations, prefixes, null, { accordion_flush: true }) }}
+{{ translations.with_hook(form.translations, prefixes, null, { accordion_flush: true, accordion_id: 'seo' }) }}
