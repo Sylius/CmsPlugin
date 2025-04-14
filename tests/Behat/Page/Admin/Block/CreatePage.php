@@ -110,6 +110,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             );
         });
     }
+
     private function getLastContentElementSelect()
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
@@ -301,7 +302,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $this->autocompleteHelper->selectByName(
             $this->getDriver(),
             $autocompleteElement->getXpath(),
-            $templateName
+            $templateName,
         );
     }
 
