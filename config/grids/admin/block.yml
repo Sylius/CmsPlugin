@@ -26,7 +26,7 @@ sylius_grid:
                     path: enabled
                     sortable: ~
                     options:
-                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
                 collections:
                     type: twig
                     label: sylius_cms.ui.collections

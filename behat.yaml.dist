@@ -32,6 +32,8 @@ default:
 
         FriendsOfBehat\VariadicExtension: ~
 
+        SyliusLabs\SuiteTagsExtension: ~
+
         FriendsOfBehat\SuiteSettingsExtension:
             paths:
                 - "features"

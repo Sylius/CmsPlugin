@@ -22,20 +22,20 @@ trait ContainsErrorTrait
 
     public function containsErrorWithMessage(string $message, bool $strict = true): bool
     {
-        $validationMessageElements = $this->getDocument()->findAll('css', '.sylius-validation-error');
-        $result = false;
+        $validationMessageElements = $this->getDocument()->findAll('css', '.sylius-validation-error, .invalid-feedback');
 
-        /** @var NodeElement $validationMessageElement */
-        foreach ($validationMessageElements as $validationMessageElement) {
-            if (true === $strict && $message === $validationMessageElement->getText()) {
+        foreach ($validationMessageElements as $element) {
+            $text = trim($element->getText());
+
+            if ($strict && $text === $message) {
                 return true;
             }
 
-            if (false === $strict && strstr($validationMessageElement->getText(), $message)) {
+            if (!$strict && str_contains($text, $message)) {
                 return true;
             }
         }
 
-        return $result;
+        return false;
     }
 }

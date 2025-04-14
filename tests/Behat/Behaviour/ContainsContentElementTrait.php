@@ -19,28 +19,31 @@ trait ContainsContentElementTrait
 {
     use DocumentAccessor;
 
-    public function containsContentElement(string $contentElement): bool
+    public function containsContentElement(string $expectedLabel): bool
     {
-        $isAutocompleteField = match ($contentElement) {
-            'Single media',
-            'Multiple media',
-            'Products carousel',
-            'Products carousel by Taxon',
-            'Products grid',
-            'Products grid by Taxon',
-            'Taxons list' => true,
-            default => false,
-        };
+        $contentElementsContainer = $this->getDocument()->find('css', '[data-test-content-elements]');
 
-        $contentElements = $this->getDocument()->findById('sylius_cms_block_contentElements')
-            ?? $this->getDocument()->findById('sylius_cms_page_contentElements');
-
-        if (null === $contentElements) {
+        if (null === $contentElementsContainer) {
             throw new \InvalidArgumentException('Content elements container not found.');
         }
 
-        return $isAutocompleteField
-            ? $contentElements->has('css', 'input.search')
-            : $contentElements->hasField($contentElement);
+        $selects = $contentElementsContainer->findAll('css', 'select[data-test="content-element-type"]');
+
+        foreach ($selects as $select) {
+            $selectedValue = $select->getValue(); // np. taxons_list
+            $selectedOption = $select->find('css', sprintf('option[value="%s"]', $selectedValue));
+
+            if (null === $selectedOption) {
+                continue;
+            }
+
+            $label = trim($selectedOption->getText());
+
+            if ($label === $expectedLabel) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
