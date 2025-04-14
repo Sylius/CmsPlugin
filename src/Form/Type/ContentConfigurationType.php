@@ -40,6 +40,7 @@ final class ContentConfigurationType extends AbstractType
             ->add('template', TemplateAutocompleteChoiceType::class, [
                 'type' => 'page',
                 'label' => 'sylius_cms.ui.content_elements.template',
+                'help' => 'sylius_cms.ui.content_elements.template_help',
                 'mapped' => false,
                 'required' => false,
             ])
