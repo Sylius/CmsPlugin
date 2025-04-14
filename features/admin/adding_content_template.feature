@@ -38,7 +38,7 @@ Feature: Adding cms templates
         And I should see newly created "Textarea" content element in Content elements section
         And I should see newly created "Heading" content element in Content elements section
 
-    @ui @javascript
+    @ui
     Scenario: Trying to add template with existing name
         Given there is a template in the store with "New template" name
         When I go to the create template page
@@ -46,20 +46,20 @@ Feature: Adding cms templates
         And I try to add it
         Then I should be notified that there is already existing template with provided name
 
-    @ui @javascript
+    @ui
     Scenario: Adding new template with blank data
         When I go to the create template page
         And I try to add it
         And I should be notified that "Name" field cannot be blank
 
-    @ui @javascript
+    @ui
     Scenario: Trying to add a template with too short data
         When I go to the create template page
         And I fill the name with "X"
         And I try to add it
         Then I should be notified that "Name" field is too short
 
-    @ui @javascript
+    @ui
     Scenario: Trying to add a template with too long data
         When I go to the create template page
         And I fill "Name" field with 251 characters
