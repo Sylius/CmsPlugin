@@ -164,6 +164,7 @@ jobs:
         run: |
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" --rerun
+          vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" --rerun
 
       -
         name: Upload Behat logs
