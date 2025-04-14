@@ -1,11 +1,3 @@
-<div class="card mb-2" {{ sylius_test_html_attribute('productsInTaxons') }}>
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    {{ form_row(hookable_metadata.context.form.productsInTaxons, sylius_test_form_attribute('productsInTaxons')) }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="mb-3" {{ sylius_test_html_attribute('productsInTaxons') }}>
+    {{ form_row(hookable_metadata.context.form.productsInTaxons, sylius_test_form_attribute('productsInTaxons')) }}
 </div>
