@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Add element
+        elements: Elements
         blocks: Blocks
         block: Block
         pages: Pages

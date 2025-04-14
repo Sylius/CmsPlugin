@@ -51,17 +51,19 @@ sylius_twig_hooks:
                 priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.content':
-            locale:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/content/locale.html.twig'
-                priority: 300
             template:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/template.html.twig'
-                priority: 200
+                priority: 100
+            translations:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.page.create.content.form.sections.content.translations':
             elements_template:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/content/elements_template.html.twig'
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations/elements_template.html.twig'
                 priority: 100
             elements:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/content/elements.html.twig'
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations/elements.html.twig'
                 priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.teaser':

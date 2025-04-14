@@ -13,112 +13,60 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Sylius\Bundle\AdminBundle\Form\Type\AddButtonType;
+use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormTypeInterface;
-use Twig\Environment;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
-final class ContentConfigurationType extends AbstractResourceType
+final class ContentConfigurationType extends AbstractType
 {
     /** @var array<string, string> */
-    private array $actionTypes = [];
-
-    /** @var array<string, string> */
-    private array $actionConfigurationTypes;
+    private array $availableElementTypes;
 
     /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
-    public function __construct(
-        string $dataClass,
-        array $validationGroups,
-        iterable $actionConfigurationTypes,
-        private Environment $twig,
-    ) {
-        parent::__construct($dataClass, $validationGroups);
-
+    public function __construct(iterable $actionConfigurationTypes)
+    {
         foreach ($actionConfigurationTypes as $type => $formType) {
-            $this->actionConfigurationTypes[$type] = $formType::class;
-            $this->actionTypes['sylius_cms.ui.content_elements.type.' . $type] = $type;
+            $this->availableElementTypes[$type] = 'sylius_cms.ui.content_elements.type.' . $type;
         }
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $defaultActionType = current($this->actionTypes);
-        $defaultActionConfigurationType = $this->actionConfigurationTypes[$defaultActionType];
-
         $builder
-            ->add('locale', HiddenType::class)
-            ->add('type', ChoiceType::class, [
-                'label' => 'sylius.ui.type',
-                'choices' => $this->actionTypes,
-                'choice_attr' => function (?string $type) use ($builder): array {
-                    return [
-                        'data-configuration' => $this->twig->render(
-                            '@SyliusCmsPlugin/ContentConfiguration/_action.html.twig',
-                            [
-                                'field' => $builder->create(
-                                    'configuration',
-                                    $this->actionConfigurationTypes[$type],
-                                    [
-                                        'label' => false,
-                                        'csrf_protection' => false,
-                                    ],
-                                )->getForm()->createView(),
-                            ],
-                        ),
-                    ];
-                },
+            ->add('template', TemplateAutocompleteChoiceType::class, [
+                'type' => 'page',
+                'label' => 'sylius_cms.ui.content_elements.template',
+                'mapped' => false,
+                'required' => false,
             ])
-            ->add('configuration', $defaultActionConfigurationType, [
-                'label' => false,
+            ->add('contentElements', LiveCollectionType::class, [
+                'entry_type' => ContentElementConfigurationType::class,
+                'entry_options' => [
+                    'types' => $this->availableElementTypes,
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => true,
+                'button_add_type' => AddButtonType::class,
+                'button_add_options' => [
+                    'label' => 'sylius_cms.ui.add_element',
+                    'types' => $this->availableElementTypes,
+                ],
+                'button_delete_options' => [
+                    'label' => false,
+                ],
+                'required' => false,
             ])
-        ;
-
-        $builder
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-                $this->addConfigurationTypeToForm($event);
-            })
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
-                /** @var array<mixed>|null $data */
-                $data = $event->getData();
-                if (null === $data) {
-                    return;
-                }
-
-                $form = $event->getForm();
-                $formData = $form->getData();
-
-                if (null !== $formData && $formData->getType() !== $data['type']) {
-                    $formData->setConfiguration([]);
-                }
-
-                $this->addConfigurationTypeToForm($event);
-            })
         ;
     }
 
-    private function addConfigurationTypeToForm(FormEvent $event): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $data = $event->getData();
-        if (null === $data) {
-            return;
-        }
-
-        $form = $event->getForm();
-
-        $dataType = $data instanceof ContentConfigurationInterface ? $data->getType() : $data['type'] ?? null;
-
-        if ($dataType !== null && $dataType !== '') {
-            $actionConfigurationType = $this->actionConfigurationTypes[$dataType];
-            $form->add('configuration', $actionConfigurationType, [
-                'label' => false,
-            ]);
-        }
+        $resolver->setDefault('data_class', null);
     }
 
     public function getBlockPrefix(): string
