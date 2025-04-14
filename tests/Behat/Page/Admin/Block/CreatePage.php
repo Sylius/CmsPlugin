@@ -28,7 +28,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function __construct(
         Session $session,
-                $minkParameters,
+        $minkParameters,
         RouterInterface $router,
         string $routeName,
         protected AutocompleteHelperInterface $autocompleteHelper,
