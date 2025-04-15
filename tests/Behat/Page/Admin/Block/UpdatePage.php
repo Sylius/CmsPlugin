@@ -16,6 +16,7 @@ namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityTrait;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsContentElementTrait;
+use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
@@ -74,5 +75,16 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
         $deleteButton->click();
         $this->waitForFormUpdate();
+    }
+
+    protected function getDefinedElements(): array
+    {
+        return array_merge(
+            parent::getDefinedElements(),
+            ContentElementHelper::getDefinedContentElements(),
+            [
+                'content_elements_select' => '[data-test-content-elements]',
+            ],
+        );
     }
 }

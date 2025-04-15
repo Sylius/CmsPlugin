@@ -21,7 +21,7 @@ trait ContainsContentElementTrait
 
     public function containsContentElement(string $expectedLabel): bool
     {
-        $contentElementsContainer = $this->getElement('[data-test-content-elements]');
+        $contentElementsContainer = $this->getElement('content_elements_select');
 
         if (null === $contentElementsContainer) {
             throw new \InvalidArgumentException('Content elements container not found.');
