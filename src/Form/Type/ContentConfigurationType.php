@@ -37,7 +37,7 @@ final class ContentConfigurationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('template', TemplateAutocompleteChoiceType::class, [
+            ->add('template', TemplateAutocompleteType::class, [
                 'type' => 'page',
                 'label' => 'sylius_cms.ui.content_elements.template',
                 'help' => 'sylius_cms.ui.content_elements.template_help',

@@ -58,7 +58,7 @@ final class PageType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.images',
                 'entry_type' => PageTranslationType::class,
             ])
-            ->add('collections', CollectionAutocompleteChoiceType::class, [
+            ->add('collections', CollectionAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.collections',
                 'multiple' => true,
             ])

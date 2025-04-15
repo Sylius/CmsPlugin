@@ -13,45 +13,33 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
-use Sylius\CmsPlugin\Entity\MediaInterface;
-use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
 #[AsEntityAutocompleteField(
-    alias: 'sylius_cms_media',
+    alias: 'sylius_cms_page',
     route: 'sylius_admin_entity_autocomplete',
 )]
-final class MediaAutocompleteChoiceType extends AbstractType
+final class PageAutocompleteType extends AbstractType
 {
-    public function __construct(private readonly string $mediaClass)
+    public function __construct(private readonly string $pageClass)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefined('type');
-        $resolver->setAllowedValues('type', [
-            MediaInterface::IMAGE_TYPE,
-            MediaInterface::FILE_TYPE,
-            MediaInterface::VIDEO_TYPE,
-            null,
-        ]);
         $resolver->setDefaults([
-            'class' => $this->mediaClass,
+            'class' => $this->pageClass,
             'choice_label' => 'name',
             'choice_value' => 'code',
-            'type' => null,
         ]);
-
-        $resolver->setNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_cms_media_autocomplete';
+        return 'sylius_cms_page_autocomplete';
     }
 
     public function getParent(): string

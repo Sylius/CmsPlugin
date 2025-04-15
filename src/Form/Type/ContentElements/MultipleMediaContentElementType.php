@@ -15,7 +15,7 @@ namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\CmsPlugin\Entity\MediaInterface;
-use Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType;
+use Sylius\CmsPlugin\Form\Type\MediaAutocompleteType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +32,7 @@ final class MultipleMediaContentElementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(self::TYPE, MediaAutocompleteChoiceType::class, [
+            ->add(self::TYPE, MediaAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.content_elements.type.' . self::TYPE,
                 'multiple' => true,
             ])

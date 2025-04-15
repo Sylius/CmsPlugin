@@ -24,7 +24,7 @@ use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
     alias: 'sylius_cms_template',
     route: 'sylius_admin_entity_autocomplete',
 )]
-final class TemplateAutocompleteChoiceType extends AbstractType
+final class TemplateAutocompleteType extends AbstractType
 {
     public function __construct(private readonly string $templateClass)
     {

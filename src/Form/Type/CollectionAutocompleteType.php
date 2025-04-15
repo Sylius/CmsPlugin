@@ -13,33 +13,39 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Sylius\CmsPlugin\Entity\CollectionInterface;
+use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
 #[AsEntityAutocompleteField(
-    alias: 'sylius_cms_block',
+    alias: 'sylius_cms_admin_collection',
     route: 'sylius_admin_entity_autocomplete',
 )]
-final class BlockAutocompleteChoiceType extends AbstractType
+final class CollectionAutocompleteType extends AbstractType
 {
-    public function __construct(private readonly string $blockClass)
+    public function __construct(private readonly string $collectionClass)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setDefined('type');
+        $resolver->setAllowedValues('type', [null, CollectionType::BLOCK, CollectionType::MEDIA, CollectionType::PAGE]);
         $resolver->setDefaults([
-            'class' => $this->blockClass,
-            'choice_label' => 'name',
+            'class' => $this->collectionClass,
+            'choice_name' => 'name',
             'choice_value' => 'code',
+            'choice_label' => fn (CollectionInterface $collection): string => (string) $collection->getName(),
         ]);
+        $resolver->addNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_cms_block_autocomplete';
+        return 'sylius_collection_autocomplete_choice';
     }
 
     public function getParent(): string

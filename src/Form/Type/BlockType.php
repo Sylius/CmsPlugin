@@ -74,7 +74,7 @@ final class BlockType extends AbstractResourceType
                 'choices' => $this->templateProvider->getBlockTemplates(),
                 'mapped' => false,
             ])
-            ->add('collections', CollectionAutocompleteChoiceType::class, [
+            ->add('collections', CollectionAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.collections',
                 'by_reference' => false,
                 'multiple' => true,
@@ -116,7 +116,7 @@ final class BlockType extends AbstractResourceType
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_taxons.help',
             ])
-            ->add('contentTemplate', TemplateAutocompleteChoiceType::class, [
+            ->add('contentTemplate', TemplateAutocompleteType::class, [
                 'type' => 'block',
                 'label' => false,
                 'mapped' => false,

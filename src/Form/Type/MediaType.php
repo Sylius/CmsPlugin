@@ -53,9 +53,9 @@ final class MediaType extends AbstractResourceType
             ->add('file', FileType::class, [
                 'label' => 'sylius_cms.ui.file',
             ])
-            ->add('collections', CollectionAutocompleteChoiceType::class, [
-                'required' => false,
+            ->add('collections', CollectionAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.collections',
+                'required' => false,
                 'multiple' => true,
             ])
             ->add('enabled', CheckboxType::class, [

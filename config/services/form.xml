@@ -127,31 +127,31 @@
 
         <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
 
-        <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteType">
             <argument>%sylius_cms.model.page.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.block_autocomplete" class="Sylius\CmsPlugin\Form\Type\BlockAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.block_autocomplete" class="Sylius\CmsPlugin\Form\Type\BlockAutocompleteType">
             <argument>%sylius_cms.model.block.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.media_autocomplete" class="Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.media_autocomplete" class="Sylius\CmsPlugin\Form\Type\MediaAutocompleteType">
             <argument>%sylius_cms.model.media.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.collection_autocomplete" class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.collection_autocomplete" class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteType">
             <argument>%sylius_cms.model.collection.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.admin.template_autocomplete" class="Sylius\CmsPlugin\Form\Type\TemplateAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.admin.template_autocomplete" class="Sylius\CmsPlugin\Form\Type\TemplateAutocompleteType">
             <argument>%sylius_cms.model.template.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />

@@ -19,19 +19,19 @@ use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 
 #[AsEntityAutocompleteField(
-    alias: 'sylius_cms_page',
+    alias: 'sylius_cms_block',
     route: 'sylius_admin_entity_autocomplete',
 )]
-final class PageAutocompleteChoiceType extends AbstractType
+final class BlockAutocompleteType extends AbstractType
 {
-    public function __construct(private readonly string $pageClass)
+    public function __construct(private readonly string $blockClass)
     {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'class' => $this->pageClass,
+            'class' => $this->blockClass,
             'choice_label' => 'name',
             'choice_value' => 'code',
         ]);
@@ -39,7 +39,7 @@ final class PageAutocompleteChoiceType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'sylius_cms_page_autocomplete';
+        return 'sylius_cms_block_autocomplete';
     }
 
     public function getParent(): string
