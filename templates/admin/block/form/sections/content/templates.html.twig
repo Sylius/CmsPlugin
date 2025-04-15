@@ -1,3 +1,5 @@
-<div class="mb-3" {{ sylius_test_html_attribute('templates') }}>
-    {{ form_row(hookable_metadata.context.form.templates, sylius_test_form_attribute('templates')) }}
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12 col-md-6" {{ sylius_test_html_attribute('templates') }}>
+    {{ form_row(form.templates, sylius_test_form_attribute('templates')) }}
 </div>
