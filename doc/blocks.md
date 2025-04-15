@@ -45,6 +45,20 @@ For instance:
 When you pass `ProductInterface` or `TaxonInterface` as a context, the block will be rendered only if it is assigned to the given product or taxon
 in the admin panel.
 
+#### Rendering via Twig Hooks
+You can also render blocks using Twig hooks.
+
+```yaml
+sylius_twig_hooks:
+  hooks:
+    'hook':
+      homepage_intro:
+        component: 'sylius_cms.shop:render:block'
+        props:
+          code: 'homepage_intro'
+          template: '@App/some/template/path.html.twig'
+```
+
 ## Customization
 
 ### Override block template

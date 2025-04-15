@@ -25,8 +25,22 @@ This will render the entire page with all its content elements.
 
 2. Generate a page link template:
 
+In Twig:
 ```twig
-{{ sylius_cms_render_page_link('about', {}, 'custom/template.html.twig') }}
+{{ sylius_cms_render_page_link('about', {}, '@App/some/template/path.html.twig') }}
+```
+Or using Twig hooks:
+```yaml
+sylius_twig_hooks:
+  hooks:
+    'hook':
+      media:
+        component: 'sylius_cms.shop:render:page_link'
+        props:
+          code: 'about'
+          options:
+            name: 'About us'
+          template: '@App/some/template/path.html.twig'
 ```
 Use this to generate a page link template.
 
