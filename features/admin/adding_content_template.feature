@@ -32,11 +32,11 @@ Feature: Adding cms templates
         And I click on Add button in Content elements section
         And I select "Textarea" content element
         And I click on Add button in Content elements section
-        And I select "Single media" content element
+        And I select "Heading" content element
         And I add it
         Then I should be notified that the template has been created
         And I should see newly created "Textarea" content element in Content elements section
-        And I should see newly created "Single media" content element in Content elements section
+        And I should see newly created "Heading" content element in Content elements section
 
     @ui
     Scenario: Trying to add template with existing name
@@ -49,7 +49,7 @@ Feature: Adding cms templates
     @ui
     Scenario: Adding new template with blank data
         When I go to the create template page
-        And I add it
+        And I try to add it
         And I should be notified that "Name" field cannot be blank
 
     @ui

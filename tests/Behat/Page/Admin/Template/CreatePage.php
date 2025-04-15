@@ -53,8 +53,10 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     public function selectContentElement(string $contentElement): void
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+        $this->waitForFormUpdate();
 
-        $select = $this->getElement('content_elements_select_type');
+        $allSelects = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
+        $select = end($allSelects);
         $select->selectOption($contentElement);
         $select->waitFor(1, function () use ($contentElement): bool {
             return $this->hasElement(
@@ -69,8 +71,16 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             parent::getDefinedElements(),
             ContentElementHelper::getDefinedContentElements(),
             [
-                'content_elements_add_button' => '#sylius_cms_template_contentElements a[data-form-collection="add"]',
+                'content_elements_add_button' => '[data-test-add-content-element]',
+                'form' => 'form[name="sylius_cms_template"]',
             ],
         );
+    }
+
+    protected function waitForFormUpdate(): void
+    {
+        $form = $this->getElement('form');
+        usleep(500000);
+        $form->waitFor(1500, fn () => !$form->hasAttribute('busy'));
     }
 }
