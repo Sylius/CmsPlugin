@@ -1,8 +1,15 @@
-<div class="{{ content_element_base_class }}__products-carousel">
-{#     TODO: Carousel#}
-    <div class="products-grid">
+<div class="swiper products-carousel mb-4">
+    <div class="swiper-wrapper">
         {% for product in products %}
-            <div>{{ component('sylius_shop:product:card', { product: product, template: '@SyliusShop/product/common/card.html.twig' }) }}</div>
+            <div class="swiper-slide">
+                <div>{{ component('sylius_shop:product:card', { product: product, template: '@SyliusShop/product/common/card.html.twig' }) }}</div>
+            </div>
         {% endfor %}
+    </div>
+    <div class="btn btn-primary swiper-button-prev position-absolute top-50 start-0 z-1 translate-x-middle ms-2 opacity-75">
+        {{ ux_icon('tabler:chevron-left') }}
+    </div>
+    <div class="btn btn-primary swiper-button-next position-absolute top-50 end-0 z-1 translate-x-middle me-2 opacity-75">
+        {{ ux_icon('tabler:chevron-right') }}
     </div>
 </div>
