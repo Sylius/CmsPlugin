@@ -21,6 +21,6 @@ trait ContainsEmptyListTrait
 
     public function isEmpty(): bool
     {
-        return false !== strpos($this->getDocument()->find('css', '.message')->getText(), 'There are no results to display');
+        return false !== strpos($this->getDocument()->find('css', '.empty-title')->getText(), 'No results found');
     }
 }

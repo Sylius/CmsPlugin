@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Template;
 
+use Behat\Mink\Element\NodeElement;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
@@ -52,11 +53,11 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     public function deleteContentElement(string $name): void
     {
         $contentElementSelect = $this->getDocument()->find('css', sprintf('option:contains("%s")', $name));
-        $contentElementSelect
-            ->getParent()
-            ->getParent()
-            ->getParent()
-            ->getParent()
-            ->find('css', '.bb-collection-item-delete')->click();
+        $ancestorXpath = $contentElementSelect->getXpath() . '/ancestor::*[@data-test-content_element][1]';
+        /** @var NodeElement|null $container */
+        $container = $this->getDocument()->find('xpath', $ancestorXpath);
+        $deleteButton = $container->find('css', '[data-test-delete-element]');
+
+        $deleteButton->click();
     }
 }
