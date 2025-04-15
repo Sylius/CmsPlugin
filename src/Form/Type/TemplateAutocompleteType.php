@@ -36,7 +36,6 @@ final class TemplateAutocompleteType extends AbstractType
         $resolver->setAllowedValues('type', [null, 'page', 'block']);
         $resolver->setDefaults([
             'class' => $this->templateClass,
-            'choice_name' => 'name',
             'choice_value' => 'id',
             'choice_label' => fn (TemplateInterface $template): string => (string) $template->getName(),
         ]);

@@ -36,7 +36,6 @@ final class CollectionAutocompleteType extends AbstractType
         $resolver->setAllowedValues('type', [null, CollectionType::BLOCK, CollectionType::MEDIA, CollectionType::PAGE]);
         $resolver->setDefaults([
             'class' => $this->collectionClass,
-            'choice_name' => 'name',
             'choice_value' => 'code',
             'choice_label' => fn (CollectionInterface $collection): string => (string) $collection->getName(),
         ]);

@@ -61,6 +61,7 @@ final class PageType extends AbstractResourceType
             ->add('collections', CollectionAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.collections',
                 'multiple' => true,
+                'by_reference' => false,
             ])
             ->add('channels', ChannelChoiceType::class, [
                 'label' => 'sylius_cms.ui.channels',
@@ -80,9 +81,6 @@ final class PageType extends AbstractResourceType
                 'by_reference' => false,
             ])
         ;
-
-        // TODO: What even is this? //
-//        self::addContentElementLocaleListener($builder);
     }
 
     public static function addContentElementLocaleListener(FormBuilderInterface $builder): void
