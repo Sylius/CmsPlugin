@@ -29,3 +29,24 @@
     </div>
     {{ form_errors(form) }}
 {% endblock %}
+
+{% block _sylius_cms_admin_page_contentElements_entry_template_row %}
+    {% set locale = form.parent.vars.name %}
+
+    {{ form_label(form) }}
+    {{ form_help(form) }}
+    <div class="input-group mb-3">
+        {{ form_widget(form, sylius_test_form_attribute('content-template', locale)) }}
+        <button
+            class="btn btn-outline-secondary"
+            type="button"
+            data-action="live#action"
+            data-live-action-param="debounce(300)|applyContentTemplate"
+            data-live-locale-code-param="{{ locale }}"
+            {{ sylius_test_html_attribute('apply-template-button', locale) }}
+        >
+            {{ ux_icon('tabler:refresh', {'class': 'icon mx-0'}) }}
+        </button>
+    </div>
+    {{ form_errors(form) }}
+{% endblock %}

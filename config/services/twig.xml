@@ -154,6 +154,11 @@
             <argument>%sylius_cms.model.page.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
             <argument type="service" id="sylius.generator.slug" />
+            <argument type="service" id="sylius_cms.repository.template" />
+
+            <call method="setLiveResponder">
+                <argument type="service" id="ux.live_component.live_responder"/>
+            </call>
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:page:form" />
         </service>
