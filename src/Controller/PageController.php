@@ -17,7 +17,6 @@ use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
-use Sylius\CmsPlugin\Resolver\PageResourceResolverInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Resource\ResourceActions;
@@ -29,8 +28,6 @@ final class PageController extends ResourceController
 {
     use ResourceDataProcessingTrait;
     use MediaPageControllersCommonDependencyInjectionsTrait;
-
-    private PageResourceResolverInterface $pageResourceResolver;
 
     public const FILTER = 'sylius_admin_product_original';
 
@@ -99,10 +96,5 @@ final class PageController extends ResourceController
             'template' => $page->getTemplate() ?? self::DEFAULT_TEMPLATE,
             $this->metadata->getName() => $page,
         ]);
-    }
-
-    public function setPageResourceResolver(PageResourceResolverInterface $pageResourceResolver): void
-    {
-        $this->pageResourceResolver = $pageResourceResolver;
     }
 }
