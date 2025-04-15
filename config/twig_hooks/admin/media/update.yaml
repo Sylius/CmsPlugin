@@ -1,24 +1,26 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_cms.admin.media.create.content':
+        'sylius_cms.admin.media.update.content':
             form:
                 component: 'sylius_cms:admin:media:form'
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
                     template: '@SyliusCmsPlugin/admin/media/form.html.twig'
+                configuration:
+                    method: 'PUT'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form':
+        'sylius_cms.admin.media.update.content.form':
             sections:
                 template: '@SyliusCmsPlugin/admin/media/form/sections.html.twig'
                 priority: 0
 
-        'sylius_admin.media.create.content.form.sections':
+        'sylius_admin.media.update.content.form.sections':
             general:
                 enabled: false
 
-        'sylius_admin.media.create.content.form.sections#left':
+        'sylius_admin.media.update.content.form.sections#left':
             general:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general.html.twig'
                 priority: 200
@@ -29,12 +31,12 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form.sections#right':
+        'sylius_cms.admin.media.update.content.form.sections#right':
             preview:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/preview.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form.sections.general':
+        'sylius_cms.admin.media.update.content.form.sections.general':
             default:
                 enabled: false
             code:
@@ -53,7 +55,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/collections.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form.sections.media':
+        'sylius_cms.admin.media.update.content.form.sections.media':
             type:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
                 priority: 200
@@ -64,7 +66,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form.sections.translations':
+        'sylius_cms.admin.media.update.content.form.sections.translations':
             alt:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations/alt.html.twig'
                 priority: 200
@@ -75,7 +77,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations/content.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.create.content.form.sections.preview':
+        'sylius_cms.admin.media.update.content.form.sections.preview':
             path:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/preview/path.html.twig'
                 priority: 100
