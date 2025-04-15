@@ -36,6 +36,10 @@ interface CreatePageInterface extends BaseCreatePageInterface, ContainsErrorInte
 
     public function fillContent(string $content): void;
 
+    /** @return string[] */
+    public function getCollections(): array;
+
+    /** @param string[] $collectionsNames */
     public function associateCollections(array $collectionsNames): void;
 
     public function clickOnAddContentElementButton(): void;
@@ -46,18 +50,22 @@ interface CreatePageInterface extends BaseCreatePageInterface, ContainsErrorInte
 
     public function addSingleMediaContentElementWithName(string $name): void;
 
+    /** @param string[] $mediaNames */
     public function addMultipleMediaContentElementWithNames(array $mediaNames): void;
 
     public function addHeadingContentElementWithTypeAndContent(string $type, string $content): void;
 
+    /** @param string[] $productsNames */
     public function addProductsCarouselContentElementWithProducts(array $productsNames): void;
 
     public function addProductsCarouselByTaxonContentElementWithTaxon(string $taxon): void;
 
+    /** @param string[] $productsNames */
     public function addProductsGridContentElementWithProducts(array $productsNames): void;
 
     public function addProductsGridByTaxonContentElementWithTaxon(string $taxon): void;
 
+    /** @param string[] $taxons */
     public function addTaxonsListContentElementWithTaxons(array $taxons): void;
 
     public function selectContentTemplate(string $templateName): void;

@@ -28,6 +28,9 @@ interface UpdatePageInterface extends
 
     public function changeTextareaContentElementValue(string $value): void;
 
+    /** @return string[] */
+    public function getCollections(): array;
+
     public function containsTextareaContentElementWithValue(string $value): bool;
 
     public function deleteContentElement(): void;

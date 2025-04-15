@@ -442,6 +442,21 @@ final class PageContext implements Context
     }
 
     /**
+     * @Then this page should have collections :firstCollection and :secondCollection
+     */
+    public function thisPageShouldHaveCollections(string ...$collectionsNames): void
+    {
+        $pageCollections = $this->resolveCurrentPage()->getCollections();
+        foreach ($collectionsNames as $name) {
+            Assert::inArray(
+                $name,
+                $pageCollections,
+                sprintf('Collection "%s" should be present in the page.', $name),
+            );
+        }
+    }
+
+    /**
      * @Then only :number pages should exist in the store
      */
     public function onlyPagesShouldAppearInTheStore(int $number): void

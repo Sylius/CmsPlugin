@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page;
 
-use DMore\ChromeDriver\ChromeDriver;
+use Behat\Mink\Session;
+use FriendsOfBehat\SymfonyExtension\Mink\MinkParameters;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
-use Sylius\Behat\Service\SlugGenerationHelper;
+use Sylius\Behat\Service\DriverHelper;
+use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
 use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 use Tests\Sylius\CmsPlugin\Behat\Service\FormHelper;
@@ -24,6 +27,16 @@ use Webmozart\Assert\Assert;
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
+
+    public function __construct(
+        Session $session,
+        MinkParameters|array $minkParameters,
+        RouterInterface $router,
+        string $routeName,
+        private readonly AutocompleteHelperInterface $autocompleteHelper,
+    ) {
+        parent::__construct($session, $minkParameters, $router, $routeName);
+    }
 
     public function fillField(string $field, string $value): void
     {
@@ -43,10 +56,6 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     public function fillName(string $name): void
     {
         $this->getDocument()->fillField('Name', $name);
-
-        if ($this->getDriver() instanceof ChromeDriver) {
-            SlugGenerationHelper::waitForSlugGeneration($this->getSession(), $this->getElement('slug'));
-        }
     }
 
     public function fillSlug(string $slug): void
@@ -69,31 +78,36 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $this->getDocument()->fillField('Content', $content);
     }
 
+    public function getCollections(): array
+    {
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
+
+        return $this->autocompleteHelper->getSelectedItems(
+            $this->getDriver(),
+            $this->getElement('collections')->getXpath(),
+        );
+    }
+
     public function associateCollections(array $collectionsNames): void
     {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
 
-        $dropdown = $this->getElement('association_dropdown_collection');
-        $dropdown->click();
+        $collectionsElementXpath = $this->getElement('collections')->getXpath();
 
         foreach ($collectionsNames as $collectionName) {
-            $dropdown->waitFor(5, function () use ($collectionName): bool {
-                return $this->hasElement('association_dropdown_collection_item', [
-                    '%item%' => $collectionName,
-                ]);
-            });
+            $this->autocompleteHelper->selectByName(
+                $this->getDriver(),
+                $collectionsElementXpath,
+                $collectionName,
+            );
 
-            $item = $this->getElement('association_dropdown_collection_item', [
-                '%item%' => $collectionName,
-            ]);
-
-            $item->click();
+            $this->waitForFormUpdate();
         }
     }
 
     public function clickOnAddContentElementButton(): void
     {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
 
         $addButton = $this->getElement('content_elements_add_button');
         $addButton->click();
@@ -105,7 +119,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function selectContentElement(string $contentElement): void
     {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
 
         $select = $this->getElement('content_elements_select_type');
         $select->selectOption($contentElement);
@@ -118,7 +132,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function addTextareaContentElementWithContent(string $content): void
     {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
 
         $iframe = $this->getDocument()->find('css', '.cke_wysiwyg_frame');
         if (null === $iframe) {
@@ -325,9 +339,8 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             parent::getDefinedElements(),
             ContentElementHelper::getDefinedContentElements(),
             [
-                'slug' => '#sylius_cms_page_translations_en_US_slug',
-                'association_dropdown_collection' => '.field > label:contains("Collections") ~ .sylius-autocomplete',
-                'association_dropdown_collection_item' => '.field > label:contains("Collections") ~ .sylius-autocomplete > div.menu > div.item:contains("%item%")',
+                'form' => '[data-live-name-value="sylius_cms:admin:page:form"]',
+                'collections' => '[data-test-collections]',
                 'content_elements_add_button' => '#sylius_cms_page_contentElements a[data-form-collection="add"]',
                 'content_template_select_dropdown' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete',
                 'content_template_select_dropdown_item' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete > div.menu > div.item:contains("%item%")',

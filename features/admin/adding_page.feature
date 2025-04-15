@@ -8,8 +8,8 @@ Feature: Adding new page
         Given the store operates on a single channel in "United States"
         And I am logged in as an administrator
 
-    @ui @javascript @title
-    Scenario: Adding page with title
+    @ui
+    Scenario: Adding page minimal data
         When I go to the create page page
         And I fill the code with "page_with_title"
         And I fill the slug with "page_with_title"
@@ -17,7 +17,7 @@ Feature: Adding new page
         And I add it
         Then I should be notified that the page has been created
 
-    @ui @javascript
+    @ui
     Scenario: Adding page
         When I go to the create page page
         And I fill the code with "top_5_outfits_for_this_summer"
@@ -49,7 +49,7 @@ Feature: Adding new page
         And I try to add it
         Then I should be notified that "Code, Name, Slug, Meta keywords, Meta description" fields are too short
 
-    @ui @unstable
+    @ui
     Scenario: Trying to add a page with too long data
         When I go to the create page page
         And I fill "Code, Name, Slug, Meta keywords, Meta description" fields with 6000 characters
@@ -57,15 +57,16 @@ Feature: Adding new page
         Then I should be notified that "Code, Name, Slug, Meta keywords, Meta description" fields are too long
 
     @ui @javascript
-    Scenario: Adding page with sections
+    Scenario: Adding page with collections
         Given there are existing collections named "Blog" and "Homepage"
         When I go to the create page page
         And I fill the code with "best_day_ever"
-        And I add "Blog" and "Homepage" collections to it
-        And I fill the slug with "Slug"
         And I fill the name with "Best day ever"
+        And I fill the slug with "Slug"
+        And I add "Blog" and "Homepage" collections to it
         And I add it
         Then I should be notified that the page has been created
+        And this page should have collections "Blog" and "Homepage"
 
     @ui @javascript
     Scenario: Adding page with textarea content element
