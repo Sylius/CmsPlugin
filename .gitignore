@@ -25,3 +25,4 @@ tests/Application/web/*
 .phpunit.result.cache
 
 /behat.yaml
+/phpstan.neon
