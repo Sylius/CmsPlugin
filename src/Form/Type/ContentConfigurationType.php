@@ -43,6 +43,9 @@ final class ContentConfigurationType extends AbstractType
                 'help' => 'sylius_cms.ui.content_elements.template_help',
                 'mapped' => false,
                 'required' => false,
+                'extra_options' => [
+                    'type' => 'page',
+                ],
             ])
             ->add('contentElements', LiveCollectionType::class, [
                 'entry_type' => ContentElementConfigurationType::class,

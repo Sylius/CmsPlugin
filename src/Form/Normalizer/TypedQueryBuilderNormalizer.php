@@ -36,7 +36,9 @@ final class TypedQueryBuilderNormalizer
         if (null === $queryBuilder) {
             $queryBuilder = $options['em']->getRepository($options['class'])->createQueryBuilder('o');
         }
-        if (false === isset($options['type'])) {
+
+        $type = self::resolveType($options);
+        if (null === $type) {
             return $queryBuilder;
         }
 
@@ -44,7 +46,20 @@ final class TypedQueryBuilderNormalizer
 
         return $queryBuilder
             ->andWhere($alias . '.type = :resourceType')
-            ->setParameter('resourceType', $options['type'])
+            ->setParameter('resourceType', $type)
         ;
+    }
+
+    private static function resolveType(Options $options): ?string
+    {
+        if (isset($options['type'])) {
+            return $options['type'];
+        }
+
+        if (isset($options['extra_options']['type'])) {
+            return $options['extra_options']['type'];
+        }
+
+        return null;
     }
 }

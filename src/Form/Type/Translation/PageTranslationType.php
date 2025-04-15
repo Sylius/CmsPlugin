@@ -53,6 +53,9 @@ final class PageTranslationType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.teaser.image',
                 'required' => false,
                 'type' => MediaInterface::IMAGE_TYPE,
+                'extra_options' => [
+                    'type' => MediaInterface::IMAGE_TYPE,
+                ],
             ])
         ;
     }
