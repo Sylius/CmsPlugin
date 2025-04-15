@@ -70,36 +70,6 @@ final class PageController extends ResourceController
         ]);
     }
 
-    public function renderLinkAction(Request $request): Response
-    {
-        $configuration = $this->getRequestConfiguration($request);
-
-        $this->isGrantedOr403($configuration, ResourceActions::SHOW);
-
-        $code = $request->get('code');
-
-        $page = $this->pageResourceResolver->findOrLog($code);
-
-        if (null === $page) {
-            return new Response();
-        }
-
-        $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $page);
-
-        if ($configuration->isHtmlRequest()) {
-            return $this->render($configuration->getTemplate(ResourceActions::SHOW . '.html'), [
-                'configuration' => $configuration,
-                'metadata' => $this->metadata,
-                'resource' => $page,
-                $this->metadata->getName() => $page,
-            ]);
-        }
-
-        Assert::true(null !== $this->viewHandler);
-
-        return $this->viewHandler->handle($configuration, View::create($page));
-    }
-
     public function previewAction(Request $request): Response
     {
         $configuration = $this->getRequestConfiguration($request);

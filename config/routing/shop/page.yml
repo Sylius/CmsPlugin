@@ -4,18 +4,6 @@ sylius_cms_shop_page_show:
     defaults:
         _controller: sylius_cms.controller.page.overriden::showAction
 
-sylius_cms_shop_page_show_link_by_code:
-    path: /page/link/{code}
-    methods: [GET]
-    defaults:
-        _controller: sylius_cms.controller.page.overriden::renderLinkAction
-        _sylius:
-            template: $template
-            repository:
-                method: findOneEnabledByCode
-                arguments:
-                    - $code
-
 sylius_cms_shop_page_index_by_collection_code:
     path: /pages/{collectionCode}
     methods: [GET]
