@@ -3,11 +3,7 @@
         <div class="row">
             <div class="col">
                 <div class="row">
-                    {{ form_row(hookable_metadata.context.form.contentTemplate, {
-                        attr: {
-                            'data-test': 'content-template-autocomplete'
-                        }
-                    }) }}
+                    {{ form_row(hookable_metadata.context.form.contentTemplate, sylius_test_form_attribute('content-template-autocomplete')) }}
                 </div>
             </div>
         </div>

@@ -27,10 +27,10 @@ trait ContainsContentElementTrait
             throw new \InvalidArgumentException('Content elements container not found.');
         }
 
-        $selects = $contentElementsContainer->findAll('css', 'select[data-test="content-element-type"]');
+        $selects = $contentElementsContainer->findAll('css', '[data-test-content-element-type]');
 
         foreach ($selects as $select) {
-            $selectedValue = $select->getValue(); // np. taxons_list
+            $selectedValue = $select->getValue();
             $selectedOption = $select->find('css', sprintf('option[value="%s"]', $selectedValue));
 
             if (null === $selectedOption) {

@@ -115,9 +115,9 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
 
-        $this->getSession()->wait(500, 'document.querySelectorAll(\'select[data-test="content-element-type"]\').length >= 2');
+        $this->waitForFormUpdate();
 
-        $elements = $this->getDocument()->findAll('css', 'select[data-test="content-element-type"]');
+        $elements = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
 
         Assert::notEmpty($elements, 'No content element selects found.');
 
@@ -320,10 +320,10 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             parent::getDefinedElements(),
             ContentElementHelper::getDefinedContentElements(),
             [
-                'association_dropdown_collection' => '[data-test="collection-autocomplete"]',
-                'content_elements_add_button' => '[data-test="add-content-element"]',
-                'content_elements_select_type' => '[data-test="content-element-type"]',
-                'content_template_select_dropdown' => '[data-test="content-template-autocomplete"]',
+                'association_dropdown_collection' => '[data-test-collection-autocomplete]',
+                'content_elements_add_button' => '[data-test-add-content-element]',
+                'content_elements_select_type' => '[data-test-content-element-type]',
+                'content_template_select_dropdown' => '[data-test-content-template-autocomplete]',
                 'content_template_select_dropdown_item' => '[data-test="content-template-autocomplete"] .menu .item:contains("%item%")',
             ],
         );
