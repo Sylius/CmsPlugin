@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\CmsPlugin\Entity\CollectionInterface;
+use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
@@ -31,12 +32,15 @@ final class CollectionAutocompleteChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setDefined('type');
+        $resolver->setAllowedValues('type', [null, CollectionType::BLOCK, CollectionType::MEDIA, CollectionType::PAGE]);
         $resolver->setDefaults([
             'class' => $this->collectionClass,
             'choice_name' => 'name',
             'choice_value' => 'code',
             'choice_label' => fn (CollectionInterface $collection): string => (string) $collection->getName(),
         ]);
+        $resolver->addNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }
 
     public function getBlockPrefix(): string

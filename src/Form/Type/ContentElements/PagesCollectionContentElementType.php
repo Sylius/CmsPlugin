@@ -16,7 +16,8 @@ namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker;
-use Sylius\CmsPlugin\Form\Type\PageCollectionAutocompleteChoiceType;
+use Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType;
+use Sylius\CmsPlugin\Form\Type\CollectionType;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,8 +37,12 @@ final class PagesCollectionContentElementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(self::TYPE, PageCollectionAutocompleteChoiceType::class, [
+            ->add(self::TYPE, CollectionAutocompleteChoiceType::class, [
                 'label' => 'sylius_cms.ui.content_elements.type.' . self::TYPE,
+                'type' => CollectionType::PAGE,
+                'extra_options' => [
+                    'type' => CollectionType::PAGE,
+                ],
             ])
         ;
 

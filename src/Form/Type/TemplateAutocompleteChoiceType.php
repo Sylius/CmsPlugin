@@ -33,7 +33,7 @@ final class TemplateAutocompleteChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefined('type');
-        $resolver->setAllowedValues('type', ['page', 'block']);
+        $resolver->setAllowedValues('type', [null, 'page', 'block']);
         $resolver->setDefaults([
             'class' => $this->templateClass,
             'choice_name' => 'name',
