@@ -22,6 +22,7 @@
             <argument type="service" id="sylius_cms.behat.page.admin.page.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.update"/>
+            <argument type="service" id="sylius_cms.behat.element.admin.content_elements_collection" />
             <argument type="service" id="sylius_cms.behat.random_string_generator"/>
             <argument type="service" id="sylius_cms.repository.page"/>
         </service>

@@ -24,7 +24,7 @@
 
 {% block add_button_row %}
     {% if types is not empty %}
-        <div class="dropdown">
+        <div class="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{ label|trans }}</button>
             <ul class="dropdown-menu">
                 {% for type, label in types %}

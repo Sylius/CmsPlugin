@@ -1,3 +1,5 @@
-<h3>{{ 'sylius_cms.ui.elements'|trans }}</h3>
-{{ form_row(hookable_metadata.context.form.contentElements, {label: false}) }}
-{{ form_row(hookable_metadata.context.form.contentElements.vars.button_add) }}
+<div {{ sylius_test_html_attribute('elements-collection') }}>
+    <h3>{{ 'sylius_cms.ui.elements'|trans }}</h3>
+    {{ form_row(hookable_metadata.context.form.contentElements, {label: false}) }}
+    {{ form_row(hookable_metadata.context.form.contentElements.vars.button_add) }}
+</div>

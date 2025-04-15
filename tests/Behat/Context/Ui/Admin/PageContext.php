@@ -20,6 +20,7 @@ use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
+use Tests\Sylius\CmsPlugin\Behat\Element\Admin\ContentElementsCollectionElementInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page\CreatePageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page\IndexPageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page\UpdatePageInterface;
@@ -35,6 +36,7 @@ final class PageContext implements Context
         private IndexPageInterface $indexPage,
         private CreatePageInterface $createPage,
         private UpdatePageInterface $updatePage,
+        private ContentElementsCollectionElementInterface $contentElementsCollection,
         private RandomStringGeneratorInterface $randomStringGenerator,
         private PageRepositoryInterface $pageRepository,
     ) {
@@ -289,15 +291,15 @@ final class PageContext implements Context
      */
     public function iShouldSeeNewlyCreatedContentElementInContentElementsSection(string $contentElement): void
     {
-        Assert::true($this->resolveCurrentPage()->containsContentElement($contentElement));
+        Assert::true($this->contentElementsCollection->hasContentElement($contentElement));
     }
 
     /**
-     * @When I delete the content element
+     * @When I delete the :contentElement content element
      */
-    public function iDeleteTheContentElement(): void
+    public function iDeleteTheContentElement(string $contentElement): void
     {
-        $this->resolveCurrentPage()->deleteContentElement();
+        $this->contentElementsCollection->removeContentElement($contentElement);
     }
 
     /**
@@ -305,7 +307,7 @@ final class PageContext implements Context
      */
     public function iShouldNotSeeContentElementInTheContentElementsSection(string $contentElement): void
     {
-        Assert::false($this->resolveCurrentPage()->containsContentElement($contentElement));
+        Assert::false($this->contentElementsCollection->hasContentElement($contentElement));
     }
 
     /**

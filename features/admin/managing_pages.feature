@@ -44,7 +44,7 @@ Feature: Managing cms pages
     Scenario: Deleting content element in page
         Given there is a page in the store with "Textarea" content element
         When I want to edit this page
-        And I delete the content element
+        And I delete the "Textarea" content element
         And I update it
         Then I should be notified that the page was updated
         And I should not see "Textarea" content element in the Content elements section
