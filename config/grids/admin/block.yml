@@ -13,32 +13,35 @@ sylius_grid:
                     type: twig
                     label: sylius_cms.ui.name
                     sortable: name
-                    path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/name.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/name.html.twig"
                 code:
-                    type: string
-                    label: sylius.ui.code
+                    type: twig
+                    label: sylius_cms.ui.code
                     sortable: ~
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/code.html.twig"
                 enabled:
                     type: twig
                     label: sylius.ui.enabled
-                    path: enabled
-                    sortable: ~
                     options:
-                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
+                        vars:
+                            th_class: "w-1 text-center"
+                            td_class: "text-center"
                 collections:
                     type: twig
                     label: sylius_cms.ui.collections
                     path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/collections.html.twig"
+                        template: "@SyliusCmsPlugin/admin/grid/field/collections.html.twig"
                 channels:
                     type: twig
                     label: sylius_cms.ui.channels
-                    path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/channels.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/channels.html.twig"
+                        vars:
+                            th_class: "w-1 text-center"
             filters:
                 search:
                     type: string
@@ -49,10 +52,6 @@ sylius_grid:
                     type: boolean
             actions:
                 main:
-                    import:
-                        type: import
-                        options:
-                            resourceCode: block
                     create:
                         type: create
                 item:
