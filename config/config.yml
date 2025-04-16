@@ -49,6 +49,11 @@ liip_imagine:
                 data_root:
                     - "%sylius_core.public_dir%"
 
+sylius_ui:
+    twig_ux:
+        anonymous_component_template_prefixes:
+            sylius_cms.shop: "@SyliusCmsPlugin/shop/shared/components"
+
 #sylius_ui:
 #    events:
 #        sylius.admin.layout.javascripts:

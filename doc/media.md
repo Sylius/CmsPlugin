@@ -29,6 +29,19 @@ Rendering a media code directly:
 {{ render(path('sylius_cms_shop_media_render', {'code' : 'file', 'template' : '@App/Some/Template/_path.html.twig'})) }}
 ```
 
+#### Rendering via Twig Hooks
+You can also render media using Twig Hooks.
+
+```yaml
+sylius_twig_hooks:
+    hooks:
+        'hook':
+            media:
+                component: 'sylius_cms.shop:render:media'
+                props:
+                    code: 'media_code'
+```
+
 ## Media provider
 
 You can add your own media provider by adding a service with a tag named `sylius_cms.media_provider`:

@@ -23,11 +23,26 @@ It could be rendered in your twig templates using `sylius_cms_render_collection(
 `template` allows you to render a collection with a custom template. For instance:
 
 ```twig
-{{ sylius_cms_render_collection('homepage_blocks', null, '@App/Some/Template/_path.html.twig') }}
+{{ sylius_cms_render_collection('homepage_blocks', null, '@App/some/template/path.html.twig') }}
 ```
 
 By default, collection items are sorted by object ID parameter. If you want to change it, you can use decorator strategy.
 You can read more about it [here](https://symfony.com/doc/current/service_container/service_decoration.html).
+
+#### Rendering via Twig Hooks
+You can also render collections using Twig Hooks.
+
+```yaml
+sylius_twig_hooks:
+    hooks:
+        'hook':
+            homepage_blocks:
+                component: 'sylius_cms.shop:render:collection'
+                props:
+                    code: 'homepage_blocks'
+                    count_to_render: 2
+                    template: '@App/some/template/path.html.twig'
+```
 
 ## Customization
 
