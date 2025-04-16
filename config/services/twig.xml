@@ -137,5 +137,12 @@
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
         </service>
+
+        <service
+            id="sylius_cms.twig.component.media.preview"
+            class="Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent"
+        >
+            <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
+        </service>
     </services>
 </container>
