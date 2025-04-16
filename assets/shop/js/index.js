@@ -21,7 +21,21 @@ for (let i= 0; i < productsCarousels.length; i++ ) {
         },
         observeParents: true,
         observer: true,
-        slidesPerView: 4,
+        slidesPerView: 1,
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 4,
+            },
+            1400: {
+                slidesPerView: 5,
+            },
+        },
         spaceBetween: 32,
         speed: 400,
     });

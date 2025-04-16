@@ -1,4 +1,4 @@
-<div class="{{ content_element_base_class }}__taxons-list">
+<div class="{{ content_element_base_class }}__taxons-list mb-3">
     <div class="grid">
         {% for taxon in taxons %}
             <a class="d-flex align-items-center justify-content-center btn btn-outline-primary w-auto g-col-6 g-col-md-3" href="{{ path('sylius_shop_product_index', {'slug': taxon.slug, '_locale': taxon.translation.locale}) }}" style="height: 100px;">

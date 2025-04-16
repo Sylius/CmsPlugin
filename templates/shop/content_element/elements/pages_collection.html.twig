@@ -1,9 +1,9 @@
-<div class="{{ content_element_base_class }}__pages-collection">
+<div class="{{ content_element_base_class }}__pages-collection mb-3">
     <div class="row">
         {% for page in collection %}
             {% if page.teaserImage or page.teaserTitle or page.teaserContent %}
-                <div class="col-4">
-                    <div class="card h-100">
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card rounded-5 h-100">
                         {% if page.teaserImage %}
                             <a href="{{ path('sylius_cms_shop_page_show', {'slug': page.slug}) }}">
                                 <img src="{{ page.teaserImage.path|imagine_filter('sylius_shop_product_thumbnail') }}"
