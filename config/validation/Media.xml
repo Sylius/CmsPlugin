@@ -56,6 +56,7 @@
 
         <property name="name">
             <constraint name="NotBlank">
+                <option name="message">sylius_cms.media.name.not_blank</option>
                 <option name="groups">
                     <value>cms</value>
                 </option>
