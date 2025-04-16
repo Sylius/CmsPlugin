@@ -20,7 +20,6 @@ use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
-use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 use Tests\Sylius\CmsPlugin\Behat\Service\FormHelper;
 use Webmozart\Assert\Assert;
 
@@ -30,7 +29,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function __construct(
         Session $session,
-        MinkParameters|array $minkParameters,
+        array|MinkParameters $minkParameters,
         RouterInterface $router,
         string $routeName,
         private readonly AutocompleteHelperInterface $autocompleteHelper,
@@ -105,227 +104,9 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         }
     }
 
-    public function clickOnAddContentElementButton(): void
-    {
-        Assert::true(DriverHelper::isJavascript($this->getDriver()));
-
-        $addButton = $this->getElement('content_elements_add_button');
-        $addButton->click();
-
-        $addButton->waitFor(1, function (): bool {
-            return $this->hasElement('content_elements_select_type');
-        });
-    }
-
-    public function selectContentElement(string $contentElement): void
-    {
-        Assert::true(DriverHelper::isJavascript($this->getDriver()));
-
-        $select = $this->getElement('content_elements_select_type');
-        $select->selectOption($contentElement);
-        $select->waitFor(1, function () use ($contentElement): bool {
-            return $this->hasElement(
-                ContentElementHelper::getDefinedElementThatShouldAppearAfterSelectContentElement($contentElement),
-            );
-        });
-    }
-
-    public function addTextareaContentElementWithContent(string $content): void
-    {
-        Assert::true(DriverHelper::isJavascript($this->getDriver()));
-
-        $iframe = $this->getDocument()->find('css', '.cke_wysiwyg_frame');
-        if (null === $iframe) {
-            $textarea = $this->getElement('content_elements_textarea');
-            $textarea->setValue($content);
-
-            return;
-        }
-
-        $this->getDriver()->switchToIFrame($iframe->getAttribute('name'));
-
-        $body = $this->getDocument()->find('css', 'body');
-        if (null === $body) {
-            throw new \Exception('CKEditor body not found');
-        }
-
-        $body->setValue($content);
-
-        $this->getDriver()->switchToIFrame();
-    }
-
-    public function addSingleMediaContentElementWithName(string $name): void
-    {
-        $dropdown = $this->getElement('content_elements_single_media_dropdown');
-        $dropdown->click();
-
-        $dropdown->waitFor(5, function () use ($name): bool {
-            return $this->hasElement('content_elements_single_media_dropdown_item', [
-                '%item%' => $name,
-            ]);
-        });
-
-        $item = $this->getElement('content_elements_single_media_dropdown_item', [
-            '%item%' => $name,
-        ]);
-
-        $item->click();
-    }
-
-    public function addMultipleMediaContentElementWithNames(array $mediaNames): void
-    {
-        $dropdown = $this->getElement('content_elements_multiple_media_dropdown');
-        $dropdown->click();
-
-        foreach ($mediaNames as $mediaName) {
-            $dropdown->waitFor(5, function () use ($mediaName): bool {
-                return $this->hasElement('content_elements_multiple_media_dropdown_item', [
-                    '%item%' => $mediaName,
-                ]);
-            });
-
-            $item = $this->getElement('content_elements_multiple_media_dropdown_item', [
-                '%item%' => $mediaName,
-            ]);
-
-            $item->click();
-        }
-    }
-
-    public function addHeadingContentElementWithTypeAndContent(string $type, string $content): void
-    {
-        $heading = $this->getElement('content_elements_heading');
-        $heading->selectOption($type);
-
-        $headingContent = $this->getElement('content_elements_heading_content');
-        $headingContent->setValue($content);
-    }
-
-    public function addProductsCarouselContentElementWithProducts(array $productsNames): void
-    {
-        $dropdown = $this->getElement('content_elements_products_carousel');
-        $dropdown->click();
-
-        foreach ($productsNames as $productName) {
-            $dropdown->waitFor(5, function () use ($productName): bool {
-                return $this->hasElement('content_elements_products_carousel_item', [
-                    '%item%' => $productName,
-                ]);
-            });
-
-            $item = $this->getElement('content_elements_products_carousel_item', [
-                '%item%' => $productName,
-            ]);
-
-            $item->click();
-        }
-    }
-
-    public function addProductsCarouselByTaxonContentElementWithTaxon(string $taxon): void
-    {
-        $dropdown = $this->getElement('content_elements_products_carousel_by_taxon');
-        $dropdown->click();
-
-        $dropdown->waitFor(5, function () use ($taxon): bool {
-            return $this->hasElement('content_elements_products_carousel_by_taxon_item', [
-                '%item%' => $taxon,
-            ]);
-        });
-
-        $item = $this->getElement('content_elements_products_carousel_by_taxon_item', [
-            '%item%' => $taxon,
-        ]);
-
-        $item->click();
-    }
-
-    public function addProductsGridContentElementWithProducts(array $productsNames): void
-    {
-        $dropdown = $this->getElement('content_elements_products_grid');
-        $dropdown->click();
-
-        foreach ($productsNames as $productName) {
-            $dropdown->waitFor(5, function () use ($productName): bool {
-                return $this->hasElement('content_elements_products_grid_item', [
-                    '%item%' => $productName,
-                ]);
-            });
-
-            $item = $this->getElement('content_elements_products_grid_item', [
-                '%item%' => $productName,
-            ]);
-
-            $item->click();
-        }
-    }
-
-    public function addProductsGridByTaxonContentElementWithTaxon(string $taxon): void
-    {
-        $dropdown = $this->getElement('content_elements_products_grid_by_taxon');
-        $dropdown->click();
-
-        $dropdown->waitFor(5, function () use ($taxon): bool {
-            return $this->hasElement('content_elements_products_grid_by_taxon_item', [
-                '%item%' => $taxon,
-            ]);
-        });
-
-        $item = $this->getElement('content_elements_products_grid_by_taxon_item', [
-            '%item%' => $taxon,
-        ]);
-
-        $item->click();
-    }
-
-    public function addTaxonsListContentElementWithTaxons(array $taxons): void
-    {
-        $dropdown = $this->getElement('content_elements_taxons_list');
-        $dropdown->click();
-
-        foreach ($taxons as $taxon) {
-            $dropdown->waitFor(5, function () use ($taxon): bool {
-                return $this->hasElement('content_elements_taxons_list_item', [
-                    '%item%' => $taxon,
-                ]);
-            });
-
-            $item = $this->getElement('content_elements_taxons_list_item', [
-                '%item%' => $taxon,
-            ]);
-
-            $item->click();
-        }
-    }
-
-    public function selectContentTemplate(string $templateName): void
-    {
-        $dropdown = $this->getElement('content_template_select_dropdown');
-        $dropdown->click();
-
-        $dropdown->waitFor(5, function () use ($templateName): bool {
-            return $this->hasElement('content_template_select_dropdown_item', [
-                '%item%' => $templateName,
-            ]);
-        });
-
-        $item = $this->getElement('content_template_select_dropdown_item', [
-            '%item%' => $templateName,
-        ]);
-
-        $item->click();
-    }
-
-    public function confirmUseTemplate(): void
-    {
-        $this->getDocument()->findById('load-template-confirmation-button')->click();
-        $this->getDocument()->waitFor(1, function () {
-            return false;
-        });
-    }
-
     public function selectTemplate(string $templateName): void
     {
-        $this->getDocument()->selectFieldOption('Template', $templateName);
+        $this->getElement('template')->selectOption($templateName);
     }
 
     public function selectChannel(string $code): void
@@ -337,13 +118,10 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         return array_merge(
             parent::getDefinedElements(),
-            ContentElementHelper::getDefinedContentElements(),
             [
                 'form' => '[data-live-name-value="sylius_cms:admin:page:form"]',
                 'collections' => '[data-test-collections]',
-                'content_elements_add_button' => '#sylius_cms_page_contentElements a[data-form-collection="add"]',
-                'content_template_select_dropdown' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete',
-                'content_template_select_dropdown_item' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete > div.menu > div.item:contains("%item%")',
+                'template' => '[data-test-template]',
             ],
         );
     }

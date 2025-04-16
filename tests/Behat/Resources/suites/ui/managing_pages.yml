@@ -16,7 +16,7 @@ default:
 
                 - sylius_cms.behat.context.ui.admin.trix_wysiwyg
                 - sylius_cms.behat.context.ui.admin.page
-                - sylius_cms.behat.context.ui.admin.page
+                - sylius_cms.behat.context.ui.admin.content_collection
                 - sylius_cms.behat.context.ui.shop.page
             filters:
                 tags: "@managing_pages&&@ui"

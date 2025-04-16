@@ -53,7 +53,6 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         $this->getDocument()->fillField('Textarea', $value);
     }
 
-
     public function getCollections(): array
     {
         Assert::true(DriverHelper::isJavascript($this->getDriver()));

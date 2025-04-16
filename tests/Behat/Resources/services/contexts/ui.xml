@@ -22,9 +22,12 @@
             <argument type="service" id="sylius_cms.behat.page.admin.page.index"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.page.update"/>
-            <argument type="service" id="sylius_cms.behat.element.admin.content_elements_collection" />
             <argument type="service" id="sylius_cms.behat.random_string_generator"/>
             <argument type="service" id="sylius_cms.repository.page"/>
+        </service>
+
+        <service id="sylius_cms.behat.context.ui.admin.content_collection" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\ContentCollectionContext">
+            <argument type="service" id="sylius_cms.behat.element.admin.content_elements_collection" />
         </service>
 
         <service id="sylius_cms.behat.context.ui.admin.collection" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\CollectionContext">

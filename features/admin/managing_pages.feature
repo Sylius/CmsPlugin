@@ -38,7 +38,7 @@ Feature: Managing cms pages
         And I change textarea content element value to "New content"
         And I update it
         Then I should be notified that the page was updated
-        And I should see "New content" in the textarea content element
+        And I should see a "Textarea" element with "New content" content
 
     @ui @javascript
     Scenario: Deleting content element in page

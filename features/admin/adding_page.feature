@@ -74,12 +74,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Textarea" content element
         And I add a textarea content element with "Welcome to our store" content
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Textarea" content element in Content elements section
+        And I should see a "Textarea" element with "Welcome to our store" content
 
     @ui @javascript
     Scenario: Adding page with single media content element
@@ -88,12 +86,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Single media" content element
         And I add a single media content element with name "Image 1"
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Single media" content element in Content elements section
+        And I should see a "Single media" element with "Image 1" content
 
     @ui @javascript
     Scenario: Adding page with multiple media content element
@@ -102,12 +98,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Multiple media" content element
         And I add a multiple media content element with names "Image 1" and "Image 2"
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Multiple media" content element in Content elements section
+        And I should see a "Multiple media" element with "Image 1" and "Image 2" content
 
     @ui @javascript
     Scenario: Adding page with heading content element
@@ -115,12 +109,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Heading" content element
         And I add a heading content element with type "H3" and "Welcome to our store" content
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Heading" content element in Content elements section
+        And I should see a "Heading" element with "H3" and "Welcome to our store" content
 
     @ui @javascript
     Scenario: Adding page with products carousel content element
@@ -129,12 +121,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Products carousel" content element
         And I add a products carousel content element with "iPhone 8" and "iPhone X" products
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Products carousel" content element in Content elements section
+        And I should see a "Products carousel" element with "iPhone 8" and "iPhone X" content
 
     @ui @javascript
     Scenario: Adding page with products carousel by taxon content element
@@ -143,12 +133,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Products carousel by Taxon" content element
         And I add a products carousel by taxon content element with "Smartphones" taxonomy
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Products carousel by Taxon" content element in Content elements section
+        And I should see a "Products carousel by Taxon" element with "Smartphones" content
 
     @ui @javascript
     Scenario: Adding page with products grid content element
@@ -157,12 +145,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Products grid" content element
         And I add a products grid content element with "iPhone 8" and "iPhone X" products
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Products grid" content element in Content elements section
+        And I should see a "Products grid" element with "iPhone 8" and "iPhone X" content
 
     @ui @javascript
     Scenario: Adding page with products grid by taxon content element
@@ -171,12 +157,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Products grid by Taxon" content element
         And I add a products grid by taxon content element with "Smartphones" taxonomy
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Products grid by Taxon" content element in Content elements section
+        And I should see a "Products grid by Taxon" element with "Smartphones" content
 
     @ui @javascript
     Scenario: Adding page with taxons list content element
@@ -185,12 +169,10 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Taxons list" content element
         And I add a taxons list content element with "Smartphones" and "Laptops" taxonomy
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Taxons list" content element in Content elements section
+        And I should see a "Taxons list" element with "Smartphones" and "Laptops" content
 
     @ui @javascript
     Scenario: Adding page with two content elements
@@ -199,20 +181,16 @@ Feature: Adding new page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
-        And I click on Add button in Content elements section
-        And I select "Single media" content element
         And I add a single media content element with name "Image 1"
-        And I click on Add button in Content elements section
-        And I select "Multiple media" content element
         And I add a multiple media content element with names "Image 1" and "Image 2"
         And I add it
         Then I should be notified that the page has been created
-        And I should see newly created "Single media" content element in Content elements section
-        And I should see newly created "Multiple media" content element in Content elements section
+        And I should see a "Single media" element with "Image 1" content
+        And I should see a "Multiple media" element with "Image 1" and "Image 2" content
 
     @ui @javascript
     Scenario: Adding page with content template
-        Given there is an existing content template named "Homepage" with "Page" type that contains "Textarea, Single media" content elements
+        Given there is an existing content template named "Homepage" with "page" type that contains "Textarea, Single media" content elements
         When I go to the create page page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
@@ -224,7 +202,7 @@ Feature: Adding new page
         And I should see newly created "Textarea" content element in Content elements section
         And I should see newly created "Single media" content element in Content elements section
 
-    @ui @javascript
+    @ui
     Scenario: Adding page with with a custom template
         Given there is an existing template with "@SyliusCmsPlugin/Shop/Page/custom.html.twig" value
         When I go to the create page page
