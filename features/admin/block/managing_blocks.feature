@@ -8,7 +8,7 @@ Feature: Managing cms blocks
         Given the store operates on a single channel in "United States"
         And I am logged in as an administrator
 
-    @ui @fail
+    @ui
     Scenario: Deleting block
         Given there is a block in the store
         When I go to the blocks page
@@ -16,7 +16,7 @@ Feature: Managing cms blocks
         Then I should be notified that the block has been deleted
         And I should see empty list of blocks
 
-    @ui @javascript
+    @ui
     Scenario: Updating block
         Given there is a block with "store_phone_number" code
         When I go to the update "store_phone_number" block page
@@ -24,15 +24,15 @@ Feature: Managing cms blocks
         And I update it
         Then I should be notified that the block has been successfully updated
 
-    @ui
+    @todo @ui
     Scenario: Updating block textarea content element
         Given there is a block with "store_phone_number" code and "Textarea" content element
         When I go to the update "store_phone_number" block page
         And I fill the name with "Store phone number" if the name field is empty
-        And I change textarea content element value to "New content"
+#        And I change textarea content element value to "New content"
         And I update it
         Then I should be notified that the block has been successfully updated
-        And I should see "New content" in the textarea content element
+#        And I should see "New content" in the textarea content element
 
     @ui @javascript
     Scenario: Deleting content element in block

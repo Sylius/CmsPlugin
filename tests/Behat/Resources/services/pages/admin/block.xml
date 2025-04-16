@@ -8,12 +8,14 @@
                 <argument>sylius_cms_admin_block_index</argument>
             </service>
 
-            <service id="sylius_cms.behat.page.admin.block.create" class="Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block\CreatePage" parent="sylius.behat.page.admin.crud.create" public="false">
-                <argument>sylius_cms_admin_block_create</argument>
-            </service>
+        <service id="sylius_cms.behat.page.admin.block.create" class="Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block\CreatePage" parent="sylius.behat.page.admin.crud.create" public="false">
+            <argument type="string">sylius_cms_admin_block_create</argument>
+            <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
+        </service>
 
             <service id="sylius_cms.behat.page.admin.block.update" class="Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block\UpdatePage" parent="sylius.behat.page.admin.crud.update" public="false">
                 <argument>sylius_cms_admin_block_update</argument>
+                <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
             </service>
     </services>
 </container>

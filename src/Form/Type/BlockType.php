@@ -76,6 +76,7 @@ final class BlockType extends AbstractResourceType
             ])
             ->add('collections', CollectionAutocompleteChoiceType::class, [
                 'label' => 'sylius_cms.ui.collections',
+                'by_reference' => false,
                 'multiple' => true,
             ])
             ->add('enabled', CheckboxType::class, [

@@ -13,14 +13,29 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block;
 
+use Behat\Mink\Session;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
+use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityTrait;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsContentElementTrait;
+use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
+use Webmozart\Assert\Assert;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     use ChecksCodeImmutabilityTrait;
     use ContainsContentElementTrait;
+
+    public function __construct(
+        Session $session,
+        $minkParameters,
+        RouterInterface $router,
+        string $routeName,
+        protected AutocompleteHelperInterface $autocompleteHelper,
+    ) {
+        parent::__construct($session, $minkParameters, $router, $routeName);
+    }
 
     public function fillName(string $name): void
     {
@@ -66,6 +81,35 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function deleteContentElement(): void
     {
-        $this->getDocument()->find('css', '.bb-collection-item-delete')->click();
+        $this->getElement('delete_content_element_button')->click();
+        $this->waitForFormUpdate();
+    }
+
+    public function assertSelectedCollections(array $expectedCollections): void
+    {
+        $collectionElement = $this->getElement('association_dropdown_collection');
+
+        $selectedItems = $this->autocompleteHelper->getSelectedItems(
+            $this->getDriver(),
+            $collectionElement->getXpath(),
+        );
+
+        sort($expectedCollections);
+        sort($selectedItems);
+
+        Assert::same($selectedItems, $expectedCollections, 'Selected collections do not match the expected ones.');
+    }
+
+    protected function getDefinedElements(): array
+    {
+        return array_merge(
+            parent::getDefinedElements(),
+            ContentElementHelper::getDefinedContentElements(),
+            [
+                'association_dropdown_collection' => '[data-test-collection-autocomplete]',
+                'content_elements_select' => '[data-test-content-elements]',
+                'delete_content_element_button' => '[data-test-delete-content-element]',
+            ],
+        );
     }
 }

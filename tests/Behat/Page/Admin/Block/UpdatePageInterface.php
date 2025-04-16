@@ -39,4 +39,6 @@ interface UpdatePageInterface extends
     public function containsTextareaContentElementWithValue(string $value): bool;
 
     public function deleteContentElement(): void;
+
+    public function assertSelectedCollections(array $expectedCollections): void;
 }

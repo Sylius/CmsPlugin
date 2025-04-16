@@ -295,6 +295,14 @@ final class BlockContext implements Context
     }
 
     /**
+     * @Then I should see :firstCollection and :secondCollection collections selected
+     */
+    public function iShouldSeeTwoCollectionsSelected(string ...$collectionsNames): void
+    {
+        $this->resolveCurrentPage()->assertSelectedCollections($collectionsNames);
+    }
+
+    /**
      * @When I add it
      * @When I try to add it
      */

@@ -8,7 +8,7 @@
         </div>
 
         {% for content_element_form in hookable_metadata.context.form.contentElements %}
-            <div class="card mb-3" {{ sylius_test_html_attribute('content_element') }}>
+            <div class="card mb-3" cms-content-element {{ sylius_test_html_attribute('content_element') }}>
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col">
@@ -22,11 +22,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-auto" {{ sylius_test_html_attribute('delete-province') }}>
-                            {{ form_row(content_element_form.vars.button_delete, {
-                                attr: {class: 'btn btn-outline-danger'}
-                            }) }}
-                        </div>
+                        {{ form_row(content_element_form.vars.button_delete, sylius_test_form_attribute('delete-content-element')) }}
                     </div>
                 </div>
             </div>

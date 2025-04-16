@@ -17,4 +17,3 @@ Feature: Managing dynamic content on block page
         Given there is a block with "content" code and "<p>Content !</p>" content
         When I go to the update "content" block page
         Then I should see the Trix WYSIWYG editor initialized
-

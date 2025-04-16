@@ -13,8 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block;
 
+use Behat\Mink\Element\NodeElement;
+use Behat\Mink\Session;
 use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
+use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
 use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 use Webmozart\Assert\Assert;
@@ -22,6 +26,16 @@ use Webmozart\Assert\Assert;
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
+
+    public function __construct(
+        Session $session,
+        $minkParameters,
+        RouterInterface $router,
+        string $routeName,
+        protected AutocompleteHelperInterface $autocompleteHelper,
+    ) {
+        parent::__construct($session, $minkParameters, $router, $routeName);
+    }
 
     public function fillField(string $field, string $value): void
     {
@@ -62,23 +76,14 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function associateCollections(array $collectionsNames): void
     {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
-
-        $dropdown = $this->getElement('association_dropdown_collection');
-        $dropdown->click();
+        $collectionElement = $this->getElement('association_dropdown_collection');
 
         foreach ($collectionsNames as $collectionName) {
-            $dropdown->waitFor(5, function () use ($collectionName): bool {
-                return $this->hasElement('association_dropdown_collection_item', [
-                    '%item%' => $collectionName,
-                ]);
-            });
-
-            $item = $this->getElement('association_dropdown_collection_item', [
-                '%item%' => $collectionName,
-            ]);
-
-            $item->click();
+            $this->autocompleteHelper->selectByName(
+                $this->getDriver(),
+                $collectionElement->getXpath(),
+                $collectionName,
+            );
         }
     }
 
@@ -98,7 +103,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
 
-        $select = $this->getElement('content_elements_select_type');
+        $select = $this->getLastContentElementSelect();
         $select->selectOption($contentElement);
         $select->waitFor(1, function () use ($contentElement): bool {
             return $this->hasElement(
@@ -276,20 +281,13 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function selectContentTemplate(string $templateName): void
     {
-        $dropdown = $this->getElement('content_template_select_dropdown');
-        $dropdown->click();
+        $autocompleteElement = $this->getElement('content_template_select_dropdown');
 
-        $dropdown->waitFor(5, function () use ($templateName): bool {
-            return $this->hasElement('content_template_select_dropdown_item', [
-                '%item%' => $templateName,
-            ]);
-        });
-
-        $item = $this->getElement('content_template_select_dropdown_item', [
-            '%item%' => $templateName,
-        ]);
-
-        $item->click();
+        $this->autocompleteHelper->selectByName(
+            $this->getDriver(),
+            $autocompleteElement->getXpath(),
+            $templateName,
+        );
     }
 
     public function confirmUseTemplate(): void
@@ -306,12 +304,29 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             parent::getDefinedElements(),
             ContentElementHelper::getDefinedContentElements(),
             [
-                'association_dropdown_collection' => '.field > label:contains("Collections") ~ .sylius-autocomplete',
-                'association_dropdown_collection_item' => '.field > label:contains("Collections") ~ .sylius-autocomplete > div.menu > div.item:contains("%item%")',
-                'content_elements_add_button' => '#sylius_cms_block_contentElements a[data-form-collection="add"]',
-                'content_template_select_dropdown' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete',
-                'content_template_select_dropdown_item' => 'h5:contains("Content elements template") ~ .column .field > .sylius-autocomplete > div.menu > div.item:contains("%item%")',
+                'association_dropdown_collection' => '[data-test-collection-autocomplete]',
+                'content_elements_add_button' => '[data-test-add-content-element]',
+                'content_elements_select_type' => '[data-test-content-element-type]',
+                'content_template_select_dropdown' => '[data-test-content-template-autocomplete]',
+                'content_template_select_dropdown_item' => '[data-test="content-template-autocomplete"] .menu .item:contains("%item%")',
             ],
         );
+    }
+
+    private function getLastContentElementSelect(): NodeElement
+    {
+        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+
+        $this->waitForFormUpdate();
+
+        $elements = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
+
+        Assert::notEmpty($elements, 'No content element selects found.');
+
+        foreach ($elements as $index => $el) {
+            echo sprintf("Element[%d] name: %s\n", $index, $el->getAttribute('name'));
+        }
+
+        return end($elements);
     }
 }
