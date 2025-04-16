@@ -54,6 +54,7 @@ final class MediaType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.file',
             ])
             ->add('collections', CollectionAutocompleteChoiceType::class, [
+                'required' => false,
                 'label' => 'sylius_cms.ui.collections',
                 'multiple' => true,
             ])
@@ -61,6 +62,7 @@ final class MediaType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.enabled',
             ])
             ->add('saveWithOriginalName', CheckboxType::class, [
+                'required' => false,
                 'label' => 'sylius_cms.ui.save_with_original_name',
             ])
             ->add('channels', ChannelChoiceType::class, [

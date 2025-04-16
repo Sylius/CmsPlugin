@@ -1,0 +1,5 @@
+{% set channels = hookable_metadata.context.form.channels %}
+
+<div class="field" {{ sylius_test_html_attribute('channels') }}>
+    {{ form_row(channels) }}
+</div>

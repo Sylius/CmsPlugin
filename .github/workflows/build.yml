@@ -165,7 +165,7 @@ jobs:
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" --rerun
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" --rerun
-          vendor/bin/behat --colors --strict -vvv --no-interaction -f progress tags="@managing_blocks&&~@wysiwyg" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress tags="@managing_blocks&&~@wysiwyg" --rerun
+          vendor/bin/behat --colors --strict -vvv --no-interaction -f progress tags="@managing_blocks" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress tags="@managing_blocks" --rerun
           vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_media&&~@wysiwyg" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_media&&~@wysiwyg" --rerun
 
       -
