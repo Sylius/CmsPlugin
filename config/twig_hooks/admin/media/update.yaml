@@ -82,5 +82,10 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/preview/path.html.twig'
                 priority: 100
             preview:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/preview/preview.html.twig'
+                component: 'sylius_cms:admin:media:preview'
+                props:
+                    resource: '@=_context.resource'
+                    imageTemplate: '@SyliusCmsPlugin/admin/media/preview/image.html.twig'
+                    videoTemplate: '@SyliusCmsPlugin/admin/media/preview/video.html.twig'
+                    fileTemplate: '@SyliusCmsPlugin/admin/media/preview/file.html.twig'
                 priority: 0
