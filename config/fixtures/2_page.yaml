@@ -142,7 +142,7 @@ sylius_fixtures:
                     slug: "blog-post-1"
                     meta_title: "Your Ultimate Guide to Beach and Holiday Fashion: Hats, Shirts, Sunglasses, and Shoes"
                     teaser_title: "Your Ultimate Guide to Beach and Holiday Fashion"
-                    teaser_content: "<div>When planning your beach holiday wardrobe, fashion and function go hand in hand. Whether you're lounging by the pool, strolling along sandy shores, or heading out for a casual seaside dinner, nailing the perfect look is key to a stylish yet comfortable vacation. In this blog post, we’ll dive into the must-have modern fashion pieces that will elevate your beach holiday style. From chic hats to breezy shirts, trendy sunglasses to versatile shoes—let's break down how to build the perfect holiday wardrobe.</div>"
+                    teaser_content: "When planning your beach holiday wardrobe, fashion and function go hand in hand. Whether you're lounging by the pool, strolling along sandy shores, or heading out for a casual seaside dinner, nailing the perfect look is key to a stylish yet comfortable vacation. In this blog post, we’ll dive into the must-have modern fashion pieces that will elevate your beach holiday style. From chic hats to breezy shirts, trendy sunglasses to versatile shoes—let's break down how to build the perfect holiday wardrobe."
                     teaser_image: "blog_post_1_teaser_image"
                 content_elements:
                   en_US:
@@ -286,7 +286,7 @@ sylius_fixtures:
                     slug: "blog-post-2"
                     meta_title: "Beach Suits for Everyone: Stylish and Functional Options for Women, Men, and Children"
                     teaser_title: "Beach Suits for Everyone"
-                    teaser_content: "<div>Finding the perfect beach suit isn’t just about looking good — it’s also about comfort and versatility. Whether you’re swimming, playing beach volleyball, or simply relaxing by the water, the right beachwear can make a world of difference. In this guide, we’ll explore the top beach suit trends for women, men, and children, ensuring that the whole family is stylishly prepared for any seaside adventure. From flattering swimsuits to practical designs for kids, we've got you covered.</div>"
+                    teaser_content: "Finding the perfect beach suit isn’t just about looking good — it’s also about comfort and versatility. Whether you’re swimming, playing beach volleyball, or simply relaxing by the water, the right beachwear can make a world of difference. In this guide, we’ll explore the top beach suit trends for women, men, and children, ensuring that the whole family is stylishly prepared for any seaside adventure. From flattering swimsuits to practical designs for kids, we've got you covered."
                     teaser_image: "blog_post_2_teaser_image"
                 content_elements:
                   en_US:
@@ -426,7 +426,7 @@ sylius_fixtures:
                     slug: "blog-post-3"
                     meta_title: "Beach-Ready Fashion for Men and Boys: T-Shirts, Shorts, and Shoes"
                     teaser_title: "Beach-Ready Fashion for Men and Boys"
-                    teaser_content: "<div>When hitting the beach, comfort is key, but that doesn't mean style has to take a backseat. Whether you’re a man looking for the perfect holiday wardrobe or shopping for your boys, you’ll want to find pieces that combine practicality with a touch of flair. In this guide, we’ll explore the top T-shirts, shorts, and shoes for men and boys, helping you put together the ideal beach outfit. From breezy shirts to functional footwear, this is your go-to guide for looking stylish while enjoying the sun, sand, and surf.</div>"
+                    teaser_content: "When hitting the beach, comfort is key, but that doesn't mean style has to take a backseat. Whether you’re a man looking for the perfect holiday wardrobe or shopping for your boys, you’ll want to find pieces that combine practicality with a touch of flair. In this guide, we’ll explore the top T-shirts, shorts, and shoes for men and boys, helping you put together the ideal beach outfit. From breezy shirts to functional footwear, this is your go-to guide for looking stylish while enjoying the sun, sand, and surf."
                     teaser_image: "blog_post_3_teaser_image"
                 content_elements:
                   en_US:
