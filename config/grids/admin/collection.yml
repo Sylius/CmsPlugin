@@ -13,13 +13,14 @@ sylius_grid:
                     type: twig
                     label: sylius_cms.ui.name
                     sortable: name
-                    path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/name.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/name.html.twig"
                 code:
-                    type: string
+                    type: twig
                     label: sylius_cms.ui.code
                     sortable: ~
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/code.html.twig"
                 type:
                     type: string
                     label: sylius_cms.ui.type
