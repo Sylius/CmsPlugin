@@ -1,7 +1,7 @@
 {% set resources = hookable_metadata.context.resources %}
 
 {% for page in resources.data %}
-    <div class="col">
+    <div class="col-3 mb-3">
         <div class="item cms-page">
             {% hook 'page' with { page } %}
         </div>

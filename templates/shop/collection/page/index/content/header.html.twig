@@ -1,0 +1,7 @@
+{% set resources = hookable_metadata.context.resources %}
+
+{% if resources.data|length > 0 %}
+    <div class="mb-4">
+        {{ render(path('sylius_cms_shop_collection_show', {'code' : app.request.get('code'), 'template' : '@SyliusCmsPlugin/shop/collection/name.html.twig'})) }}
+    </div>
+{% endif %}

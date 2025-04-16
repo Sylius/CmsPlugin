@@ -1,5 +1,0 @@
-{% set resources = hookable_metadata.context.resources %}
-
-{% if resources.data|length > 0 %}
-    {{ render(path('sylius_cms_shop_collection_show', {'code' : app.request.get('collectionCode'), 'template' : '@SyliusCmsPlugin/shop/collection/name.html.twig'})) }}
-{% endif %}
