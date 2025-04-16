@@ -1,1 +1,13 @@
-<a class="cms-page-link item" href="{{ path('sylius_cms_shop_page_show', {'slug' : page.slug}) }}">{{ page.name }}</a>
+{% if page != null %}
+    <a class="cms-page-link" href="{{ path('sylius_cms_shop_page_show', { slug: page.slug }) }}"
+    {% if options.attr is defined %}
+        {% for attrname, attrvalue in options.attr %}
+            {{ attrname }}="{{ attrvalue }}"
+        {% endfor %}
+    {% endif %}
+    >
+    {{ options.name|default(page.name) }}
+    </a>
+{% else %}
+    {{ options.notFoundMessage|default('') }}
+{% endif %}

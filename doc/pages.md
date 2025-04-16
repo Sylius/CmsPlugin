@@ -14,19 +14,28 @@ Page contain 4 main editable sections:
 
 ### Rendering the page
 
-Once you created a page in the admin panel, you can render page in two ways:
+Once you created a page in the admin panel, you can render page in several ways:
 
-By rendering a page link template:
-
-```twig
-{{ render(path('sylius_cms_shop_page_show_link_by_code', {'code' : 'about', 'template' : '@SyliusCmsPlugin/shop/page/link.html.twig'})) }}
-```
-
-Or rendering a page link directly:
+1. Render the entire page content:
 
 ```twig
 {{ render(path('sylius_cms_shop_page_show', {'slug' : 'about'})) }}
 ```
+This will render the entire page with all its content elements.
+
+2. Generate a page link template:
+
+```twig
+{{ sylius_cms_render_page_link('about', {}, 'custom/template.html.twig') }}
+```
+Use this to generate a page link template.
+
+3. Generate a direct URL:
+
+```twig
+{{ sylius_cms_get_page_url('about') }}
+```
+Use this to generate just the URL of the page.
 
 ### Visiting the page
 

@@ -6,7 +6,7 @@
                 <parameter>sylius_cms_render_block</parameter>
                 <parameter>sylius_cms_render_media</parameter>
         </parameter>
-        <parameter key="sylius_cms.twig.link_template">@SyliusCmsPlugin/Page/link.html.twig</parameter>
+        <parameter key="sylius_cms.twig.link_template">@SyliusCmsPlugin/shop/page/link.html.twig</parameter>
     </parameters>
 
     <services>

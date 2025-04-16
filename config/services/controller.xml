@@ -63,9 +63,6 @@
         </service>
 
         <service id="sylius_cms.controller.page.overriden" class="Sylius\CmsPlugin\Controller\PageController" parent="sylius_cms.controller.page">
-            <call method="setPageResourceResolver">
-                <argument type="service" id="sylius_cms.resolver.page_resource" />
-            </call>
             <call method="setFormErrorsFlashHelper">
                 <argument type="service" id="sylius_cms.controller.helper.form_errors_flash" />
             </call>
