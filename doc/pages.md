@@ -29,18 +29,18 @@ In Twig:
 ```twig
 {{ sylius_cms_render_page_link('about', {}, '@App/some/template/path.html.twig') }}
 ```
-Or using Twig hooks:
+Or using Twig Hooks:
 ```yaml
 sylius_twig_hooks:
-  hooks:
-    'hook':
-      media:
-        component: 'sylius_cms.shop:render:page_link'
-        props:
-          code: 'about'
-          options:
-            name: 'About us'
-          template: '@App/some/template/path.html.twig'
+    hooks:
+        'hook':
+            media:
+                component: 'sylius_cms.shop:render:page_link'
+                props:
+                    code: 'about'
+                    options:
+                        name: 'About us'
+                    template: '@App/some/template/path.html.twig'
 ```
 Use this to generate a page link template.
 

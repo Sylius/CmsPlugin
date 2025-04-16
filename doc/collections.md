@@ -30,18 +30,18 @@ By default, collection items are sorted by object ID parameter. If you want to c
 You can read more about it [here](https://symfony.com/doc/current/service_container/service_decoration.html).
 
 #### Rendering via Twig Hooks
-You can also render collections using Twig hooks.
+You can also render collections using Twig Hooks.
 
 ```yaml
 sylius_twig_hooks:
-  hooks:
-    'hook':
-      homepage_blocks:
-        component: 'sylius_cms.shop:render:collection'
-        props:
-          code: 'homepage_blocks'
-          count_to_render: 2
-          template: '@App/some/template/path.html.twig'
+    hooks:
+        'hook':
+            homepage_blocks:
+                component: 'sylius_cms.shop:render:collection'
+                props:
+                    code: 'homepage_blocks'
+                    count_to_render: 2
+                    template: '@App/some/template/path.html.twig'
 ```
 
 ## Customization

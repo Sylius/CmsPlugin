@@ -30,16 +30,16 @@ Rendering a media code directly:
 ```
 
 #### Rendering via Twig Hooks
-You can also render media using Twig hooks.
+You can also render media using Twig Hooks.
 
 ```yaml
 sylius_twig_hooks:
-  hooks:
-    'hook':
-      media:
-        component: 'sylius_cms.shop:render:media'
-        props:
-          code: 'media_code'
+    hooks:
+        'hook':
+            media:
+                component: 'sylius_cms.shop:render:media'
+                props:
+                    code: 'media_code'
 ```
 
 ## Media provider

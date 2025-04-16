@@ -46,17 +46,17 @@ When you pass `ProductInterface` or `TaxonInterface` as a context, the block wil
 in the admin panel.
 
 #### Rendering via Twig Hooks
-You can also render blocks using Twig hooks.
+You can also render blocks using Twig Hooks.
 
 ```yaml
 sylius_twig_hooks:
-  hooks:
-    'hook':
-      homepage_intro:
-        component: 'sylius_cms.shop:render:block'
-        props:
-          code: 'homepage_intro'
-          template: '@App/some/template/path.html.twig'
+    hooks:
+        'hook':
+            homepage_intro:
+                component: 'sylius_cms.shop:render:block'
+                props:
+                    code: 'homepage_intro'
+                    template: '@App/some/template/path.html.twig'
 ```
 
 ## Customization
