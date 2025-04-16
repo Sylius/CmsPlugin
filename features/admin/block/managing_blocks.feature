@@ -16,7 +16,7 @@ Feature: Managing cms blocks
         Then I should be notified that the block has been deleted
         And I should see empty list of blocks
 
-    @ui @javascript
+    @ui
     Scenario: Updating block
         Given there is a block with "store_phone_number" code
         When I go to the update "store_phone_number" block page

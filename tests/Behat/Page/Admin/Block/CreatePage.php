@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block;
 
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Session;
 use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
@@ -109,23 +110,6 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
                 ContentElementHelper::getDefinedElementThatShouldAppearAfterSelectContentElement($contentElement),
             );
         });
-    }
-
-    private function getLastContentElementSelect()
-    {
-        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
-
-        $this->waitForFormUpdate();
-
-        $elements = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
-
-        Assert::notEmpty($elements, 'No content element selects found.');
-
-        foreach ($elements as $index => $el) {
-            echo sprintf("Element[%d] name: %s\n", $index, $el->getAttribute('name'));
-        }
-
-        return end($elements);
     }
 
     public function addTextareaContentElementWithContent(string $content): void
@@ -327,5 +311,22 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
                 'content_template_select_dropdown_item' => '[data-test="content-template-autocomplete"] .menu .item:contains("%item%")',
             ],
         );
+    }
+
+    private function getLastContentElementSelect(): NodeElement
+    {
+        Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
+
+        $this->waitForFormUpdate();
+
+        $elements = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
+
+        Assert::notEmpty($elements, 'No content element selects found.');
+
+        foreach ($elements as $index => $el) {
+            echo sprintf("Element[%d] name: %s\n", $index, $el->getAttribute('name'));
+        }
+
+        return end($elements);
     }
 }

@@ -9,14 +9,6 @@ Feature: Adding blocks
         And the store operates on a single channel in "United States"
 
     @ui @javascript
-    Scenario: Adding block
-        When I go to the create block page
-        And I fill the code with "store_description"
-        And I fill the name with "Store Description"
-        And I add it
-        Then I should be notified that the block has been created
-
-    @ui @javascript
     Scenario: Adding block with collections
         Given there are existing collections named "Blog" and "Homepage"
         When I go to the create block page
@@ -25,7 +17,7 @@ Feature: Adding blocks
         And I add "Blog" and "Homepage" collections to it
         And I add it
         Then I should be notified that the block has been created
-        Then I should see "Blog" and "Homepage" collections selected
+        And I should see "Blog" and "Homepage" collections selected
 
     @todo @ui @javascript
     Scenario: Adding block with textarea content element
