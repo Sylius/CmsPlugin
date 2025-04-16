@@ -67,7 +67,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function deleteContentElement(): void
     {
-        $deleteButton = $this->getDocument()->find('css', '[data-action="live#action"][data-live-action-param="removeCollectionItem"]');
+        $deleteButton = $this->getElement('delete_content_element_button');
 
         if (null === $deleteButton) {
             throw new \RuntimeException('Delete button for content element not found.');
@@ -84,6 +84,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
             ContentElementHelper::getDefinedContentElements(),
             [
                 'content_elements_select' => '[data-test-content-elements]',
+                'delete_content_element_button' => '[data-test-delete-content-element]',
             ],
         );
     }
