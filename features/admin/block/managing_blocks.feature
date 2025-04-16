@@ -14,6 +14,7 @@ Feature: Managing cms blocks
         When I go to the blocks page
         And I delete this block
         Then I should be notified that the block has been deleted
+        And I should see empty list of blocks
 
     @ui @javascript
     Scenario: Updating block
@@ -23,16 +24,15 @@ Feature: Managing cms blocks
         And I update it
         Then I should be notified that the block has been successfully updated
 
-# TODO: Waiting for a pull request that fixes the JavaScript responsible for adding content input fields.
-#    @ui
-#    Scenario: Updating block textarea content element
-#        Given there is a block with "store_phone_number" code and "Textarea" content element
-#        When I go to the update "store_phone_number" block page
-#        And I fill the name with "Store phone number" if the name field is empty
-#        And I change textarea content element value to "New content"
-#        And I update it
-#        Then I should be notified that the block has been successfully updated
-#        And I should see "New content" in the textarea content element
+    @todo @ui
+    Scenario: Updating block textarea content element
+        Given there is a block with "store_phone_number" code and "Textarea" content element
+        When I go to the update "store_phone_number" block page
+        And I fill the name with "Store phone number" if the name field is empty
+        And I change textarea content element value to "New content"
+        And I update it
+        Then I should be notified that the block has been successfully updated
+        And I should see "New content" in the textarea content element
 
     @ui @javascript
     Scenario: Deleting content element in block

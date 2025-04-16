@@ -8,13 +8,13 @@ Feature: Adding blocks
         Given I am logged in as an administrator
         And the store operates on a single channel in "United States"
 
-#    @ui @javascript
-#    Scenario: Adding block
-#        When I go to the create block page
-#        And I fill the code with "store_description"
-#        And I fill the name with "Store Description"
-#        And I add it
-#        Then I should be notified that the block has been created
+    @ui @javascript
+    Scenario: Adding block
+        When I go to the create block page
+        And I fill the code with "store_description"
+        And I fill the name with "Store Description"
+        And I add it
+        Then I should be notified that the block has been created
 
     @ui @javascript
     Scenario: Adding block with collections
