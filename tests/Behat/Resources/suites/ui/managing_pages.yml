@@ -12,7 +12,6 @@ default:
                 - sylius_cms.behat.context.setup.page
                 - sylius_cms.behat.context.setup.collection
                 - sylius_cms.behat.context.setup.content_template
-                - sylius_cms.behat.context.setup.template
 
                 - sylius_cms.behat.context.ui.admin.trix_wysiwyg
                 - sylius_cms.behat.context.ui.admin.page

@@ -204,13 +204,12 @@ Feature: Adding new page
 
     @ui
     Scenario: Adding page with with a custom template
-        Given there is an existing template with "@SyliusCmsPlugin/Shop/Page/custom.html.twig" value
         When I go to the create page page
         And I fill the code with "my_page"
         And I fill the slug with "my-page"
         And I fill the name with "My page"
         And I select "United States" channel
-        And I select "@SyliusCmsPlugin/Shop/Page/custom.html.twig" template
+        And I select "shop/template/custom_page.html.twig" template
         And I add it
         Then I should be notified that the page has been created
         And I go to the "my-page" page

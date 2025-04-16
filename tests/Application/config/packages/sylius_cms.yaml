@@ -1,0 +1,4 @@
+sylius_cms:
+    templates:
+        pages:
+            - "shop/template/custom_page.html.twig"
