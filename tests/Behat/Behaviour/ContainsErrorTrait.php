@@ -24,7 +24,7 @@ trait ContainsErrorTrait
     {
         $validationMessageElements = array_merge(
             $this->getDocument()->findAll('css', '.invalid-feedback'),
-            $this->getDocument()->findAll('css', '.alert-danger')
+            $this->getDocument()->findAll('css', '.alert-danger'),
         );
 
         /** @var NodeElement $validationMessageElement */

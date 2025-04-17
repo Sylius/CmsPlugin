@@ -25,12 +25,11 @@ Feature: Adding new media
         And I try to add it
         Then I should be notified that there is already an existing media with provided code
 
-    @ui @javascript
+    @ui
     Scenario: Trying to add media with blank data
         When I go to the create media page
         And I try to add it
-        Then I should be notified that "Code, Name" fields cannot be blank
-        And I should be notified that "File" fields cannot be blank
+        Then I should be notified that "Code, Name, File" fields cannot be blank
 
     @ui
     Scenario: Trying to add media with too short data
