@@ -29,7 +29,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     /** @param MinkParameters|array<array-key, mixed> $minkParameters */
     public function __construct(
         Session $session,
-        MinkParameters|array $minkParameters,
+        array|MinkParameters $minkParameters,
         RouterInterface $router,
         string $routeName,
         protected readonly AutocompleteHelperInterface $autocompleteHelper,

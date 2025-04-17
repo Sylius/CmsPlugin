@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
+use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
@@ -24,15 +25,13 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 final class PageType extends AbstractResourceType
 {
     public function __construct(
         string $dataClass,
         array $validationGroups,
-        private ResourceTemplateProviderInterface $templateProvider,
+        private readonly ResourceTemplateProviderInterface $templateProvider,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -40,10 +39,6 @@ final class PageType extends AbstractResourceType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('code', TextType::class, [
-                'label' => 'sylius_cms.ui.code',
-                'disabled' => null !== $builder->getData()->getCode(),
-            ])
             ->add('name', TextType::class, [
                 'label' => 'sylius_cms.ui.name',
             ])
@@ -78,47 +73,13 @@ final class PageType extends AbstractResourceType
             ])
             ->add('contentElements', ContentConfigurationTranslationsType::class, [
                 'entry_type' => ContentConfigurationType::class,
+                'entry_options' => [
+                    'template_type' => 'page',
+                ],
                 'by_reference' => false,
             ])
+            ->addEventSubscriber(new AddCodeFormSubscriber())
         ;
-    }
-
-    public static function addContentElementLocaleListener(FormBuilderInterface $builder): void
-    {
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $data = $event->getData();
-            $selectedLocale = $data['locale'] ?? null;
-
-            if (isset($data['contentElements'])) {
-                foreach ($data['contentElements'] as &$contentElement) {
-                    if (!isset($contentElement['locale']) || '' === $contentElement['locale']) {
-                        $contentElement['locale'] = $selectedLocale;
-                    }
-                }
-            }
-
-            $event->setData($data);
-        });
-    }
-
-    public static function addTemplateListener(FormBuilderInterface $builder): void
-    {
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-            $template = $data['templates'] ?? null;
-
-            $entity = $form->getData();
-            $entity->setTemplate($template);
-        });
-
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
-            $template = $data->getTemplate();
-
-            $form->get('templates')->setData($template);
-        });
     }
 
     public function getBlockPrefix(): string

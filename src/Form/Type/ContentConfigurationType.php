@@ -38,13 +38,13 @@ final class ContentConfigurationType extends AbstractType
     {
         $builder
             ->add('template', TemplateAutocompleteType::class, [
-                'type' => 'page',
+                'type' => $options['template_type'],
                 'label' => 'sylius_cms.ui.content_elements.template',
                 'help' => 'sylius_cms.ui.content_elements.template_help',
                 'mapped' => false,
                 'required' => false,
                 'extra_options' => [
-                    'type' => 'page',
+                    'type' => $options['template_type'],
                 ],
             ])
             ->add('contentElements', LiveCollectionType::class, [
@@ -54,7 +54,6 @@ final class ContentConfigurationType extends AbstractType
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => true,
                 'button_add_type' => AddButtonType::class,
                 'button_add_options' => [
                     'label' => 'sylius_cms.ui.add_element',
@@ -70,6 +69,8 @@ final class ContentConfigurationType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setRequired('template_type');
+        $resolver->setAllowedValues('template_type', ['page', 'block']);
         $resolver->setDefault('data_class', null);
     }
 

@@ -19,9 +19,11 @@ use Sylius\Component\Resource\Model\SlugAwareInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
 use Sylius\Component\Resource\Model\ToggleableInterface;
 use Sylius\Component\Resource\Model\TranslatableInterface;
+use Sylius\Resource\Model\CodeAwareInterface;
 
 interface PageInterface extends
     ResourceInterface,
+    CodeAwareInterface,
     TranslatableInterface,
     ToggleableInterface,
     CollectibleInterface,
@@ -31,10 +33,6 @@ interface PageInterface extends
     ContentElementsAwareInterface,
     TeaserInterface
 {
-    public function getCode(): ?string;
-
-    public function setCode(?string $code): void;
-
     public function getMetaKeywords(): ?string;
 
     public function setMetaKeywords(?string $metaKeywords): void;

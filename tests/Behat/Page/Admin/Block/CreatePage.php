@@ -13,16 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Block;
 
-use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Session;
-use DMore\ChromeDriver\ChromeDriver;
 use FriendsOfBehat\SymfonyExtension\Mink\MinkParameters;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
-use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
-use Webmozart\Assert\Assert;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
@@ -31,7 +27,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /** @param MinkParameters|array<array-key, mixed> $minkParameters */
     public function __construct(
         Session $session,
-        MinkParameters|array $minkParameters,
+        array|MinkParameters $minkParameters,
         RouterInterface $router,
         string $routeName,
         protected AutocompleteHelperInterface $autocompleteHelper,
