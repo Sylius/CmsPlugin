@@ -29,7 +29,7 @@ Feature: Adding new media
     Scenario: Trying to add media with blank data
         When I go to the create media page
         And I try to add it
-        Then I should be notified that "Code, File" fields cannot be blank
+        Then I should be notified that "Code, Name, File" fields cannot be blank
 
     @ui
     Scenario: Trying to add media with too short data

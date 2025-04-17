@@ -22,8 +22,10 @@ trait ContainsErrorTrait
 
     public function containsErrorWithMessage(string $message, bool $strict = true): bool
     {
-        $validationMessageElements = $this->getDocument()->findAll('css', '.invalid-feedback');
-        $result = false;
+        $validationMessageElements = array_merge(
+            $this->getDocument()->findAll('css', '.invalid-feedback'),
+            $this->getDocument()->findAll('css', '.alert-danger'),
+        );
 
         /** @var NodeElement $validationMessageElement */
         foreach ($validationMessageElements as $validationMessageElement) {
@@ -36,6 +38,6 @@ trait ContainsErrorTrait
             }
         }
 
-        return $result;
+        return false;
     }
 }
