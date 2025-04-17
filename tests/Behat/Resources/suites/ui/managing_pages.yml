@@ -4,18 +4,19 @@ default:
             contexts:
                 - sylius.behat.context.hook.doctrine_orm
 
-                - sylius.behat.context.setup.channel
                 - sylius.behat.context.setup.admin_security
+                - sylius.behat.context.setup.channel
                 - sylius.behat.context.setup.product
                 - sylius.behat.context.setup.taxonomy
-                - sylius_cms.behat.context.setup.media
-                - sylius_cms.behat.context.setup.page
                 - sylius_cms.behat.context.setup.collection
                 - sylius_cms.behat.context.setup.content_template
+                - sylius_cms.behat.context.setup.media
+                - sylius_cms.behat.context.setup.page
 
-                - sylius_cms.behat.context.ui.admin.trix_wysiwyg
-                - sylius_cms.behat.context.ui.admin.page
                 - sylius_cms.behat.context.ui.admin.content_collection
+                - sylius_cms.behat.context.ui.admin.page
+                - sylius_cms.behat.context.ui.admin.trix_wysiwyg
                 - sylius_cms.behat.context.ui.shop.page
+
             filters:
                 tags: "@managing_pages&&@ui"

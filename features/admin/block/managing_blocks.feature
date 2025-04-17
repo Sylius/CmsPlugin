@@ -17,45 +17,41 @@ Feature: Managing cms blocks
         And I should see empty list of blocks
 
     @ui
+    Scenario: Seeing disabled code field while editing a block
+        Given there is a block in the store
+        When I want to edit this block
+        Then the code field should be disabled
+
+    @ui
     Scenario: Updating block
-        Given there is a block with "store_phone_number" code
-        When I go to the update "store_phone_number" block page
-        And I fill the name with "Store phone number" if the name field is empty
+        Given there is a block "Store phone number"
+        When I want to edit this block
         And I update it
         Then I should be notified that the block has been successfully updated
 
-    @todo @ui
+    @ui
     Scenario: Updating block textarea content element
-        Given there is a block with "store_phone_number" code and "Textarea" content element
-        When I go to the update "store_phone_number" block page
-        And I fill the name with "Store phone number" if the name field is empty
-#        And I change textarea content element value to "New content"
+        Given there is a block "Store phone number" with "Textarea" content element
+        When I want to edit this block
+        And I change textarea content element value to "New content"
         And I update it
         Then I should be notified that the block has been successfully updated
-#        And I should see "New content" in the textarea content element
+        And I should see a "Textarea" element with "New content" content
 
     @ui @javascript
     Scenario: Deleting content element in block
-        Given there is a block with "store_phone_number" code and "Textarea" content element
-        When I go to the update "store_phone_number" block page
-        And I fill the name with "Store phone number" if the name field is empty
-        And I delete the content element
+        Given there is a block "Store phone number" with "Textarea" content element
+        When I want to edit this block
+        And I delete the "Textarea" content element
         And I update it
         Then I should be notified that the block has been successfully updated
         And I should not see "Textarea" content element in the Content elements section
 
     @ui
     Scenario: Disabling block
-        Given there is an existing block with "sylius_quote" code
-        When I go to the update "sylius_quote" block page
-        And I fill the name with "BitBag quote" if the name field is empty
+        Given there is a block "Sylius_quote"
+        When I want to edit this block
         And I disable it
         And I update it
         Then I should be notified that the block has been successfully updated
         And this block should be disabled
-
-    @ui
-    Scenario: Seeing disabled code field while editing a block
-        Given there is a block in the store
-        When I want to edit this block
-        Then the code field should be disabled
