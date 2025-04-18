@@ -15,7 +15,7 @@ sylius_grid:
                     sortable: name
                     path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/name.html.twig"
+                        template: "@SyliusCmsPlugin/admin/grid/field/name.html.twig"
                 code:
                     type: string
                     label: sylius_cms.ui.code
@@ -24,19 +24,19 @@ sylius_grid:
                     type: twig
                     label: sylius.ui.enabled
                     options:
-                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                        template: "@SyliusUi/grid/field/enabled.html.twig"
                 collections:
                     type: twig
                     label: sylius_cms.ui.collections
                     path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/collections.html.twig"
+                        template: "@SyliusCmsPlugin/admin/grid/field/collections.html.twig"
                 channels:
                     type: twig
                     label: sylius_cms.ui.channels
                     path: .
                     options:
-                        template: "@SyliusCmsPlugin/Grid/Field/channels.html.twig"
+                        template: "@SyliusCmsPlugin/admin/grid/field/channels.html.twig"
             filters:
                 search:
                     type: string

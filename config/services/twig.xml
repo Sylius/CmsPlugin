@@ -116,12 +116,17 @@
 
         <service
             id="sylius_cms.twig.component.block.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Block\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.block" />
             <argument type="service" id="form.factory" />
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\BlockType</argument>
+            <argument type="service" id="sylius_cms.repository.template" />
+
+            <call method="setLiveResponder">
+                <argument type="service" id="ux.live_component.live_responder"/>
+            </call>
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:block:form" />
         </service>
@@ -143,6 +148,24 @@
             class="Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent"
         >
             <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
+        </service>
+
+        <service
+            id="sylius_cms.twig.component.admin.page.form"
+            class="Sylius\CmsPlugin\Twig\Component\Page\FormComponent"
+        >
+            <argument type="service" id="sylius_cms.repository.page" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_cms.model.page.class%</argument>
+            <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
+            <argument type="service" id="sylius_cms.repository.template" />
+            <argument type="service" id="sylius.generator.slug" />
+
+            <call method="setLiveResponder">
+                <argument type="service" id="ux.live_component.live_responder"/>
+            </call>
+
+            <tag name="sylius.live_component.admin" key="sylius_cms:admin:page:form" />
         </service>
     </services>
 </container>

@@ -19,6 +19,7 @@ use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Entity\ContentConfiguration;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
+use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
@@ -46,29 +47,20 @@ final class BlockContext implements Context
     }
 
     /**
-     * @Given there is an existing block with :code code
+     * @Given there is a block :name
+     * @Given there is a block :name with code :code
      */
-    public function thereIsABlockWithCode(string $code): void
+    public function thereIsABlockWithCodeAndContent(string $name, ?string $code = null): void
     {
-        $block = $this->createBlock($code);
+        $block = $this->createBlock($name, $code);
 
         $this->saveBlock($block);
     }
 
     /**
-     * @Given there is a block with :code code
+     * @Given there is a block :name with :contentElement content element
      */
-    public function thereIsABlockWithCodeAndContent(string $code): void
-    {
-        $block = $this->createBlock($code);
-
-        $this->saveBlock($block);
-    }
-
-    /**
-     * @Given there is a block with :code code and :contentElement content element
-     */
-    public function thereIsABlockWithCodeAndContentElement(string $code, string $contentElement): void
+    public function thereIsABlockWithContentElement(string $code, string $contentElement): void
     {
         $block = $this->createBlockWithContentElement($code, $contentElement);
 
@@ -76,29 +68,33 @@ final class BlockContext implements Context
     }
 
     private function createBlock(
+        ?string $name = null,
         ?string $code = null,
         ?ChannelInterface $channel = null,
     ): BlockInterface {
         /** @var BlockInterface $block */
         $block = $this->blockFactory->createNew();
 
+        if (null === $name) {
+            $name = $this->randomStringGenerator->generate();
+        }
+        if (null === $code) {
+            $code = StringInflector::nameToLowercaseCode($name);
+        }
         if (null === $channel && $this->sharedStorage->has('channel')) {
             $channel = $this->sharedStorage->get('channel');
         }
 
-        if (null === $code) {
-            $code = $this->randomStringGenerator->generate();
-        }
-
+        $block->setName($name);
         $block->setCode($code);
         $block->addChannel($channel);
 
         return $block;
     }
 
-    private function createBlockWithContentElement(string $code, string $contentElement): BlockInterface
+    private function createBlockWithContentElement(string $name, string $contentElement): BlockInterface
     {
-        $block = $this->createBlock($code);
+        $block = $this->createBlock($name);
 
         /** @var ContentConfigurationInterface $contentConfiguration */
         $contentConfiguration = new ContentConfiguration();

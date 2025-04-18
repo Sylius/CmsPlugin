@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_cms.behat.element.admin.content_elements_collection" class="Tests\Sylius\CmsPlugin\Behat\Element\Admin\ContentElementsCollectionElement">
+            <argument type="service" id="behat.mink.default_session" />
+            <argument type="service" id="behat.mink.parameters" />
+            <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
+            <argument>%locale%</argument>
+        </service>
+    </services>
+</container>

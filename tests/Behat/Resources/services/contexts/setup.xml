@@ -42,7 +42,5 @@
                 <argument type="service" id="sylius.behat.shared_storage" />
                 <argument type="service" id="sylius_cms.repository.template" />
             </service>
-
-            <service id="sylius_cms.behat.context.setup.template" class="Tests\Sylius\CmsPlugin\Behat\Context\Setup\TemplateContext" />
     </services>
 </container>

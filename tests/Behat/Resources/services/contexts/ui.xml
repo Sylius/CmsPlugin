@@ -26,6 +26,10 @@
             <argument type="service" id="sylius_cms.repository.page"/>
         </service>
 
+        <service id="sylius_cms.behat.context.ui.admin.content_collection" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\ContentCollectionContext">
+            <argument type="service" id="sylius_cms.behat.element.admin.content_elements_collection" />
+        </service>
+
         <service id="sylius_cms.behat.context.ui.admin.collection" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\CollectionContext">
             <argument type="service" id="sylius.behat.shared_storage"/>
             <argument type="service" id="sylius.behat.current_page_resolver"/>

@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Add element
+        elements: Elements
         blocks: Blocks
         block: Block
         pages: Pages
@@ -78,6 +80,7 @@ sylius_cms:
                 spacer_height: Spacer height in pixels
             heading_type: Heading type
             template: Content elements template
+            template_help: Provides a predefined collection of elements. Changing it will erase current configuration.
         taxon: Taxon
         seo: SEO
         display_for_products:

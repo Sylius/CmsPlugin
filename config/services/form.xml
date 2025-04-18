@@ -13,27 +13,22 @@
         <defaults public="true" />
 
         <service id="sylius_cms.form.type.block" class="Sylius\CmsPlugin\Form\Type\BlockType">
-            <argument type="service" id="sylius.repository.locale" />
-            <argument type="service" id="sylius_cms.provider.resource_template" />
-            <argument type="service" id="sylius_cms.repository.template" />
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>%sylius_cms.form.type.block.validation_groups%</argument>
+            <argument type="service" id="sylius_cms.provider.resource_template" />
             <tag name="form.type" />
         </service>
 
         <service id="sylius_cms.form.type.content_configuration" class="Sylius\CmsPlugin\Form\Type\ContentConfigurationType">
-            <argument>Sylius\CmsPlugin\Entity\ContentConfiguration</argument>
-            <argument>%sylius_cms.form.type.content_configuration.validation_groups%</argument>
             <argument type="tagged_iterator" tag="sylius_cms.content_elements.type" index-by="key" />
             <argument type="service" id="twig" />
             <tag name="form.type" />
         </service>
 
         <service id="sylius_cms.form.type.page" class="Sylius\CmsPlugin\Form\Type\PageType">
-            <argument type="service" id="sylius.repository.locale" />
-            <argument type="service" id="sylius_cms.provider.resource_template" />
             <argument>%sylius_cms.model.page.class%</argument>
             <argument>%sylius_cms.form.type.page.validation_groups%</argument>
+            <argument type="service" id="sylius_cms.provider.resource_template" />
             <tag name="form.type" />
         </service>
 
@@ -73,7 +68,6 @@
         </service>
 
         <service id="sylius_cms.form.type.content_element" class="Sylius\CmsPlugin\Form\Type\ContentElementType">
-            <argument type="tagged_iterator" tag="sylius_cms.content_elements.type" index-by="key" />
             <tag name="form.type" />
         </service>
 
@@ -131,43 +125,54 @@
 
         <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
 
-        <service id="sylius_cms.form.collection_autocomplete_choice"
-                 class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType"
-        >
-            <argument>%sylius_cms.model.collection.class%</argument>
-
-            <tag name="form.type" />
-            <tag name="ux.entity_autocomplete_field" />
-        </service>
-
-        <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteType">
             <argument>%sylius_cms.model.page.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.block_autocomplete" class="Sylius\CmsPlugin\Form\Type\BlockAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.block_autocomplete" class="Sylius\CmsPlugin\Form\Type\BlockAutocompleteType">
             <argument>%sylius_cms.model.block.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.media_autocomplete" class="Sylius\CmsPlugin\Form\Type\MediaAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.media_autocomplete" class="Sylius\CmsPlugin\Form\Type\MediaAutocompleteType">
             <argument>%sylius_cms.model.media.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.template_block_autocomplete_choice" class="Sylius\CmsPlugin\Form\Type\TemplateBlockAutocompleteChoiceType">
+        <service id="sylius_cms.form.type.collection_autocomplete" class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteType">
+            <argument>%sylius_cms.model.collection.class%</argument>
+            <tag name="form.type" />
+            <tag name="ux.entity_autocomplete_field" />
+        </service>
+
+        <service id="sylius_cms.form.type.admin.template_autocomplete" class="Sylius\CmsPlugin\Form\Type\TemplateAutocompleteType">
             <argument>%sylius_cms.model.template.class%</argument>
             <tag name="form.type" />
             <tag name="ux.entity_autocomplete_field" />
         </service>
 
-        <service id="sylius_cms.form.type.collection_autocomplete" class="Sylius\CmsPlugin\Form\Type\CollectionAutocompleteChoiceType">
-            <argument>%sylius_cms.model.collection.class%</argument>
+        <service id="sylius_cms.form.type.admin.content_configuration_translations" class="Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType">
+            <argument type="service" id="sylius.provider.translation_locale.admin" />
+
             <tag name="form.type" />
-            <tag name="ux.entity_autocomplete_field" />
+        </service>
+
+        <service id="sylius_cms.form.type.content_element_choice" class="Sylius\CmsPlugin\Form\Type\ContentElementChoiceType">
+            <argument type="tagged_iterator" tag="sylius_cms.content_elements.type" index-by="key" />
+
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_cms.form.type.admin.content_element_configuration" class="Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType">
+            <argument>Sylius\CmsPlugin\Entity\ContentConfiguration</argument>
+            <argument>%sylius_cms.form.type.content_configuration.validation_groups%</argument>
+            <argument type="tagged_iterator" tag="sylius_cms.content_elements.type" index-by="key" />
+
+            <tag name="form.type" />
         </service>
     </services>
 </container>

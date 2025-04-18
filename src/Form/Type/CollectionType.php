@@ -98,21 +98,21 @@ final class CollectionType extends AbstractResourceType
     {
         switch ($type) {
             case self::PAGE:
-                $form->add('pages', PageAutocompleteChoiceType::class, [
+                $form->add('pages', PageAutocompleteType::class, [
                     'multiple' => true,
                     'required' => false,
                 ]);
 
                 break;
             case self::BLOCK:
-                $form->add('blocks', BlockAutocompleteChoiceType::class, [
+                $form->add('blocks', BlockAutocompleteType::class, [
                     'multiple' => true,
                     'required' => false,
                 ]);
 
                 break;
             case self::MEDIA:
-                $form->add('media', MediaAutocompleteChoiceType::class, [
+                $form->add('media', MediaAutocompleteType::class, [
                     'multiple' => true,
                     'required' => false,
                 ]);

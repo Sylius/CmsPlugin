@@ -10,10 +10,12 @@
 
             <service id="sylius_cms.behat.page.admin.page.create" class="Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page\CreatePage" parent="sylius.behat.page.admin.crud.create" public="false">
                 <argument>sylius_cms_admin_page_create</argument>
+                <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
             </service>
 
             <service id="sylius_cms.behat.page.admin.page.update" class="Tests\Sylius\CmsPlugin\Behat\Page\Admin\Page\UpdatePage" parent="sylius.behat.page.admin.crud.update" public="false">
                 <argument>sylius_cms_admin_page_update</argument>
+                <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
             </service>
     </services>
 </container>

@@ -16,9 +16,11 @@ namespace Sylius\CmsPlugin\Entity;
 use Sylius\Component\Channel\Model\ChannelsAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\ToggleableInterface;
+use Sylius\Resource\Model\CodeAwareInterface;
 
 interface BlockInterface extends
     ResourceInterface,
+    CodeAwareInterface,
     ToggleableInterface,
     CollectibleInterface,
     ChannelsAwareInterface,
@@ -29,10 +31,6 @@ interface BlockInterface extends
     BlockTaxonAwareInterface,
     BlockProductAwareInterface
 {
-    public function getCode(): ?string;
-
-    public function setCode(?string $code): void;
-
     public function getName(): ?string;
 
     public function setName(?string $name): void;

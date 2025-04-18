@@ -149,22 +149,6 @@ final class PageContext implements Context
     }
 
     /**
-     * @When I change textarea content element value to :value
-     */
-    public function iChangeTextareaContentElementValueTo(string $value): void
-    {
-        $this->resolveCurrentPage()->changeTextareaContentElementValue($value);
-    }
-
-    /**
-     * @Then I should see :content in the textarea content element
-     */
-    public function iShouldSeeNewContentInTheTextareaContentElement(string $content): void
-    {
-        Assert::true($this->resolveCurrentPage()->containsTextareaContentElementWithValue($content));
-    }
-
-    /**
      * @When /^I fill "([^"]*)" fields with (\d+) (?:character|characters)$/
      */
     public function iFillFieldsWithCharacters(string $fields, int $length): void
@@ -194,134 +178,6 @@ final class PageContext implements Context
     public function iAddAndCollectionsToIt(string ...$collectionsNames): void
     {
         $this->resolveCurrentPage()->associateCollections($collectionsNames);
-    }
-
-    /**
-     * @When I click on Add button in Content elements section
-     */
-    public function iClickOnAddButtonInContentElementsSection(): void
-    {
-        $this->resolveCurrentPage()->clickOnAddContentElementButton();
-    }
-
-    /**
-     * @When I select :option content element
-     */
-    public function iSelectContentElement(string $option): void
-    {
-        $this->resolveCurrentPage()->selectContentElement($option);
-    }
-
-    /**
-     * @When I add a textarea content element with :content content
-     */
-    public function iAddATextareaContentElementWithContent(string $content): void
-    {
-        $this->resolveCurrentPage()->addTextareaContentElementWithContent($content);
-    }
-
-    /**
-     * @When I add a single media content element with name :name
-     */
-    public function iAddASingleMediaContentElementWithName(string $name): void
-    {
-        $this->resolveCurrentPage()->addSingleMediaContentElementWithName($name);
-    }
-
-    /**
-     * @When I add a multiple media content element with names :firstMediaName and :secondMediaName
-     */
-    public function iAddAMultipleMediaContentElementWithNames(string ...$mediaNames): void
-    {
-        $this->resolveCurrentPage()->addMultipleMediaContentElementWithNames($mediaNames);
-    }
-
-    /**
-     * @When I add a heading content element with type :type and :content content
-     */
-    public function iAddAHeadingContentElementWithTypeAndContent(string $type, string $content): void
-    {
-        $this->resolveCurrentPage()->addHeadingContentElementWithTypeAndContent($type, $content);
-    }
-
-    /**
-     * @When I add a products carousel content element with :firstProductName and :secondProductName products
-     */
-    public function iAddAProductsCarouselContentElementWithProducts(string ...$productsNames): void
-    {
-        $this->resolveCurrentPage()->addProductsCarouselContentElementWithProducts($productsNames);
-    }
-
-    /**
-     * @When I add a products carousel by taxon content element with :taxon taxonomy
-     */
-    public function iAddAProductsCarouselByTaxonContentElementWithTaxon(string $taxon): void
-    {
-        $this->resolveCurrentPage()->addProductsCarouselByTaxonContentElementWithTaxon($taxon);
-    }
-
-    /**
-     * @When I add a products grid content element with :firstProductName and :secondProductName products
-     */
-    public function iAddAProductsGridContentElementWithProducts(string ...$productsNames): void
-    {
-        $this->resolveCurrentPage()->addProductsGridContentElementWithProducts($productsNames);
-    }
-
-    /**
-     * @When I add a products grid by taxon content element with :taxon taxonomy
-     */
-    public function iAddAProductsGridByTaxonContentElementWithTaxon(string $taxon): void
-    {
-        $this->resolveCurrentPage()->addProductsGridByTaxonContentElementWithTaxon($taxon);
-    }
-
-    /**
-     * @When I add a taxons list content element with :firstTaxon and :secondTaxon taxonomy
-     */
-    public function iAddATaxonsListContentElementWithTaxons(string ...$taxons): void
-    {
-        $this->resolveCurrentPage()->addTaxonsListContentElementWithTaxons($taxons);
-    }
-
-    /**
-     * @Then I should see newly created :contentElement content element in Content elements section
-     */
-    public function iShouldSeeNewlyCreatedContentElementInContentElementsSection(string $contentElement): void
-    {
-        Assert::true($this->resolveCurrentPage()->containsContentElement($contentElement));
-    }
-
-    /**
-     * @When I delete the content element
-     */
-    public function iDeleteTheContentElement(): void
-    {
-        $this->resolveCurrentPage()->deleteContentElement();
-    }
-
-    /**
-     * @Then I should not see :contentElement content element in the Content elements section
-     */
-    public function iShouldNotSeeContentElementInTheContentElementsSection(string $contentElement): void
-    {
-        Assert::false($this->resolveCurrentPage()->containsContentElement($contentElement));
-    }
-
-    /**
-     * @Then I select :templateName content template
-     */
-    public function iSelectContentTemplate(string $templateName): void
-    {
-        $this->resolveCurrentPage()->selectContentTemplate($templateName);
-    }
-
-    /**
-     * @Then I confirm that I want to use this template
-     */
-    public function iConfirmThatIWantToUseThisTemplate(): void
-    {
-        $this->resolveCurrentPage()->confirmUseTemplate();
     }
 
     /**
@@ -436,6 +292,21 @@ final class PageContext implements Context
                 '%s can not be longer than',
                 trim($field),
             ), false));
+        }
+    }
+
+    /**
+     * @Then this page should have collections :firstCollection and :secondCollection
+     */
+    public function thisPageShouldHaveCollections(string ...$collectionsNames): void
+    {
+        $pageCollections = $this->resolveCurrentPage()->getCollections();
+        foreach ($collectionsNames as $name) {
+            Assert::inArray(
+                $name,
+                $pageCollections,
+                sprintf('Collection "%s" should be present in the page.', $name),
+            );
         }
     }
 
