@@ -8,18 +8,6 @@
             <argument type="service" id="sylius.generator.slug" />
         </service>
 
-        <service id="sylius_cms.controller.action.admin.product_search" class="Sylius\CmsPlugin\Controller\Action\Admin\ProductSearchAction">
-            <argument type="service" id="sylius.repository.product" />
-            <argument type="service" id="sylius.context.locale" />
-            <argument type="service" id="fos_rest.view_handler.default" />
-        </service>
-
-        <service id="sylius_cms.controller.action.admin.taxon_search" class="Sylius\CmsPlugin\Controller\Action\Admin\TaxonSearchAction">
-            <argument type="service" id="sylius.repository.taxon" />
-            <argument type="service" id="sylius.context.locale" />
-            <argument type="service" id="fos_rest.view_handler.default" />
-        </service>
-
         <service id="sylius_cms.controller.action.admin.import_data" class="Sylius\CmsPlugin\Controller\Action\Admin\ImportDataAction">
             <argument type="service" id="sylius_cms.processor.import" />
             <argument type="service" id="form.factory" />

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Controller;
 
-use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
@@ -73,9 +72,7 @@ final class BlockController extends ResourceController
         $block = $form->getData();
 
         if (!$configuration->isHtmlRequest()) {
-            Assert::true(null !== $this->viewHandler);
-
-            return $this->viewHandler->handle($configuration, View::create($block));
+            $this->createRestView($configuration, $block, Response::HTTP_OK);
         }
 
         /** @var ContentElementRendererStrategyInterface $contentElementRendererStrategy */

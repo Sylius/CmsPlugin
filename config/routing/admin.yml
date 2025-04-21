@@ -10,12 +10,6 @@ sylius_cms_admin_collection:
 sylius_cms_admin_media:
     resource: "@SyliusCmsPlugin/config/routing/admin/media.yml"
 
-sylius_cms_admin_product:
-    resource: "@SyliusCmsPlugin/config/routing/admin/product.yml"
-
-sylius_cms_admin_taxon:
-    resource: "@SyliusCmsPlugin/config/routing/admin/taxon.yml"
-
 sylius_cms_admin_locale:
     resource: "@SyliusCmsPlugin/config/routing/admin/locale.yml"
 

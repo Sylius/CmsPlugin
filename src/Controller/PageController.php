@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Controller;
 
-use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
@@ -86,8 +85,7 @@ final class PageController extends ResourceController
         $this->formErrorsFlashHelper->addFlashErrors($form);
 
         if (!$configuration->isHtmlRequest()) {
-            Assert::true(null !== $this->viewHandler);
-            $this->viewHandler->handle($configuration, View::create($page));
+            $this->createRestView($configuration, $page, Response::HTTP_OK);
         }
 
         return $this->render($configuration->getTemplate(ResourceActions::CREATE . '.html'), [
