@@ -1,8 +1,8 @@
 <div class="card mb-3">
     <div class="card-header">
-        <h5 class="mb-0">{{ 'sylius_cms.ui.manage_block_display'|trans }}</h5>
+        <div class="card-title">{{ 'sylius_cms.ui.manage_block_display'|trans }}</div>
     </div>
-    <div class="card-body">
+    <div class="card-body row">
         {% hook 'display_config' %}
     </div>
 </div>
