@@ -85,7 +85,7 @@ final class PageController extends ResourceController
         $this->formErrorsFlashHelper->addFlashErrors($form);
 
         if (!$configuration->isHtmlRequest()) {
-            $this->createRestView($configuration, $page, Response::HTTP_OK);
+            return $this->createRestView($configuration, $page, Response::HTTP_OK);
         }
 
         return $this->render($configuration->getTemplate(ResourceActions::CREATE . '.html'), [
