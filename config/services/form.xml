@@ -113,10 +113,6 @@
             <tag name="form.type" />
         </service>
 
-        <service id="sylius_cms.form.wysiwyg_strategy.ckeditor" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\CkeditorStrategy">
-            <argument type="service" id="router.default" />
-        </service>
-
         <service id="sylius_cms.form.type.data_transformer.multiple_media_to_codes" class="Sylius\CmsPlugin\Form\DataTransformer\MultipleMediaToCodesTransformer">
             <argument type="service" id="sylius_cms.repository.media" />
         </service>
