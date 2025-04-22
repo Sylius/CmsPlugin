@@ -14,7 +14,7 @@ const adminConfig = SyliusAdmin.getWebpackConfig(path.resolve(__dirname));
 Encore
     .setOutputPath('public/build/app/shop')
     .setPublicPath('/build/app/shop')
-    .addEntry('app-shop-entry', './assets/shop/entry.js')
+    .addEntry('app-shop-entry', './assets/shop/entrypoint.js')
     .addAliases({
         '@vendor': path.resolve(__dirname, '../../vendor'),
     })
@@ -22,7 +22,9 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .enableSassLoader();
+    .enableSassLoader()
+    .enableStimulusBridge(path.resolve(__dirname, './assets/shop/controllers.json'))
+;
 
 const appShopConfig = Encore.getWebpackConfig();
 
@@ -34,11 +36,10 @@ appShopConfig.name = 'app.shop';
 
 Encore.reset();
 
-// App admin config: CKEditor entry
 Encore
     .setOutputPath('public/build/app/admin')
     .setPublicPath('/build/app/admin')
-    .addEntry('app-admin-ckeditor-entry', './assets/admin/entry.js') // classic CKEditor
+    .addEntry('app-admin-entry', './assets/admin/entrypoint.js')
     .addAliases({
         '@vendor': path.resolve(__dirname, '../../vendor'),
     })
@@ -46,44 +47,21 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .enableSassLoader();
+    .enableSassLoader()
+    .enableStimulusBridge(path.resolve(__dirname, './assets/admin/controllers.json'))
+;
 
-const appAdminCkeditorConfig = Encore.getWebpackConfig();
+const appAdminConfig = Encore.getWebpackConfig();
 
-appAdminCkeditorConfig.externals = Object.assign({}, appAdminCkeditorConfig.externals, {
+appAdminConfig.externals = Object.assign({}, appAdminConfig.externals, {
     window: 'window',
     document: 'document',
 });
-appAdminCkeditorConfig.name = 'app.admin.ckeditor';
-
-Encore.reset();
-
-// App admin config: Trix entry
-Encore
-    .setOutputPath('public/build/app/admin')
-    .setPublicPath('/build/app/admin')
-    .addEntry('app-admin-trix-entry', './assets/admin/trix-entry.js') // trix version
-    .addAliases({
-        '@vendor': path.resolve(__dirname, '../../vendor'),
-    })
-    .disableSingleRuntimeChunk()
-    .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
-    .enableVersioning(Encore.isProduction())
-    .enableSassLoader();
-
-const appAdminTrixConfig = Encore.getWebpackConfig();
-
-appAdminTrixConfig.externals = Object.assign({}, appAdminTrixConfig.externals, {
-    window: 'window',
-    document: 'document',
-});
-appAdminTrixConfig.name = 'app.admin.trix';
+appAdminConfig.name = 'app.admin';
 
 module.exports = [
-    shopConfig,
     adminConfig,
-    appShopConfig,
-    appAdminCkeditorConfig,
-    appAdminTrixConfig
+    shopConfig,
+    appAdminConfig,
+    appShopConfig
 ];
