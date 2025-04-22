@@ -79,15 +79,6 @@
             "ref": "3762cc4e4f2d6faabeca5a151b41c8c791bd96e5"
         }
     },
-    "jms/serializer-bundle": {
-        "version": "5.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "4.0",
-            "ref": "cc04e10cf7171525b50c18b36004edf64cb478be"
-        }
-    },
     "knplabs/knp-gaufrette-bundle": {
         "version": "v0.9.0"
     },

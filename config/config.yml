@@ -25,13 +25,6 @@ api_platform:
         paths:
             - '%sylius_cms_api_platform_mapping_path%'
 
-jms_serializer:
-    metadata:
-        directories:
-            cms-section:
-                namespace_prefix: "Sylius\\CmsPlugin"
-                path: "@SyliusCmsPlugin/config/serializer"
-
 knp_gaufrette:
     adapters:
         sylius_cms_media:
