@@ -43,7 +43,7 @@ final class BlockController extends ResourceController
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $block);
 
         if (!$configuration->isHtmlRequest()) {
-            $this->createRestView($configuration, $block, Response::HTTP_OK);
+            return $this->createRestView($configuration, $block, Response::HTTP_OK);
         }
 
         return $this->render($block->getTemplate() ?? self::BLOCK_TEMPLATE, [
@@ -69,7 +69,7 @@ final class BlockController extends ResourceController
         $block = $form->getData();
 
         if (!$configuration->isHtmlRequest()) {
-            $this->createRestView($configuration, $block, Response::HTTP_OK);
+            return $this->createRestView($configuration, $block, Response::HTTP_OK);
         }
 
         /** @var ContentElementRendererStrategyInterface $contentElementRendererStrategy */
