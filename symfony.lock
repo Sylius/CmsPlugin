@@ -70,15 +70,6 @@
             "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
         }
     },
-    "friendsofsymfony/rest-bundle": {
-        "version": "3.8",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "3.0",
-            "ref": "3762cc4e4f2d6faabeca5a151b41c8c791bd96e5"
-        }
-    },
     "knplabs/knp-gaufrette-bundle": {
         "version": "v0.9.0"
     },
