@@ -1,1 +1,1 @@
-import '../../../../assets/admin/trix-entry';
+import '../../../../assets/admin/js/cms/trix-editor';

@@ -1,5 +1,4 @@
 imports:
-    - { resource: "@SyliusCmsPlugin/config/fos_ck_editor/fos_ck_editor.yml" }
     - { resource: "@SyliusCmsPlugin/config/grids.yml" }
     - { resource: "@SyliusCmsPlugin/config/services.xml" }
     - { resource: "@SyliusCmsPlugin/config/fixtures/*.yaml"}

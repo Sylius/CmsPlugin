@@ -3,6 +3,4 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:
-        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
-        - '@SyliusCmsPlugin/Form/ckeditor_widget.html.twig'
         - '@SyliusCmsPlugin/Widget/_trixWidget.html.twig'
