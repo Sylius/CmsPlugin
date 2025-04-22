@@ -5,7 +5,7 @@ framework:
                 json_manifest_path: '%kernel.project_dir%/public/build/shop/manifest.json'
             admin:
                 json_manifest_path: '%kernel.project_dir%/public/build/admin/manifest.json'
-            cms_shop:
-                json_manifest_path: '%kernel.project_dir%/public/build/cms/shop/manifest.json'
-            cms_admin:
-                json_manifest_path: '%kernel.project_dir%/public/build/cms/admin/manifest.json'
+            app.shop:
+                json_manifest_path: '%kernel.project_dir%/public/build/app/shop/manifest.json'
+            app.admin:
+                json_manifest_path: '%kernel.project_dir%/public/build/app/admin/manifest.json'
