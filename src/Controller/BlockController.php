@@ -20,7 +20,6 @@ use Sylius\CmsPlugin\Resolver\BlockResourceResolverInterface;
 use Sylius\Component\Resource\ResourceActions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Webmozart\Assert\Assert;
 
 final class BlockController extends ResourceController
 {
@@ -44,9 +43,7 @@ final class BlockController extends ResourceController
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $block);
 
         if (!$configuration->isHtmlRequest()) {
-            Assert::true(null !== $this->viewHandler);
-
-            return $this->viewHandler->handle($configuration, View::create($block));
+            $this->createRestView($configuration, $block, Response::HTTP_OK);
         }
 
         return $this->render($block->getTemplate() ?? self::BLOCK_TEMPLATE, [
