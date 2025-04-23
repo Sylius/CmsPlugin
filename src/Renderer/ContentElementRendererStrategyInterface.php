@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Renderer;
 
-use Sylius\CmsPlugin\Entity\BlockInterface;
-use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Entity\ContentElementsAwareInterface;
 
 interface ContentElementRendererStrategyInterface
 {
-    public function render(BlockInterface|PageInterface $item): string;
+    public function render(ContentElementsAwareInterface $item): string;
 }
