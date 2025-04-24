@@ -16,11 +16,13 @@ sylius_twig_hooks:
 
         'sylius_cms.admin.page.create.content.form.sections':
             general:
-                enabled: false
-
-        'sylius_cms.admin.page.create.content.form.sections#left':
-            general:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general.html.twig'
+                priority: 400
+            collections:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/collections.html.twig'
+                priority: 300
+            content:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content.html.twig'
                 priority: 200
             teaser:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/teaser.html.twig'
@@ -29,34 +31,31 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/seo.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.page.create.content.form.sections#right':
-            content:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/content.html.twig'
-                priority: 0
-
         'sylius_cms.admin.page.create.content.form.sections.general':
             default:
                 enabled: false
-            name:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/name.html.twig'
-                priority: 600
             code:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/code.html.twig'
-                priority: 500
-            enabled:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/enabled.html.twig'
-                priority: 400
-            channels:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/channels.html.twig'
                 priority: 300
-            collections:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/collections.html.twig'
+            name:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/name.html.twig'
                 priority: 200
+            buttons:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons.html.twig'
+                priority: 100
             publish_at:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/publish_at.html.twig'
                 priority: 100
             preview:
                 template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.page.create.content.form.sections.general.buttons':
+            enabled:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons/enabled.html.twig'
+                priority: 100
+            channels:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons/channels.html.twig'
                 priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.content':

@@ -1,1 +1,5 @@
-{{ form_row(hookable_metadata.context.form.template, sylius_test_form_attribute('template')) }}
+{% set form = hookable_metadata.context.form %}
+
+<div class="card-body">
+    {{ form_row(form.template, sylius_test_form_attribute('template')) }}
+</div>

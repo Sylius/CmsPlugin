@@ -1,1 +1,5 @@
-{{ form_row(hookable_metadata.context.form.publishAt, sylius_test_form_attribute('publish-at')) }}
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12 col-md-6">
+    {{ form_row(form.publishAt, sylius_test_form_attribute('publish-at')) }}
+</div>
