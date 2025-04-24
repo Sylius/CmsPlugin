@@ -63,8 +63,8 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->enumNode('wysiwyg_editor')
-                    ->values(['trix', 'ckeditor'])
-                    ->defaultValue('ckeditor');
+                    ->values(['trix'])
+                    ->defaultValue('trix');
         $this->addResourcesSection($rootNode);
         $this->addTemplatesSection($rootNode);
 
