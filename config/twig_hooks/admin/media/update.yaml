@@ -35,29 +35,29 @@ sylius_twig_hooks:
                 enabled: false
             code:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/code.html.twig'
-                priority: 400
+                priority: 300
             name:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/name.html.twig'
-                priority: 300
+                priority: 200
             enabled:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/enabled.html.twig'
-                priority: 200
+                priority: 100
             channels:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/channels.html.twig'
-                priority: 100
+                priority: 0
 
         'sylius_cms.admin.media.update.content.form.sections.media':
-            type:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
-                priority: 400
             file:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/file.html.twig'
+                priority: 400
+            type:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
                 priority: 300
-            save_with_original_filename:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
-                priority: 200
             path:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/path.html.twig'
+                priority: 200
+            save_with_original_filename:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
                 priority: 100
             preview:
                 component: 'sylius_cms:admin:media:preview'

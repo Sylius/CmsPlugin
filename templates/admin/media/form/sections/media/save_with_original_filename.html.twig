@@ -1,3 +1,5 @@
+{% set form = hookable_metadata.context.form %}
+
 <div class="col-12">
-    {{ form_row(hookable_metadata.context.form.saveWithOriginalName, sylius_test_form_attribute('save-with-original-filename')) }}
+    {{ form_row(form.saveWithOriginalName, sylius_test_form_attribute('save-with-original-filename')) }}
 </div>

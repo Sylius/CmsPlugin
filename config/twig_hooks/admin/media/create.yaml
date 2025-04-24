@@ -51,11 +51,11 @@ sylius_twig_hooks:
             file:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/file.html.twig'
                 priority: 200
-            save_with_original_filename:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
-                priority: 100
             path:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/path.html.twig'
+                priority: 100
+            save_with_original_filename:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
                 priority: 0
 
         'sylius_cms.admin.media.create.content.form.sections.translations':

@@ -1,3 +1,5 @@
-<div class="col-12 pt-2">
-    {{ form_row(hookable_metadata.context.form.enabled, sylius_test_form_attribute('enabled')) }}
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    {{ form_row(form.enabled, sylius_test_form_attribute('enabled')) }}
 </div>

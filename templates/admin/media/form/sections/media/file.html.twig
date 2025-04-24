@@ -1,3 +1,5 @@
-<div class="col-12">
-    {{ form_row(hookable_metadata.context.form.file, sylius_test_form_attribute('file')) }}
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12 col-md-6">
+    {{ form_row(form.file, sylius_test_form_attribute('file')) }}
 </div>
