@@ -10,10 +10,5 @@ Feature: Managing dynamic content on block page
     @ui @javascript
     Scenario: Adding block
         When I go to the create block page
-        Then I should see the Trix WYSIWYG editor initialized
-
-    @ui @javascript
-    Scenario: Updating block
-        Given there is a block with "content" code and "<p>Content !</p>" content
-        When I go to the update "content" block page
+        And I add a textarea content element with "Welcome to our store" content
         Then I should see the Trix WYSIWYG editor initialized

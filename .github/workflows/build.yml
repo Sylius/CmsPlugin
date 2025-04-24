@@ -207,11 +207,7 @@ jobs:
                 name: Run Behat
                 run: |
                     vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_content_templates" --rerun
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_collections" --rerun
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_blocks&&~@wysiwyg" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_blocks&&~@wysiwyg" --rerun
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_media&&~@wysiwyg" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_media&&~@wysiwyg" --rerun
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_pages&&~@wysiwyg" || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags="@managing_pages&&~@wysiwyg" --rerun
+                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/admin || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/admin
 
             -
                 name: Upload Behat logs
