@@ -113,17 +113,15 @@
             <tag name="form.type" />
         </service>
 
-        <service id="sylius_cms.form.wysiwyg_strategy.ckeditor" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\CkeditorStrategy">
-            <argument type="service" id="router.default" />
-        </service>
-
         <service id="sylius_cms.form.type.data_transformer.multiple_media_to_codes" class="Sylius\CmsPlugin\Form\DataTransformer\MultipleMediaToCodesTransformer">
             <argument type="service" id="sylius_cms.repository.media" />
         </service>
 
         <service id="sylius_cms.form.data_transformer.content_element_checker" class="Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker"/>
 
-        <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
+        <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy">
+            <tag name="sylius_cms.wysiwyg_strategy" strategy="trix" />
+        </service>
 
         <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteType">
             <argument>%sylius_cms.model.page.class%</argument>

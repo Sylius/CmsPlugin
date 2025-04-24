@@ -79,12 +79,8 @@
         </service>
 
         <service id="sylius_cms.resolver.wysiwyg_strategy_resolver"
-                 class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver"
-        >
-            <argument type="collection">
-                <argument key="ckeditor" type="service" id="sylius_cms.form.wysiwyg_strategy.ckeditor"/>
-                <argument key="trix" type="service" id="sylius_cms.form.wysiwyg_strategy.trix" />
-            </argument>
+                 class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver">
+            <argument type="tagged_iterator" tag="sylius_cms.wysiwyg_strategy" index-by="strategy" />
             <argument>%sylius_cms.wysiwyg_editor%</argument>
         </service>
     </services>

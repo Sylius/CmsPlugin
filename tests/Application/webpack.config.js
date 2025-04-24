@@ -28,14 +28,11 @@ Encore
 
 const appShopConfig = Encore.getWebpackConfig();
 
-appShopConfig.externals = Object.assign({}, appShopConfig.externals, {
-    window: 'window',
-    document: 'document',
-});
 appShopConfig.name = 'app.shop';
 
 Encore.reset();
 
+// App admin config
 Encore
     .setOutputPath('public/build/app/admin')
     .setPublicPath('/build/app/admin')
@@ -53,10 +50,6 @@ Encore
 
 const appAdminConfig = Encore.getWebpackConfig();
 
-appAdminConfig.externals = Object.assign({}, appAdminConfig.externals, {
-    window: 'window',
-    document: 'document',
-});
 appAdminConfig.name = 'app.admin';
 
 module.exports = [
