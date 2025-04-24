@@ -6,7 +6,7 @@
 
 twig:
     form_themes:
-        - '@SyliusCmsPlugin/Widget/_trixWidget.html.twig'
+        - '@SyliusCmsPlugin/Widget/trix.html.twig'
 ```
 
 2. Add the file `config/packages/sylius_cms_plugin.yaml` (if it doesn't exist) and add the following configuration:
