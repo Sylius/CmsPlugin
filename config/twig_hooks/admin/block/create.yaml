@@ -16,17 +16,14 @@ sylius_twig_hooks:
 
         'sylius_cms.admin.block.create.content.form.sections':
             general:
-                enabled: false
-
-        'sylius_cms.admin.block.create.content.form.sections#left':
-            general:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general.html.twig'
-                priority: 100
+                priority: 300
+            collections:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/collections.html.twig'
+                priority: 200
             display_config:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/display_config.html.twig'
-                priority: 0
-
-        'sylius_cms.admin.block.create.content.form.sections#right':
+                priority: 100
             content:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/content.html.twig'
                 priority: 0
@@ -36,18 +33,15 @@ sylius_twig_hooks:
                 enabled: false
             code:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/code.html.twig'
-                priority: 400
+                priority: 300
             name:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/name.html.twig'
-                priority: 300
+                priority: 200
             enabled:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/enabled.html.twig'
-                priority: 200
+                priority: 100
             channels:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/channels.html.twig'
-                priority: 100
-            collections:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general/collections.html.twig'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form.sections.display_config':
