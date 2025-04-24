@@ -18,11 +18,10 @@ sylius_twig_hooks:
 
         'sylius_admin.media.update.content.form.sections':
             general:
-                enabled: false
-
-        'sylius_admin.media.update.content.form.sections#left':
-            general:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general.html.twig'
+                priority: 300
+            collections:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/collections.html.twig'
                 priority: 200
             media:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media.html.twig'
@@ -31,39 +30,42 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.media.update.content.form.sections#right':
-            preview:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/preview.html.twig'
-                priority: 0
-
         'sylius_cms.admin.media.update.content.form.sections.general':
             default:
                 enabled: false
             code:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/code.html.twig'
-                priority: 400
+                priority: 300
             name:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/name.html.twig'
-                priority: 300
+                priority: 200
             enabled:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/enabled.html.twig'
-                priority: 200
+                priority: 100
             channels:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/general/channels.html.twig'
-                priority: 100
-            collections:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/general/collections.html.twig'
                 priority: 0
 
         'sylius_cms.admin.media.update.content.form.sections.media':
-            type:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
-                priority: 200
             file:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/file.html.twig'
-                priority: 100
+                priority: 400
+            type:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
+                priority: 300
+            path:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/path.html.twig'
+                priority: 200
             save_with_original_filename:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/save_with_original_filename.html.twig'
+                priority: 100
+            preview:
+                component: 'sylius_cms:admin:media:preview'
+                props:
+                    resource: '@=_context.resource'
+                    imageTemplate: '@SyliusCmsPlugin/admin/media/preview/image.html.twig'
+                    videoTemplate: '@SyliusCmsPlugin/admin/media/preview/video.html.twig'
+                    fileTemplate: '@SyliusCmsPlugin/admin/media/preview/file.html.twig'
                 priority: 0
 
         'sylius_cms.admin.media.update.content.form.sections.translations':
@@ -75,17 +77,4 @@ sylius_twig_hooks:
                 priority: 100
             content:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations/content.html.twig'
-                priority: 0
-
-        'sylius_cms.admin.media.update.content.form.sections.preview':
-            path:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/preview/path.html.twig'
-                priority: 100
-            preview:
-                component: 'sylius_cms:admin:media:preview'
-                props:
-                    resource: '@=_context.resource'
-                    imageTemplate: '@SyliusCmsPlugin/admin/media/preview/image.html.twig'
-                    videoTemplate: '@SyliusCmsPlugin/admin/media/preview/video.html.twig'
-                    fileTemplate: '@SyliusCmsPlugin/admin/media/preview/file.html.twig'
                 priority: 0
