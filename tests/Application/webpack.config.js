@@ -14,7 +14,7 @@ const adminConfig = SyliusAdmin.getWebpackConfig(path.resolve(__dirname));
 Encore
     .setOutputPath('public/build/app/shop')
     .setPublicPath('/build/app/shop')
-    .addEntry('app-shop-entry', './assets/shop/entry.js')
+    .addEntry('app-shop-entry', './assets/shop/entrypoint.js')
     .addAliases({
         '@vendor': path.resolve(__dirname, '../../vendor'),
     })
@@ -22,7 +22,9 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .enableSassLoader();
+    .enableSassLoader()
+    .enableStimulusBridge(path.resolve(__dirname, './assets/shop/controllers.json'))
+;
 
 const appShopConfig = Encore.getWebpackConfig();
 
@@ -38,8 +40,7 @@ Encore.reset();
 Encore
     .setOutputPath('public/build/app/admin')
     .setPublicPath('/build/app/admin')
-    .addEntry('app-admin-entry', './assets/admin/entry.js')
-    .addEntry('app-admin-trix-entry', './assets/admin/trix-entry.js')
+    .addEntry('app-admin-entry', './assets/admin/entrypoint.js')
     .addAliases({
         '@vendor': path.resolve(__dirname, '../../vendor'),
     })
@@ -47,7 +48,9 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .enableSassLoader();
+    .enableSassLoader()
+    .enableStimulusBridge(path.resolve(__dirname, './assets/admin/controllers.json'))
+;
 
 const appAdminConfig = Encore.getWebpackConfig();
 
@@ -58,8 +61,8 @@ appAdminConfig.externals = Object.assign({}, appAdminConfig.externals, {
 appAdminConfig.name = 'app.admin';
 
 module.exports = [
-    shopConfig,
     adminConfig,
-    appShopConfig,
-    appAdminConfig
+    shopConfig,
+    appAdminConfig,
+    appShopConfig
 ];
