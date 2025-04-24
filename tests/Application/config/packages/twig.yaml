@@ -3,4 +3,4 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:
-        - '@SyliusCmsPlugin/Widget/trix.html.twig'
+        - '@SyliusCmsPlugin/widget/trix.html.twig'
