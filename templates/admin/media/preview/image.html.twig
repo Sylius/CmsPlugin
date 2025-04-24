@@ -1,5 +1,5 @@
 <div class="col-12">
-    <label for="sylius_cms_media_path" class="form-label">Preview</label>
+    <label for="sylius_cms_media_path" class="form-label">{{ 'sylius_cms.ui.preview'|trans }}</label>
     <div class="ui image">
         <a href="{{ path|imagine_filter('sylius_shop_product_original') }}">
             <img src="{{ path|imagine_filter('sylius_shop_product_original') }}"/>
