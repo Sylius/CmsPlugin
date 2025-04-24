@@ -19,13 +19,15 @@ final class WysiwygStrategyResolver implements WysiwygStrategyResolverInterface
 {
     /** @param array<string, WysiwygStrategyInterface> $strategies */
     public function __construct(
-        private array $strategies,
+        private iterable $strategies,
         private string $default,
     ) {
     }
 
     public function getStrategy(string $wysiwygType): WysiwygStrategyInterface
     {
-        return $this->strategies[$wysiwygType] ?? $this->strategies[$this->default];
+        $strategies = is_array($this->strategies) ? $this->strategies : iterator_to_array($this->strategies);
+
+        return $strategies[$wysiwygType] ?? $strategies[$this->default];
     }
 }

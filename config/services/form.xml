@@ -119,7 +119,9 @@
 
         <service id="sylius_cms.form.data_transformer.content_element_checker" class="Sylius\CmsPlugin\Form\DataTransformer\ContentElementDataTransformerChecker"/>
 
-        <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy" />
+        <service id="sylius_cms.form.wysiwyg_strategy.trix" class="Sylius\CmsPlugin\Form\Strategy\Wysiwyg\TrixStrategy">
+            <tag name="sylius_cms.wysiwyg_strategy" strategy="trix" />
+        </service>
 
         <service id="sylius_cms.form.type.page_autocomplete" class="Sylius\CmsPlugin\Form\Type\PageAutocompleteType">
             <argument>%sylius_cms.model.page.class%</argument>
