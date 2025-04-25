@@ -34,8 +34,9 @@ final class ContentElementRendererStrategy implements ContentElementRendererStra
     {
         $content = '';
 
+        $locale = $this->localeContext->getLocaleCode();
         foreach ($item->getContentElements() as $contentElement) {
-            if ($contentElement->getLocale() !== $this->localeContext->getLocaleCode()) {
+            if ($contentElement->getLocale() !== $locale) {
                 continue;
             }
 

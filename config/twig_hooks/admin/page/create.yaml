@@ -39,21 +39,24 @@ sylius_twig_hooks:
                 enabled: false
             name:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/name.html.twig'
-                priority: 500
+                priority: 600
             code:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/code.html.twig'
-                priority: 400
+                priority: 500
             enabled:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/enabled.html.twig'
-                priority: 300
+                priority: 400
             channels:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/channels.html.twig'
-                priority: 200
+                priority: 300
             collections:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/collections.html.twig'
-                priority: 100
+                priority: 200
             publish_at:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/publish_at.html.twig'
+                priority: 100
+            preview:
+                template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
                 priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.content':

@@ -22,7 +22,8 @@ use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
  * @mixin ComponentWithFormTrait
- * @mixin ContentConfigurationTranslationsType
+ *
+ * @see ContentConfigurationTranslationsType
  */
 trait ContentElementsCollectionFormComponentTrait
 {

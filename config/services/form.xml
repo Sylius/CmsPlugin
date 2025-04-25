@@ -29,6 +29,7 @@
             <argument>%sylius_cms.model.page.class%</argument>
             <argument>%sylius_cms.form.type.page.validation_groups%</argument>
             <argument type="service" id="sylius_cms.provider.resource_template" />
+            <argument type="service" id="sylius.context.locale" />
             <tag name="form.type" />
         </service>
 
