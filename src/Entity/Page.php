@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Entity;
 use Sylius\CmsPlugin\Entity\Trait\ChannelsAwareTrait;
 use Sylius\CmsPlugin\Entity\Trait\CollectibleTrait;
 use Sylius\CmsPlugin\Entity\Trait\ContentElementsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\StaticTemplateAwareTrait;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
@@ -27,6 +28,7 @@ class Page implements PageInterface
     use CollectibleTrait;
     use TimestampableTrait;
     use ChannelsAwareTrait;
+    use StaticTemplateAwareTrait;
     use ContentElementsAwareTrait;
     use TranslatableTrait {
         __construct as protected initializeTranslationsCollection;
@@ -37,8 +39,6 @@ class Page implements PageInterface
     protected ?string $code = null;
 
     protected ?string $name = null;
-
-    protected ?string $template = null;
 
     protected ?\DateTimeImmutable $publishAt;
 
@@ -170,16 +170,6 @@ class Page implements PageInterface
     public function setName(?string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getTemplate(): ?string
-    {
-        return $this->template;
-    }
-
-    public function setTemplate(?string $template): void
-    {
-        $this->template = $template;
     }
 
     public function getTitle(): ?string

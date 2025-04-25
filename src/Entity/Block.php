@@ -18,6 +18,7 @@ use Sylius\CmsPlugin\Entity\Trait\CollectibleTrait;
 use Sylius\CmsPlugin\Entity\Trait\ContentElementsAwareTrait;
 use Sylius\CmsPlugin\Entity\Trait\ProductsAwareTrait;
 use Sylius\CmsPlugin\Entity\Trait\ProductsInTaxonsAwareTrait;
+use Sylius\CmsPlugin\Entity\Trait\StaticTemplateAwareTrait;
 use Sylius\CmsPlugin\Entity\Trait\TaxonAwareTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
 
@@ -26,6 +27,7 @@ class Block implements BlockInterface
     use ToggleableTrait;
     use CollectibleTrait;
     use ChannelsAwareTrait;
+    use StaticTemplateAwareTrait;
     use ContentElementsAwareTrait;
     use ProductsAwareTrait;
     use TaxonAwareTrait;
@@ -72,15 +74,5 @@ class Block implements BlockInterface
     public function setName(?string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getTemplate(): ?string
-    {
-        return $this->template;
-    }
-
-    public function setTemplate(?string $template): void
-    {
-        $this->template = $template;
     }
 }
