@@ -54,30 +54,6 @@
             <argument type="service" id="sylius_cms.registry.media_provider" />
         </service>
 
-        <service id="sylius_cms.resolver.importer_collections" class="Sylius\CmsPlugin\Resolver\Importer\ImporterCollectionsResolver">
-            <argument type="service" id="sylius_cms.assigner.collections" />
-        </service>
-
-        <service id="sylius_cms.resolver.importer_channels" class="Sylius\CmsPlugin\Resolver\Importer\ImporterChannelsResolver">
-            <argument type="service" id="sylius_cms.assigner.channels" />
-        </service>
-
-        <service id="sylius_cms.resolver.importer_products" class="Sylius\CmsPlugin\Resolver\Importer\ImporterProductsResolver">
-            <argument type="service" id="sylius_cms.assigner.products" />
-        </service>
-
-        <service id="sylius_cms.resolver.importer_taxons" class="Sylius\CmsPlugin\Resolver\Importer\ImporterTaxonsResolver">
-            <argument type="service" id="sylius_cms.assigner.taxons" />
-        </service>
-
-        <service id="sylius_cms.resolver.importer_products_in_taxons" class="Sylius\CmsPlugin\Resolver\Importer\ImporterProductsInTaxonsResolver">
-            <argument type="service" id="sylius_cms.assigner.products_in_taxons" />
-        </service>
-
-        <service id="sylius_cms.resolver.importer_locales" class="Sylius\CmsPlugin\Resolver\Importer\ImporterLocalesResolver">
-            <argument type="service" id="sylius_cms.assigner.locales" />
-        </service>
-
         <service id="sylius_cms.resolver.wysiwyg_strategy_resolver"
                  class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver">
             <argument type="tagged_iterator" tag="sylius_cms.wysiwyg_strategy" index-by="strategy" />

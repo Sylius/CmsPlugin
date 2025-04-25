@@ -44,10 +44,6 @@
             <tag name="form.type" />
         </service>
 
-        <service id="sylius_cms.form.type.import" class="Sylius\CmsPlugin\Form\Type\ImportType">
-            <tag name="form.type" />
-        </service>
-
         <service id="sylius_cms.form.type.translation.media" class="Sylius\CmsPlugin\Form\Type\Translation\MediaTranslationType">
             <argument>%sylius_cms.model.media_translation.class%</argument>
             <argument>%sylius_cms.form.type.translation.media.validation_groups%</argument>
