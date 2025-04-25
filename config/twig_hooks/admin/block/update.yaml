@@ -35,15 +35,18 @@ sylius_twig_hooks:
                 enabled: false
             code:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/code.html.twig'
-                priority: 300
+                priority: 400
             name:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/name.html.twig'
-                priority: 200
+                priority: 300
             enabled:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/enabled.html.twig'
-                priority: 100
+                priority: 200
             channels:
                 template: '@SyliusCmsPlugin/admin/block/form/sections/general/channels.html.twig'
+                priority: 100
+            preview:
+                template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
                 priority: 0
 
         'sylius_cms.admin.block.update.content.form.sections.display_config':

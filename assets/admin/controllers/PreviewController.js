@@ -30,8 +30,6 @@ export default class extends Controller {
     }
 
     updateContent(content) {
-        this.containerTarget.innerHTML = '';
-
         const contentBlob = new Blob([content], {type: 'text/html'});
         const iframe= document.createElement('iframe');
 
@@ -39,6 +37,7 @@ export default class extends Controller {
         iframe.style.height = '85vh';
         iframe.src = window.URL.createObjectURL(contentBlob);
 
+        this.containerTarget.innerHTML = '';
         this.containerTarget.appendChild(iframe);
     }
 

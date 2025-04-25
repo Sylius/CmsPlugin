@@ -23,6 +23,7 @@ use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponent
 use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Resource\Model\TranslatableInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -69,5 +70,17 @@ class FormComponent
         $this->formValues['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(
             $this->formValues['name'],
         );
+    }
+
+    protected function beforePreviewDispatch(): void
+    {
+        if (!$this->resource instanceof TranslatableInterface) {
+            return;
+        }
+
+        $locale = $this->localeCode !== '' ? $this->localeCode : 'en_US';
+
+        $this->resource->setFallbackLocale($locale);
+        $this->resource->setCurrentLocale($locale);
     }
 }

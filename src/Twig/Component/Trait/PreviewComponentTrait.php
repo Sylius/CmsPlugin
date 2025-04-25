@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
+use Sylius\Resource\Model\ResourceInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
-use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Twig\Environment;
@@ -44,8 +44,6 @@ trait PreviewComponentTrait
             return;
         }
 
-        $this->submitForm();
-
         $this->dispatchPreviewEvent(self::RENDER_PREVIEW_EVENT);
     }
 
@@ -65,12 +63,26 @@ trait PreviewComponentTrait
         $this->previewTemplate = $previewTemplate;
     }
 
-    private function dispatchPreviewEvent(string $eventName): void
+    protected function dispatchPreviewEvent(string $eventName): void
     {
+        $this->submitForm();
+
+        $this->beforePreviewDispatch();
+
         $this->dispatchBrowserEvent($eventName, [
-            'content' => $this->twig->render($this->previewTemplate, [
-                'resource' => $this->resource,
-            ]),
+            'content' => $this->twig->render($this->previewTemplate, $this->getRenderParameters()),
         ]);
+    }
+
+    /** @return array{resource: ResourceInterface|null} */
+    protected function getRenderParameters(): array
+    {
+        return [
+            'resource' => $this->resource,
+        ];
+    }
+
+    protected function beforePreviewDispatch(): void
+    {
     }
 }
