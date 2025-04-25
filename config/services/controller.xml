@@ -8,15 +8,6 @@
             <argument type="service" id="sylius.generator.slug" />
         </service>
 
-        <service id="sylius_cms.controller.action.admin.import_data" class="Sylius\CmsPlugin\Controller\Action\Admin\ImportDataAction">
-            <argument type="service" id="sylius_cms.processor.import" />
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="request_stack" />
-            <argument type="service" id="sylius_cms.controller.helper.form_errors_flash" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="twig" />
-        </service>
-
         <service id="sylius_cms.controller.action.admin.upload_editor_image" class="Sylius\CmsPlugin\Controller\Action\Admin\UploadEditorImageAction">
             <argument type="service" id="sylius_cms.resolver.media_provider" />
             <argument type="service" id="sylius_cms.repository.media" />

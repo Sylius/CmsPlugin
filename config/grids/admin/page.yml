@@ -54,10 +54,6 @@ sylius_grid:
                         fields: [collections.code]
             actions:
                 main:
-                    import:
-                        type: import
-                        options:
-                            resourceCode: page
                     create:
                         type: create
                 item:
