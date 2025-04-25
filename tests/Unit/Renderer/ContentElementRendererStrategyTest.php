@@ -95,7 +95,7 @@ final class ContentElementRendererStrategyTest extends TestCase
         $unsupportedElementMock = $this->createMock(ContentConfigurationInterface::class);
 
         $blockMock->expects(self::once())->method('getContentElements')->willReturn(new ArrayCollection([$supportedElementMock, $unsupportedElementMock]));
-        $this->localeContextMock->expects(self::exactly(2))->method('getLocaleCode')->willReturn('en_US');
+        $this->localeContextMock->expects(self::once())->method('getLocaleCode')->willReturn('en_US');
         $supportedElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
         $unsupportedElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
 
