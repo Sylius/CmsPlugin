@@ -57,7 +57,7 @@ sylius_twig_hooks:
 
         'sylius_cms.admin.page.create.content.form.sections.content':
             fields:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/content/template.html.twig'
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content/fields.html.twig'
                 priority: 100
             translations:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations.html.twig'
