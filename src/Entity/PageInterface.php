@@ -29,6 +29,7 @@ interface PageInterface extends
     CollectibleInterface,
     TimestampableInterface,
     ChannelsAwareInterface,
+    StaticTemplateAwareInterface,
     SlugAwareInterface,
     ContentElementsAwareInterface,
     TeaserInterface
@@ -44,10 +45,6 @@ interface PageInterface extends
     public function getName(): ?string;
 
     public function setName(?string $name): void;
-
-    public function getTemplate(): ?string;
-
-    public function setTemplate(?string $template): void;
 
     public function getTitle(): ?string;
 

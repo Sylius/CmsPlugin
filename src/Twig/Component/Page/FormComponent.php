@@ -20,13 +20,16 @@ use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
+use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Resource\Model\TranslatableInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
+use Twig\Environment;
 
 class FormComponent
 {
@@ -38,6 +41,7 @@ class FormComponent
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
+    use PreviewComponentTrait;
 
     /**
      * @param RepositoryInterface<PageInterface> $pageRepository
@@ -51,10 +55,13 @@ class FormComponent
         string $resourceClass,
         string $formClass,
         TemplateRepositoryInterface $templateRepository,
+        Environment $twig,
+        string $previewTemplate,
         protected readonly SlugGeneratorInterface $slugGenerator,
     ) {
         $this->initialize($pageRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
+        $this->initializePreview($twig, $previewTemplate);
     }
 
     #[LiveAction]
@@ -63,5 +70,17 @@ class FormComponent
         $this->formValues['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(
             $this->formValues['name'],
         );
+    }
+
+    protected function beforePreviewDispatch(): void
+    {
+        if (!$this->resource instanceof TranslatableInterface) {
+            return;
+        }
+
+        $locale = $this->localeCode !== '' ? $this->localeCode : 'en_US';
+
+        $this->resource->setFallbackLocale($locale);
+        $this->resource->setCurrentLocale($locale);
     }
 }

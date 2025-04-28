@@ -26,9 +26,9 @@ class PageTranslation extends AbstractTranslation implements PageTranslationInte
 
     protected ?string $title = null;
 
-    protected ?string $metaKeywords;
+    protected ?string $metaKeywords = null;
 
-    protected ?string $metaDescription;
+    protected ?string $metaDescription = null;
 
     public function getId(): ?int
     {

@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
+use Sylius\Bundle\LocaleBundle\Form\Type\LocaleChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\PageTranslationType;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
+use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -32,6 +34,7 @@ final class PageType extends AbstractResourceType
         string $dataClass,
         array $validationGroups,
         private readonly ResourceTemplateProviderInterface $templateProvider,
+        private readonly LocaleContextInterface $localeContext,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -45,6 +48,7 @@ final class PageType extends AbstractResourceType
             ->add('template', ChoiceType::class, [
                 'label' => 'sylius_cms.ui.template',
                 'choices' => $this->templateProvider->getPageTemplates(),
+                'placeholder' => false,
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_cms.ui.enabled',
@@ -70,6 +74,13 @@ final class PageType extends AbstractResourceType
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
                 'required' => false,
+            ])
+            ->add('localeCode', LocaleChoiceType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => false,
+                'placeholder' => false,
+                'empty_data' => $this->localeContext->getLocaleCode(),
             ])
             ->add('contentElements', ContentConfigurationTranslationsType::class, [
                 'entry_type' => ContentConfigurationType::class,

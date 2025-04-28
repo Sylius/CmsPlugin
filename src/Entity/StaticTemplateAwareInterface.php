@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\CmsPlugin\Renderer;
+namespace Sylius\CmsPlugin\Entity;
 
-use Sylius\CmsPlugin\Entity\ContentElementsAwareInterface;
-
-interface ContentElementRendererStrategyInterface
+interface StaticTemplateAwareInterface
 {
-    public function render(ContentElementsAwareInterface $item): string;
+    public function getTemplate(): ?string;
+
+    public function setTemplate(?string $template): void;
 }

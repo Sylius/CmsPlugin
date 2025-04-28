@@ -18,12 +18,15 @@ use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\TemplatePropTrait;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
+use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
+use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
+use Twig\Environment;
 
 class FormComponent
 {
@@ -35,6 +38,7 @@ class FormComponent
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
+    use PreviewComponentTrait;
 
     /**
      * @param RepositoryInterface<BlockInterface> $blockRepository
@@ -48,8 +52,28 @@ class FormComponent
         string $resourceClass,
         string $formClass,
         TemplateRepositoryInterface $templateRepository,
+        Environment $twig,
+        string $previewTemplate,
+        protected readonly ContentElementRendererStrategyInterface $contentElementRendererStrategy,
     ) {
         $this->initialize($blockRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
+        $this->initializePreview($twig, $previewTemplate);
+    }
+
+    /** @return array{resource: BlockInterface|null, content: string} */
+    protected function getRenderParameters(): array
+    {
+        if (null === $this->resource) {
+            return [
+                'resource' => null,
+                'content' => '',
+            ];
+        }
+
+        return [
+            'resource' => $this->resource,
+            'content' => $this->contentElementRendererStrategy->render($this->resource),
+        ];
     }
 }

@@ -123,6 +123,9 @@
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\BlockType</argument>
             <argument type="service" id="sylius_cms.repository.template" />
+            <argument type="service" id="twig" />
+            <argument>@SyliusCmsPlugin/admin/block/preview.html.twig</argument>
+            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
 
             <call method="setLiveResponder">
                 <argument type="service" id="ux.live_component.live_responder"/>
@@ -159,6 +162,8 @@
             <argument>%sylius_cms.model.page.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
             <argument type="service" id="sylius_cms.repository.template" />
+            <argument type="service" id="twig" />
+            <argument>@SyliusCmsPlugin/admin/page/preview.html.twig</argument>
             <argument type="service" id="sylius.generator.slug" />
 
             <call method="setLiveResponder">

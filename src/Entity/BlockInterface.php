@@ -24,6 +24,7 @@ interface BlockInterface extends
     ToggleableInterface,
     CollectibleInterface,
     ChannelsAwareInterface,
+    StaticTemplateAwareInterface,
     ContentElementsAwareInterface,
     ProductsAwareInterface,
     TaxonAwareInterface,
@@ -34,8 +35,4 @@ interface BlockInterface extends
     public function getName(): ?string;
 
     public function setName(?string $name): void;
-
-    public function getTemplate(): ?string;
-
-    public function setTemplate(?string $template): void;
 }

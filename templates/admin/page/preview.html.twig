@@ -1,5 +1,9 @@
-{% extends template %}
+{% set page = resource %}
+
+{% extends resource.template %}
 
 {% block metatags %}
     <base href="{{ app.request.getSchemeAndHttpHost() }}">
+
+    {{ parent() }}
 {% endblock %}

@@ -1,0 +1,34 @@
+<div {{ stimulus_controller('preview') }}>
+    <button
+        class="btn btn-primary"
+        data-action="live#action:prevent"
+        data-live-action-param="preview"
+        {{ sylius_test_html_attribute('preview') }}
+    >
+        {{ ux_icon('tabler:eye', { class: 'icon icon-tabler' }) }}
+        {{ 'sylius_cms.ui.preview'|trans }}
+    </button>
+
+    <div {{ stimulus_target('preview', 'parent') }}>
+        <div class="modal fade" tabindex="-1" aria-hidden="true" {{ stimulus_target('preview', 'modal') }} {{ sylius_test_html_attribute('preview-modal') }}>
+            <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 95%; max-width: 95vw;">
+                <div class="modal-content" data-live-ignore>
+                    <div class="modal-header justify-content-center">
+                        <div class="d-flex">
+                            {{ form_widget(hookable_metadata.context.form.localeCode, {'attr': {'data-model': 'norender|localeCode'}}|sylius_merge_recursive(sylius_test_form_attribute('locale-code'))) }}
+                            <button
+                                class="btn btn-ghost-primary"
+                                data-action="live#action:prevent"
+                                data-live-action-param="reload"
+                            >
+                                {{ ux_icon('tabler:refresh', { class: 'icon icon-tabler' }) }}
+                                {{ 'sylius.ui.show'|trans }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body" {{ stimulus_target('preview', 'container') }}></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

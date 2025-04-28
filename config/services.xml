@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <imports>
         <import resource="services/**.xml" />
     </imports>
@@ -11,22 +15,30 @@
 
     <services>
         <defaults public="true" />
-            <service id="sylius_cms.reader.csv" class="Sylius\CmsPlugin\Reader\CsvReader" />
 
-            <service id="sylius_cms.registry.media_provider" class="Sylius\Component\Registry\ServiceRegistry">
-                <argument>%sylius_cms.media_provider.interface%</argument>
-                <argument>Media provider</argument>
-            </service>
+        <service id="sylius_cms.reader.csv" class="Sylius\CmsPlugin\Reader\CsvReader" />
 
-            <service id="sylius_cms.media_uploader" class="Sylius\CmsPlugin\Uploader\MediaUploader">
-                <argument type="service" id="sylius_cms.media.filesystem" />
-            </service>
+        <service id="sylius_cms.registry.media_provider" class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>%sylius_cms.media_provider.interface%</argument>
+            <argument>Media provider</argument>
+        </service>
 
-            <service id="sylius_cms.media.filesystem" class="Gaufrette\Filesystem">
-                <factory service="knp_gaufrette.filesystem_map" method="get" />
-                <argument>%sylius_cms.uploader.filesystem%</argument>
-            </service>
+        <service id="sylius_cms.media_uploader" class="Sylius\CmsPlugin\Uploader\MediaUploader">
+            <argument type="service" id="sylius_cms.media.filesystem" />
+        </service>
 
-            <service id="sylius_cms.sorter.collections" class="Sylius\CmsPlugin\Sorter\CollectionsSorter" />
+        <service id="sylius_cms.media.filesystem" class="Gaufrette\Filesystem">
+            <factory service="knp_gaufrette.filesystem_map" method="get" />
+            <argument>%sylius_cms.uploader.filesystem%</argument>
+        </service>
+
+        <service id="sylius_cms.sorter.collections" class="Sylius\CmsPlugin\Sorter\CollectionsSorter" />
+
+        <service id="sylius_cms.context.locale.admin_preview" class="Sylius\CmsPlugin\Context\PreviewLocaleContext">
+            <argument type="service" id="sylius.section_resolver.uri_based" />
+            <argument type="service" id="request_stack" />
+
+            <tag name="sylius.context.locale" priority="256" />
+        </service>
     </services>
 </container>
