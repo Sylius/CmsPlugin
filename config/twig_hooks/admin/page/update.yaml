@@ -33,7 +33,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/seo.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.page.create.content.form.sections.general':
+        'sylius_cms.admin.page.update.content.form.sections.general':
             default:
                 enabled: false
             code:
@@ -55,7 +55,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.page.create.content.form.sections.content':
+        'sylius_cms.admin.page.update.content.form.sections.content':
             fields:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/fields.html.twig'
                 priority: 100
@@ -63,7 +63,7 @@ sylius_twig_hooks:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.page.create.content.form.sections.content.fields':
+        'sylius_cms.admin.page.update.content.form.sections.content.fields':
             template:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/fields/template.html.twig'
                 priority: 0
