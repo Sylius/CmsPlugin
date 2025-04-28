@@ -36,34 +36,34 @@ sylius_twig_hooks:
                 enabled: false
             code:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/code.html.twig'
-                priority: 300
+                priority: 500
             name:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/name.html.twig'
-                priority: 200
-            buttons:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons.html.twig'
-                priority: 100
+                priority: 400
             publish_at:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/general/publish_at.html.twig'
+                priority: 300
+            channels:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/channels.html.twig'
+                priority: 200
+            enabled:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/general/enabled.html.twig'
                 priority: 100
             preview:
-                template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
-                priority: 0
-
-        'sylius_cms.admin.page.create.content.form.sections.general.buttons':
-            enabled:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons/enabled.html.twig'
-                priority: 100
-            channels:
-                template: '@SyliusCmsPlugin/admin/page/form/sections/general/buttons/channels.html.twig'
-                priority: 0
+              template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
+              priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.content':
-            template:
+            fields:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/template.html.twig'
                 priority: 100
             translations:
                 template: '@SyliusCmsPlugin/admin/page/form/sections/content/translations.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.page.create.content.form.sections.content.fields':
+            template:
+                template: '@SyliusCmsPlugin/admin/page/form/sections/content/fields/template.html.twig'
                 priority: 0
 
         'sylius_cms.admin.page.create.content.form.sections.content.translations':
