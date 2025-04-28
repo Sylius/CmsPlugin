@@ -44,14 +44,17 @@ final class BlockType extends AbstractResourceType
             ->add('template', ChoiceType::class, [
                 'label' => 'sylius_cms.ui.template',
                 'choices' => $this->templateProvider->getBlockTemplates(),
+                'required' => false,
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_cms.ui.enabled',
+                'required' => false,
             ])
             ->add('collections', CollectionAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.collections',
                 'by_reference' => false,
                 'multiple' => true,
+                'required' => false,
             ])
             ->add('channels', ChannelChoiceType::class, [
                 'label' => 'sylius_cms.ui.channels',
@@ -63,15 +66,18 @@ final class BlockType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.display_for_products.label',
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_products.help',
+                'required' => false,
             ])
             ->add('productsInTaxons', TaxonAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.display_for_products_in_taxons.label',
                 'multiple' => true,
                 'help' => 'sylius_cms.ui.display_for_products_in_taxons.help',
+                'required' => false,
             ])
             ->add('taxons', TaxonAutocompleteType::class, [
                 'label' => 'sylius_cms.ui.display_for_taxons.label',
                 'multiple' => true,
+                'required' => false,
                 'help' => 'sylius_cms.ui.display_for_taxons.help',
             ])
             ->add('contentElements', ContentConfigurationTranslationsType::class, [
@@ -80,6 +86,7 @@ final class BlockType extends AbstractResourceType
                     'template_type' => 'block',
                 ],
                 'by_reference' => false,
+                'required' => false,
             ])
             ->addEventSubscriber(new AddCodeFormSubscriber())
         ;
