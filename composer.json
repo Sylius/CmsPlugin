@@ -63,10 +63,7 @@
     "autoload-dev": {
         "psr-4": {
             "spec\\Sylius\\CmsPlugin\\": "spec/"
-        },
-        "classmap": [
-            "tests/Application/Kernel.php"
-        ]
+        }
     },
     "config": {
         "allow-plugins": {
@@ -82,10 +79,6 @@
         "symfony": {
             "allow-contrib": false,
             "require": "^7.1"
-        },
-        "runtime": {
-            "project_dir": "tests/Application",
-            "dotenv_path": "tests/Application/.env"
         }
     },
     "repositories": [

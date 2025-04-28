@@ -1,5 +1,0 @@
-webpack_encore:
-    output_path: '%kernel.project_dir%/public/build/default'
-    builds:
-        app.shop: '%kernel.project_dir%/public/build/app/shop'
-        app.admin: '%kernel.project_dir%/public/build/app/admin'
