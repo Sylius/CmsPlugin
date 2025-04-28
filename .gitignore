@@ -26,3 +26,6 @@ tests/Application/web/*
 
 /behat.yaml
 /phpstan.neon
+
+/tests/TestApplication/.env.local
+/tests/TestApplication/.env.*.local
