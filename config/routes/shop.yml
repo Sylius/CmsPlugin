@@ -1,6 +1,3 @@
-sylius_cms_shop_block:
-    resource: "@SyliusCmsPlugin/config/routes/shop/block.yml"
-
 sylius_cms_shop_page:
     resource: "@SyliusCmsPlugin/config/routes/shop/page.yml"
 
