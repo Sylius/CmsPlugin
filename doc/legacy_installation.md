@@ -39,7 +39,7 @@ return [
 
 imports:
       ...
-      - { resource: "@SyliusCmsPlugin/config/config.yml" }
+      - { resource: "@SyliusCmsPlugin/config/config.yaml" }
 ```
 
 1. Import routing in your `config/routes.yaml` file:
@@ -49,7 +49,7 @@ imports:
 # config/routes.yaml
 ...
 sylius_cms:
-    resource: "@SyliusCmsPlugin/config/routes.yml"
+    resource: "@SyliusCmsPlugin/config/routes.yaml"
 ```
 
 1. Install assets:

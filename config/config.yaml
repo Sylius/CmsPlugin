@@ -1,5 +1,5 @@
 imports:
-    - { resource: "@SyliusCmsPlugin/config/grids.yml" }
+    - { resource: "@SyliusCmsPlugin/config/grids.yaml" }
     - { resource: "@SyliusCmsPlugin/config/services.xml" }
     - { resource: "@SyliusCmsPlugin/config/fixtures/*.yaml"}
     - { resource: '@SyliusCmsPlugin/config/twig_hooks/**/*.yaml' }
@@ -49,11 +49,3 @@ sylius_ui:
 twig:
     form_themes:
         - '@SyliusCmsPlugin/admin/shared/editor/trix.html.twig'
-
-#sylius_ui:
-#    events:
-#        sylius.admin.layout.javascripts:
-#            blocks:
-#                version_script:
-#                    template: "@SyliusCmsPlugin/Asset/_cmsVersionScript.html.twig"
-#                    priority: 30

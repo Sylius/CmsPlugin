@@ -1,0 +1,8 @@
+imports:
+    - { resource: "@SyliusCmsPlugin/config/grids/admin.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/shop.yaml" }
+
+sylius_grid:
+    templates:
+        action:
+            import: "@SyliusCmsPlugin/Grid/Action/import.html.twig"
