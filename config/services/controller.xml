@@ -4,18 +4,10 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_cms.controller.page_slug" class="Sylius\CmsPlugin\Controller\PageSlugController">
-            <argument type="service" id="sylius.generator.slug" />
-        </service>
-
         <service id="sylius_cms.controller.action.admin.upload_editor_image" class="Sylius\CmsPlugin\Controller\Action\Admin\UploadEditorImageAction">
             <argument type="service" id="sylius_cms.resolver.media_provider" />
             <argument type="service" id="sylius_cms.repository.media" />
             <argument type="service" id="sylius_cms.factory.media" />
-        </service>
-
-        <service id="sylius_cms.controller.action.admin.template_content_elements" class="Sylius\CmsPlugin\Controller\Action\Admin\TemplateContentElementsAction">
-            <argument type="service" id="sylius_cms.repository.template" />
         </service>
 
         <service id="sylius_cms.controller.helper.form_errors_flash" class="Sylius\CmsPlugin\Controller\Helper\FormErrorsFlashHelper">
@@ -52,7 +44,5 @@
                 <argument type="service" id="liip_imagine.data.manager" />
             </call>
         </service>
-
-        <service id="sylius_cms.controller.action.admin.retrieve_package_info" class="Sylius\CmsPlugin\Controller\Action\Admin\RetrievePackageInfoAction" />
     </services>
 </container>
