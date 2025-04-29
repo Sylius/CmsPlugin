@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <parameters>
+        <parameter key="sylius_cms.twig.link_template">@SyliusCmsPlugin/shop/page/link.html.twig</parameter>
+    </parameters>
+
+    <services>
+        <defaults public="false">
+            <tag name="twig.runtime" />
+        </defaults>
+
+        <service id="sylius_cms.twig.runtime.block" class="Sylius\CmsPlugin\Twig\Runtime\RenderBlockRuntime">
+            <argument type="service" id="sylius_cms.resolver.block_resource" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
+        </service>
+
+        <service id="sylius_cms.twig.runtime.collection" class="Sylius\CmsPlugin\Twig\Runtime\RenderCollectionRuntime">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius_cms.resolver.collection_resource" />
+            <argument type="service" id="sylius_cms.collection_renderer_strategy" />
+        </service>
+
+        <service id="sylius_cms.twig.runtime.media" class="Sylius\CmsPlugin\Twig\Runtime\RenderMediaRuntime">
+            <argument type="service" id="sylius_cms.resolver.media_provider" />
+            <argument type="service" id="sylius_cms.resolver.media_resource" />
+        </service>
+
+        <service id="sylius_cms.twig.runtime.render_content" class="Sylius\CmsPlugin\Twig\Runtime\RenderContentRuntime">
+            <argument type="service" id="sylius_cms.twig.parser.content" />
+        </service>
+
+        <service id="sylius_cms.twig.runtime.render_content_elements" class="Sylius\CmsPlugin\Twig\Runtime\RenderContentElementsRuntime">
+            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
+        </service>
+
+        <service id="sylius_cms.twig.runtime.render_link" class="Sylius\CmsPlugin\Twig\Runtime\RenderPageLinkRuntime">
+            <argument type="service" id="sylius_cms.repository.page" />
+            <argument type="service" id="router.default" />
+            <argument>%sylius_cms.twig.link_template%</argument>
+        </service>
+
+        <service id="sylius_cms.twig.runtime.template_exists" class="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntime" lazy="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntimeInterface">
+            <argument type="service" id="twig" />
+        </service>
+    </services>
+</container>

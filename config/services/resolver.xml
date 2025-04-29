@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults public="true" />
+        <defaults public="false" />
 
         <service id="sylius_cms.resolver.resource.page" class="Sylius\CmsPlugin\Resolver\ResourceResolver">
             <argument type="service" id="sylius_cms.repository.page" />
@@ -28,34 +28,33 @@
             <argument>code</argument>
         </service>
 
-        <service id="sylius_cms.resolver.block_resource" class="Sylius\CmsPlugin\Resolver\BlockResourceResolver" public="true">
+        <service id="sylius_cms.resolver.block_resource" class="Sylius\CmsPlugin\Resolver\BlockResourceResolver">
             <argument type="service" id="sylius_cms.repository.block" />
             <argument type="service" id="logger" />
             <argument type="service" id="sylius.context.channel" />
         </service>
 
-        <service id="sylius_cms.resolver.collection_resource" class="Sylius\CmsPlugin\Resolver\CollectionResourceResolver" public="true">
+        <service id="sylius_cms.resolver.collection_resource" class="Sylius\CmsPlugin\Resolver\CollectionResourceResolver">
             <argument type="service" id="sylius_cms.repository.collection" />
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sylius_cms.resolver.page_resource" class="Sylius\CmsPlugin\Resolver\PageResourceResolver" public="true">
+        <service id="sylius_cms.resolver.page_resource" class="Sylius\CmsPlugin\Resolver\PageResourceResolver">
             <argument type="service" id="sylius_cms.repository.page" />
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sylius_cms.resolver.media_resource" class="Sylius\CmsPlugin\Resolver\MediaResourceResolver" public="true">
+        <service id="sylius_cms.resolver.media_resource" class="Sylius\CmsPlugin\Resolver\MediaResourceResolver">
             <argument type="service" id="sylius_cms.repository.media" />
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="logger" />
         </service>
 
-        <service id="sylius_cms.resolver.media_provider" class="Sylius\CmsPlugin\Resolver\MediaProviderResolver" public="true">
+        <service id="sylius_cms.resolver.media_provider" class="Sylius\CmsPlugin\Resolver\MediaProviderResolver">
             <argument type="service" id="sylius_cms.registry.media_provider" />
         </service>
 
-        <service id="sylius_cms.resolver.wysiwyg_strategy_resolver"
-                 class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver">
+        <service id="sylius_cms.resolver.wysiwyg_strategy_resolver" class="Sylius\CmsPlugin\Resolver\WysiwygStrategyResolver">
             <argument type="tagged_iterator" tag="sylius_cms.wysiwyg_strategy" index-by="strategy" />
             <argument>%sylius_cms.wysiwyg_editor%</argument>
         </service>
