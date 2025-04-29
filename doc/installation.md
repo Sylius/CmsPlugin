@@ -5,7 +5,6 @@
 - [Requirements](#requirements)
 - [Composer](#composer)
 - [Basic configuration](#basic-configuration)
-- [Entities](#entities)
 
 ## Requirements:
 We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.
@@ -19,7 +18,7 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 
 ## Composer:
 ```bash
-composer require sylius/cms-plugin
+  composer require sylius/cms-plugin
 ```
 
 ## Basic configuration:
@@ -30,7 +29,6 @@ composer require sylius/cms-plugin
 
 return [
     ...
-    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
     Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
 ];
 ```
@@ -57,20 +55,44 @@ sylius_cms:
 4. Install assets:
 ```bash
 bin/console assets:install --symlink
-bin/console sylius:theme:assets:install --symlink
 ```
 
-## Entities
-### Update your database
+5. Add entrypoint import:
+```yaml
+# assets/admin/entrypoint.js
+import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
+```
+```yaml
+# assets/shop/entrypoint.js
+import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
+```
+6. Enable WYSIWYG editor
+
+```yaml
+# config/packages/twig.yaml
+twig:
+    form_themes:
+        - '@SyliusCmsPlugin/widget/trix.html.twig'
+```
+
+7. Run `yarn add trix`
+---
+8. Build assets:
 ```bash
-bin/console doctrine:migrations:diff
-bin/console doctrine:migrations:migrate
+  yarn install
+```
+```bash
+  yarn encore dev
+```
+---
+9. Database update:
+```bash
+  bin/console doctrine:migrations:migrate
 ```
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-### Clear application cache by using command:
+**Clear application cache by using command:**
 ```bash
-bin/console cache:clear
-
+  bin/console cache:clear
 ```
 
