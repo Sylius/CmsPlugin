@@ -48,7 +48,7 @@ sylius_ui:
 
 twig:
     form_themes:
-        - '@SyliusCmsPlugin/widget/trix.html.twig'
+        - '@SyliusCmsPlugin/admin/shared/editor/trix.html.twig'
 
 #sylius_ui:
 #    events:
