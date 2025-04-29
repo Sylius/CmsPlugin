@@ -11,43 +11,5 @@ sylius_cms_admin_page:
         permission: true
         vars:
             all:
-                header: sylius_cms.ui.pages_header
-                subheader: sylius_cms.ui.pages_subheader
                 hook_prefix: 'sylius_cms.admin.page'
     type: sylius.resource
-
-sylius_cms_admin_page_preview:
-    path: /page/preview/{id}
-    methods: [GET, POST, PUT]
-    defaults:
-        _controller: sylius_cms.controller.page.overriden::previewAction
-        _sylius:
-            template: "@SyliusCmsPlugin/Page/preview.html.twig"
-        id: null
-
-sylius_cms_admin_ajax_page_by_name_phrase:
-    path: /ajax/pages/search
-    methods: [GET]
-    defaults:
-        _format: json
-        _controller: sylius_cms.controller.page::indexAction
-        _sylius:
-            serialization_groups: [Autocomplete]
-            permission: true
-            repository:
-                method: findByNamePart
-                arguments:
-                    phrase: $phrase
-
-sylius_cms_admin_ajax_page_by_code:
-    path: /ajax/pages/code
-    methods: [GET]
-    defaults:
-        _format: json
-        _controller: sylius_cms.controller.page::indexAction
-        _sylius:
-            serialization_groups: [Autocomplete]
-            permission: true
-            repository:
-                method: findBy
-                arguments: [code: $code]
