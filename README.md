@@ -15,6 +15,7 @@
 <p align="center">This plugin provides seamless Mollie integration for Sylius stores.</p>
 
 <p align="center">Accept payments through over 20 different methods with Mollie – trusted by over 70,000 businesses in Europe.</p>
+
 ---
 
 ## Important documents
@@ -28,9 +29,7 @@
 - [Page/Block templates](doc/templates.md)
 - [Media](doc/media.md)
 - [Fixtures](doc/fixtures.md)
-- [WYSIWYG](doc/wysiwyg.md)
 - [Importing resources](doc/importing-resources.md)
-- [Legacy data migration](doc/legacy_data_migration.md)
 - [Sitemap](doc/sitemap.md)
 - [Customization](doc/customization.md)
 
