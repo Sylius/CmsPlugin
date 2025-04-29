@@ -49,7 +49,7 @@ imports:
 # config/routes.yaml
 ...
 sylius_cms:
-    resource: "@SyliusCmsPlugin/config/routing.yml"
+    resource: "@SyliusCmsPlugin/config/routes.yml"
 ```
 
 1. Install assets:
@@ -65,14 +65,6 @@ import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
 ```yaml
 // assets/shop/entrypoint.js
 import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
-```
-1. Enable WYSIWYG editor
-
-```yaml
-# config/packages/twig.yaml
-twig:
-    form_themes:
-        - '@SyliusCmsPlugin/widget/trix.html.twig'
 ```
 
 1. Run `yarn add trix`
