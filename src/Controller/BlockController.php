@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\CmsPlugin\Entity\BlockInterface;
+use Sylius\CmsPlugin\Provider\ResourceTemplateProvider;
 use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
 use Sylius\CmsPlugin\Resolver\BlockResourceResolverInterface;
 use Sylius\Component\Resource\ResourceActions;
@@ -23,8 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class BlockController extends ResourceController
 {
-    public const BLOCK_TEMPLATE = '@SyliusCmsPlugin/shop/block/show.html.twig';
-
     public function renderBlockAction(Request $request): Response
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
@@ -46,7 +45,7 @@ final class BlockController extends ResourceController
             return $this->createRestView($configuration, $block, Response::HTTP_OK);
         }
 
-        return $this->render($block->getTemplate() ?? self::BLOCK_TEMPLATE, [
+        return $this->render($block->getTemplate() ?? ResourceTemplateProvider::DEFAULT_TEMPLATE_BLOCK, [
             'configuration' => $configuration,
             'metadata' => $this->metadata,
             'resource' => $block,

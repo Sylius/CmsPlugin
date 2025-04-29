@@ -107,3 +107,7 @@ sylius_cms:
             content: Teaser Content
             image: Teaser Image
             help: It's a small preview of the page. It is used during rendering a collection of pages.
+        content_preview:
+            missing_template:
+                title: Missing template
+                content: The template you are trying to use for preview is missing. Showing default template.

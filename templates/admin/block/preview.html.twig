@@ -7,7 +7,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-center mt-3">
-        {% include resource.template %}
-    </div>
+    {% if template_exists(resource) %}
+        <div class="d-flex justify-content-center mt-3">
+            {% include resource.template %}
+        </div>
+    {% else %}
+        {% include '@SyliusCmsPlugin/admin/shared/preview/missing_template.html.twig' %}
+        <div class="d-flex justify-content-center">
+            {% include constant('Sylius\\CmsPlugin\\Provider\\ResourceTemplateProvider::DEFAULT_TEMPLATE_BLOCK') %}
+        </div>
+    {% endif %}
 {% endblock %}

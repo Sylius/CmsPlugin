@@ -1,9 +1,26 @@
 {% set page = resource %}
 
-{% extends resource.template %}
+{% if template_exists(resource) %}
+    {% embed resource.template %}
+        {% block metatags %}
+            <base href="{{ app.request.getSchemeAndHttpHost() }}">
 
-{% block metatags %}
-    <base href="{{ app.request.getSchemeAndHttpHost() }}">
+            {{ parent() }}
+        {% endblock %}
+    {% endembed %}
+{% else %}
+    {% embed constant('Sylius\\CmsPlugin\\Provider\\ResourceTemplateProvider::DEFAULT_TEMPLATE_PAGE') %}
 
-    {{ parent() }}
-{% endblock %}
+        {% block metatags %}
+            <base href="{{ app.request.getSchemeAndHttpHost() }}">
+
+            {{ parent() }}
+        {% endblock %}
+
+        {% block content %}
+            {% include '@SyliusCmsPlugin/admin/shared/preview/missing_template.html.twig' %}
+
+            {{ parent() }}
+        {% endblock %}
+    {% endembed %}
+{% endif %}
