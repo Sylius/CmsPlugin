@@ -23,9 +23,5 @@
         <service id="sylius_cms.assigner.products_in_taxons" class="Sylius\CmsPlugin\Assigner\ProductsInTaxonsAssigner">
             <argument type="service" id="sylius.repository.taxon" />
         </service>
-
-        <service id="sylius_cms.assigner.locales" class="Sylius\CmsPlugin\Assigner\LocalesAssigner">
-            <argument type="service" id="sylius.repository.locale" />
-        </service>
     </services>
 </container>
