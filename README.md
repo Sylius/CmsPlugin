@@ -1,30 +1,23 @@
-# [![](https://bitbag.io/wp-content/uploads/2021/01/CMS.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
+<p align="center">
+    <a href="https://sylius.com" target="_blank">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://media.sylius.com/sylius-logo-800-dark.png">
+          <source media="(prefers-color-scheme: light)" srcset="https://media.sylius.com/sylius-logo-800.png">
+          <img alt="Sylius Logo." src="https://media.sylius.com/sylius-logo-800.png">
+        </picture>
+    </a>
+</p>
 
-# SyliusCMSPlugin
+<h1 align="center">Mollie Payments Plugin</h1>
 
-----
+<p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
 
-[![](https://img.shields.io/packagist/l/bitbag/cms-plugin.svg) ](https://packagist.org/packages/bitbag/cms-plugin "License") [ ![](https://img.shields.io/packagist/v/bitbag/cms-plugin.svg) ](https://packagist.org/packages/bitbag/cms-plugin "Version") [ ![](https://img.shields.io/github/actions/workflow/status/BitBagCommerce/SyliusCmsPlugin/build.yml) ](https://github.com/BitBagCommerce/SyliusCmsPlugin/actions "Build status") [ ![](https://img.shields.io/scrutinizer/g/BitBagCommerce/SyliusCMSPlugin.svg) ](https://scrutinizer-ci.com/g/BitBagCommerce/SyliusCMSPlugin/ "Scrutinizer") [![](https://poser.pugx.org/bitbag/cms-plugin/downloads)](https://packagist.org/packages/bitbag/cms-plugin "Total Downloads") [![Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)](http://sylius-devs.slack.com) [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
+<p align="center">This plugin provides seamless Mollie integration for Sylius stores.</p>
 
-# Overview
-
-***
-
-Almost every eCommerce app has to present some content. Managing it is often done via third-party libraries like WordPress, 
-eZ Platform, or a built-in content management system. As Sylius does not have a CMS in the standard platform, 
-we decided to develop our own, which will be as flexible as Sylius. This plugin allows you to add dynamic blocks and pages
-with content elements to your storefront.
-
-- [Use Case](doc/use_case.md)
-  - [Collections](doc/use_case_collections.md)
-  - [Content Templates](doc/use_case_content_templates.md)
-  - [Pages](doc/use_case_pages.md)
-  - [Blocks](doc/use_case_blocks.md)
-  - [Media](doc/use_case_media.md)
+<p align="center">Accept payments through over 20 different methods with Mollie – trusted by over 70,000 businesses in Europe.</p>
 ---
 
-# Important documents 
----
+## Important documents
 
 - [Installation](doc/installation.md)
 - [Upgrading](UPGRADE.md)
@@ -41,46 +34,26 @@ with content elements to your storefront.
 - [Sitemap](doc/sitemap.md)
 - [Customization](doc/customization.md)
 
-# Usage
- ---
-  Check how the **SyliusCMSPlugin** works in practice - **[click here](https://github.com/BitBagCommerce/SyliusCmsPlugin/blob/master/doc/use_case.md)**
-
 ---
 
-If you need some help with Sylius development, don't be hesitated to contact us directly. You can fill the form on [this site](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms) or send us an e-mail at hello@bitbag.io!
+## Usage
+  Check how the **SyliusCMSPlugin** works in practice:
+- [Use Case](doc/use_case.md)
+  - [Collections](doc/use_case_collections.md)
+  - [Content Templates](doc/use_case_content_templates.md)
+  - [Pages](doc/use_case_pages.md)
+  - [Blocks](doc/use_case_blocks.md)
+  - [Media](doc/use_case_media.md)
 
+If you need some help with Sylius development, 
+don't be hesitated to contact us directly. You can fill the write on [Sylius Slack](https://sylius-devs.slack.com/).
 ---
 
-[![](https://bitbag.io/wp-content/uploads/2021/08/sylius-badges-transparent-wide.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
+## Security issues
 
-# Demo
----
-We created a demo app with some useful use-cases of plugins! Visit http://demo.sylius.com/ to take a look at it.
+If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly.
+Instead, all security issues must be sent to `security@sylius.com`
 
-**If you need an overview of Sylius' capabilities, schedule a consultation with our expert.**
-
-[![](https://bitbag.io/wp-content/uploads/2020/10/button_free_consulatation-1.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_cms)
-
-# Additional resources for developers
 ## Community
 
----- 
-
 For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).
-
-## Additional resources for developers
-
----
-To learn more about our contribution workflow and more, we encourage you to use the following resources:
-* [Sylius Documentation](https://docs.sylius.com/en/latest/)
-* [Sylius Contribution Guide](https://docs.sylius.com/en/latest/contributing/)
-* [Sylius Online Course](https://sylius.com/online-course/)
-
-
-## License
-
----
-
-This plugin's source code is completely free and released under the terms of the MIT license.
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen.)
