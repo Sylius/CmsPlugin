@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\CmsPlugin\Unit\Assigner;
+namespace Tests\Sylius\CmsPlugin\Unit\Fixture\Assigner;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sylius\CmsPlugin\Assigner\CollectionsAssigner;
 use Sylius\CmsPlugin\Entity\CollectibleInterface;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
+use Sylius\CmsPlugin\Fixture\Assigner\CollectionsAssigner;
 use Sylius\CmsPlugin\Repository\CollectionRepositoryInterface;
 
 final class CollectionsAssignerTest extends TestCase

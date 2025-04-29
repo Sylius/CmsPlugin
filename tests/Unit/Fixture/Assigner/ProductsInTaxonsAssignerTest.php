@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\CmsPlugin\Unit\Assigner;
+namespace Tests\Sylius\CmsPlugin\Unit\Fixture\Assigner;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sylius\CmsPlugin\Assigner\ProductsInTaxonsAssigner;
 use Sylius\CmsPlugin\Entity\ProductsInTaxonsAwareInterface;
+use Sylius\CmsPlugin\Fixture\Assigner\ProductsInTaxonsAssigner;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 

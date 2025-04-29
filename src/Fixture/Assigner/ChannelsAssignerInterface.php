@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\CmsPlugin\Assigner;
+namespace Sylius\CmsPlugin\Fixture\Assigner;
 
 use Sylius\Component\Channel\Model\ChannelsAwareInterface;
 

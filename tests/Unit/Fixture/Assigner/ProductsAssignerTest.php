@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\CmsPlugin\Unit\Assigner;
+namespace Tests\Sylius\CmsPlugin\Unit\Fixture\Assigner;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sylius\CmsPlugin\Assigner\ProductsAssigner;
 use Sylius\CmsPlugin\Entity\ProductsAwareInterface;
+use Sylius\CmsPlugin\Fixture\Assigner\ProductsAssigner;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 

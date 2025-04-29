@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\CmsPlugin\Unit\Assigner;
+namespace Tests\Sylius\CmsPlugin\Unit\Fixture\Assigner;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sylius\CmsPlugin\Assigner\ChannelsAssigner;
+use Sylius\CmsPlugin\Fixture\Assigner\ChannelsAssigner;
 use Sylius\Component\Channel\Model\ChannelsAwareInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;

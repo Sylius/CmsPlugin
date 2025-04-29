@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\CmsPlugin\Assigner;
+namespace Sylius\CmsPlugin\Fixture\Assigner;
 
-use Sylius\CmsPlugin\Entity\TaxonAwareInterface;
+use Sylius\CmsPlugin\Entity\ProductsInTaxonsAwareInterface;
 
-interface TaxonsAssignerInterface
+interface ProductsInTaxonsAssignerInterface
 {
     /** @param array<string> $taxonCodes */
-    public function assign(TaxonAwareInterface $taxonAware, array $taxonCodes): void;
+    public function assign(ProductsInTaxonsAwareInterface $productsInTaxonsAware, array $taxonCodes): void;
 }

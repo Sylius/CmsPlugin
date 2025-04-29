@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Fixture\Factory;
 
-use Sylius\CmsPlugin\Assigner\ChannelsAssignerInterface;
-use Sylius\CmsPlugin\Assigner\CollectionsAssignerInterface;
 use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Entity\MediaTranslationInterface;
+use Sylius\CmsPlugin\Fixture\Assigner\ChannelsAssignerInterface;
+use Sylius\CmsPlugin\Fixture\Assigner\CollectionsAssignerInterface;
 use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
 use Sylius\CmsPlugin\Resolver\MediaProviderResolverInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;

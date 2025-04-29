@@ -4,23 +4,23 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_cms.assigner.channels" class="Sylius\CmsPlugin\Assigner\ChannelsAssigner">
+        <service id="sylius_cms.assigner.channels" class="Sylius\CmsPlugin\Fixture\Assigner\ChannelsAssigner">
             <argument type="service" id="sylius.repository.channel" />
         </service>
 
-        <service id="sylius_cms.assigner.products" class="Sylius\CmsPlugin\Assigner\ProductsAssigner">
+        <service id="sylius_cms.assigner.products" class="Sylius\CmsPlugin\Fixture\Assigner\ProductsAssigner">
             <argument type="service" id="sylius.repository.product" />
         </service>
 
-        <service id="sylius_cms.assigner.taxons" class="Sylius\CmsPlugin\Assigner\TaxonsAssigner">
+        <service id="sylius_cms.assigner.taxons" class="Sylius\CmsPlugin\Fixture\Assigner\TaxonsAssigner">
             <argument type="service" id="sylius.repository.taxon" />
         </service>
 
-        <service id="sylius_cms.assigner.collections" class="Sylius\CmsPlugin\Assigner\CollectionsAssigner">
+        <service id="sylius_cms.assigner.collections" class="Sylius\CmsPlugin\Fixture\Assigner\CollectionsAssigner">
             <argument type="service" id="sylius_cms.repository.collection" />
         </service>
 
-        <service id="sylius_cms.assigner.products_in_taxons" class="Sylius\CmsPlugin\Assigner\ProductsInTaxonsAssigner">
+        <service id="sylius_cms.assigner.products_in_taxons" class="Sylius\CmsPlugin\Fixture\Assigner\ProductsInTaxonsAssigner">
             <argument type="service" id="sylius.repository.taxon" />
         </service>
     </services>
