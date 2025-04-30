@@ -1,11 +1,5 @@
 # Installation
 
-## Overview:
-**General**
-- [Requirements](#requirements)
-- [Composer](#composer)
-- [Basic configuration](#basic-configuration)
-
 ## Requirements:
 We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.
 
@@ -16,68 +10,21 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 | MySQL         | ^8.4    |
 | NodeJS        | ^20.x   |
 
+---
+#### Beware!
+
+This installation instruction assumes that you're using Symfony Flex. If you don't, take a look at the
+[legacy installation instruction](docs/legacy_installation.md). However, we strongly encourage you to use
+Symfony Flex, it's much quicker!
+
 ## Composer:
 ```bash
   composer require sylius/cms-plugin
 ```
 
-## Basic configuration:
-1. Add plugin dependencies to your `config/bundles.php` file (if not added automatically):
-
-```php
-# config/bundles.php
-
-return [
-    ...
-    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
-];
-```
-
-2. Import required config in your `config/packages/_sylius.yaml` file:
-```yaml
-# config/packages/_sylius.yaml
-
-imports:
-      ...
-      - { resource: "@SyliusCmsPlugin/config/config.yml" }
-```
-
-3. Import routing in your `config/routes.yaml` file:
-
-```yaml
-
-# config/routes.yaml
-...
-sylius_cms:
-    resource: "@SyliusCmsPlugin/config/routing.yml"
-```
-
-4. Install assets:
-```bash
-bin/console assets:install --symlink
-```
-
-5. Add entrypoint import:
-```yaml
-# assets/admin/entrypoint.js
-import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
-```
-```yaml
-# assets/shop/entrypoint.js
-import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
-```
-6. Enable WYSIWYG editor
-
-```yaml
-# config/packages/twig.yaml
-twig:
-    form_themes:
-        - '@SyliusCmsPlugin/widget/trix.html.twig'
-```
-
-7. Run `yarn add trix`
+1. Run `yarn add trix`
 ---
-8. Build assets:
+1. Build assets:
 ```bash
   yarn install
 ```
@@ -85,7 +32,7 @@ twig:
   yarn encore dev
 ```
 ---
-9. Database update:
+1. Database update:
 ```bash
   bin/console doctrine:migrations:migrate
 ```
