@@ -16,7 +16,7 @@ jobs:
     tests:
         runs-on: ubuntu-latest
 
-        name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }},  ${{ matrix.database == 'mysql' && format('MySQL {0}', matrix.mysql) || matrix.database == 'postgres' && format('PostgreSQL {0}', matrix.postgres) }}, Trix ${{ matrix.trix }}"
+        name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }},  ${{ matrix.database == 'mysql' && format('MySQL {0}', matrix.mysql) || matrix.database == 'postgres' && format('PostgreSQL {0}', matrix.postgres) }}"
 
         strategy:
             fail-fast: false
@@ -28,8 +28,6 @@ jobs:
                 node: ["20.x"]
                 mysql: ["8.4"]
                 postgres: ["15.8"]
-#               trix: [false, true]
-                trix: [false]
 
         env:
             APP_ENV: test
@@ -143,19 +141,7 @@ jobs:
 
             -
                 name: Install JS dependencies
-                run: |
-                    (cd vendor/sylius/test-application && yarn install)
-#                    cd vendor/sylius/test-application
-#                    if [ "${{ matrix.trix }}" = "true" ]; then
-#                        yarn add trix
-#                        sed -i "s/wysiwyg: 'ckeditor'/wysiwyg: 'trix'/" webpack.config.js
-#                    fi
-#                    yarn install
-
-#            -
-#                name: Configure Trix if enabled
-#                if: matrix.trix == true
-#                run: mv tests/Application/config/integration/trix_wysiwyg.yaml tests/Application/config/packages/sylius_cms_plugin.yaml
+                run: (cd vendor/sylius/test-application && yarn install)
 
             -
                 name: Prepare test application database
@@ -191,10 +177,6 @@ jobs:
             -
                 name: Run Non-unit PHPUnit tests
                 run: vendor/bin/phpunit --colors=always --testsuite=non-unit
-
-#      - name: Set Behat tags
-#        if: matrix.trix != true
-#        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
 
             -
                 name: Run Chrome Headless
