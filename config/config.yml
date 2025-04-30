@@ -46,6 +46,10 @@ sylius_ui:
         anonymous_component_template_prefixes:
             sylius_cms.shop: "@SyliusCmsPlugin/shop/shared/components"
 
+twig:
+    form_themes:
+        - '@SyliusCmsPlugin/widget/trix.html.twig'
+
 #sylius_ui:
 #    events:
 #        sylius.admin.layout.javascripts:
