@@ -17,6 +17,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class ResourceTemplateProvider implements ResourceTemplateProviderInterface
 {
+    public const DEFAULT_TEMPLATE_BLOCK = '@SyliusCmsPlugin/shop/block/show.html.twig';
+
+    public const DEFAULT_TEMPLATE_PAGE = '@SyliusCmsPlugin/shop/page/show.html.twig';
+
     /** @var array<string, array<string>> */
     private array $templates = [];
 
@@ -40,7 +44,7 @@ final class ResourceTemplateProvider implements ResourceTemplateProviderInterfac
     public function getPageTemplates(): array
     {
         $keys = ['sylius.ui.default'];
-        $values = ['@SyliusCmsPlugin/shop/page/show.html.twig'];
+        $values = [self::DEFAULT_TEMPLATE_PAGE];
 
         return array_combine(
             array_merge($keys, $this->templates['pages']),
@@ -51,7 +55,7 @@ final class ResourceTemplateProvider implements ResourceTemplateProviderInterfac
     public function getBlockTemplates(): array
     {
         $keys = ['sylius.ui.default'];
-        $values = ['@SyliusCmsPlugin/shop/block/show.html.twig'];
+        $values = [self::DEFAULT_TEMPLATE_BLOCK];
 
         return array_combine(
             array_merge($keys, $this->templates['blocks']),
