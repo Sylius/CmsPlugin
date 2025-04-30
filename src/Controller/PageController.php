@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\CmsPlugin\Entity\PageInterface;
+use Sylius\CmsPlugin\Provider\ResourceTemplateProvider;
 use Sylius\CmsPlugin\Repository\PageRepositoryInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
@@ -29,8 +30,6 @@ final class PageController extends ResourceController
     use MediaPageControllersCommonDependencyInjectionsTrait;
 
     public const FILTER = 'sylius_admin_product_original';
-
-    public const DEFAULT_TEMPLATE = '@SyliusCmsPlugin/shop/page/show.html.twig';
 
     public function showAction(Request $request): Response
     {
@@ -61,7 +60,7 @@ final class PageController extends ResourceController
             throw $this->createNotFoundException('Page not found');
         }
 
-        return $this->render($page->getTemplate() ?? self::DEFAULT_TEMPLATE, [
+        return $this->render($page->getTemplate() ?? ResourceTemplateProvider::DEFAULT_TEMPLATE_PAGE, [
             'page' => $page,
         ]);
     }
@@ -91,7 +90,7 @@ final class PageController extends ResourceController
         return $this->render($configuration->getTemplate(ResourceActions::CREATE . '.html'), [
             'resource' => $page,
             'preview' => true,
-            'template' => $page->getTemplate() ?? self::DEFAULT_TEMPLATE,
+            'template' => $page->getTemplate() ?? ResourceTemplateProvider::DEFAULT_TEMPLATE_PAGE,
             $this->metadata->getName() => $page,
         ]);
     }

@@ -47,7 +47,7 @@ final class BlockType extends AbstractResourceType
             ->add('template', ChoiceType::class, [
                 'label' => 'sylius_cms.ui.template',
                 'choices' => $this->templateProvider->getBlockTemplates(),
-                'required' => false,
+                'placeholder' => false,
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_cms.ui.enabled',

@@ -90,6 +90,18 @@
             <tag name="twig.runtime" />
         </service>
 
+        <service id="sylius_cms.twig.runtime.template_exists" class="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntime" lazy="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntimeInterface">
+            <argument type="service" id="twig" />
+
+            <tag name="twig.runtime" />
+        </service>
+
+        <service id="sylius_cms.twig.extension.template_exists" class="Sylius\CmsPlugin\Twig\Extension\TemplateExistsExtension">
+            <argument type="service" id="sylius_cms.twig.runtime.template_exists" />
+
+            <tag name="twig.extension" />
+        </service>
+
         <service
             id="sylius_cms.twig.component.template.form"
             class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
