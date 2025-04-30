@@ -15,6 +15,7 @@
 <p align="center">This plugin provides seamless CMS capabilities for Sylius stores</p>
 
 <p align="center">Extend your Sylius store with powerful content management features. Create, edit, and organize pages with ease – all fully integrated into the Sylius ecosystem.</p>
+
 ---
 
 ## Important documents
