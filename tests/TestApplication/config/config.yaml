@@ -8,8 +8,6 @@ parameters:
 twig:
     paths:
         '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
-    form_themes:
-        - '@SyliusCmsPlugin/widget/trix.html.twig'
 
 sylius_cms:
     templates:
