@@ -1,6 +1,6 @@
 imports:
     - { resource: "@SyliusCmsPlugin/config/config.yml" }
-    - { resource: "@SyliusCmsPlugin/tests/Behat/Resources/services.xml", when: 'test' }
+    - { resource: "services_test.php" }
 
 parameters:
     sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/../../../config/api_platform/'
