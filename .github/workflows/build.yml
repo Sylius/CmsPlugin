@@ -202,7 +202,7 @@ jobs:
 
             -
                 name: Run webserver
-                run: symfony server:start --port=8080 --dir=vendor/sylius/test-application/public --daemon
+                run: symfony server:start --port=8080 --daemon
 
             -
                 name: Run Behat

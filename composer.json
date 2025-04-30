@@ -79,7 +79,8 @@
         "symfony": {
             "allow-contrib": false,
             "require": "^7.1"
-        }
+        },
+        "public-dir": "vendor/sylius/test-application/public"
     },
     "repositories": [
         {
