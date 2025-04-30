@@ -39,6 +39,7 @@
         "phpunit/phpunit": "^10.5",
         "psr/event-dispatcher": "^1.0",
         "robertfausk/behat-panther-extension": "^1.1",
+        "sylius/test-application": "2.0.x-dev",
         "sylius-labs/coding-standard": "^4.4",
         "sylius-labs/suite-tags-extension": "~0.2",
         "symfony/browser-kit": "^6.4 || ^7.1",
@@ -62,10 +63,7 @@
     "autoload-dev": {
         "psr-4": {
             "spec\\Sylius\\CmsPlugin\\": "spec/"
-        },
-        "classmap": [
-            "tests/Application/Kernel.php"
-        ]
+        }
     },
     "config": {
         "allow-plugins": {
@@ -82,9 +80,12 @@
             "allow-contrib": false,
             "require": "^7.1"
         },
-        "runtime": {
-            "project_dir": "tests/Application",
-            "dotenv_path": "tests/Application/.env"
+        "public-dir": "vendor/sylius/test-application/public"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Sylius/TestApplication"
         }
-    }
+    ]
 }

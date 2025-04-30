@@ -19,7 +19,7 @@ Feature: Displaying pages
         Then I should see a page with "About us" name
         And I should also see "Blog" and "General" collections associated with this page
 
-    @ui @javascript @title
+    @ui
     Scenario: Displaying page with title
         Given there is a page in the store
         And this page has "some_page_with_title" code
@@ -29,7 +29,7 @@ Feature: Displaying pages
         When I go to this page
         Then I should see page title "title"
 
-    @ui @javascript @title
+    @ui
     Scenario: Displaying page with default title
         Given there is a page in the store
         And this page has "title" code

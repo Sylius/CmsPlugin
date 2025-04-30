@@ -1,19 +1,21 @@
+imports:
+    - { resource: "@SyliusCmsPlugin/config/config.yaml" }
+    - { resource: "services_test.php" }
+
+parameters:
+    sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/../../../config/api_platform/'
+
+twig:
+    paths:
+        '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
+
+sylius_cms:
+    templates:
+        pages:
+            - "shop/template/custom_page.html.twig"
+
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.base#stylesheets':
-            app_styles:
-                template: 'admin/stylesheets.html.twig'
-        'sylius_admin.base#javascripts':
-            app_javascripts:
-                template: 'admin/javascripts.html.twig'
-
-        'sylius_shop.base#stylesheets':
-            app_styles:
-                template: 'shop/stylesheets.html.twig'
-        'sylius_shop.base#javascripts':
-            app_javascripts:
-                template: 'shop/javascripts.html.twig'
-
         'sylius_shop.base.header.navbar.menu':
             blog_item:
                 template: 'shop/header/navbar/menu/blog_item.html.twig'

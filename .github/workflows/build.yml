@@ -85,14 +85,6 @@ jobs:
                 run: symfony server:ca:install
 
             -
-                name: Run Chrome Headless
-                run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
-
-            -
-                name: Run webserver
-                run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
-
-            -
                 name: Get Composer cache directory
                 id: composer-cache
                 run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -152,48 +144,49 @@ jobs:
             -
                 name: Install JS dependencies
                 run: |
-                    cd tests/Application
-                    if [ "${{ matrix.trix }}" = "true" ]; then
-                        yarn add trix
-                        sed -i "s/wysiwyg: 'ckeditor'/wysiwyg: 'trix'/" webpack.config.js
-                    fi
-                    yarn install
+                    (cd vendor/sylius/test-application && yarn install)
+#                    cd vendor/sylius/test-application
+#                    if [ "${{ matrix.trix }}" = "true" ]; then
+#                        yarn add trix
+#                        sed -i "s/wysiwyg: 'ckeditor'/wysiwyg: 'trix'/" webpack.config.js
+#                    fi
+#                    yarn install
 
-            -
-                name: Configure Trix if enabled
-                if: matrix.trix == true
-                run: mv tests/Application/config/integration/trix_wysiwyg.yaml tests/Application/config/packages/sylius_cms_plugin.yaml
+#            -
+#                name: Configure Trix if enabled
+#                if: matrix.trix == true
+#                run: mv tests/Application/config/integration/trix_wysiwyg.yaml tests/Application/config/packages/sylius_cms_plugin.yaml
 
             -
                 name: Prepare test application database
                 run: |
-                    (cd tests/Application && bin/console doctrine:database:create -vvv)
-                    (cd tests/Application && bin/console doctrine:migrations:migrate -n -vvv -q)
+                    vendor/bin/console doctrine:database:create -vvv
+                    vendor/bin/console doctrine:migrations:migrate -n -vvv -q
 
             -
                 name: Validate database schema
-                run: (cd tests/Application && bin/console doctrine:schema:validate)
+                run: vendor/bin/console doctrine:schema:validate
 
             -
                 name: Prepare test application assets
                 run: |
-                    (cd tests/Application && bin/console assets:install public -vvv)
-                    (cd tests/Application && yarn build)
+                    vendor/bin/console assets:install -vvv
+                    (cd vendor/sylius/test-application && yarn build)
 
             -
                 name: Prepare test application cache
-                run: (cd tests/Application && bin/console cache:warmup -vvv)
+                run: vendor/bin/console cache:warmup -vvv
 
             -
                 name: Load fixtures in test application
-                run: (cd tests/Application && bin/console sylius:fixtures:load -n)
+                run: vendor/bin/console sylius:fixtures:load -n
             -
                 name: Validate composer.json
                 run: composer validate --ansi --strict
 
             -
                 name: Validate container
-                run: (cd tests/Application && bin/console lint:container)
+                run: vendor/bin/console lint:container
 
             -
                 name: Run Non-unit PHPUnit tests
@@ -202,6 +195,14 @@ jobs:
 #      - name: Set Behat tags
 #        if: matrix.trix != true
 #        run: echo "BEHAT_TAGS=--tags='~@wysiwyg'" >> $GITHUB_ENV
+
+            -
+                name: Run Chrome Headless
+                run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
+
+            -
+                name: Run webserver
+                run: symfony server:start --port=8080 --daemon
 
             -
                 name: Run Behat
