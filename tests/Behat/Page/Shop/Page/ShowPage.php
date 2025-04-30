@@ -73,7 +73,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
 
     public function hasTitle(string $title): bool
     {
-        return $this->getSession()->evaluateScript('return document.title') === $title;
+        return $this->getElement('title')->getText() === $title;
     }
 
     public function hasCustomLayoutCode(): bool
@@ -84,13 +84,14 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
-            'name' => '[data-test-cms-page-name]',
-            'content' => '.cms-page-content',
-            'products' => '.cms-page-products',
             'collections' => '[data-test-cms-page-collections]',
-            'link' => '.cms-page-link',
-            'page-image' => '.page-image',
+            'content' => '.cms-page-content',
             'custom-layout' => '.custom-layout',
+            'link' => '.cms-page-link',
+            'name' => '[data-test-cms-page-name]',
+            'page-image' => '.page-image',
+            'products' => '.cms-page-products',
+            'title' => 'title',
         ]);
     }
 }
