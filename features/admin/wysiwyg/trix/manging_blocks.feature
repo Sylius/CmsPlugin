@@ -1,4 +1,4 @@
-@wysiwyg @managing_blocks
+@managing_blocks
 Feature: Managing dynamic content on block page
     As an Administrator
     I want to be able to use the Trix WYSIWYG editor
