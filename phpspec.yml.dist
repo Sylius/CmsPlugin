@@ -1,4 +1,0 @@
-suites:
-    main:
-        namespace: Sylius\CmsPlugin
-        psr4_prefix: Sylius\CmsPlugin

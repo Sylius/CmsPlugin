@@ -56,13 +56,7 @@
     "autoload": {
         "psr-4": {
             "Sylius\\CmsPlugin\\": "src/",
-            "Tests\\Sylius\\CmsPlugin\\": "tests/",
-            "Tests\\Sylius\\CmsPlugin\\Unit\\": "tests/Unit"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "spec\\Sylius\\CmsPlugin\\": "spec/"
+            "Tests\\Sylius\\CmsPlugin\\": "tests/"
         }
     },
     "config": {
