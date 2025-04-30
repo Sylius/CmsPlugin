@@ -8,14 +8,13 @@
     </a>
 </p>
 
-<h1 align="center">Mollie Payments Plugin</h1>
+<h1 align="center">CMS Plugin</h1>
 
 <p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
 
-<p align="center">This plugin provides seamless Mollie integration for Sylius stores.</p>
+<p align="center">This plugin provides seamless CMS capabilities for Sylius stores</p>
 
-<p align="center">Accept payments through over 20 different methods with Mollie – trusted by over 70,000 businesses in Europe.</p>
-
+<p align="center">Extend your Sylius store with powerful content management features. Create, edit, and organize pages with ease – all fully integrated into the Sylius ecosystem.</p>
 ---
 
 ## Important documents
@@ -56,3 +55,9 @@ Instead, all security issues must be sent to `security@sylius.com`
 ## Community
 
 For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).
+
+## License
+
+---
+
+This plugin's source code is completely free and released under the terms of the MIT license.

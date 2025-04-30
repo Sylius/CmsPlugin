@@ -59,11 +59,11 @@ bin/console assets:install --symlink
 
 1. Add entrypoint import:
 ```yaml
-# assets/admin/entrypoint.js
+// assets/admin/entrypoint.js
 import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
 ```
 ```yaml
-# assets/shop/entrypoint.js
+// assets/shop/entrypoint.js
 import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
 ```
 1. Enable WYSIWYG editor
