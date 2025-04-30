@@ -14,7 +14,7 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 #### Beware!
 
 This installation instruction assumes that you're using Symfony Flex. If you don't, take a look at the
-[legacy installation instruction](docs/legacy_installation.md). However, we strongly encourage you to use
+[legacy installation instruction](doc/legacy_installation.md). However, we strongly encourage you to use
 Symfony Flex, it's much quicker!
 
 ## Composer:
