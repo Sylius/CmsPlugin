@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <parameters>
         <parameter key="sylius_cms.content_elements.type.single_media" type="constant">Sylius\CmsPlugin\Form\Type\ContentElements\SingleMediaContentElementType::TYPE</parameter>
         <parameter key="sylius_cms.content_elements.type.multiple_media" type="constant">Sylius\CmsPlugin\Form\Type\ContentElements\MultipleMediaContentElementType::TYPE</parameter>
@@ -10,8 +14,6 @@
     </parameters>
 
     <services>
-        <defaults public="true" />
-
         <service id="sylius_cms.form.type.block" class="Sylius\CmsPlugin\Form\Type\BlockType">
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>%sylius_cms.form.type.block.validation_groups%</argument>

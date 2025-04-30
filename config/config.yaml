@@ -1,0 +1,51 @@
+imports:
+    - { resource: "@SyliusCmsPlugin/config/grids.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/services.xml" }
+    - { resource: "@SyliusCmsPlugin/config/fixtures/*.yaml"}
+    - { resource: '@SyliusCmsPlugin/config/twig_hooks/**/*.yaml' }
+
+parameters:
+    sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"
+    sylius_cms_api_platform_mapping_path: 'vendor/sylius/cms-plugin/config/api_platform/'
+    sylius_validation_group: [cms]
+    sylius_cms.form.type.block.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.content_configuration.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.block_image.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.page.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.translation.page.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.collection.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.translation.media.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.media.validation_groups: "%sylius_validation_group%"
+    sylius_cms.form.type.template.validation_groups: "%sylius_validation_group%"
+    sylius_cms.uploader.filesystem: sylius_cms_media
+
+api_platform:
+    mapping:
+        paths:
+            - '%sylius_cms_api_platform_mapping_path%'
+
+knp_gaufrette:
+    adapters:
+        sylius_cms_media:
+            local:
+                directory: "%sylius_core.public_dir%"
+                create: true
+    filesystems:
+        sylius_cms_media:
+            adapter: "%sylius_cms.uploader.filesystem%"
+
+liip_imagine:
+    loaders:
+        sylius_image:
+            filesystem:
+                data_root:
+                    - "%sylius_core.public_dir%"
+
+sylius_ui:
+    twig_ux:
+        anonymous_component_template_prefixes:
+            sylius_cms.shop: "@SyliusCmsPlugin/shop/shared/components"
+
+twig:
+    form_themes:
+        - '@SyliusCmsPlugin/admin/shared/editor/trix.html.twig'

@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Webmozart\Assert\Assert;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class MediaController extends ResourceController
 {
@@ -40,11 +40,11 @@ final class MediaController extends ResourceController
     public function renderMediaAction(Request $request): Response
     {
         $configuration = $this->getRequestConfiguration($request);
+
         /** @var MediaInterface|null $media */
         $media = $this->getMediaForRequestCode($configuration, $request);
-
         if (null === $media) {
-            return new Response();
+            return throw new NotFoundHttpException();
         }
 
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $media);
@@ -58,17 +58,18 @@ final class MediaController extends ResourceController
 
         /** @var MediaInterface|null $media */
         $media = $this->getMediaForRequestCode($configuration, $request);
-        Assert::notNull($media);
+        if (null === $media) {
+            return throw new NotFoundHttpException();
+        }
+
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $media);
+
         $mediaPath = $this->getMediaPathIfNotNull($media);
         $mediaFile = new File($mediaPath);
         $mediaName = $media->getDownloadName() . '.' . $mediaFile->guessExtension();
         $response = new BinaryFileResponse($mediaPath);
 
-        $response->setContentDisposition(
-            $request->get('disposition', ResponseHeaderBag::DISPOSITION_ATTACHMENT),
-            $mediaName,
-        );
+        $response->setContentDisposition($this->resolveDisposition($request), $mediaName);
         $response->headers->set('Content-Type', $media->getMimeType());
 
         return $response;
@@ -90,5 +91,15 @@ final class MediaController extends ResourceController
         $code = $request->get('code');
 
         return $this->mediaResourceResolver->findOrLog($code);
+    }
+
+    private function resolveDisposition(Request $request): string
+    {
+        $disposition = $request->query->get('disposition');
+        if (in_array($disposition, [ResponseHeaderBag::DISPOSITION_ATTACHMENT, ResponseHeaderBag::DISPOSITION_INLINE], true)) {
+            return $disposition;
+        }
+
+        return $request->attributes->get('disposition', ResponseHeaderBag::DISPOSITION_ATTACHMENT);
     }
 }

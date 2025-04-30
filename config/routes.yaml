@@ -1,0 +1,7 @@
+sylius_cms_admin:
+    resource: "@SyliusCmsPlugin/config/routes/admin.yaml"
+    prefix: '/%sylius_admin.path_name%'
+
+sylius_cms_shop:
+    resource: "@SyliusCmsPlugin/config/routes/shop.yaml"
+    prefix: /{_locale}

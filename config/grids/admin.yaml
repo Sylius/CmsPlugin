@@ -1,0 +1,6 @@
+imports:
+    - { resource: "@SyliusCmsPlugin/config/grids/admin/block.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/admin/page.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/admin/collection.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/admin/media.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/admin/template.yaml" }

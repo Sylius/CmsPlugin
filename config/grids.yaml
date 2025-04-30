@@ -1,0 +1,3 @@
+imports:
+    - { resource: "@SyliusCmsPlugin/config/grids/admin.yaml" }
+    - { resource: "@SyliusCmsPlugin/config/grids/shop.yaml" }

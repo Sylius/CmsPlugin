@@ -1,0 +1,14 @@
+sylius_cms_shop_page_show:
+    path: /pages/{slug}
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.page.overriden::showAction
+
+sylius_cms_shop_collections_page_index:
+    path: /collections/{code}/pages
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.page.overriden::indexAction
+        _sylius:
+            template: "@SyliusCmsPlugin/shop/collection/page/index.html.twig"
+            grid: sylius_cms_shop_page

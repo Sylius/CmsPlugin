@@ -1,0 +1,12 @@
+sylius_cms_shop_media_render:
+    path: /media/{code}
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.media.overriden::renderMediaAction
+
+sylius_cms_shop_media_download:
+    path: /media/download/{code}
+    methods: [GET]
+    defaults:
+        _controller: sylius_cms.controller.media.overriden::downloadMediaAction
+        disposition: !php/const Symfony\Component\HttpFoundation\ResponseHeaderBag::DISPOSITION_ATTACHMENT

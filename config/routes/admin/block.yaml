@@ -1,0 +1,15 @@
+sylius_cms_admin_block:
+    resource: |
+        alias: sylius_cms.block
+        section: admin
+        templates: "@SyliusAdmin\\shared\\crud"
+        except: ['show']
+        redirect: update
+        grid: sylius_cms_admin_block
+        form:
+            type: Sylius\CmsPlugin\Form\Type\BlockType
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'sylius_cms.admin.block'
+    type: sylius.resource

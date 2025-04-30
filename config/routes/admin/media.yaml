@@ -1,0 +1,16 @@
+sylius_cms_admin_media:
+    resource: |
+        alias: sylius_cms.media
+        section: admin
+        templates: "@SyliusAdmin\\shared\\crud"
+        redirect: update
+        grid: sylius_cms_admin_media
+        form:
+            type: Sylius\CmsPlugin\Form\Type\MediaType
+        except: ['show']
+        permission: true
+        vars:
+            all:
+                hook_prefix: 'sylius_cms.admin.media'
+
+    type: sylius.resource

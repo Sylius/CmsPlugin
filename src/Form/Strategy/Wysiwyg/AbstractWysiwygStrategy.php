@@ -35,6 +35,6 @@ abstract class AbstractWysiwygStrategy implements WysiwygStrategyInterface
 
     public function getBlockPrefix(): string
     {
-        return 'bitbag_wysiwyg';
+        return 'sylius_cms_wysiwyg';
     }
 }

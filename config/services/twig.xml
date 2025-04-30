@@ -1,188 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <parameters>
         <parameter key="sylius_cms.twig.admin_functions" type="collection">
                 <parameter>sylius_cms_render_block</parameter>
                 <parameter>sylius_cms_render_media</parameter>
         </parameter>
-        <parameter key="sylius_cms.twig.link_template">@SyliusCmsPlugin/shop/page/link.html.twig</parameter>
     </parameters>
 
     <services>
-        <defaults public="true" />
-
-        <service id="sylius_cms.twig.extension.block" class="Sylius\CmsPlugin\Twig\Extension\RenderBlockExtension">
-            <argument type="service" id="sylius_cms.twig.runtime.block" />
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.block" class="Sylius\CmsPlugin\Twig\Runtime\RenderBlockRuntime">
-            <argument type="service" id="sylius_cms.resolver.block_resource" />
-            <argument type="service" id="twig" />
-            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.collection" class="Sylius\CmsPlugin\Twig\Extension\RenderCollectionExtension">
-            <argument type="service" id="sylius_cms.twig.runtime.collection" />
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.collection" class="Sylius\CmsPlugin\Twig\Runtime\RenderCollectionRuntime">
-            <argument type="service" id="twig" />
-            <argument type="service" id="sylius_cms.resolver.collection_resource" />
-            <argument type="service" id="sylius_cms.collection_renderer_strategy" />
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.media" class="Sylius\CmsPlugin\Twig\Extension\RenderMediaExtension">
-            <argument type="service" id="sylius_cms.twig.runtime.media" />
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.media" class="Sylius\CmsPlugin\Twig\Runtime\RenderMediaRuntime">
-            <argument type="service" id="sylius_cms.resolver.media_provider" />
-            <argument type="service" id="sylius_cms.resolver.media_resource" />
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.render_content" class="Sylius\CmsPlugin\Twig\Extension\RenderContentExtension">
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.render_content" class="Sylius\CmsPlugin\Twig\Runtime\RenderContentRuntime">
-            <argument type="service" id="sylius_cms.twig.parser.content" />
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.render_content_elements" class="Sylius\CmsPlugin\Twig\Extension\RenderContentElementsExtension">
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.render_content_elements" class="Sylius\CmsPlugin\Twig\Runtime\RenderContentElementsRuntime">
-            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
-            <tag name="twig.runtime" />
-        </service>
+        <defaults public="false" />
 
         <service id="sylius_cms.twig.parser.content" class="Sylius\CmsPlugin\Twig\Parser\ContentParser">
             <argument type="service" id="twig" />
             <argument>%sylius_cms.twig.admin_functions%</argument>
-        </service>
-
-        <service id="sylius_cms.twig.extension.render_link" class="Sylius\CmsPlugin\Twig\Extension\RenderPageLinkExtension">
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.render_link" class="Sylius\CmsPlugin\Twig\Runtime\RenderPageLinkRuntime">
-            <argument type="service" id="sylius_cms.repository.page" />
-            <argument type="service" id="router.default" />
-            <argument>%sylius_cms.twig.link_template%</argument>
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.translation_form_reduce" class="Sylius\CmsPlugin\Twig\Extension\TranslationFormReduceExtension">
-            <argument type="service" id="sylius_cms.twig.runtime.translation_form_reduce" />
-            <tag name="twig.extension" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.translation_form_reduce" class="Sylius\CmsPlugin\Twig\Runtime\TranslationFormReduceRuntime">
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.runtime.template_exists" class="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntime" lazy="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntimeInterface">
-            <argument type="service" id="twig" />
-
-            <tag name="twig.runtime" />
-        </service>
-
-        <service id="sylius_cms.twig.extension.template_exists" class="Sylius\CmsPlugin\Twig\Extension\TemplateExistsExtension">
-            <argument type="service" id="sylius_cms.twig.runtime.template_exists" />
-
-            <tag name="twig.extension" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.template.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
-        >
-            <argument type="service" id="sylius_cms.repository.template" />
-            <argument type="service" id="form.factory" />
-            <argument>%sylius_cms.model.template.class%</argument>
-            <argument>Sylius\CmsPlugin\Form\Type\TemplateType</argument>
-
-            <tag name="sylius.live_component.admin" key="sylius_cms:admin:template:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.collection.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
-        >
-            <argument type="service" id="sylius_cms.repository.collection" />
-            <argument type="service" id="form.factory" />
-            <argument>%sylius_cms.model.collection.class%</argument>
-            <argument>Sylius\CmsPlugin\Form\Type\CollectionType</argument>
-
-            <tag name="sylius.live_component.admin" key="sylius_cms:admin:collection:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.block.form"
-            class="Sylius\CmsPlugin\Twig\Component\Block\FormComponent"
-        >
-            <argument type="service" id="sylius_cms.repository.block" />
-            <argument type="service" id="form.factory" />
-            <argument>%sylius_cms.model.block.class%</argument>
-            <argument>Sylius\CmsPlugin\Form\Type\BlockType</argument>
-            <argument type="service" id="sylius_cms.repository.template" />
-            <argument type="service" id="twig" />
-            <argument>@SyliusCmsPlugin/admin/block/preview.html.twig</argument>
-            <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
-
-            <call method="setLiveResponder">
-                <argument type="service" id="ux.live_component.live_responder"/>
-            </call>
-
-            <tag name="sylius.live_component.admin" key="sylius_cms:admin:block:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.media.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
-        >
-            <argument type="service" id="sylius_cms.repository.media" />
-            <argument type="service" id="form.factory" />
-            <argument>%sylius_cms.model.media.class%</argument>
-            <argument>Sylius\CmsPlugin\Form\Type\MediaType</argument>
-
-            <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.media.preview"
-            class="Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent"
-        >
-            <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.admin.page.form"
-            class="Sylius\CmsPlugin\Twig\Component\Page\FormComponent"
-        >
-            <argument type="service" id="sylius_cms.repository.page" />
-            <argument type="service" id="form.factory" />
-            <argument>%sylius_cms.model.page.class%</argument>
-            <argument>Sylius\CmsPlugin\Form\Type\PageType</argument>
-            <argument type="service" id="sylius_cms.repository.template" />
-            <argument type="service" id="twig" />
-            <argument>@SyliusCmsPlugin/admin/page/preview.html.twig</argument>
-            <argument type="service" id="sylius.generator.slug" />
-
-            <call method="setLiveResponder">
-                <argument type="service" id="ux.live_component.live_responder"/>
-            </call>
-
-            <tag name="sylius.live_component.admin" key="sylius_cms:admin:page:form" />
         </service>
     </services>
 </container>

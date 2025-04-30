@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults public="true" />
+
+        <service id="sylius_cms.fixture.assigner.channels" class="Sylius\CmsPlugin\Fixture\Assigner\ChannelsAssigner">
+            <argument type="service" id="sylius.repository.channel" />
+        </service>
+
+        <service id="sylius_cms.fixture.assigner.products" class="Sylius\CmsPlugin\Fixture\Assigner\ProductsAssigner">
+            <argument type="service" id="sylius.repository.product" />
+        </service>
+
+        <service id="sylius_cms.fixture.assigner.taxons" class="Sylius\CmsPlugin\Fixture\Assigner\TaxonsAssigner">
+            <argument type="service" id="sylius.repository.taxon" />
+        </service>
+
+        <service id="sylius_cms.fixture.assigner.collections" class="Sylius\CmsPlugin\Fixture\Assigner\CollectionsAssigner">
+            <argument type="service" id="sylius_cms.repository.collection" />
+        </service>
+
+        <service id="sylius_cms.fixture.assigner.products_in_taxons" class="Sylius\CmsPlugin\Fixture\Assigner\ProductsInTaxonsAssigner">
+            <argument type="service" id="sylius.repository.taxon" />
+        </service>
 
         <service id="sylius_cms.fixture.block" class="Sylius\CmsPlugin\Fixture\BlockFixture">
             <argument type="service" id="sylius_cms.fixture.factory.block" />
@@ -32,11 +56,11 @@
         <service id="sylius_cms.fixture.factory.block" class="Sylius\CmsPlugin\Fixture\Factory\BlockFixtureFactory">
             <argument type="service" id="sylius_cms.factory.block" />
             <argument type="service" id="sylius_cms.repository.block" />
-            <argument type="service" id="sylius_cms.assigner.collections" />
-            <argument type="service" id="sylius_cms.assigner.channels" />
-            <argument type="service" id="sylius_cms.assigner.products" />
-            <argument type="service" id="sylius_cms.assigner.taxons" />
-            <argument type="service" id="sylius_cms.assigner.products_in_taxons" />
+            <argument type="service" id="sylius_cms.fixture.assigner.collections" />
+            <argument type="service" id="sylius_cms.fixture.assigner.channels" />
+            <argument type="service" id="sylius_cms.fixture.assigner.products" />
+            <argument type="service" id="sylius_cms.fixture.assigner.taxons" />
+            <argument type="service" id="sylius_cms.fixture.assigner.products_in_taxons" />
         </service>
 
         <service id="sylius_cms.fixture.factory.page" class="Sylius\CmsPlugin\Fixture\Factory\PageFixtureFactory">
@@ -44,8 +68,8 @@
             <argument type="service" id="sylius_cms.factory.page_translation" />
             <argument type="service" id="sylius_cms.repository.page" />
             <argument type="service" id="sylius_cms.repository.media" />
-            <argument type="service" id="sylius_cms.assigner.collections" />
-            <argument type="service" id="sylius_cms.assigner.channels" />
+            <argument type="service" id="sylius_cms.fixture.assigner.collections" />
+            <argument type="service" id="sylius_cms.fixture.assigner.channels" />
         </service>
 
         <service id="sylius_cms.fixture.factory.collection" class="Sylius\CmsPlugin\Fixture\Factory\CollectionFixtureFactory">
@@ -59,8 +83,8 @@
             <argument type="service" id="sylius_cms.factory.media_translation" />
             <argument type="service" id="sylius_cms.resolver.media_provider" />
             <argument type="service" id="sylius_cms.repository.media" />
-            <argument type="service" id="sylius_cms.assigner.collections" />
-            <argument type="service" id="sylius_cms.assigner.channels" />
+            <argument type="service" id="sylius_cms.fixture.assigner.collections" />
+            <argument type="service" id="sylius_cms.fixture.assigner.channels" />
         </service>
 
         <service id="sylius_cms.fixture.factory.template" class="Sylius\CmsPlugin\Fixture\Factory\TemplateFixtureFactory">
@@ -68,5 +92,4 @@
             <argument type="service" id="sylius_cms.repository.template" />
         </service>
     </services>
-
 </container>

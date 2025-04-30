@@ -1,0 +1,8 @@
+sylius_cms_shop_page:
+    resource: "@SyliusCmsPlugin/config/routes/shop/page.yaml"
+
+sylius_cms_shop_collection:
+    resource: "@SyliusCmsPlugin/config/routes/shop/collection.yaml"
+
+sylius_cms_shop_media:
+    resource: "@SyliusCmsPlugin/config/routes/shop/media.yaml"
