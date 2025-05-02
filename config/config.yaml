@@ -6,7 +6,7 @@ imports:
 
 parameters:
     sylius.sitemap.path: "%kernel.project_dir%/var/sitemap"
-    sylius_cms_api_platform_mapping_path: 'vendor/sylius/cms-plugin/config/api_platform/'
+    sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/vendor/sylius/cms-plugin/config/api_platform/'
     sylius_validation_group: [cms]
     sylius_cms.form.type.block.validation_groups: "%sylius_validation_group%"
     sylius_cms.form.type.content_configuration.validation_groups: "%sylius_validation_group%"
