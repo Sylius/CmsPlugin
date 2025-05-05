@@ -18,6 +18,7 @@ use Sylius\Resource\Model\ResourceInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
+use Symfony\UX\TwigComponent\Attribute\PreMount;
 use Twig\Environment;
 
 /**
@@ -35,6 +36,9 @@ trait PreviewComponentTrait
     protected string $previewTemplate;
 
     #[LiveProp(writable: true)]
+    public string $defaultLocaleCode = '';
+
+    #[LiveProp(writable: true)]
     public string $localeCode = '';
 
     #[LiveAction]
@@ -43,6 +47,8 @@ trait PreviewComponentTrait
         if (null === $this->resource) {
             return;
         }
+
+        $this->resetLocaleCodeChoice();
 
         $this->dispatchPreviewEvent(self::RENDER_PREVIEW_EVENT);
     }
@@ -55,6 +61,17 @@ trait PreviewComponentTrait
         }
 
         $this->dispatchPreviewEvent(self::RELOAD_PREVIEW_EVENT);
+    }
+
+    #[PreMount]
+    public function resetLocaleCodeChoice(): void
+    {
+        if ('' === $this->defaultLocaleCode) {
+            return;
+        }
+
+        $this->localeCode = $this->defaultLocaleCode;
+        $this->formValues['localeCode'] = $this->defaultLocaleCode;
     }
 
     protected function initializePreview(Environment $twig, string $previewTemplate): void

@@ -7,6 +7,7 @@ sylius_twig_hooks:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
                     template: '@SyliusCmsPlugin/admin/block/form.html.twig'
+                    defaultLocaleCode: '@=_context.configuration.getRequest().getLocale()'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form':

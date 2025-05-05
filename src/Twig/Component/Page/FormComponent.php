@@ -78,7 +78,7 @@ class FormComponent
             return;
         }
 
-        $locale = $this->localeCode !== '' ? $this->localeCode : 'en_US';
+        $locale = $this->localeCode !== '' ? $this->localeCode : $this->defaultLocaleCode;
 
         $this->resource->setFallbackLocale($locale);
         $this->resource->setCurrentLocale($locale);
