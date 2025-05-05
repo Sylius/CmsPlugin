@@ -31,5 +31,9 @@
         <service id="sylius_cms.twig.extension.template_exists" class="Sylius\CmsPlugin\Twig\Extension\TemplateExistsExtension">
             <argument type="service" id="sylius_cms.twig.runtime.template_exists" />
         </service>
+
+        <service id="sylius_cms.twig.extension.resolve_media_video_path" class="Sylius\CmsPlugin\Twig\Extension\ResolveMediaVideoPathExtension">
+            <argument type="service" id="sylius_cms.twig.runtime.resolve_media_video_path" />
+        </service>
     </services>
 </container>
