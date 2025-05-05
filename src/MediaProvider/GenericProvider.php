@@ -23,7 +23,6 @@ final class GenericProvider implements ProviderInterface
         private MediaUploaderInterface $uploader,
         private Environment $twigEngine,
         private string $template,
-        private string $pathPrefix,
     ) {
     }
 
@@ -42,6 +41,6 @@ final class GenericProvider implements ProviderInterface
 
     public function upload(MediaInterface $media): void
     {
-        $this->uploader->upload($media, $this->pathPrefix);
+        $this->uploader->upload($media);
     }
 }

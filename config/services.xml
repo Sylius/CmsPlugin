@@ -21,13 +21,28 @@
             <argument>Media provider</argument>
         </service>
 
-        <service id="sylius_cms.media_uploader" class="Sylius\CmsPlugin\Uploader\MediaUploader">
-            <argument type="service" id="sylius_cms.media.filesystem" />
+        <service id="sylius_cms.media_uploader.image" class="Sylius\CmsPlugin\Uploader\MediaUploader">
+            <argument type="service" id="sylius_cms.media.filesystem.image" />
         </service>
 
-        <service id="sylius_cms.media.filesystem" class="Gaufrette\Filesystem">
-            <factory service="knp_gaufrette.filesystem_map" method="get" />
-            <argument>%sylius_cms.uploader.filesystem%</argument>
+        <service id="sylius_cms.media_uploader.video" class="Sylius\CmsPlugin\Uploader\MediaUploader">
+            <argument type="service" id="sylius_cms.media.filesystem.video" />
+        </service>
+
+        <service id="sylius_cms.media_uploader.file" class="Sylius\CmsPlugin\Uploader\MediaUploader">
+            <argument type="service" id="sylius_cms.media.filesystem.file" />
+        </service>
+
+        <service id="sylius_cms.media.filesystem.image" class="Sylius\Component\Core\Filesystem\Adapter\FlysystemFilesystemAdapter">
+            <argument type="service" id="sylius_cms_media.image.storage" />
+        </service>
+
+        <service id="sylius_cms.media.filesystem.video" class="Sylius\Component\Core\Filesystem\Adapter\FlysystemFilesystemAdapter">
+            <argument type="service" id="sylius_cms_media.video.storage" />
+        </service>
+
+        <service id="sylius_cms.media.filesystem.file" class="Sylius\Component\Core\Filesystem\Adapter\FlysystemFilesystemAdapter">
+            <argument type="service" id="sylius_cms_media.file.storage" />
         </service>
 
         <service id="sylius_cms.sorter.collections" class="Sylius\CmsPlugin\Sorter\CollectionsSorter" />
