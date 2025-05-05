@@ -17,29 +17,32 @@ parameters:
     sylius_cms.form.type.translation.media.validation_groups: "%sylius_validation_group%"
     sylius_cms.form.type.media.validation_groups: "%sylius_validation_group%"
     sylius_cms.form.type.template.validation_groups: "%sylius_validation_group%"
-    sylius_cms.uploader.filesystem: sylius_cms_media
+    sylius_cms.images_dir: "%sylius_core.images_dir%"
+    sylius_cms.videos_dir: "%sylius_core.public_dir%/media/video"
+    sylius_cms.files_dir: "%sylius_core.public_dir%/media/file"
 
 api_platform:
     mapping:
         paths:
             - '%sylius_cms_api_platform_mapping_path%'
 
-knp_gaufrette:
-    adapters:
-        sylius_cms_media:
-            local:
-                directory: "%sylius_core.public_dir%"
-                create: true
-    filesystems:
-        sylius_cms_media:
-            adapter: "%sylius_cms.uploader.filesystem%"
-
-liip_imagine:
-    loaders:
-        sylius_image:
-            filesystem:
-                data_root:
-                    - "%sylius_core.public_dir%"
+flysystem:
+    storages:
+        sylius_cms_media.image.storage:
+            adapter: 'local'
+            options:
+                directory: '%sylius_cms.images_dir%'
+            directory_visibility: 'public'
+        sylius_cms_media.video.storage:
+            adapter: 'local'
+            options:
+                directory: '%sylius_cms.videos_dir%'
+            directory_visibility: 'public'
+        sylius_cms_media.file.storage:
+            adapter: 'local'
+            options:
+                directory: '%sylius_cms.files_dir%'
+            directory_visibility: 'public'
 
 sylius_ui:
     twig_ux:
