@@ -11,13 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\CmsPlugin\Uploader;
+namespace Sylius\CmsPlugin\Twig\Runtime;
 
-use Sylius\CmsPlugin\Entity\MediaInterface;
+use Twig\Extension\RuntimeExtensionInterface;
 
-interface MediaUploaderInterface
+interface ResolveMediaVideoPathRuntimeInterface extends RuntimeExtensionInterface
 {
-    public function upload(MediaInterface $media): void;
-
-    public function remove(string $path): bool;
+    public function resolve(string $path): string;
 }

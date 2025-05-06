@@ -2,7 +2,8 @@
     {% if media.link %}
         <a href="{{ media.link }}" target="_blank">
     {% endif %}
-    <img src="{{ media.path }}" alt="{{ media.alt }}" class="img-fluid"
+        {% set original_path = media.path|imagine_filter('sylius_original') %}
+    <img src="{{ original_path }}" alt="{{ media.alt }}" class="img-fluid"
         {% if media.width is not null %} width="{{ media.width }}" {% endif %}
         {% if media.height is not null %} height="{{ media.height }}" {% endif %}
     />

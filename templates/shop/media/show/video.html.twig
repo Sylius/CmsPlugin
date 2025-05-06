@@ -3,7 +3,7 @@
         <h2>{{ media.name|raw }}</h2>
     {% endif %}
 
-    <video controls width="100%" src="{{ media.path }}"></video>
+    <video controls width="100%" src="{{ media.path|sylius_cms_resolve_media_video_path }}"></video>
 
     <p>{{ sylius_cms_render_content(media) }}</p>
 </div>

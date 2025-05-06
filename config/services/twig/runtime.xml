@@ -48,5 +48,12 @@
         <service id="sylius_cms.twig.runtime.template_exists" class="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntime" lazy="Sylius\CmsPlugin\Twig\Runtime\TemplateExistsRuntimeInterface">
             <argument type="service" id="twig" />
         </service>
+
+        <service id="sylius_cms.twig.runtime.resolve_media_video_path" class="Sylius\CmsPlugin\Twig\Runtime\ResolveMediaVideoPathRuntime">
+            <argument type="service" id="sylius_cms_media.video.storage" />
+            <argument>%sylius_cms.videos_dir%</argument>
+            <argument>%sylius_core.public_dir%</argument>
+        </service>
+        <service id="Sylius\CmsPlugin\Twig\Runtime\ResolveMediaVideoPathRuntimeInterface" alias="sylius_cms.twig.runtime.resolve_media_video_path" />
     </services>
 </container>
