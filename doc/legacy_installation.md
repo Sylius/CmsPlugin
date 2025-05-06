@@ -24,59 +24,59 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 ## Basic configuration:
 1. Add plugin dependencies to your `config/bundles.php` file (if not added automatically):
 
-```php
-# config/bundles.php
-
-return [
-    ...
-    Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
-];
-```
+    ```php
+    # config/bundles.php
+    
+    return [
+        ...
+        Sylius\CmsPlugin\SyliusCmsPlugin::class  => ['all' => true],
+    ];
+    ```
 
 1. Import required config in your `config/packages/_sylius.yaml` file:
-```yaml
-# config/packages/_sylius.yaml
-
-imports:
-      ...
-      - { resource: "@SyliusCmsPlugin/config/config.yaml" }
-```
+    ```yaml
+    # config/packages/_sylius.yaml
+    
+    imports:
+          ...
+          - { resource: "@SyliusCmsPlugin/config/config.yaml" }
+    ```
 
 1. Import routing in your `config/routes.yaml` file:
 
-```yaml
-
-# config/routes.yaml
-...
-sylius_cms:
-    resource: "@SyliusCmsPlugin/config/routes.yaml"
-```
+    ```yaml
+    
+    # config/routes.yaml
+    ...
+    sylius_cms:
+        resource: "@SyliusCmsPlugin/config/routes.yaml"
+    ```
 
 1. Install assets:
-```bash
-bin/console assets:install --symlink
-```
+    ```bash
+    bin/console assets:install --symlink
+    ```
 
 1. Add entrypoint import:
-```yaml
-// assets/admin/entrypoint.js
-import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
-```
-```yaml
-// assets/shop/entrypoint.js
-import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
-```
+    ```yaml
+    // assets/admin/entrypoint.js
+    import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
+    ```
+    ```yaml
+    // assets/shop/entrypoint.js
+    import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
+    ```
 
 1. Run `yarn add trix`
----
+
 1. Build assets:
-```bash
-  yarn install
-```
-```bash
-  yarn encore dev
-```
----
+    ```bash
+      yarn install
+    ```
+    ```bash
+      yarn encore dev
+    ```
+
 1. Database update:
 ```bash
   bin/console doctrine:migrations:migrate
