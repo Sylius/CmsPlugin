@@ -75,13 +75,7 @@ Symfony Flex, it's much quicker!
 
    > Remember to allow community recipes with `composer config extra.symfony.allow-contrib true` or during plugin installation process
 
-1. Run `yarn add trix`
-
-1. Install assets:
-
-    ```bash
-    yarn install
-    ```
+1. Run `yarn add trix@^2.0.0 swiper@^11.2.6`
 
 1. Run `yarn encore dev` or `yarn encore production`
 
