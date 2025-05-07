@@ -17,6 +17,7 @@ use Sylius\Bundle\AdminBundle\SectionResolver\AdminSection;
 use Sylius\Bundle\CoreBundle\SectionResolver\SectionProviderInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Locale\Context\LocaleNotFoundException;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -25,6 +26,7 @@ final readonly class PreviewLocaleContext implements LocaleContextInterface
     public function __construct(
         private SectionProviderInterface $sectionProvider,
         private RequestStack $requestStack,
+        private LocaleProviderInterface $localeProvider,
     ) {
     }
 
@@ -37,8 +39,17 @@ final readonly class PreviewLocaleContext implements LocaleContextInterface
         $request = $this->requestStack->getMainRequest();
         if (
             null === $request ||
-            !$this->requestHasReloadLiveAction($request)
+            !$this->hasLiveActionWithComponent($request) ||
+            !$request->request->has('data')
         ) {
+            throw new LocaleNotFoundException();
+        }
+
+        if ($this->requestHasLiveAction($request, 'preview')) {
+            return $this->localeProvider->getDefaultLocaleCode();
+        }
+
+        if (!$this->requestHasLiveAction($request, 'reload')) {
             throw new LocaleNotFoundException();
         }
 
@@ -48,18 +59,15 @@ final readonly class PreviewLocaleContext implements LocaleContextInterface
         return $matches[1][0] ?? throw new LocaleNotFoundException();
     }
 
-    private function requestHasReloadLiveAction(Request $request): bool
+    private function hasLiveActionWithComponent(Request $request): bool
     {
-        if (
-            !$request->attributes->has('_live_action') ||
-            !$request->attributes->has('_live_component') ||
-            !$request->request->has('data')
-        ) {
-            return false;
-        }
+        return $request->attributes->has('_live_component') && $request->attributes->has('_live_action');
+    }
 
+    private function requestHasLiveAction(Request $request, string $action): bool
+    {
         return
-            $request->attributes->get('_live_action') === 'reload' &&
+            $request->attributes->get('_live_action') === $action &&
             str_starts_with($request->attributes->get('_live_component'), 'sylius_cms:admin')
         ;
     }

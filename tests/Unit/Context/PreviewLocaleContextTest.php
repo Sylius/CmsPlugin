@@ -20,6 +20,7 @@ use Sylius\Bundle\AdminBundle\SectionResolver\AdminSection;
 use Sylius\Bundle\CoreBundle\SectionResolver\SectionProviderInterface;
 use Sylius\CmsPlugin\Context\PreviewLocaleContext;
 use Sylius\Component\Locale\Context\LocaleNotFoundException;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -29,16 +30,20 @@ final class PreviewLocaleContextTest extends TestCase
 
     private MockObject|SectionProviderInterface $sectionProvider;
 
+    private LocaleProviderInterface|MockObject $localeProvider;
+
     private PreviewLocaleContext $previewLocaleContext;
 
     protected function setUp(): void
     {
         $this->requestStack = $this->createMock(RequestStack::class);
         $this->sectionProvider = $this->createMock(SectionProviderInterface::class);
+        $this->localeProvider = $this->createMock(LocaleProviderInterface::class);
 
         $this->previewLocaleContext = new PreviewLocaleContext(
             $this->sectionProvider,
             $this->requestStack,
+            $this->localeProvider,
         );
     }
 
@@ -126,6 +131,31 @@ final class PreviewLocaleContextTest extends TestCase
         ;
 
         $this->assertSame($locale, $this->previewLocaleContext->getLocaleCode());
+    }
+
+    public function testReturnsDefaultLocaleOnPreviewAction(): void
+    {
+        $request = self::createRequest('preview', 'sylius_cms:admin', 'data');
+
+        $this->sectionProvider
+            ->expects($this->once())
+            ->method('getSection')
+            ->willReturn($this->createMock(AdminSection::class))
+        ;
+
+        $this->requestStack
+            ->expects($this->once())
+            ->method('getMainRequest')
+            ->willReturn($request)
+        ;
+
+        $this->localeProvider
+            ->expects($this->once())
+            ->method('getDefaultLocaleCode')
+            ->willReturn('en_US')
+        ;
+
+        $this->assertSame('en_US', $this->previewLocaleContext->getLocaleCode());
     }
 
     /** @return iterable<string, Request[]> */

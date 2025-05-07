@@ -18,7 +18,7 @@
             <argument>%sylius_cms.model.block.class%</argument>
             <argument>%sylius_cms.form.type.block.validation_groups%</argument>
             <argument type="service" id="sylius_cms.provider.resource_template" />
-            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.provider.locale" />
             <tag name="form.type" />
         </service>
 
@@ -32,7 +32,7 @@
             <argument>%sylius_cms.model.page.class%</argument>
             <argument>%sylius_cms.form.type.page.validation_groups%</argument>
             <argument type="service" id="sylius_cms.provider.resource_template" />
-            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.provider.locale" />
             <tag name="form.type" />
         </service>
 

@@ -50,6 +50,7 @@
         <service id="sylius_cms.context.locale.admin_preview" class="Sylius\CmsPlugin\Context\PreviewLocaleContext">
             <argument type="service" id="sylius.section_resolver.uri_based" />
             <argument type="service" id="request_stack" />
+            <argument type="service" id="sylius.provider.locale" />
 
             <tag name="sylius.context.locale" priority="256" />
         </service>

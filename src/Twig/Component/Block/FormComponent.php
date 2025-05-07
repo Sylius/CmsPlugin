@@ -22,6 +22,7 @@ use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
 use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -53,12 +54,13 @@ class FormComponent
         string $formClass,
         TemplateRepositoryInterface $templateRepository,
         Environment $twig,
+        LocaleProviderInterface $localeProvider,
         string $previewTemplate,
         protected readonly ContentElementRendererStrategyInterface $contentElementRendererStrategy,
     ) {
         $this->initialize($blockRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
-        $this->initializePreview($twig, $previewTemplate);
+        $this->initializePreview($twig, $localeProvider, $previewTemplate);
     }
 
     /** @return array{resource: BlockInterface|null, content: string} */

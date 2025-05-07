@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Resource\Model\ResourceInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -33,10 +34,11 @@ trait PreviewComponentTrait
 
     protected Environment $twig;
 
+    protected LocaleProviderInterface $localeProvider;
+
     protected string $previewTemplate;
 
-    #[LiveProp(writable: true)]
-    public string $defaultLocaleCode = '';
+    protected string $defaultLocaleCode = '';
 
     #[LiveProp(writable: true)]
     public string $localeCode = '';
@@ -74,10 +76,16 @@ trait PreviewComponentTrait
         $this->formValues['localeCode'] = $this->defaultLocaleCode;
     }
 
-    protected function initializePreview(Environment $twig, string $previewTemplate): void
-    {
+    protected function initializePreview(
+        Environment $twig,
+        LocaleProviderInterface $localeProvider,
+        string $previewTemplate,
+    ): void {
         $this->twig = $twig;
+        $this->localeProvider = $localeProvider;
         $this->previewTemplate = $previewTemplate;
+
+        $this->defaultLocaleCode = $this->localeProvider->getDefaultLocaleCode();
     }
 
     protected function dispatchPreviewEvent(string $eventName): void
