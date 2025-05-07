@@ -1,31 +1,30 @@
 sylius_fixtures:
-  suites:
-    default:
-      listeners:
-        orm_purger: ~
-        logger: ~
-      fixtures:
-        collection:
-          options:
-            custom:
-              blog:
-                name: "Blog"
-                type: "page"
-              homepage:
-                name: "Homepage"
-                type: "page"
-              homepage_banner:
-                name: "Homepage"
-                type: "media"
-              black_friday:
-                name: "Black Friday"
-                type: "block"
-              black_friday_banner:
-                name: "Black Friday banners"
-                type: "media"
-              blog_images:
-                name: "Blog images"
-                type: "media"
-              products_details:
-                name: "Product details"
-                type: "block"
+    suites:
+        cms:
+            listeners:
+                logger: ~
+            fixtures:
+                collection:
+                    options:
+                        custom:
+                            blog:
+                                name: "Blog"
+                                type: "page"
+                            homepage:
+                                name: "Homepage"
+                                type: "page"
+                            homepage_banner:
+                                name: "Homepage"
+                                type: "media"
+                            black_friday:
+                                name: "Black Friday"
+                                type: "block"
+                            black_friday_banner:
+                                name: "Black Friday banners"
+                                type: "media"
+                            blog_images:
+                                name: "Blog images"
+                                type: "media"
+                            products_details:
+                                name: "Product details"
+                                type: "block"
