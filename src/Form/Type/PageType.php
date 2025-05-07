@@ -21,7 +21,7 @@ use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Form\Type\Translation\PageTranslationType;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -34,7 +34,7 @@ final class PageType extends AbstractResourceType
         string $dataClass,
         array $validationGroups,
         private readonly ResourceTemplateProviderInterface $templateProvider,
-        private readonly LocaleContextInterface $localeContext,
+        private readonly LocaleProviderInterface $localeProvider,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -80,7 +80,7 @@ final class PageType extends AbstractResourceType
                 'mapped' => false,
                 'required' => false,
                 'placeholder' => false,
-                'empty_data' => $this->localeContext->getLocaleCode(),
+                'empty_data' => $this->localeProvider->getDefaultLocaleCode(),
             ])
             ->add('contentElements', ContentConfigurationTranslationsType::class, [
                 'entry_type' => ContentConfigurationType::class,

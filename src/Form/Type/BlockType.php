@@ -21,7 +21,7 @@ use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Provider\ResourceTemplateProviderInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,7 +33,7 @@ final class BlockType extends AbstractResourceType
         string $dataClass,
         array $validationGroups,
         private readonly ResourceTemplateProviderInterface $templateProvider,
-        private readonly LocaleContextInterface $localeContext,
+        private readonly LocaleProviderInterface $localeProvider,
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -88,7 +88,7 @@ final class BlockType extends AbstractResourceType
                 'mapped' => false,
                 'required' => false,
                 'placeholder' => false,
-                'empty_data' => $this->localeContext->getLocaleCode(),
+                'empty_data' => $this->localeProvider->getDefaultLocaleCode(),
             ])
             ->add('contentElements', ContentConfigurationTranslationsType::class, [
                 'entry_type' => ContentConfigurationType::class,

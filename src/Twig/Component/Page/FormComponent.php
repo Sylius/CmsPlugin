@@ -21,6 +21,7 @@ use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
 use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
+use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Sylius\Resource\Model\TranslatableInterface;
@@ -56,12 +57,13 @@ class FormComponent
         string $formClass,
         TemplateRepositoryInterface $templateRepository,
         Environment $twig,
+        LocaleProviderInterface $localeProvider,
         string $previewTemplate,
         protected readonly SlugGeneratorInterface $slugGenerator,
     ) {
         $this->initialize($pageRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
-        $this->initializePreview($twig, $previewTemplate);
+        $this->initializePreview($twig, $localeProvider, $previewTemplate);
     }
 
     #[LiveAction]
@@ -80,7 +82,7 @@ class FormComponent
 
         $locale = $this->localeCode !== '' ? $this->localeCode : $this->defaultLocaleCode;
 
-        $this->resource->setFallbackLocale($locale);
+        $this->resource->setFallbackLocale($this->defaultLocaleCode);
         $this->resource->setCurrentLocale($locale);
     }
 }
