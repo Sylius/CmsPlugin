@@ -20,7 +20,7 @@
 
 ## Important documents
 
-- [Legacy Installation](doc/legacy_installation.md)
+- [Legacy Installation](legacy_installation.md)
 - [Upgrading](UPGRADE.md)
 - [Collections](doc/collections.md)
 - [Content Templates](doc/content_templates.md)
