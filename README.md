@@ -16,37 +16,6 @@
 
 <p align="center">Extend your Sylius store with powerful content management features. Create, edit, and organize pages with ease – all fully integrated into the Sylius ecosystem.</p>
 
----
-
-## Important documents
-
-- [Legacy Installation](doc/legacy_installation.md)
-- [Upgrading](UPGRADE.md)
-- [Collections](doc/collections.md)
-- [Content Templates](doc/content_templates.md)
-- [Pages](doc/pages.md)
-- [Blocks](doc/blocks.md)
-- [Page/Block templates](doc/templates.md)
-- [Media](doc/media.md)
-- [Fixtures](doc/fixtures.md)
-- [Importing resources](doc/importing-resources.md)
-- [Sitemap](doc/sitemap.md)
-- [Customization](doc/customization.md)
-
----
-
-## Usage
-  Check how the **SyliusCMSPlugin** works in practice:
-- [Use Case](doc/use_case.md)
-  - [Collections](doc/use_case_collections.md)
-  - [Content Templates](doc/use_case_content_templates.md)
-  - [Pages](doc/use_case_pages.md)
-  - [Blocks](doc/use_case_blocks.md)
-  - [Media](doc/use_case_media.md)
-
-If you need some help with Sylius development, 
-don't be hesitated to contact us directly. You can fill the write on [Sylius Slack](https://sylius-devs.slack.com/).
----
 
 # Installation
 
@@ -91,7 +60,14 @@ Symfony Flex, it's much quicker!
   ```bash
     bin/console cache:clear
   ```
+
+
 ---
+
+## Documentation
+
+For more information about the plugin, please refer to the [Sylius documentation](https://docs.sylius.com/sylius-official-plugins-documentation/cms-plugin).
+
 ## Security issues
 
 If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly.
