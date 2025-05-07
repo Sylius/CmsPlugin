@@ -15,7 +15,7 @@ namespace Sylius\CmsPlugin\Twig\Extension;
 
 use Sylius\CmsPlugin\Twig\Runtime\ResolveMediaVideoPathRuntimeInterface;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Twig\TwigFilter;
 
 class ResolveMediaVideoPathExtension extends AbstractExtension
 {
@@ -24,10 +24,10 @@ class ResolveMediaVideoPathExtension extends AbstractExtension
     ) {
     }
 
-    public function getFunctions(): array
+    public function getFilters(): array
     {
         return [
-            new TwigFunction('sylius_cms_resolve_media_video_path', [$this->resolveMediaVideoPathRuntime, 'resolve']),
+            new TwigFilter('sylius_cms_resolve_media_video_path', [$this->resolveMediaVideoPathRuntime, 'resolve']),
         ];
     }
 }
