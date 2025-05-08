@@ -61,7 +61,6 @@ Symfony Flex, it's much quicker!
     bin/console cache:clear
   ```
 
-
 ---
 
 ## Documentation
@@ -78,7 +77,5 @@ Instead, all security issues must be sent to `security@sylius.com`
 For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).
 
 ## License
-
----
 
 This plugin's source code is completely free and released under the terms of the MIT license.

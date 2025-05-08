@@ -67,7 +67,7 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
     import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
     ```
 
-1. Run `yarn add trix`
+1. Run `yarn add trix@^2.0.0 swiper@^11.2.6`
 
 1. Build assets:
     ```bash
