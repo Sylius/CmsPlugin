@@ -16,7 +16,6 @@ namespace Sylius\CmsPlugin\Plugin\Installer;
 
 use App\Plugin\Installer\PluginInstallerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Process\Process;
 
 #[AsTaggedItem('app.plugin_installer')]
