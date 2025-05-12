@@ -15,8 +15,11 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Plugin\Installer;
 
 use App\Plugin\Installer\PluginInstallerInterface;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Process\Process;
 
+#[AsTaggedItem('app.plugin_installer')]
 class CmsPluginInstaller implements PluginInstallerInterface
 {
     public function supports(string $packageName): bool
