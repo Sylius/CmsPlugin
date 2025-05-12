@@ -67,5 +67,9 @@
             <tag name="api_platform.doctrine.orm.query_extension.collection" />
             <tag name="api_platform.doctrine.orm.query_extension.item" />
         </service>
+
+        <service id="Sylius\CmsPlugin\Plugin\Installer\CmsPluginInstaller" public="false">
+            <tag name="app.plugin_installer"/>
+        </service>
     </services>
 </container>
