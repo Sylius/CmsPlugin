@@ -51,6 +51,14 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
     sylius_cms:
         resource: "@SyliusCmsPlugin/config/routes.yaml"
     ```
+1. Disable doctrine validate_xml_mapping
+   ```yaml
+      # config/packages/doctrine.yaml
+      ...
+          orm:
+            validate_xml_mapping: false
+          
+   ```
 
 1. Install assets:
     ```bash
@@ -60,13 +68,35 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 1. Add entrypoint import:
     ```yaml
     // assets/admin/entrypoint.js
-    import '@vendor/sylius/cms-plugin/assets/admin/entrypoint'
+    import '../../vendor/sylius/cms-plugin/assets/admin/entrypoint'
     ```
     ```yaml
     // assets/shop/entrypoint.js
-    import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
+    import '../../vendor/sylius/cms-plugin/assets/shop/entrypoint'
     ```
-
+   2. Add StimulusJS Support for admin customization:
+      1. Create `controllers.json` if not exist
+         ```json
+         // assets/admin/controllers.json 
+         {
+           "controllers": [],
+           "entrypoints": []
+         }
+         ```
+      2. Add controllers directory if not exist: 
+      ```bash 
+         mkdir assets/admin/controllers 
+      ```
+      3. Enable encore Stimulus Bridge in `webpack.config.js`
+      ```js 
+         // webpack.config.js
+         ... 
+         // App admin config
+         Encore
+            ...
+            .enableStimulusBridge(path.resolve(__dirname, './assets/admin/controllers.json'))
+            ...
+      ```
 1. Run `yarn add trix@^2.0.0 swiper@^11.2.6`
 
 1. Build assets:
