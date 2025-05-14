@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Sylius package.
- *
- * (c) Paweł Jędrzejewski
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 
@@ -28,6 +19,7 @@ class CmsPluginInstaller implements PluginInstallerInterface
 
     public function install(string $version): void
     {
+        Process::fromShellCommandline('php bin/console sylius:fixtures:load cms -n')->run();
         Process::fromShellCommandline('yarn add trix@^2.0.0 swiper@^11.2.6')->run();
     }
 }
