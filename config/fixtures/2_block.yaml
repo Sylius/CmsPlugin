@@ -271,6 +271,45 @@ sylius_fixtures:
                                             type: "single_media"
                                             data:
                                                 single_media: "black_friday_banner"
+                            mid_season_sale_banner_taxon:
+                                name: "Mid season sale banner"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "black_friday"
+                                taxons:
+                                    - "t_shirts"
+                                    - "mens_t_shirts"
+                                    - "womens_t_shirts"
+                                content_elements:
+                                    en_US:
+                                        single_media:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "mid_season_sale_banner"
+                                        spacer1:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                            mid_season_sale_banner:
+                                name: "Mid season sale banner"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "black_friday"
+                                products_in_taxons:
+                                    - "mens_t_shirts"
+                                    - "womens_t_shirts"
+                                content_elements:
+                                    en_US:
+                                        single_media:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "mid_season_sale_banner"
+                                        spacer1:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
                             black_friday_banner_product:
                                 name: "Black friday banner (products)"
                                 channels:

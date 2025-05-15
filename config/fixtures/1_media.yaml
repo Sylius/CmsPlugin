@@ -22,6 +22,16 @@ sylius_fixtures:
                                 translations:
                                     en_US:
                                         alt: "Black friday banner"
+                            mid_season_sale_banner:
+                                name: "Black friday banner"
+                                channels:
+                                    - "FASHION_WEB"
+                                type: image
+                                path: "%fixtures_dir%/mid_season_sale_banner.png"
+                                original_name: "mid_season_sale_banner.png"
+                                translations:
+                                    en_US:
+                                        alt: "Mid season sale banner"
                             homepage_banner_1:
                                 name: "Homepage banner 1 (black friday)"
                                 channels:
