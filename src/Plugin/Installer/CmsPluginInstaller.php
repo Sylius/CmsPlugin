@@ -18,33 +18,17 @@ class CmsPluginInstaller implements PluginInstallerInterface
         return $packageName === 'sylius/cms-plugin';
     }
 
-    public function install(string $version, $input, $output): void
+    public function install(SymfonyStyle $io): void
     {
-        $io = new SymfonyStyle($input, $output);
+        $io->title('Installing CMS Plugin');
 
-        $io->section('Installing CMS Plugin');
-        $process = Process::fromShellCommandline('cat package.json');
-        $exitCode = $process->run();
-        if ($exitCode === 0) {
-            $io->info($process->getOutput());
-        } else {
-            $io->error($process->getErrorOutput());
-        }
+        Process::fromShellCommandline('yarn add trix@^2.0.0 swiper@^11.2.6')->mustRun();
+    }
 
+    public function finalize(SymfonyStyle $io): void
+    {
+        $io->title('Finalizing CMS Plugin installation');
 
-
-
-        Process::fromShellCommandline('php bin/console sylius:fixtures:load cms -n')->run();
-        Process::fromShellCommandline('yarn add trix@^2.0.0 swiper@^11.2.6')->run();
-
-        $io->success('Po dodaniu trixa');
-        $process = Process::fromShellCommandline('cat package.json');
-        $exitCode = $process->run();
-        if ($exitCode === 0) {
-            $io->info($process->getOutput());
-        } else {
-            $io->error($process->getErrorOutput());
-        }
-
+        Process::fromShellCommandline('php bin/console sylius:fixtures:load cms -n')->mustRun();
     }
 }
