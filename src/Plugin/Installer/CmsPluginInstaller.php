@@ -26,9 +26,9 @@ class CmsPluginInstaller implements PluginInstallerInterface
         $process = Process::fromShellCommandline('cat package.json');
         $exitCode = $process->run();
         if ($exitCode === 0) {
-            echo $process->getOutput();
+            $io->info($process->getOutput());
         } else {
-            echo "Błąd: ", $process->getErrorOutput();
+            $io->error($process->getErrorOutput());
         }
 
 
@@ -41,9 +41,9 @@ class CmsPluginInstaller implements PluginInstallerInterface
         $process = Process::fromShellCommandline('cat package.json');
         $exitCode = $process->run();
         if ($exitCode === 0) {
-            echo $process->getOutput();
+            $io->info($process->getOutput());
         } else {
-            echo "Błąd: ", $process->getErrorOutput();
+            $io->error($process->getErrorOutput());
         }
 
     }
