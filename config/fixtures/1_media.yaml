@@ -10,65 +10,16 @@ sylius_fixtures:
                 media:
                     options:
                         custom:
-                            black_friday_banner:
-                                name: "Black friday banner"
-                                channels:
-                                    - "FASHION_WEB"
-                                type: image
-                                path: "%fixtures_dir%/black_friday_banner.png"
-                                original_name: "black_friday_banner.png"
-                                collections:
-                                    - "black_friday_banner"
-                                translations:
-                                    en_US:
-                                        alt: "Black friday banner"
                             mid_season_sale_banner:
-                                name: "Black friday banner"
+                                name: "Mid season sale banner"
                                 channels:
                                     - "FASHION_WEB"
                                 type: image
-                                path: "%fixtures_dir%/mid_season_sale_banner.png"
-                                original_name: "mid_season_sale_banner.png"
+                                path: "%fixtures_dir%/mid_season_sale_banner.webp"
+                                original_name: "mid_season_sale_banner.webp"
                                 translations:
                                     en_US:
                                         alt: "Mid season sale banner"
-                            homepage_banner_1:
-                                name: "Homepage banner 1 (black friday)"
-                                channels:
-                                    - "FASHION_WEB"
-                                collections:
-                                    - "homepage_banner"
-                                    - "black_friday_banner"
-                                type: image
-                                path: "%fixtures_dir%/homepage_banner_1.png"
-                                original_name: "homepage_banner_1.png"
-                                translations:
-                                    en_US:
-                                        alt: "Homepage banner 1"
-                            homepage_banner_2:
-                                name: "Homepage banner 2"
-                                channels:
-                                    - "FASHION_WEB"
-                                collections:
-                                    - "homepage_banner"
-                                type: image
-                                path: "%fixtures_dir%/homepage_banner_2.png"
-                                original_name: "homepage_banner_2.png"
-                                translations:
-                                    en_US:
-                                        alt: "Homepage_banner_2"
-                            homepage_banner_3:
-                                name: "Homepage banner 3"
-                                channels:
-                                    - "FASHION_WEB"
-                                collections:
-                                    - "homepage_banner"
-                                type: image
-                                path: "%fixtures_dir%/homepage_banner_3.png"
-                                original_name: "homepage_banner_3.png"
-                                translations:
-                                    en_US:
-                                        alt: "Homepage banner 3"
                             blog_banner:
                                 name: "Blog banner"
                                 channels:
@@ -76,8 +27,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_banner.png"
-                                original_name: "blog_banner.png"
+                                path: "%fixtures_dir%/blog_banner.webp"
+                                original_name: "blog_banner.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog banner"
@@ -88,8 +39,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_1_header_banner.png"
-                                original_name: "blog_post_1_header_banner.png"
+                                path: "%fixtures_dir%/blog_post_1_header_banner.webp"
+                                original_name: "blog_post_1_header_banner.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 1 banner"
@@ -100,8 +51,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_2_header_banner.png"
-                                original_name: "blog_post_2_header_banner.png"
+                                path: "%fixtures_dir%/blog_post_2_header_banner.webp"
+                                original_name: "blog_post_2_header_banner.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 2 banner"
@@ -112,8 +63,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_3_header_banner.png"
-                                original_name: "blog_post_3_header_banner.png"
+                                path: "%fixtures_dir%/blog_post_3_header_banner.webp"
+                                original_name: "blog_post_3_header_banner.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 3 banner"
@@ -124,8 +75,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_1_teaser_image.png"
-                                original_name: "blog_post_1_teaser_image.png"
+                                path: "%fixtures_dir%/blog_post_1_teaser_image.webp"
+                                original_name: "blog_post_1_teaser_image.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 1 teaser"
@@ -136,8 +87,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_2_teaser_image.png"
-                                original_name: "blog_post_2_teaser_image.png"
+                                path: "%fixtures_dir%/blog_post_2_teaser_image.webp"
+                                original_name: "blog_post_2_teaser_image.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 2 teaser"
@@ -148,8 +99,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_3_teaser_image.png"
-                                original_name: "blog_post_3_teaser_image.png"
+                                path: "%fixtures_dir%/blog_post_3_teaser_image.webp"
+                                original_name: "blog_post_3_teaser_image.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 3 teaser"
@@ -160,8 +111,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_1_content_image_1.png"
-                                original_name: "blog_post_1_content_image_1.png"
+                                path: "%fixtures_dir%/blog_post_1_content_image_1.webp"
+                                original_name: "blog_post_1_content_image_1.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 1 content image 1"
@@ -172,8 +123,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_1_content_image_2.png"
-                                original_name: "blog_post_1_content_image_2.png"
+                                path: "%fixtures_dir%/blog_post_1_content_image_2.webp"
+                                original_name: "blog_post_1_content_image_2.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 1 content image 2"
@@ -184,8 +135,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_2_content_image_1.png"
-                                original_name: "blog_post_2_content_image_1.png"
+                                path: "%fixtures_dir%/blog_post_2_content_image_1.webp"
+                                original_name: "blog_post_2_content_image_1.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 2 content image 1"
@@ -196,8 +147,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_2_content_image_2.png"
-                                original_name: "blog_post_2_content_image_2.png"
+                                path: "%fixtures_dir%/blog_post_2_content_image_2.webp"
+                                original_name: "blog_post_2_content_image_2.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 2 content image 2"
@@ -208,8 +159,8 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_3_content_image_1.png"
-                                original_name: "blog_post_3_content_image_1.png"
+                                path: "%fixtures_dir%/blog_post_3_content_image_1.webp"
+                                original_name: "blog_post_3_content_image_1.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 3 content image 1"
@@ -220,8 +171,18 @@ sylius_fixtures:
                                 collections:
                                     - "blog_images"
                                 type: image
-                                path: "%fixtures_dir%/blog_post_3_content_image_2.png"
-                                original_name: "blog_post_3_content_image_2.png"
+                                path: "%fixtures_dir%/blog_post_3_content_image_2.webp"
+                                original_name: "blog_post_3_content_image_2.webp"
                                 translations:
                                     en_US:
                                         alt: "Blog post 3 content image 2"
+                            mid_season_sale_homepage:
+                                name: "Mid season sale (homepage)"
+                                channels:
+                                    - "FASHION_WEB"
+                                type: image
+                                path: "%fixtures_dir%/mid_season_sale_homepage.webp"
+                                original_name: "mid_season_sale_homepage.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Mid season sale"
