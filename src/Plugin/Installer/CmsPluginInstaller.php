@@ -29,6 +29,7 @@ class CmsPluginInstaller implements PluginInstallerInterface
     {
         $io->title('Finalizing CMS Plugin installation');
 
+        Process::fromShellCommandline('php bin/console doctrine:schema:update --force --complete')->mustRun();
         Process::fromShellCommandline('php bin/console sylius:fixtures:load cms -n')->mustRun();
     }
 }
