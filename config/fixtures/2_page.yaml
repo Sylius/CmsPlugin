@@ -501,7 +501,7 @@ sylius_fixtures:
                                         products_carousel_by_taxon:
                                             type: "products_carousel_by_taxon"
                                             data:
-                                                products_carousel_by_taxon: "t_shirts"
+                                                products_carousel_by_taxon: "mens_t_shirts"
                                         subheading3:
                                             type: "heading"
                                             data:
