@@ -74,9 +74,6 @@
             "allow-contrib": false,
             "require": "^7.2"
         },
-        "public-dir": "vendor/sylius/test-application/public",
-        "branch-alias": {
-            "dev-booster": "1.0-dev"
-        }
+        "public-dir": "vendor/sylius/test-application/public"
     }
 }
