@@ -1,0 +1,70 @@
+sylius_fixtures:
+    suites:
+        cms:
+            listeners:
+                logger: ~
+            fixtures:
+                taxon:
+                    options:
+                        custom:
+                            glasses:
+                                code: "glasses"
+                                name: "Glasses"
+                                slug: "glasses"
+                product:
+                    options:
+                        custom:
+                            Sunshine_Vision_Glasses:
+                                name: "Sunshine Vision Glasses"
+                                code: "Sunshine_Vision_Glasses"
+                                slug: "sunshine-vision-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            Ocean_Breeze_Glasses:
+                                name: "Ocean Breeze Glasses"
+                                code: "Ocean_Breeze_Glasses"
+                                slug: "ocean-breeze-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            Starry_Night_Glasses:
+                                name: "Starry Night Glasses"
+                                code: "Starry_Night_Glasses"
+                                slug: "starry-night-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            Future_Shield_Glasses:
+                                name: "Future Shield Glasses"
+                                code: "Future_Shield_Glasses"
+                                slug: "future-shield-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            Crystal_Gaze_Glasses:
+                                name: "Crystal Gaze Glasses"
+                                code: "Crystal_Gaze_Glasses"
+                                slug: "crystal-gaze-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            Urban_Vision_Glasses:
+                                name: "Urban Vision Glasses"
+                                code: "Urban_Vision_Glasses"
+                                slug: "urban-vision-glasses"
+                                main_taxon: "glasses"
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"

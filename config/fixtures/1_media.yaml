@@ -186,3 +186,51 @@ sylius_fixtures:
                                 translations:
                                     en_US:
                                         alt: "Mid season sale"
+                            glasses_banner:
+                                name: "Glasses banner"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "glasses_images"
+                                type: image
+                                path: "%fixtures_dir%/glasses_banner.webp"
+                                original_name: "glasses_banner.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Glasses banner"
+                            glasses_teaser_image:
+                                name: "Glasses teaser"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "glasses_images"
+                                type: image
+                                path: "%fixtures_dir%/glasses_teaser.webp"
+                                original_name: "glasses_teaser.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Glasses teaser"
+                            glasses_content_image_1:
+                                name: "Glasses content image 1"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "glasses_images"
+                                type: image
+                                path: "%fixtures_dir%/glasses_content_image_1.webp"
+                                original_name: "glasses_content_image_1.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Glasses content image 1"
+                            glasses_content_image_2:
+                                name: "Glasses content image 2"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "glasses_images"
+                                type: image
+                                path: "%fixtures_dir%/glasses_content_image_2.webp"
+                                original_name: "glasses_content_image_2.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Glasses content image 2"

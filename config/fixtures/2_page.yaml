@@ -556,3 +556,39 @@ sylius_fixtures:
                                             data:
                                                 textarea: |
                                                     <p>With the right T-shirts, shorts, and shoes, men and boys can enjoy their time at the beach in both style and comfort. From cool, breathable shirts to functional and fashionable shorts, and durable footwear, there are plenty of options to ensure everyone looks great while feeling good. Whether it’s a casual beach day or an adventure-filled holiday, these fashion staples will have you covered from sand to shore. So pack smart and get ready to enjoy the sun, sea, and sand in style!</p>
+                            blog_post_4:
+                                name: "#4: Sunglasses Trends for Summer"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "blog"
+                                translations:
+                                    en_US:
+                                        slug: "blog-post-4"
+                                        meta_title: "Sunglasses Trends for Summer"
+                                        teaser_title: "Sunglasses Trends for Summer"
+                                        teaser_content: "Discover the latest eyewear in our store."
+                                        teaser_image: "glasses_teaser"
+                                content_elements:
+                                    en_US:
+                                        single_media:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "glasses_banner"
+                                        spacer0:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 10
+                                        heading1:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h2"
+                                                heading: "Top Sunglasses Picks"
+                                        intro:
+                                            type: "textarea"
+                                            data:
+                                                textarea: "<p>Stay on trend with our newest collection of sunglasses.</p>"
+                                        products_grid:
+                                            type: "products_grid_by_taxon"
+                                            data:
+                                                products_grid_by_taxon: "glasses"
