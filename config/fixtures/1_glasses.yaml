@@ -1,0 +1,96 @@
+sylius_fixtures:
+    suites:
+        cms:
+            listeners:
+                logger: ~
+            fixtures:
+                glasses:
+                    name: taxon
+                    options:
+                        custom:
+                            category:
+                                code: 'MENU_CATEGORY'
+                                name: 'Category'
+                                translations:
+                                    en_US:
+                                        name: 'Category'
+                                    fr_FR:
+                                        name: 'Catégorie'
+                                children:
+                                    -   code: 'glasses'
+                                        name: 'Glasses'
+                                        slug: 'glasses'
+                                        translations:
+                                            en_US:
+                                                name: 'Glasses'
+                                            fr_FR:
+                                                name: 'Lunettes'
+                product:
+                    options:
+                        custom:
+                            sunshine_vision_glasses:
+                                name: "Sunshine Vision Glasses"
+                                code: "sunshine_vision_glasses"
+                                slug: "sunshine-vision-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/sunshine_vision_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            ocean_breeze_glasses:
+                                name: "Ocean Breeze Glasses"
+                                code: "ocean_breeze_glasses"
+                                slug: "ocean-breeze-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/ocean_breeze_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            starry_night_glasses:
+                                name: "Starry Night Glasses"
+                                code: "starry_night_glasses"
+                                slug: "starry-night-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/starry_night_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            future_shield_glasses:
+                                name: "Future Shield Glasses"
+                                code: "future_shield_glasses"
+                                slug: "future-shield-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/future_shield_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            crystal_gaze_glasses:
+                                name: "Crystal Gaze Glasses"
+                                code: "crystal_gaze_glasses"
+                                slug: "crystal-gaze-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/crystal_gaze_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"
+                            urban_vision_glasses:
+                                name: "Urban Vision Glasses"
+                                code: "urban_vision_glasses"
+                                slug: "urban-vision-glasses"
+                                main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/urban_vision_glasses.webp", type: "main" }
+                                taxons:
+                                    - "glasses"
+                                channels:
+                                    - "FASHION_WEB"

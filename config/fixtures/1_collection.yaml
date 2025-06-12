@@ -25,6 +25,9 @@ sylius_fixtures:
                             blog_images:
                                 name: "Blog images"
                                 type: "media"
+                            glasses_images:
+                                name: "Glasses images"
+                                type: "media"
                             products_details:
                                 name: "Product details"
                                 type: "block"

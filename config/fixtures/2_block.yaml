@@ -117,3 +117,18 @@ sylius_fixtures:
                                             type: "products_grid_by_taxon"
                                             data:
                                                 products_grid_by_taxon: "caps"
+                            homepage_glasses:
+                                name: "Glasses highlight"
+                                channels:
+                                    - "FASHION_WEB"
+                                content_elements:
+                                    en_US:
+                                        heading:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h2"
+                                                heading: "Discover our Glasses"
+                                        products_grid_by_taxon:
+                                            type: "products_grid_by_taxon"
+                                            data:
+                                                products_grid_by_taxon: "glasses"
