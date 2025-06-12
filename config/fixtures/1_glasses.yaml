@@ -4,13 +4,27 @@ sylius_fixtures:
             listeners:
                 logger: ~
             fixtures:
-                taxon:
+                glasses:
+                    name: taxon
                     options:
                         custom:
-                            glasses:
-                                code: "glasses"
-                                name: "Glasses"
-                                slug: "glasses"
+                            category:
+                                code: 'MENU_CATEGORY'
+                                name: 'Category'
+                                translations:
+                                    en_US:
+                                        name: 'Category'
+                                    fr_FR:
+                                        name: 'Catégorie'
+                                children:
+                                    -   code: 'glasses'
+                                        name: 'Glasses'
+                                        slug: 'glasses'
+                                        translations:
+                                            en_US:
+                                                name: 'Glasses'
+                                            fr_FR:
+                                                name: 'Lunettes'
                 product:
                     options:
                         custom:
@@ -19,6 +33,8 @@ sylius_fixtures:
                                 code: "sunshine_vision_glasses"
                                 slug: "sunshine-vision-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/sunshine_vision_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -28,6 +44,8 @@ sylius_fixtures:
                                 code: "ocean_breeze_glasses"
                                 slug: "ocean-breeze-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/ocean_breeze_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -37,6 +55,8 @@ sylius_fixtures:
                                 code: "starry_night_glasses"
                                 slug: "starry-night-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/starry_night_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -46,6 +66,8 @@ sylius_fixtures:
                                 code: "future_shield_glasses"
                                 slug: "future-shield-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/future_shield_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -55,6 +77,8 @@ sylius_fixtures:
                                 code: "crystal_gaze_glasses"
                                 slug: "crystal-gaze-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/crystal_gaze_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -64,6 +88,8 @@ sylius_fixtures:
                                 code: "urban_vision_glasses"
                                 slug: "urban-vision-glasses"
                                 main_taxon: "glasses"
+                                images:
+                                    - { path: "%fixtures_dir%/products/urban_vision_glasses.png", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
