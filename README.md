@@ -65,7 +65,7 @@ Symfony Flex, it's much quicker!
 
 ## Documentation
 
-For more information about the plugin, please refer to the [Sylius documentation](https://docs.sylius.com/sylius-official-plugins-documentation/cms-plugin).
+For more information about the plugin, please refer to the [Sylius documentation](https://docs.sylius.com/sylius-plugins).
 
 ## Security issues
 
