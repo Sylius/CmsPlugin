@@ -34,7 +34,7 @@ sylius_fixtures:
                                 slug: "sunshine-vision-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/sunshine_vision_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/sunshine_vision_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -45,7 +45,7 @@ sylius_fixtures:
                                 slug: "ocean-breeze-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/ocean_breeze_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/ocean_breeze_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -56,7 +56,7 @@ sylius_fixtures:
                                 slug: "starry-night-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/starry_night_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/starry_night_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -67,7 +67,7 @@ sylius_fixtures:
                                 slug: "future-shield-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/future_shield_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/future_shield_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -78,7 +78,7 @@ sylius_fixtures:
                                 slug: "crystal-gaze-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/crystal_gaze_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/crystal_gaze_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
@@ -89,7 +89,7 @@ sylius_fixtures:
                                 slug: "urban-vision-glasses"
                                 main_taxon: "glasses"
                                 images:
-                                    - { path: "%fixtures_dir%/products/urban_vision_glasses.png", type: "main" }
+                                    - { path: "%fixtures_dir%/products/urban_vision_glasses.webp", type: "main" }
                                 taxons:
                                     - "glasses"
                                 channels:
