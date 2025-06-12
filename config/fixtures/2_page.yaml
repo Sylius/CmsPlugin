@@ -133,7 +133,7 @@ sylius_fixtures:
                                                 pages_collection: "blog"
 
                             blog_post_1:
-                                name: "#1: Your Ultimate Guide to Beach and Holiday Fashion: Hats, Shirts, Sunglasses, and Shoes"
+                                name: "#1: Style Icon Eveline Scotch Shares Her Summer Must-Haves from Our Collection"
                                 channels:
                                     - "FASHION_WEB"
                                 collections:
@@ -141,9 +141,9 @@ sylius_fixtures:
                                 translations:
                                     en_US:
                                         slug: "blog-post-1"
-                                        meta_title: "Your Ultimate Guide to Beach and Holiday Fashion: Hats, Shirts, Sunglasses, and Shoes"
-                                        teaser_title: "Your Ultimate Guide to Beach and Holiday Fashion"
-                                        teaser_content: "When planning your beach holiday wardrobe, fashion and function go hand in hand. Whether you're lounging by the pool, strolling along sandy shores, or heading out for a casual seaside dinner, nailing the perfect look is key to a stylish yet comfortable vacation. In this blog post, we’ll dive into the must-have modern fashion pieces that will elevate your beach holiday style. From chic hats to breezy shirts, trendy sunglasses to versatile shoes—let's break down how to build the perfect holiday wardrobe."
+                                        meta_title: "Style Icon Eveline Scotch Shares Her Summer Must-Haves from Our Collection"
+                                        teaser_title: "Style Icon Eveline Scotch Shares Her Summer Must-Haves"
+                                        teaser_content: "After weeks of wearing, washing, and traveling with our summer collection, Eveline Scotch reveals the pieces that truly stand out."
                                         teaser_image: "blog_post_1_teaser_image"
                                 content_elements:
                                     en_US:
@@ -155,128 +155,115 @@ sylius_fixtures:
                                             type: "spacer"
                                             data:
                                                 spacer: 10
-                                        heading1:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h2"
-                                                heading: "Your Ultimate Guide to Beach and Holiday Fashion: Hats, Shirts, Sunglasses, and Shoes"
                                         intro:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>When planning your beach holiday wardrobe, fashion and function go hand in hand. Whether you're lounging by the pool, strolling along sandy shores, or heading out for a casual seaside dinner, nailing the perfect look is key to a stylish yet comfortable vacation. In this blog post, we’ll dive into the must-have modern fashion pieces that will elevate your beach holiday style. From chic hats to breezy shirts, trendy sunglasses to versatile shoes—let's break down how to build the perfect holiday wardrobe.</p>
-                                        subheading1:
+                                                    <br>
+                                                    <p>When Parisian style maven Eveline Scotch (@evelinescotch) offered to curate her favorite pieces from our entire summer collection, we knew we were about to get the kind of honest insight that makes her 850K followers trust every recommendation. Eveline doesn't just pick pretty pieces—she chooses clothes that earn their place in a real wardrobe.</p>
+                                                    <p>At 28, this former fashion journalist has built her reputation on one simple principle: style should enhance your life, not complicate it. When Eveline says something works, her followers listen, because they know she's thinking about whether they can actually wear it to brunch, pack it in a carry-on, or throw it on for an impromptu evening out.</p>
+                                                    <p>After spending several weeks with our summer collection—wearing it, washing it, traveling with it—she's ready to share her top picks. These aren't just the pieces that photograph well; they're the ones that performed when it mattered most.</p>
+                                                    <br>
+                                        heading1:
                                             type: "heading"
                                             data:
                                                 heading_type: "h3"
-                                                heading: "Stylish Hats: More Than Just Sun Protection"
-                                        text1:
-                                            type: "textarea"
-                                            data:
-                                                textarea: |
-                                                    <p>No beach wardrobe is complete without a fashionable hat. While sun protection is a must, the right hat can instantly elevate your outfit. Whether you prefer a classic wide-brimmed hat or something a bit more trendy like a bucket hat, here are some top options for your holiday look:</p>
-                                                    <ul>
-                                                        <li><strong>Wide-brimmed Straw Hats:</strong> Ideal for a more elegant, laid-back beach look, offering maximum sun protection.</li>
-                                                        <li><strong>Bucket Hats:</strong> Perfect for a casual, sporty vibe. They’ve made a huge comeback and are great for packing light.</li>
-                                                        <li><strong>Fedoras</strong>: A touch of sophistication with a beachy twist. Pair it with your sundress or shirt for a relaxed, chic look.</li>
-                                                    </ul>
-                                                    <p>These styles aren’t just practical — they’re fashion statements.</p>
-                                        spacer1:
-                                            type: "spacer"
-                                            data:
-                                                spacer: 20
+                                                heading: "The Perfect Summer Dress"
                                         image_1:
                                             type: "single_media"
                                             data:
                                                 single_media: "blog_post_1_content_image_1"
-                                        spacer2:
-                                            type: "spacer"
-                                            data:
-                                                spacer: 10
-                                        subheading2:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "Breezy Shirts: Keeping It Cool and Comfortable"
-                                        text2:
+                                        text_dress:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>Shirts are the unsung heroes of beach and holiday wardrobes. You want something light, breathable, and versatile enough to take you from day to night. Here are some modern shirt styles to consider:</p>
-                                                    <ul>
-                                                        <li><strong>Linen Shirts:</strong> Lightweight and airy, linen shirts are perfect for staying cool in hot weather. Their natural, textured look adds a laid-back charm.</li>
-                                                        <li><strong>Oversized Button-Downs:</strong> Easy to throw over swimwear or pair with shorts. These are ideal for a relaxed yet stylish beach vibe.</li>
-                                                        <li><strong>Bold Prints and Patterns:</strong> Don’t be afraid to experiment with tropical prints or stripes, which scream beach holiday!</li>
-                                                    </ul>
-                                                    <p>The beauty of these shirts is their versatility, easily styled for daytime beach wear or a casual evening out.</p>
-                                        spacer3:
+                                                    <br>
+                                                    <p>I spent weeks going through the entire dress collection, and I have to say, the quality really impressed me. What stood out were the thoughtful cuts that actually flatter real bodies, not just runway models. The fabrics feel substantial but breathable—exactly what you need when you're transitioning from beach clubs to evening dinners. I narrowed it down to my four absolute favorites, each with its own personality but all sharing that effortless elegance I'm always looking for.</p>
+                                                    <br>
+                                        dresses:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Palm_Tree_Paradise"
+                                                        - "Seaside_Stroll_Midi"
+                                                        - "Sunflower_Fields_Forever"
+                                                        - "Coral_Reef_Chic"
+                                        spacer1:
                                             type: "spacer"
                                             data:
-                                                spacer: 10
-                                        products_grid:
+                                                spacer: 20
+                                        heading2:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h3"
+                                                heading: "The Essential Summer Tops"
+                                        image_2:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_1_content_image_2"
+                                        text_tops:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <br>
+                                                    <p>Good basics are so hard to find, but this collection really delivers. I tested several tops throughout my summer travels, and the ones that made my final cut are the pieces I kept reaching for again and again. They strike that perfect balance between relaxed and polished, and the fabric quality means they actually improve with wear instead of falling apart. These are the kind of tops that become your summer uniform.</p>
+                                                    <br>
+                                        tops:
                                             type: "products_grid"
                                             data:
                                                 products_grid:
                                                     products:
                                                         - "Ethereal_Drift_T_Shirt"
-                                                        - "Quantum_Pulse_T_Shirt"
-                                                        - "Celestial_Harmony_T_Shirt"
                                                         - "Nebula_Dream_T_Shirt"
-                                        subheading3:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "Trendy Sunglasses: Protect Your Eyes in Style"
-                                        text3:
-                                            type: "textarea"
-                                            data:
-                                                textarea: |
-                                                    <p>Sunglasses are not only essential for protecting your eyes from the sun but are also a critical accessory in pulling together your holiday look. This season’s sunglasses trends are all about bold shapes and eye-catching designs:</p>
-                                                    <ul>
-                                                        <li><strong>Oversized Frames:</strong> Channeling a retro vibe, oversized frames add glamour to any beach outfit.</li>
-                                                        <li><strong>Aviators:</strong> Timeless and cool, aviators are a classic style that suits almost everyone.</li>
-                                                        <li><strong>Colored Lenses:</strong> This playful trend can add a pop of color to your holiday look. Think shades of pink, blue, or yellow.</li>
-                                                    </ul>
-                                                    <p>The right pair of sunglasses doesn’t just protect — it adds personality and polish to your overall look.</p>
-                                        spacer4:
+                                                        - "Print_Screen_T_Shirt"
+                                                        - "Solar_Flare_T_Shirt"
+                                        spacer2:
                                             type: "spacer"
                                             data:
                                                 spacer: 20
-                                        image_2:
+                                        heading3:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h3"
+                                                heading: "The Versatile Bottoms"
+                                        image_3:
                                             type: "single_media"
                                             data:
-                                                single_media: "blog_post_1_content_image_2"
-                                        spacer5:
+                                                single_media: "blog_post_1_content_image_3"
+                                        text_bottoms:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <br>
+                                                    <p>After trying on pretty much every bottom in the collection, I can honestly say the winners surprised me. It wasn't necessarily the pieces I thought would work best, but the ones that performed in real life, through beach days, city exploring, and everything in between. The fit, the fabric, the versatility, my top picks nail all three. These are bottoms you'll actually want to live in.</p>
+                                                    <br>
+                                        bottoms:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Beachside_Twilight_Jeans"
+                                                        - "Seaside_Tranquility_Jeans"
+                                                        - "Ocean_Wave_Jeans"
+                                                        - "Sun_Path_Jeans"
+                                        spacer3:
                                             type: "spacer"
                                             data:
-                                                spacer: 10
-                                        subheading4:
+                                                spacer: 20
+                                        heading4:
                                             type: "heading"
                                             data:
                                                 heading_type: "h3"
-                                                heading: "Footwear: From Sand to Streets"
-                                        text4:
+                                                heading: "Wrap up"
+                                        outro:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>When it comes to holiday shoes, versatility is key. You need shoes that are comfortable for walking but also stylish enough to transition from the beach to the bar. Here are the best shoe styles for your beach holiday:</p>
-                                                    <ul>
-                                                        <li><strong>Espadrilles:</strong> These comfortable, breathable shoes are perfect for the beach, yet stylish enough for an evening stroll.</li>
-                                                        <li><strong>Slide Sandals:</strong> Easy to slip on and off, slide sandals are the ultimate convenience for days spent on the sand. Plus, they come in various chic designs and materials.</li>
-                                                        <li><strong>Sneakers:</strong> For those exploring coastal towns or going on holiday adventures, a pair of fashionable yet comfortable sneakers is a must-have.</li>
-                                                    </ul>
-                                                    <p>With these footwear options, you can easily switch between sandy beaches and urban explorations without compromising on style.</p>
-                                        outro_heading:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "Conclusion"
-                                        outro_text:
-                                            type: "textarea"
-                                            data:
-                                                textarea: |
-                                                    <p>Building the perfect beach and holiday wardrobe doesn’t have to be complicated. Focus on key pieces — hats, shirts, sunglasses, and shoes — that combine fashion and functionality. Whether you’re going for a laid-back beach look or something a little more polished for evening outings, these modern fashion essentials will have you looking and feeling your best on your holiday. So pack smart, and enjoy your time in the sun with confidence and style!</p>
-
+                                                    <br>
+                                                    <p>What I love most about these pieces is how they work together. You could build an entire summer wardrobe around just these selections and never feel like you're missing anything. Quality over quantity—that's what summer 2025 is all about.</p>
+                                                    <br>
+                            
                             blog_post_2:
                                 name: "#2: Beach Suits for Everyone: Stylish and Functional Options for Women, Men, and Children"
                                 channels:
