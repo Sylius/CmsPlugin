@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 
@@ -25,10 +24,8 @@ class TemplateRepository extends EntityRepository implements TemplateRepositoryI
         return $this->createQueryBuilder('o')
             ->andWhere('o.name LIKE :name')
             ->andWhere('o.type = :type')
-            ->setParameters(new ArrayCollection([
-                'name' => '%' . $phrase . '%',
-                'type' => $type,
-            ]))
+            ->setParameter('name', '%' . $phrase . '%')
+            ->setParameter('type', $type)
             ->getQuery()
             ->getResult()
         ;
