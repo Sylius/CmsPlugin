@@ -16,9 +16,7 @@ namespace Sylius\CmsPlugin\Repository;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 
-/**
- * @implements TemplateRepositoryInterface<TemplateInterface>
- */
+/** @implements TemplateRepositoryInterface<TemplateInterface> */
 class TemplateRepository extends EntityRepository implements TemplateRepositoryInterface
 {
     public function findTemplatesByNamePart(string $phrase, string $type): array
@@ -26,10 +24,8 @@ class TemplateRepository extends EntityRepository implements TemplateRepositoryI
         return $this->createQueryBuilder('o')
             ->andWhere('o.name LIKE :name')
             ->andWhere('o.type = :type')
-            ->setParameters([
-                'name' => '%' . $phrase . '%',
-                'type' => $type,
-            ])
+            ->setParameter('name', '%' . $phrase . '%')
+            ->setParameter('type', $type)
             ->getQuery()
             ->getResult()
         ;
