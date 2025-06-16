@@ -164,6 +164,30 @@ sylius_fixtures:
                                 translations:
                                     en_US:
                                         alt: "Blog post 2 content image 2"
+                            blog_post_2_content_image_3:
+                                name: "Blog post 2 content image 3"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "blog_images"
+                                type: image
+                                path: "%fixtures_dir%/blog_post_2_content_image_3.webp"
+                                original_name: "blog_post_2_content_image_3.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Blog post 2 content image 3"
+                            blog_post_2_content_image_4:
+                                name: "Blog post 2 content image 4"
+                                channels:
+                                    - "FASHION_WEB"
+                                collections:
+                                    - "blog_images"
+                                type: image
+                                path: "%fixtures_dir%/blog_post_2_content_image_4.webp"
+                                original_name: "blog_post_2_content_image_4.webp"
+                                translations:
+                                    en_US:
+                                        alt: "Blog post 2 content image 4"
                             blog_post_3_content_image_1:
                                 name: "Blog post 3 content image 1"
                                 channels:
