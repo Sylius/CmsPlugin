@@ -133,7 +133,7 @@ sylius_fixtures:
                                                 pages_collection: "blog"
 
                             blog_post_1:
-                                name: "#1: Style Icon Eveline Scotch Shares Her Summer Must-Haves from Our Collection"
+                                name: "Style Icon Eveline Scotch Shares Her Summer Must-Haves from Our Collection"
                                 channels:
                                     - "FASHION_WEB"
                                 collections:
@@ -287,7 +287,7 @@ sylius_fixtures:
                                                     <p>What I love most about these pieces is how they work together. You could build an entire summer wardrobe around just these selections and never feel like you're missing anything. Quality over quantity—that's what summer 2025 is all about.</p>
 
                             blog_post_2:
-                                name: "#2: Female Fashion Trends for Summer 2025"
+                                name: "Female Fashion Trends for Summer 2025"
                                 channels:
                                     - "FASHION_WEB"
                                 collections:
@@ -480,9 +480,9 @@ sylius_fixtures:
                                             data:
                                                 textarea: |
                                                     <p>Summer 2025 proves that the modern woman can have it all - effortless style that works from beach to boardroom, sustainable choices that feel as good as they look, and versatile pieces that adapt to any adventure. Whether you're embracing Riviera elegance or streetwear, this season's trends celebrate comfort without compromising sophistication. The best part? These aren't just trends to follow, but building blocks for a wardrobe that truly reflects who you are.</p>
-                            
+
                             blog_post_3:
-                                name: "#3: Beach-Ready Fashion for Men and Boys: T-Shirts, Shorts, and Shoes"
+                                name: ""
                                 channels:
                                     - "FASHION_WEB"
                                 collections:
@@ -490,9 +490,9 @@ sylius_fixtures:
                                 translations:
                                     en_US:
                                         slug: "blog-post-3"
-                                        meta_title: "Beach-Ready Fashion for Men and Boys: T-Shirts, Shorts, and Shoes"
-                                        teaser_title: "Beach-Ready Fashion for Men and Boys"
-                                        teaser_content: "When hitting the beach, comfort is key, but that doesn't mean style has to take a backseat. Whether you’re a man looking for the perfect holiday wardrobe or shopping for your boys, you’ll want to find pieces that combine practicality with a touch of flair. In this guide, we’ll explore the top T-shirts, shorts, and shoes for men and boys, helping you put together the ideal beach outfit. From breezy shirts to functional footwear, this is your go-to guide for looking stylish while enjoying the sun, sand, and surf."
+                                        meta_title: "The Modern Man's Summer Playbook: Mastering 2025's Hottest Trends"
+                                        teaser_title: "The Modern Man's Summer Playbook"
+                                        teaser_content: "Build a versatile wardrobe with quality basics, bold shorts, and smart layers for any summer scenario."
                                         teaser_image: "blog_post_3_teaser_image"
                                 content_elements:
                                     en_US:
@@ -503,37 +503,22 @@ sylius_fixtures:
                                         spacer0:
                                             type: "spacer"
                                             data:
-                                                spacer: 10
-                                        heading1:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h2"
-                                                heading: "Beach-Ready Fashion for Men and Boys: T-Shirts, Shorts, and Shoes"
+                                                spacer: 20
                                         intro:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>When hitting the beach, comfort is key, but that doesn't mean style has to take a backseat. Whether you’re a man looking for the perfect holiday wardrobe or shopping for your boys, you’ll want to find pieces that combine practicality with a touch of flair. In this guide, we’ll explore the top T-shirts, shorts, and shoes for men and boys, helping you put together the ideal beach outfit. From breezy shirts to functional footwear, this is your go-to guide for looking stylish while enjoying the sun, sand, and surf.</p>
-                                        subheading1:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "T-Shirts for Men: Style Meets Comfort"
-                                        text1:
-                                            type: "textarea"
-                                            data:
-                                                textarea: |
-                                                    <p>A well-chosen T-shirt is an essential part of any beach look for men. The right fabric and fit can keep you cool while still looking sharp, even in the hottest weather. Here are some modern T-shirt styles that are perfect for the beach:</p>
-                                                    <ul>
-                                                        <li><strong>Cotton Crew Necks:</strong> A simple cotton T-shirt is a timeless option for casual beachwear. Look for lightweight fabrics to keep cool while still offering comfort.</li>
-                                                        <li><strong>Linen Tees:</strong> For those really hot days, a linen T-shirt is perfect. It’s breathable and gives off a laid-back, effortless vibe.</li>
-                                                        <li><strong>Graphic Tees:</strong> Add a bit of personality to your beach outfit with a fun graphic tee. Whether it’s a tropical print or a favorite logo, graphic tees keep things interesting and on-trend.</li>
-                                                    </ul>
-                                                    <p>These styles ensure you look good while staying comfortable, whether you’re lounging on the beach or heading to a seaside café.</p>
+                                                    <p>Summer 2025 isn't about following every micro-trend that pops up on your feed but also about building a smart, versatile wardrobe that works as hard as you do. Whether you're navigating air-conditioned offices, weekend adventures, or those unpredictable travel moments, the modern man needs pieces that deliver on both style and substance.</p>
+                                                    <p>This season's approach is refreshingly straightforward: invest in quality foundations, embrace the trends that actually make sense, and always be prepared for the unexpected. From the relaxed sophistication taking over runways to the practical pieces that solve real-world problems, here's your complete guide to summer 2025 style.</p>
                                         spacer1:
                                             type: "spacer"
                                             data:
                                                 spacer: 20
+                                        subheading1:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h3"
+                                                heading: "The Foundation: Essential Basics Every Man Needs"
                                         image_1:
                                             type: "single_media"
                                             data:
@@ -541,48 +526,19 @@ sylius_fixtures:
                                         spacer2:
                                             type: "spacer"
                                             data:
-                                                spacer: 10
-                                        subheading2:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "T-Shirts for Boys: Fun and Functional"
-                                        text2:
+                                                spacer: 20
+                                        text_basics:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>When it comes to boys’ T-shirts, you need pieces that are both practical and playful. Boys are always on the move, so their beach wardrobe should reflect that. Here are some great T-shirt options for boys:</p>
+                                                    <p>Great style starts with elevated essentials that get better with time:</p>
                                                     <ul>
-                                                        <li><strong>Activewear Tees:</strong> Moisture-wicking fabrics are perfect for boys who love to run around at the beach. These tees keep them dry and comfortable throughout the day.</li>
-                                                        <li><strong>Bold Prints and Patterns:</strong> Whether it’s sharks, surfboards, or palm trees, boys’ T-shirts should be fun. Look for bold prints that capture the excitement of summer.</li>
-                                                        <li><strong>Rash Guard Shirts:</strong> For sun protection, rash guard shirts are a must. These snug-fitting shirts protect against UV rays and are ideal for active days in the water.</li>
+                                                        <li>Fit is everything: relaxed but intentional</li>
+                                                        <li>Fabric matters: natural fibers and smart blends rule</li>
+                                                        <li>Versatility is key: pieces that transition seamlessly</li>
+                                                        <li>Quality over quantity: fewer pieces, better construction</li>
                                                     </ul>
-                                                    <p>These T-shirts combine comfort with style, ensuring boys can play and swim while staying protected and cool.</p>
                                         spacer3:
-                                            type: "spacer"
-                                            data:
-                                                spacer: 10
-                                        products_carousel_by_taxon:
-                                            type: "products_carousel_by_taxon"
-                                            data:
-                                                products_carousel_by_taxon: "mens_t_shirts"
-                                        subheading3:
-                                            type: "heading"
-                                            data:
-                                                heading_type: "h3"
-                                                heading: "Shorts for Men: Practicality with a Stylish Twist"
-                                        text3:
-                                            type: "textarea"
-                                            data:
-                                                textarea: |
-                                                    <p>Choosing the right pair of shorts for the beach is crucial. Men need something that’s easy to move in but also stylish enough for post-beach activities. Here are some top picks for beach shorts:</p>
-                                                    <ul>
-                                                        <li><strong>Board Shorts:</strong> Classic and functional, board shorts are perfect for swimming and beach sports. They’re usually made of quick-drying fabric and come in various lengths, so you can choose what’s most comfortable for you.</li>
-                                                        <li><strong>Chino Shorts:</strong> If you’re planning to hit a beachside restaurant or bar after your swim, chino shorts are a great option. They’re stylish yet casual, making them versatile for both water and land.</li>
-                                                        <li><strong>Hybrid Shorts:</strong> These are a combination of swim trunks and casual shorts. Hybrid shorts are designed to dry quickly, allowing you to wear them straight from the beach to a casual outing without needing to change.</li>
-                                                    </ul>
-                                                    <p>With these options, you’ll always look good while staying comfortable and ready for any beachside activity.</p>
-                                        spacer4:
                                             type: "spacer"
                                             data:
                                                 spacer: 20
@@ -590,33 +546,159 @@ sylius_fixtures:
                                             type: "single_media"
                                             data:
                                                 single_media: "blog_post_3_content_image_2"
+                                        spacer4:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        image_3:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_3"
                                         spacer5:
                                             type: "spacer"
                                             data:
-                                                spacer: 10
-                                        subheading4:
+                                                spacer: 20
+                                        heading2:
                                             type: "heading"
                                             data:
                                                 heading_type: "h3"
-                                                heading: "Shorts for Boys: Durable and Play-Friendly"
-                                        text4:
+                                                heading: "T-Shirts That Actually Matter"
+                                        text_tshirts:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>Boys need shorts that can withstand a day full of activities, from swimming to sandcastle building. Comfort, durability, and style should all come together. Here are some great beach short options for boys:</p>
+                                                    <p>The humble tee gets a major upgrade in 2025 with relaxed fits and substantial fabrics that work solo or under a blazer.</p>
+                                        tshirts:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Comet_Pulse_T_Shirt"
+                                                        - "Galactic_Pulse_T_Shirt"
+                                                        - "Starlight_Echo_T_Shirt"
+                                                        - "Aurora_Surge_T_Shirt"
+                                        text_tip:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <p><strong>Styling Tip:</strong> Layer a quality tee under an unbuttoned linen shirt for that effortless Riviera vibe.</p>
+                                        spacer6:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        image_4:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_4"
+                                        spacer8:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        heading4:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h3"
+                                                heading: "Staying Cool and Stylish"
+                                        text_cool:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <p>Beat the heat with smart fabric choices and silhouettes that let air circulate.</p>
                                                     <ul>
-                                                        <li><strong>Swim Trunks with Built-In Liners:</strong> Swim trunks with mesh liners are perfect for active boys. They’re designed for swimming, but they also dry quickly and offer freedom of movement.</li>
-                                                        <li><strong>Cargo Shorts:</strong> Ideal for boys who love pockets! Cargo shorts are not only durable but also practical, with plenty of space to stash beach finds.</li>
-                                                        <li><strong>Elastic Waist Shorts:</strong> For younger boys, elastic waistbands make it easy to slip shorts on and off. Look for lightweight, quick-dry materials for ultimate beach comfort.</li>
+                                                        <li>Loose fits allow air circulation</li>
+                                                        <li>Shorter inseams create a cleaner look</li>
+                                                        <li>Light colors reflect heat</li>
+                                                        <li>Technical fabrics aren't just for the gym</li>
                                                     </ul>
-                                                    <p>These options ensure boys can enjoy their time at the beach with full freedom of movement while looking cute and cool.</p>
+                                        image_5:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_5"
+                                        spacer9:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        heading5:
+                                            type: "heading"
+                                            data:
+                                                heading_type: "h3"
+                                                heading: "Shorts That Make a Statement"
+                                        text_shorts:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <p>The short revolution continues with confident above-the-knee styles in bold prints and textures.</p>
+                                        shorts:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Shoreline_Serenity_Jeans"
+                                                        - "Golden_Horizon_Jeans"
+                                                        - "Twilight_Glow_Jeans"
+                                                        - "Whispering_Wind_Jeans"
+                                        text_short_tip:
+                                            type: "textarea"
+                                            data:
+                                                textarea: |
+                                                    <p><strong>Pro Move:</strong> Pair slightly shorter shorts with a relaxed button-down for an instantly updated summer look.</p>
+                                        image_6:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_6"
+                                        spacer10:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        warm_caps:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Playful_Paradise_Cap"
+                                                        - "Sophisticated_Sunset_Cap"
+                                                        - "Vibrant_Voyage_Cap"
+                                                        - "Harmonious_Horizon_Cap"
+                                        image_7:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_7"
+                                        image_8:
+                                            type: "single_media"
+                                            data:
+                                                single_media: "blog_post_3_content_image_8"
+                                        spacer7:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        spacer11:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
                                         outro_heading:
                                             type: "heading"
                                             data:
                                                 heading_type: "h3"
-                                                heading: "Conclusion"
+                                                heading: "Wrapping up"
+                                        spacer12:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
                                         outro_text:
                                             type: "textarea"
                                             data:
                                                 textarea: |
-                                                    <p>With the right T-shirts, shorts, and shoes, men and boys can enjoy their time at the beach in both style and comfort. From cool, breathable shirts to functional and fashionable shorts, and durable footwear, there are plenty of options to ensure everyone looks great while feeling good. Whether it’s a casual beach day or an adventure-filled holiday, these fashion staples will have you covered from sand to shore. So pack smart and get ready to enjoy the sun, sea, and sand in style!</p>
+                                                    <p>Summer style doesn't have to be complicated. Build a wardrobe that works for your life with pieces that play well together and improve with wear.</p>
+                                        spacer13:
+                                            type: "spacer"
+                                            data:
+                                                spacer: 20
+                                        final_products:
+                                            type: "products_grid"
+                                            data:
+                                                products_grid:
+                                                    products:
+                                                        - "Nebula_Surge_T_Shirt"
+                                                        - "Solar_Echo_T_Shirt"
+                                                        - "Meteor_Echo_T_Shirt"
+                                                        - "Lunar_Wave_T_Shirt"
