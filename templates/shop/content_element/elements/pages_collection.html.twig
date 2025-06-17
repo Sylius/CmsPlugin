@@ -11,19 +11,21 @@
                             </a>
                         {% endif %}
                         <div class="card-body d-flex flex-column">
+                            {% if page.teaserContent %}
+                                <p class="mb-3 small text-secondary">{{ page.createdAt|date('Y-m-d') }}</p>
+                            {% endif %}
                             {% if page.teaserTitle %}
                                 <a href="{{ path('sylius_cms_shop_page_show', {'slug': page.slug}) }}" class="link-reset mb-auto">
-                                    <h3 class="card-title">{{ page.teaserTitle }}</h3>
+                                    <h3 class="card-title h5">{{ page.teaserTitle }}</h3>
                                 </a>
                             {% endif %}
                             {% if page.teaserContent %}
-                                <p class="card-text line-clamp mb-0" style="--line-clamp-number: 3;">
+                                <p class="card-text small text-secondary line-clamp mb-0" style="--line-clamp-number: 3;">
                                     {{ page.teaserContent }}
                                 </p>
-                                <a href="{{ path('sylius_cms_shop_page_show', {'slug': page.slug}) }}" class="mb-3">
+                                <a href="{{ path('sylius_cms_shop_page_show', {'slug': page.slug}) }}" class="btn btn-light btn-sm mt-4">
                                     {{ 'sylius_cms.ui.read_more'|trans }}
                                 </a>
-                                <p class="mb-0">{{ page.createdAt|date('Y-m-d') }}</p>
                             {% endif %}
                         </div>
                     </div>
