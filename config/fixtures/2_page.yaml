@@ -2,7 +2,7 @@ sylius_fixtures:
     suites:
         cms:
             listeners:
-              logger: ~
+                logger: ~
             fixtures:
                 page:
                     options:
@@ -108,7 +108,7 @@ sylius_fixtures:
                                             type: "textarea"
                                             data:
                                                 textarea: "<p>We are committed to sustainability and offer a selection of t-shirts and jeans made from eco-friendly materials. Look for our sustainability badge on the product pages for more information.</p>"
-
+                            
                             blog:
                                 name: "Blog"
                                 channels:
@@ -131,7 +131,7 @@ sylius_fixtures:
                                             type: "pages_collection"
                                             data:
                                                 pages_collection: "blog"
-
+                            
                             blog_post_1:
                                 name: "Style Icon Eveline Scotch Shares Her Summer Must-Haves from Our Collection"
                                 channels:
@@ -285,7 +285,7 @@ sylius_fixtures:
                                             data:
                                                 textarea: |
                                                     <p>What I love most about these pieces is how they work together. You could build an entire summer wardrobe around just these selections and never feel like you're missing anything. Quality over quantity—that's what summer 2025 is all about.</p>
-
+                            
                             blog_post_2:
                                 name: "Female Fashion Trends for Summer 2025"
                                 channels:
@@ -480,7 +480,7 @@ sylius_fixtures:
                                             data:
                                                 textarea: |
                                                     <p>Summer 2025 proves that the modern woman can have it all - effortless style that works from beach to boardroom, sustainable choices that feel as good as they look, and versatile pieces that adapt to any adventure. Whether you're embracing Riviera elegance or streetwear, this season's trends celebrate comfort without compromising sophistication. The best part? These aren't just trends to follow, but building blocks for a wardrobe that truly reflects who you are.</p>
-
+                            
                             blog_post_3:
                                 name: ""
                                 channels:

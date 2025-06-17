@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "api-platform/state": "^4.0.3",
         "sylius/sylius": "^2.0",
         "league/csv": "^9.1"
     },
