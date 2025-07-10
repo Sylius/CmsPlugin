@@ -25,6 +25,18 @@ class MediaTranslation extends AbstractTranslation implements MediaTranslationIn
 
     protected ?string $link = null;
 
+    protected ?string $name = null;
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

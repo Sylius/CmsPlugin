@@ -23,6 +23,10 @@ final class MediaTranslationType extends AbstractResourceType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'sylius_cms.ui.name',
+                'required' => false,
+            ])
             ->add('alt', TextType::class, [
                 'label' => 'sylius_cms.ui.alt',
                 'required' => false,
