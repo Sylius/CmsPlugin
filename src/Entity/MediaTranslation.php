@@ -27,16 +27,6 @@ class MediaTranslation extends AbstractTranslation implements MediaTranslationIn
 
     protected ?string $name = null;
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -70,5 +60,15 @@ class MediaTranslation extends AbstractTranslation implements MediaTranslationIn
     public function setLink(?string $link): void
     {
         $this->link = $link;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 }
