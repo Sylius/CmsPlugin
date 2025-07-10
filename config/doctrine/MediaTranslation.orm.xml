@@ -16,7 +16,5 @@
 
         <field name="link" column="link" type="text" nullable="true"/>
 
-        <field name="name" column="name" type="string" nullable="true"/>
-
     </mapped-superclass>
 </doctrine-mapping>

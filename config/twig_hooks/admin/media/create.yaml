@@ -59,9 +59,6 @@ sylius_twig_hooks:
                 priority: 0
 
         'sylius_cms.admin.media.create.content.form.sections.translations':
-            name:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/translations/name.html.twig'
-                priority: 300
             alt:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/translations/alt.html.twig'
                 priority: 200

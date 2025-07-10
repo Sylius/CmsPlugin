@@ -56,7 +56,7 @@ sylius_grid:
                     type: string
                     label: sylius.ui.search
                     options:
-                        fields: [code, translations.name]
+                        fields: [code, name]
                 type:
                     type: select
                     label: sylius.ui.type
