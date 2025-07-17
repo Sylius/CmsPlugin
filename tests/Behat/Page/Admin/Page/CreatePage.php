@@ -114,6 +114,16 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $this->getDocument()->checkField($code);
     }
 
+    public function selectOptionFrom(string $element, string $option): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->findById('sylius_cms_admin_page_contentElements_en_US_contentElements_1_configuration_' . $element)
+        ;
+
+        $element->selectOption($option);
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(

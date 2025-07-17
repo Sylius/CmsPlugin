@@ -215,3 +215,18 @@ Feature: Adding new page
         And I go to the "my-page" page
         And The rendered page should contain custom layout code
 
+    @ui @javascript
+    Scenario: Adding page with header and content template
+        Given there is an existing content template named "Homepage" with "page" type that contains "Textarea, Heading" content elements
+        When I go to the create page page
+        And I fill the code with "my_page"
+        And I fill the slug with "my_page"
+        And I fill the name with "My page"
+        And I select "Homepage" content template
+        And I confirm that I want to use this template
+        And I add it
+        Then I should be notified that the page has been created
+        And I should see newly created "Textarea" content element in Content elements section
+        And I should see newly created "Heading" content element in Content elements section
+        And I select "H3" option from "heading_type"
+        And I should see trix toolbar with children in "Textarea" element

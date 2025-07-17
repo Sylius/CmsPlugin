@@ -58,6 +58,29 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         );
     }
 
+    public function selectOptionFrom(string $element, string $option): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->findById('sylius_cms_admin_page_contentElements_en_US_contentElements_1_configuration_' . $element)
+        ;
+
+        $element->selectOption($option);
+    }
+
+    public function hasTrixToolbarChildren(): bool
+    {
+        sleep(2);
+
+        $element = $this
+            ->getElement('form')
+            ->findById('trix-toolbar-sylius_cms_admin_page_contentElements_en_US_contentElements_0_configuration_textarea')
+            ->find('css', 'div')
+        ;
+
+        return $element !== null;
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [

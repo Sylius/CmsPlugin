@@ -343,6 +343,22 @@ final class PageContext implements Context
     }
 
     /**
+     * @When I select :option option from :element
+     */
+    public function iSelectOptionFrom(string $option, string $element): void
+    {
+        $this->resolveCurrentPage()->selectOptionFrom($element, $option);
+    }
+
+    /**
+     * @Given /^I should see trix toolbar with children in "([^"]*)" element$/
+     */
+    public function iShouldSeeTrixToolbarWithChildrenInElement()
+    {
+        Assert::true($this->resolveCurrentPage()->hasTrixToolbarChildren());
+    }
+
+    /**
      * @return IndexPageInterface|CreatePageInterface|UpdatePageInterface|SymfonyPageInterface
      */
     private function resolveCurrentPage(): SymfonyPageInterface
