@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "@sylius-cms-plugin/admin": "file:../../../assets/admin",
         "swiper": "^11.2.6",
         "trix": "^2.0.0"
     }
