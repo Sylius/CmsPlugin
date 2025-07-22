@@ -1,4 +1,13 @@
 {
-    "controllers": [],
+    "controllers": {
+        "@sylius-cms-plugin/admin": {
+            "preview": {
+                "main": "controllers/PreviewController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            }
+        }
+    },
     "entrypoints": []
 }
