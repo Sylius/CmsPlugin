@@ -118,7 +118,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         $element = $this
             ->getElement('form')
-            ->findById('sylius_cms_admin_page_contentElements_en_US_contentElements_1_configuration_' . $element)
+            ->find('css', 'select[id*="' . $element . '"]')
         ;
 
         $element->selectOption($option);

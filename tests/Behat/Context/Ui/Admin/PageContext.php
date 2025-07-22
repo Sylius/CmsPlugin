@@ -351,7 +351,7 @@ final class PageContext implements Context
     }
 
     /**
-     * @Given /^I should see trix toolbar with children in "([^"]*)" element$/
+     * @Then /^I should see trix toolbar with children in "([^"]*)" element$/
      */
     public function iShouldSeeTrixToolbarWithChildrenInElement()
     {

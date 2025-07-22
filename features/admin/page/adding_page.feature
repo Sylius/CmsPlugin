@@ -229,4 +229,4 @@ Feature: Adding new page
         And I should see newly created "Textarea" content element in Content elements section
         And I should see newly created "Heading" content element in Content elements section
         And I select "H3" option from "heading_type"
-        And I should see trix toolbar with children in "Textarea" element
+        Then I should see trix toolbar with children in "Textarea" element

@@ -62,7 +62,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     {
         $element = $this
             ->getElement('form')
-            ->findById('sylius_cms_admin_page_contentElements_en_US_contentElements_1_configuration_' . $element)
+            ->find('css', 'select[id*="' . $element . '"]')
         ;
 
         $element->selectOption($option);
@@ -74,7 +74,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
         $element = $this
             ->getElement('form')
-            ->findById('trix-toolbar-sylius_cms_admin_page_contentElements_en_US_contentElements_0_configuration_textarea')
+            ->find('css', 'trix-toolbar')
             ->find('css', 'div')
         ;
 

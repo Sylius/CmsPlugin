@@ -51,13 +51,6 @@ document.querySelectorAll('select').forEach(select => {
     });
 });
 
-Array.from(document.querySelectorAll('trix-editor')).map((editor) => {
-    const innerInput = document.getElementById(editor.attributes.input.value);
-
-    if (innerInput) {
-        innerInput.addEventListener('change', onInputChange);
-    }
-});
 
 document.addEventListener('trix-blur', (event) => {
     const innerInput = document.getElementById(event.target.attributes.input.value);
