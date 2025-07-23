@@ -9,7 +9,7 @@
 In your end application, run the following command to add a new dependency to `package.json` file:
 
 ```bash
-yarn add @sylius-cms-plugin/admin@file:vendor/sylius/cms-plugin/assets
+yarn add @sylius-cms-plugin/admin@file:vendor/sylius/cms-plugin/assets/admin
 ```
 
 And add the following to your `controllers.json` file:
