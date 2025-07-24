@@ -81,6 +81,19 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         return $element !== null;
     }
 
+    public function hasTextareaContent(): bool
+    {
+        sleep(2);
+
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+            ->find('css', 'div')
+        ;
+
+        return $element !== null;
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [

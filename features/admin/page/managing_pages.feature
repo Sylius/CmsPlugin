@@ -54,4 +54,5 @@ Feature: Managing cms pages
         Given there is a page in the store with "Textarea, Heading" content elements
         When I want to edit this page
         And I select "H3" option from "heading_type"
-        Then I should see trix toolbar with children in "Textarea" element
+        And I should see trix toolbar with children in "Textarea" element
+        Then I should see content in "Textarea" element

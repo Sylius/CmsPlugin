@@ -359,6 +359,14 @@ final class PageContext implements Context
     }
 
     /**
+     * @Then /^I should see content in "Textarea" element$/
+     */
+    public function iShouldSeeContentInTextareaElement()
+    {
+        Assert::true($this->resolveCurrentPage()->hasTextareaContent());
+    }
+
+    /**
      * @return IndexPageInterface|CreatePageInterface|UpdatePageInterface|SymfonyPageInterface
      */
     private function resolveCurrentPage(): SymfonyPageInterface
