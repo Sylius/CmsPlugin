@@ -124,6 +124,16 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $element->selectOption($option);
     }
 
+    public function fillTextareaContentElement(string $value): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+        ;
+
+        $element->setValue($value);
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(

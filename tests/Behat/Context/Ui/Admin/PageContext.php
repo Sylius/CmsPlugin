@@ -359,11 +359,32 @@ final class PageContext implements Context
     }
 
     /**
-     * @Then /^I should see content in "Textarea" element$/
+     * @Then I should see content in "Textarea" element
      */
     public function iShouldSeeContentInTextareaElement()
     {
         Assert::true($this->resolveCurrentPage()->hasTextareaContent());
+    }
+
+    /**
+     * @Then I fill textarea content element value to :value
+     */
+    public function iFillTextareaContentElementValueTo(string $value)
+    {
+        $this->resolveCurrentPage()->fillTextareaContentElement($value);
+
+        $this->sharedStorage->set('page_textarea_content_element', $value);
+    }
+
+    /**
+     * @Then I should see Textarea content with value :value
+     */
+    public function iShouldSeeTextareaContentWithValue(string $value)
+    {
+        Assert::same(
+            $this->resolveCurrentPage()->getTextareaContent(),
+            "<div>${value}</div>",
+        );
     }
 
     /**

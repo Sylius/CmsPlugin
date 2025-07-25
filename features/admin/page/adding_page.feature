@@ -224,9 +224,11 @@ Feature: Adding new page
         And I fill the name with "My page"
         And I select "Homepage" content template
         And I confirm that I want to use this template
+        And I fill textarea content element value to "Content"
         And I add it
         Then I should be notified that the page has been created
         And I should see newly created "Textarea" content element in Content elements section
         And I should see newly created "Heading" content element in Content elements section
         And I select "H3" option from "heading_type"
-        Then I should see trix toolbar with children in "Textarea" element
+        And I should see trix toolbar with children in "Textarea" element
+        And I should see Textarea content with value "Content"

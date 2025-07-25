@@ -70,8 +70,6 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function hasTrixToolbarChildren(): bool
     {
-        sleep(2);
-
         $element = $this
             ->getElement('form')
             ->find('css', 'trix-toolbar')
@@ -83,8 +81,6 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function hasTextareaContent(): bool
     {
-        sleep(2);
-
         $element = $this
             ->getElement('form')
             ->find('css', 'trix-editor')
@@ -92,6 +88,27 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         ;
 
         return $element !== null;
+    }
+
+    public function fillTextareaContentElement(string $value): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+            ->find('css', 'div')
+        ;
+
+        $element->setValue($value);
+    }
+
+    public function getTextareaContent(): ?string
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+        ;
+
+        return $element->getValue();
     }
 
     protected function getDefinedElements(): array
