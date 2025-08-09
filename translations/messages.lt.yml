@@ -14,15 +14,15 @@ sylius_cms:
         products: Produktai
         page_related_products: Su puslapiu susiję produktai
         name: Pavadinimas
-        slug: Šliužas (nuorodos dalis)
+        slug: Adreso identifikatorius (nuorodos dalis)
         meta_title: Meta pavadinimas
         meta_keywords: Meta raktiniai žodžiai
         meta_description: Meta aprašymas
         content: Turinys
         code: Kodas
         contents: Turinys
-        images: Paveikslai
-        image: Paveikslas
+        images: Paveikslėliai
+        image: Paveikslėlis
         link: Nuoroda
         link_content: Nuorodos turinys
         question: Klausimas
@@ -38,7 +38,7 @@ sylius_cms:
         description_when_linked: Aprašymas nuorodose
         media: Medija
         media_header: Medija
-        media_subheader: Įterptinų failų valdymas
+        media_subheader: Įterptinių failų valdymas
         type: Tipas
         file: Failas
         alt: Alternatyvusis tekstas
@@ -55,9 +55,9 @@ sylius_cms:
         content_elements:
             title: Turinys
             type:
-                textarea: Textarea
+                textarea: Teksto sritis
                 single_media: Vienas medijos elementas
-                multiple_media: Kelios medijos elementai
+                multiple_media: Keli medijos elementai
                 heading: Antraštė
                 products_carousel: Produktų karuselė
                 products_carousel_by_taxon: Produktų karuselė pagal taksoną
@@ -69,6 +69,7 @@ sylius_cms:
                 spacer_height: Tarpo aukštis pikseliais
             heading_type: Antraštės tipas
             template: Turinio elementų šablonas
+            template_help: Turinio elementų šablonas pateikia iš anksto nustatytą elementų kolekciją. Pakeitus jį bus ištrinta dabartinė konfigūracija.
         taxon: Taksonas
         display_for_products:
             label: Rodyti produktams
@@ -82,7 +83,7 @@ sylius_cms:
         manage_block_display: Bloko rodymo valdymas
         templates: Šablonai
         template: Šablonas
-        content_templates: Turinys šablonai
+        content_templates: Turinio šablonai
         new_template: Naujas šablonas
         edit_template: Redaguoti šabloną
         use_page_template: Naudoti puslapio šabloną
@@ -93,4 +94,20 @@ sylius_cms:
             title: Anonso pavadinimas
             content: Anonso turinys
             image: Anonso nuotrauka
-            help: Tai mažas puslapio peržiūra. Ji naudojama kuriant puslapių kolekciją.
+            help: Tai maža puslapio peržiūra. Ji naudojama kuriant puslapių kolekciją.
+        add_element: Pridėti elementą
+        elements: Elementai
+        taxons: Taksonai
+        path: Kelias
+        collection: Kolekcija
+        video: Vaizdo įrašas
+        title: Pavadinimas
+        empty_name: Tušias pavadinimas
+        publish_at: Publikavimo data
+        page_will_be_publish_at: Puslapis bus publikuotas nuo šios datos
+        save_with_original_name: Išsaugoti su pirminiu pavadinimu
+        seo: SEO
+        content_preview:
+            missing_template:
+                title: Nėra šablono
+                content: Šablonas, kurį norite naudoti peržiūrai, nerastas. Rodomas numatytasis šablonas.
