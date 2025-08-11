@@ -48,6 +48,15 @@ Symfony Flex, it's much quicker!
 
 1. Run `yarn encore dev` or `yarn encore production`
 
+#### Webpack Configuration
+
+Ensure your setup includes:
+
+- Stimulus bridge configuration
+- Proper vendor assets aliases
+
+See full configuration details [HERE](legacy_installation.md#Create-Controller-Configs).
+
 1. Database update:
 
     ```bash
