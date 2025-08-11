@@ -58,6 +58,59 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         );
     }
 
+    public function selectOptionFrom(string $element, string $option): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'select[id*="' . $element . '"]')
+        ;
+
+        $element->selectOption($option);
+    }
+
+    public function hasTrixToolbarChildren(): bool
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-toolbar')
+            ->find('css', 'div')
+        ;
+
+        return $element !== null;
+    }
+
+    public function hasTextareaContent(): bool
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+            ->find('css', 'div')
+        ;
+
+        return $element !== null;
+    }
+
+    public function fillTextareaContentElement(string $value): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+            ->find('css', 'div')
+        ;
+
+        $element->setValue($value);
+    }
+
+    public function getTextareaContent(): ?string
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+        ;
+
+        return $element->getValue();
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [

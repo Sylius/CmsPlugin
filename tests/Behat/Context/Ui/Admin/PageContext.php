@@ -343,6 +343,51 @@ final class PageContext implements Context
     }
 
     /**
+     * @When I select :option option from :element
+     */
+    public function iSelectOptionFrom(string $option, string $element): void
+    {
+        $this->resolveCurrentPage()->selectOptionFrom($element, $option);
+    }
+
+    /**
+     * @Then /^I should see trix toolbar with children in "([^"]*)" element$/
+     */
+    public function iShouldSeeTrixToolbarWithChildrenInElement()
+    {
+        Assert::true($this->resolveCurrentPage()->hasTrixToolbarChildren());
+    }
+
+    /**
+     * @Then I should see content in "Textarea" element
+     */
+    public function iShouldSeeContentInTextareaElement()
+    {
+        Assert::true($this->resolveCurrentPage()->hasTextareaContent());
+    }
+
+    /**
+     * @Then I fill textarea content element value to :value
+     */
+    public function iFillTextareaContentElementValueTo(string $value)
+    {
+        $this->resolveCurrentPage()->fillTextareaContentElement($value);
+
+        $this->sharedStorage->set('page_textarea_content_element', $value);
+    }
+
+    /**
+     * @Then I should see Textarea content with value :value
+     */
+    public function iShouldSeeTextareaContentWithValue(string $value)
+    {
+        Assert::same(
+            $this->resolveCurrentPage()->getTextareaContent(),
+            "<div>${value}</div>",
+        );
+    }
+
+    /**
      * @return IndexPageInterface|CreatePageInterface|UpdatePageInterface|SymfonyPageInterface
      */
     private function resolveCurrentPage(): SymfonyPageInterface

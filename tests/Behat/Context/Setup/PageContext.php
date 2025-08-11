@@ -61,7 +61,19 @@ final class PageContext implements Context
      */
     public function thereIsAPageInTheStoreWithTextareaContentElement(string $contentElement): void
     {
-        $page = $this->createPageWithContentElement($contentElement);
+        $page = $this->createPageWithContentElements([$contentElement]);
+
+        $this->savePage($page);
+    }
+
+    /**
+     * @Given there is a page in the store with ":contentElements" content elements
+     */
+    public function thereIsAPageInTheStoreWithContentElements(string $contentElements): void
+    {
+        $contentElements = explode(',', $contentElements);
+
+        $page = $this->createPageWithContentElements($contentElements);
 
         $this->savePage($page);
     }
@@ -207,18 +219,22 @@ final class PageContext implements Context
         return $page;
     }
 
-    private function createPageWithContentElement(string $contentElement): PageInterface
+    private function createPageWithContentElements(array $contentElements): PageInterface
     {
         $page = $this->createPage();
 
-        /** @var ContentConfigurationInterface $contentConfiguration */
-        $contentConfiguration = new ContentConfiguration();
-        $contentConfiguration->setType(mb_strtolower($contentElement));
-        $contentConfiguration->setLocale('en_US');
-        $contentConfiguration->setConfiguration(ContentElementHelper::getExampleConfigurationByContentElement($contentElement));
-        $contentConfiguration->setPage($page);
+        foreach ($contentElements as $contentElement) {
+            $contentElement = trim($contentElement);
 
-        $page->addContentElement($contentConfiguration);
+            /** @var ContentConfigurationInterface $contentConfiguration */
+            $contentConfiguration = new ContentConfiguration();
+            $contentConfiguration->setType(mb_strtolower($contentElement));
+            $contentConfiguration->setLocale('en_US');
+            $contentConfiguration->setConfiguration(ContentElementHelper::getExampleConfigurationByContentElement($contentElement));
+            $contentConfiguration->setPage($page);
+
+            $page->addContentElement($contentConfiguration);
+        }
 
         return $page;
     }

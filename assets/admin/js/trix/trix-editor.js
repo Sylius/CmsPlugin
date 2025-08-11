@@ -3,6 +3,55 @@ import 'trix/dist/trix.css';
 
 document.addEventListener('trix-before-initialize', updateToolbars);
 
+function trixToolbarObserver(trixToolbarElement) {
+    if (trixToolbarElement.dataset.hasTrixToolbarObserver) {
+        return;
+    }
+    trixToolbarElement.dataset.hasTrixToolbarObserver = 'true';
+
+    const observer = new MutationObserver((mutationsList, observer) => {
+        const hasChildren = trixToolbarElement.children.length > 0;
+        if (!hasChildren) {
+            updateToolbars();
+        }
+    });
+
+    observer.observe(trixToolbarElement, { childList: true });
+}
+
+document.querySelectorAll('trix-toolbar').forEach(trixToolbarObserver);
+
+const bodyObserver = new MutationObserver((mutationsList) => {
+    for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                    if (node.matches('trix-toolbar')) {
+                        trixToolbarObserver(node);
+                    }
+
+                    node.querySelectorAll('trix-toolbar').forEach(trixToolbarObserver);
+                }
+            });
+        }
+    }
+});
+
+bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+document.querySelectorAll('select').forEach(select => {
+    select.addEventListener('change', (event) => {
+        document.querySelectorAll('trix-editor').forEach((editor) => {
+            const innerInput = document.getElementById(editor.attributes.input.value);
+
+            editor.innerHTML = innerInput.value;
+        });
+
+        updateToolbars();
+    });
+});
+
+
 document.addEventListener('trix-blur', (event) => {
     const innerInput = document.getElementById(event.target.attributes.input.value);
 
@@ -16,7 +65,7 @@ document.addEventListener("trix-file-accept", (event) => {
     event.preventDefault();
 });
 
-function updateToolbars(event) {
+function updateToolbars() {
     const toolbars = document.querySelectorAll('trix-toolbar');
     const html = removeToolbarFileTools(Trix.config.toolbar.getDefaultHTML());
 

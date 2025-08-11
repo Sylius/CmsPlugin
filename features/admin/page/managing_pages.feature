@@ -48,3 +48,12 @@ Feature: Managing cms pages
         And I update it
         Then I should be notified that the page was updated
         And I should not see "Textarea" content element in the Content elements section
+
+    @ui @javascript
+    Scenario: Updating page with header and content template
+        Given there is a page in the store with "Textarea, Heading" content elements
+        When I want to edit this page
+        And I fill textarea content element value to "Content"
+        And I select "H3" option from "heading_type"
+        Then I should see trix toolbar with children in "Textarea" element
+        And I should see Textarea content with value "Content"
