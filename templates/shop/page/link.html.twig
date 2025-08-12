@@ -6,7 +6,7 @@
         {% endfor %}
     {% endif %}
     >
-    {{ options.name|default(page.name) }}
+    {{ options.name|default(page.title) }}
     </a>
 {% else %}
     {{ options.notFoundMessage|default('') }}
