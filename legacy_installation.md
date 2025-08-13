@@ -51,14 +51,6 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
     sylius_cms:
         resource: "@SyliusCmsPlugin/config/routes.yaml"
     ```
-1. Disable doctrine validate_xml_mapping
-   ```yaml
-      # config/packages/doctrine.yaml
-      ...
-          orm:
-            validate_xml_mapping: false
-          
-   ```
 
 1. Install assets:
     ```bash
