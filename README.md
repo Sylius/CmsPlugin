@@ -44,7 +44,20 @@ Symfony Flex, it's much quicker!
 
    > Remember to allow community recipes with `composer config extra.symfony.allow-contrib true` or during plugin installation process
 
-1. Run `yarn add trix@^2.0.0 swiper@^11.2.6`
+1. Run `yarn add trix@^2.0.0 swiper@^11.2.6 @sylius-cms-plugin/admin@file:vendor/sylius/cms-plugin/assets/admin`
+
+1. And add the following controller to your `controllers.json` file:
+
+   ```json
+   {
+      "@sylius-cms-plugin/admin": {
+         "preview": {
+            "enabled": true,
+            "fetch": "lazy"
+         }
+      }
+   }
+   ```
 
 1. Run `yarn encore dev` or `yarn encore production`
 
