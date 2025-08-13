@@ -114,6 +114,26 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
         $this->getDocument()->checkField($code);
     }
 
+    public function selectOptionFrom(string $element, string $option): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'select[id*="' . $element . '"]')
+        ;
+
+        $element->selectOption($option);
+    }
+
+    public function fillTextareaContentElement(string $value): void
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'trix-editor')
+        ;
+
+        $element->setValue($value);
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(

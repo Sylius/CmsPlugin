@@ -66,7 +66,36 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
     // assets/shop/entrypoint.js
     import '@vendor/sylius/cms-plugin/assets/shop/entrypoint'
     ```
+1. StimulusJS Setup (If Missing)
 
+   #### Create Controller Configs:
+   ```bash
+   [ ! -f assets/admin/controllers.json ] && echo '{
+     "controllers": [],
+     "entrypoints": []
+   }' > assets/admin/controllers.json
+   
+   [ ! -f assets/shop/controllers.json ] && echo '{
+     "controllers": [],
+     "entrypoints": []
+   }' > assets/shop/controllers.json
+   ```
+   
+   #### Create Directories:
+   ```bash
+   mkdir -p assets/{admin,shop}/controllers
+   ```
+   
+   #### Update Webpack Config:
+   ```javascript
+   // In admin configuration section:
+   Encore.enableStimulusBridge(path.resolve(__dirname, './assets/admin/controllers.json'))
+        .addAliases({'@vendor': path.resolve(__dirname, 'vendor')});
+   
+   // In shop configuration section:
+   Encore.enableStimulusBridge(path.resolve(__dirname, './assets/shop/controllers.json'))
+        .addAliases({'@vendor': path.resolve(__dirname, 'vendor')});
+   ```
 1. Run `yarn add trix@^2.0.0 swiper@^11.2.6`
 
 1. Build assets:
@@ -87,4 +116,3 @@ We work on stable, supported and up-to-date versions of packages. We recommend y
 ```bash
   bin/console cache:clear
 ```
-

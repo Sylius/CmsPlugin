@@ -37,7 +37,6 @@ jobs:
                         node: "24.x"
                         database: "mysql"
                         mysql: "8.4"
-
         env:
             APP_ENV: test
             DATABASE_URL: ${{ matrix.database == 'mysql' && format('mysql://root:root@127.0.0.1/sylius?serverVersion={0}', matrix.mysql) || format('pgsql://postgres:postgres@127.0.0.1/sylius?serverVersion={0}', matrix.postgres) }}

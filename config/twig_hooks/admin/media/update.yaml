@@ -47,11 +47,11 @@ sylius_twig_hooks:
                 priority: 0
 
         'sylius_cms.admin.media.update.content.form.sections.media':
-            file:
-                template: '@SyliusCmsPlugin/admin/media/form/sections/media/file.html.twig'
-                priority: 400
             type:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/type.html.twig'
+                priority: 400
+            file:
+                template: '@SyliusCmsPlugin/admin/media/form/sections/media/file.html.twig'
                 priority: 300
             path:
                 template: '@SyliusCmsPlugin/admin/media/form/sections/media/path.html.twig'
