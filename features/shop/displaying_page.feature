@@ -14,6 +14,7 @@ Feature: Displaying pages
         And there are existing collections named "Blog" and "General"
         And this page has these collections associated with it
         And this page has "About us" name
+        And this page also has "About us" title
         And this page also has "about-us" slug
         When I go to the "about-us" page
         Then I should see a page with "About us" name
