@@ -51,6 +51,17 @@ document.querySelectorAll('select').forEach(select => {
     });
 });
 
+document.querySelectorAll('button[data-live-action-param="addCollectionItem"]').forEach(button => {
+    button.addEventListener('click', (event) => {
+        document.querySelectorAll('trix-editor').forEach((editor) => {
+            const innerInput = document.getElementById(editor.attributes.input.value);
+
+            editor.innerHTML = innerInput.value;
+        });
+
+        updateToolbars();
+    });
+});
 
 document.addEventListener('trix-blur', (event) => {
     const innerInput = document.getElementById(event.target.attributes.input.value);
