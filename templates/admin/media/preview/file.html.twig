@@ -1,7 +1,22 @@
-<div class="col-12">
-    <label for="sylius_cms_media_path" class="form-label"> {{ 'sylius_cms.ui.preview'|trans }}</label>
-    <a class="btn" href="{{ path('sylius_cms_shop_media_download', {'code': code}) }}">
-        {{ ux_icon('tabler:download') }}
-        {{ 'sylius_cms.ui.download'|trans }}
-    </a>
-</div>
+{% set localeCode = null %}
+{% set channels = hookable_metadata.context.form.channels.vars.choices %}
+
+{% set checkedChannels = hookable_metadata.context.form.children.channels.vars.value %}
+
+{% for channel in channels %}
+    {% if localeCode == null %}
+        {% if channel.data.enabled and channel.data.code in checkedChannels %}
+            {% set localeCode = channel.data.defaultLocale.code %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% if localeCode != null %}
+    <div class="col-12">
+        <label for="sylius_cms_media_path" class="form-label"> {{ 'sylius_cms.ui.preview'|trans }}</label>
+        <a class="btn" href="{{ path('sylius_cms_shop_media_download', {'code': code, '_locale': localeCode}) }}">
+            {{ ux_icon('tabler:download') }}
+            {{ 'sylius_cms.ui.download'|trans }}
+        </a>
+    </div>
+{% endif %}
