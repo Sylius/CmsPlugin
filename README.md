@@ -87,7 +87,7 @@ See full configuration details [HERE](legacy_installation.md#Create-Controller-C
 
 ## Documentation
 
-For more information about the plugin, please refer to the [Sylius documentation](https://docs.sylius.com/sylius-plugins/feature-plugins/sylius-cms-plugin).
+For more information about the plugin, please refer to the [Sylius documentation](https://docs.sylius.com/cms-plugin).
 
 ## Security issues
 
