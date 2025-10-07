@@ -29,14 +29,6 @@ jobs:
                 mysql: ["8.4"]
                 postgres: ["15.8"]
 
-                include:
-                    -
-                        php: "8.3"
-                        symfony: "~7.2.0"
-                        sylius: "~2.1.0"
-                        node: "24.x"
-                        database: "mysql"
-                        mysql: "8.4"
         env:
             APP_ENV: test
             DATABASE_URL: ${{ matrix.database == 'mysql' && format('mysql://root:root@127.0.0.1/sylius?serverVersion={0}', matrix.mysql) || format('pgsql://postgres:postgres@127.0.0.1/sylius?serverVersion={0}', matrix.postgres) }}
