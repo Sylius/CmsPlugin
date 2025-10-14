@@ -51,7 +51,7 @@ document.querySelectorAll('select').forEach(select => {
     });
 });
 
-document.querySelectorAll('button[data-live-action-param="addCollectionItem"]').forEach(button => {
+document.querySelectorAll('button[data-live-action-param]').forEach(button => {
     button.addEventListener('click', (event) => {
         document.querySelectorAll('trix-editor').forEach((editor) => {
             const innerInput = document.getElementById(editor.attributes.input.value);
