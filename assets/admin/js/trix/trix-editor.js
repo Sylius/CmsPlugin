@@ -39,30 +39,6 @@ const bodyObserver = new MutationObserver((mutationsList) => {
 
 bodyObserver.observe(document.body, { childList: true, subtree: true });
 
-document.querySelectorAll('select').forEach(select => {
-    select.addEventListener('change', (event) => {
-        document.querySelectorAll('trix-editor').forEach((editor) => {
-            const innerInput = document.getElementById(editor.attributes.input.value);
-
-            editor.innerHTML = innerInput.value;
-        });
-
-        updateToolbars();
-    });
-});
-
-document.querySelectorAll('button[data-live-action-param]').forEach(button => {
-    button.addEventListener('click', (event) => {
-        document.querySelectorAll('trix-editor').forEach((editor) => {
-            const innerInput = document.getElementById(editor.attributes.input.value);
-
-            editor.innerHTML = innerInput.value;
-        });
-
-        updateToolbars();
-    });
-});
-
 document.addEventListener('trix-blur', (event) => {
     const innerInput = document.getElementById(event.target.attributes.input.value);
 
@@ -72,8 +48,18 @@ document.addEventListener('trix-blur', (event) => {
     }
 });
 
-document.addEventListener("trix-file-accept", (event) => {
+document.addEventListener('trix-file-accept', (event) => {
     event.preventDefault();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('trix-editor').forEach((editor) => {
+        const innerInput = document.getElementById(editor.attributes.input.value);
+
+        if (innerInput) {
+            editor.innerHTML = innerInput.value;
+        }
+    });
 });
 
 function updateToolbars() {
