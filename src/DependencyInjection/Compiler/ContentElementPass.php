@@ -33,7 +33,7 @@ final class ContentElementPass implements CompilerPassInterface
             $definition->addMethodCall('setTemplate', [$attributes[0]['template']]);
             $definition->addMethodCall('setTwigEnvironment', [new Reference('twig')]);
 
-            if (isset($attributes[0]['form_type'])) {
+            if (isset($attributes[0]['form_type']) && !$container->hasDefinition($attributes[0]['form_type'])) {
                 $this->registerFormTypeService($container, $attributes[0]['form_type']);
             }
         }
