@@ -44,8 +44,16 @@
             />
         </service>
 
+        <service id="sylius_cms.products_provider" class="Sylius\CmsPlugin\Provider\ProductsProvider">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument>%sylius.model.product.class%</argument>
+        </service>
+
+        <service id="Sylius\CmsPlugin\Provider\ProductsProviderInterface" alias="sylius_cms.products_provider" />
+
         <service id="sylius_cms.content_element.products_carousel" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselContentElementRenderer">
-            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius_cms.products_provider" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
@@ -54,8 +62,7 @@
         </service>
 
         <service id="sylius_cms.content_element.products_carousel_by_taxon" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselByTaxonContentElementRenderer">
-            <argument type="service" id="sylius.repository.product" />
-            <argument type="service" id="sylius.repository.taxon" />
+            <argument type="service" id="sylius_cms.products_provider" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
@@ -63,7 +70,7 @@
         </service>
 
         <service id="sylius_cms.content_element.products_grid" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridContentElementRenderer">
-            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius_cms.products_provider" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"
@@ -72,8 +79,7 @@
         </service>
 
         <service id="sylius_cms.content_element.products_grid_by_taxon" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridByTaxonContentElementRenderer">
-            <argument type="service" id="sylius.repository.product" />
-            <argument type="service" id="sylius.repository.taxon" />
+            <argument type="service" id="sylius_cms.products_provider" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"

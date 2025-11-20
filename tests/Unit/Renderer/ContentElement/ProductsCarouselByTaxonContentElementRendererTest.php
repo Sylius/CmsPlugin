@@ -17,9 +17,10 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentElementType;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselByTaxonContentElementRenderer;
-use Sylius\Component\Core\Model\Product;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
@@ -27,19 +28,15 @@ use Twig\Environment;
 
 final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
 {
-    /** @var ProductRepositoryInterface&MockObject */
-    private MockObject $productRepositoryMock;
-
-    /** @var TaxonRepositoryInterface&MockObject */
-    private MockObject $taxonRepositoryMock;
+    /** @var ProductsProviderInterface&MockObject */
+    private MockObject $productsProviderMock;
 
     private ProductsCarouselByTaxonContentElementRenderer $productsCarouselByTaxonContentElementRenderer;
 
     protected function setUp(): void
     {
-        $this->productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
-        $this->taxonRepositoryMock = $this->createMock(TaxonRepositoryInterface::class);
-        $this->productsCarouselByTaxonContentElementRenderer = new ProductsCarouselByTaxonContentElementRenderer($this->productRepositoryMock, $this->taxonRepositoryMock);
+        $this->productsProviderMock = $this->createMock(ProductsProviderInterface::class);
+        $this->productsCarouselByTaxonContentElementRenderer = new ProductsCarouselByTaxonContentElementRenderer($this->productsProviderMock);
     }
 
     public function testInitializable(): void
@@ -70,24 +67,72 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
         $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
-        /** @var TaxonInterface&MockObject $taxonMock */
-        $taxonMock = $this->createMock(TaxonInterface::class);
-        /** @var Product&MockObject $product1Mock */
-        $product1Mock = $this->createMock(Product::class);
-        /** @var Product&MockObject $product2Mock */
-        $product2Mock = $this->createMock(Product::class);
+        /** @var ProductInterface&MockObject $product1Mock */
+        $product1Mock = $this->createMock(ProductInterface::class);
+        /** @var ProductInterface&MockObject $product2Mock */
+        $product2Mock = $this->createMock(ProductInterface::class);
         $template = 'custom_template';
         $this->productsCarouselByTaxonContentElementRenderer->setTemplate($template);
         $this->productsCarouselByTaxonContentElementRenderer->setTwigEnvironment($twigMock);
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'products_carousel_by_taxon' => 'taxon_code',
         ]);
-        $this->taxonRepositoryMock->expects(self::once())->method('findOneBy')->with(['code' => 'taxon_code'])->willReturn($taxonMock);
-        $this->productRepositoryMock->expects(self::once())->method('findByTaxon')->with($taxonMock)->willReturn([$product1Mock, $product2Mock]);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code')->willReturn([$product1Mock, $product2Mock]);
         $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
         ])->willReturn('rendered template');
         self::assertSame('rendered template', $this->productsCarouselByTaxonContentElementRenderer->render($contentConfigurationMock));
+    }
+
+    public function testReturnsEmptyStringWhenNoProductsFound(): void
+    {
+        /** @var Environment&MockObject $twigMock */
+        $twigMock = $this->createMock(Environment::class);
+        /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
+        $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        $this->productsCarouselByTaxonContentElementRenderer->setTwigEnvironment($twigMock);
+        $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
+            'products_carousel_by_taxon' => 'taxon_code',
+        ]);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code')->willReturn([]);
+        $twigMock->expects(self::never())->method('render');
+        self::assertSame('', $this->productsCarouselByTaxonContentElementRenderer->render($contentConfigurationMock));
+    }
+
+    public function testRendersProductsCarouselByTaxonContentElementWithDeprecatedProductRepository(): void
+    {
+        /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
+        $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var TaxonRepositoryInterface&MockObject $taxonRepositoryMock */
+        $taxonRepositoryMock = $this->createMock(TaxonRepositoryInterface::class);
+        /** @var Environment&MockObject $twigMock */
+        $twigMock = $this->createMock(Environment::class);
+        /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
+        $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var TaxonInterface&MockObject $taxonMock */
+        $taxonMock = $this->createMock(TaxonInterface::class);
+        /** @var ProductInterface&MockObject $product1Mock */
+        $product1Mock = $this->createMock(ProductInterface::class);
+
+        $renderer = @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock, $taxonRepositoryMock);
+        $renderer->setTemplate('custom_template');
+        $renderer->setTwigEnvironment($twigMock);
+        $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
+            'products_carousel_by_taxon' => 'taxon_code',
+        ]);
+        $taxonRepositoryMock->expects(self::once())->method('findOneBy')->with(['code' => 'taxon_code'])->willReturn($taxonMock);
+        $productRepositoryMock->expects(self::once())->method('findByTaxon')->with($taxonMock)->willReturn([$product1Mock]);
+        $twigMock->expects(self::once())->method('render')->willReturn('rendered template');
+        self::assertSame('rendered template', $renderer->render($contentConfigurationMock));
+    }
+
+    public function testThrowsExceptionWhenDeprecatedRepositoryUsedWithoutTaxonRepository(): void
+    {
+        /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
+        $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock);
     }
 }

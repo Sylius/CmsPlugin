@@ -15,15 +15,26 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselContentElementType;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 
 final class ProductsCarouselContentElementRenderer extends AbstractContentElement
 {
-    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
+    /** @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsProvider */
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
+        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsProvider,
     ) {
+        if ($this->productsProvider instanceof ProductRepositoryInterface) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.1.5',
+                'Passing "%s" as the first argument of "%s" constructor is deprecated. Pass "%s" instead.',
+                ProductRepositoryInterface::class,
+                self::class,
+                ProductsProviderInterface::class,
+            );
+        }
     }
 
     public function supports(ContentConfigurationInterface $contentConfiguration): bool
@@ -35,7 +46,13 @@ final class ProductsCarouselContentElementRenderer extends AbstractContentElemen
     {
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_carousel']['products'];
-        $products = $this->productRepository->findBy(['code' => $productsCodes]);
+
+        if ($this->productsProvider instanceof ProductsProviderInterface) {
+            $products = $this->productsProvider->getProductsByCodes($productsCodes);
+        } else {
+            $products = $this->productsProvider->findBy(['code' => $productsCodes]);
+        }
+
         if ([] === $products) {
             return '';
         }
