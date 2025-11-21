@@ -79,10 +79,6 @@ jobs:
                 run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
 
             -
-                name: Install certificates
-                run: symfony server:ca:install
-
-            -
                 name: Get Composer cache directory
                 id: composer-cache
                 run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
