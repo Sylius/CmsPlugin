@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Form\Type;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
@@ -36,8 +37,12 @@ final class TemplateAutocompleteType extends AbstractType
         $resolver->setAllowedValues('type', [null, 'page', 'block']);
         $resolver->setDefaults([
             'class' => $this->templateClass,
-            'choice_value' => 'id',
-            'choice_label' => fn (TemplateInterface $template): string => (string) $template->getName(),
+            'choice_label' => function (Options $options) {
+                return $options['extra_options']['choice_label'] ?? fn (TemplateInterface $template): string => (string) $template->getName();
+            },
+            'choice_value' => function (Options $options, $previousValue) {
+                return $options['extra_options']['choice_value'] ?? $previousValue;
+            },
         ]);
         $resolver->setNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }

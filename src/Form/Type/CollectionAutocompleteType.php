@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Form\Type;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
@@ -36,8 +37,12 @@ final class CollectionAutocompleteType extends AbstractType
         $resolver->setAllowedValues('type', [null, CollectionType::BLOCK, CollectionType::MEDIA, CollectionType::PAGE]);
         $resolver->setDefaults([
             'class' => $this->collectionClass,
-            'choice_value' => 'code',
-            'choice_label' => fn (CollectionInterface $collection): string => (string) $collection->getName(),
+            'choice_label' => function (Options $options) {
+                return $options['extra_options']['choice_label'] ?? fn (CollectionInterface $collection): string => (string) $collection->getName();
+            },
+            'choice_value' => function (Options $options, $previousValue) {
+                return $options['extra_options']['choice_value'] ?? $previousValue;
+            },
         ]);
         $resolver->addNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
     }
