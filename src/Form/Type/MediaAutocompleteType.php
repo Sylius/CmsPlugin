@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Form\Type;
 use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Form\Normalizer\TypedQueryBuilderNormalizer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
@@ -41,9 +42,15 @@ final class MediaAutocompleteType extends AbstractType
         ]);
         $resolver->setDefaults([
             'class' => $this->mediaClass,
-            'choice_label' => 'name',
-            'choice_value' => 'code',
-            'type' => null,
+            'choice_label' => function (Options $options) {
+                return $options['extra_options']['choice_label'] ?? 'name';
+            },
+            'choice_value' => function (Options $options, $previousValue) {
+                return $options['extra_options']['choice_value'] ?? $previousValue;
+            },
+            'type' => function (Options $options) {
+                return $options['extra_options']['type'] ?? null;
+            },
         ]);
 
         $resolver->setNormalizer('query_builder', TypedQueryBuilderNormalizer::normalize(...));
