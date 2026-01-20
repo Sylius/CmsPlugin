@@ -1,0 +1,22 @@
+{
+    "name": "@sylius-cms-plugin/admin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "Sylius Sp. z o.o.",
+    "symfony": {
+        "controllers": {
+            "preview": {
+                "main": "controllers/PreviewController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            }
+        }
+    },
+    "files": [
+        "./package.json",
+        "./README.md",
+        "./LICENSE",
+        "./*"
+    ]
+}
