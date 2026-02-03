@@ -12,7 +12,8 @@
         "php": "^8.2",
         "api-platform/state": "^4.0.3",
         "sylius/sylius": "^2.0",
-        "league/csv": "^9.1"
+        "league/csv": "^9.1",
+        "sylius/telemetry": "^1.0"
     },
     "require-dev": {
         "behat/behat": "^3.14",
