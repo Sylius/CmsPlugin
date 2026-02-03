@@ -88,3 +88,8 @@ For online communication, we invite you to chat with us & other users on [Sylius
 ## License
 
 This plugin's source code is completely free and released under the terms of the MIT license.
+
+## Telemetry
+
+This plugin enforces telemetry data collection when used with Sylius.
+Details are described in [TELEMETRY_POLICY.md](./TELEMETRY_POLICY.md).
