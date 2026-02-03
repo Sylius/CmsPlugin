@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\CmsPlugin\DependencyInjection\Compiler\ContentElementPass;
 use Sylius\CmsPlugin\DependencyInjection\Compiler\MediaProviderPass;
+use Sylius\Telemetry\TelemetryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -29,6 +30,8 @@ final class SyliusCmsPlugin extends Bundle
 
         $container->addCompilerPass(new MediaProviderPass());
         $container->addCompilerPass(new ContentElementPass());
+
+        $container->addCompilerPass(new TelemetryCompilerPass());
     }
 
     public function getPath(): string
