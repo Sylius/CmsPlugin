@@ -4,26 +4,16 @@ on:
     schedule:
         -
             cron: "0 2 * * *"
-    workflow_dispatch:
-        inputs:
-            base_branch:
-                description: "Source branch (leave empty for default matrix)"
-                required: false
-                type: string
-            target_branch:
-                description: "Target branch (leave empty for default matrix)"
-                required: false
-                type: string
+    workflow_dispatch: ~
 
 permissions:
     contents: write
     pull-requests: write
 
 jobs:
-    # Scheduled runs or manual without inputs - use matrix
-    upmerge-matrix:
-        if: github.repository == 'Sylius/CmsPlugin' && !inputs.base_branch
+    upmerge:
         runs-on: ubuntu-latest
+        if: github.repository == 'Sylius/CmsPlugin'
         name: "Upmerge PR"
         timeout-minutes: 5
         strategy:
@@ -45,24 +35,4 @@ jobs:
                 with:
                     base_branch: ${{ matrix.base_branch }}
                     target_branch: ${{ matrix.target_branch }}
-                    token: ${{ secrets.SYLIUS_BOT_PAT }}
-
-    # Manual with custom inputs
-    upmerge-custom:
-        if: github.repository == 'Sylius/CmsPlugin' && inputs.base_branch
-        runs-on: ubuntu-latest
-        name: "Upmerge PR (${{ inputs.base_branch }} -> ${{ inputs.target_branch }})"
-        timeout-minutes: 5
-
-        steps:
-            -
-                uses: actions/checkout@v4
-                with:
-                    ref: ${{ inputs.target_branch }}
-
-            -
-                uses: SyliusLabs/UpmergeAction@v1
-                with:
-                    base_branch: ${{ inputs.base_branch }}
-                    target_branch: ${{ inputs.target_branch }}
                     token: ${{ secrets.SYLIUS_BOT_PAT }}
