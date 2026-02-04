@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
@@ -32,8 +33,12 @@ final class BlockAutocompleteType extends AbstractType
     {
         $resolver->setDefaults([
             'class' => $this->blockClass,
-            'choice_label' => 'name',
-            'choice_value' => 'code',
+            'choice_label' => function (Options $options) {
+                return $options['extra_options']['choice_label'] ?? 'name';
+            },
+            'choice_value' => function (Options $options, $previousValue) {
+                return $options['extra_options']['choice_value'] ?? $previousValue;
+            },
         ]);
     }
 
