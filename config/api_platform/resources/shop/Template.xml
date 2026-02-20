@@ -37,7 +37,7 @@
             <operation
                 name="sylius_cms_api_shop_template_get"
                 class="ApiPlatform\Metadata\Get"
-                uriTemplate="/shop/cms/template/{id}"
+                uriTemplate="/shop/cms/templates/{id}"
             >
                 <normalizationContext>
                     <values>
