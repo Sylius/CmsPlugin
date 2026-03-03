@@ -62,6 +62,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.querySelectorAll('select').forEach(select => {
+    select.addEventListener('change', (event) => {
+        document.querySelectorAll('trix-editor').forEach((editor) => {
+            const innerInput = document.getElementById(editor.attributes.input.value);
+
+            if (innerInput) {
+                editor.innerHTML = innerInput.value;
+            }
+        });
+
+        updateToolbars();
+    });
+});
+
+document.querySelectorAll('button[data-live-action-param="addCollectionItem"]').forEach(button => {
+    button.addEventListener('click', (event) => {
+        document.querySelectorAll('trix-editor').forEach((editor) => {
+            const innerInput = document.getElementById(editor.attributes.input.value);
+            
+            if (innerInput) {
+                editor.innerHTML = innerInput.value;
+            }
+        });
+
+        updateToolbars();
+    });
+});
+
 function updateToolbars() {
     const toolbars = document.querySelectorAll('trix-toolbar');
     const html = removeToolbarFileTools(Trix.config.toolbar.getDefaultHTML());
