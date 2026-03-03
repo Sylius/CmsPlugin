@@ -71,6 +71,13 @@ Sylius\Component\Core\Model\ProductVariant:
   product_variant1:
     product: '@product1'
     code: "code1"
+Sylius\CmsPlugin\Entity\ContentConfiguration:
+  content_element1:
+    type: 'heading'
+    configuration:
+      heading_type: 'h2'
+      heading: 'Test heading'
+    locale: 'en_US'
 Sylius\CmsPlugin\Entity\Block:
   block1:
     code: 'block1-code'
@@ -80,6 +87,8 @@ Sylius\CmsPlugin\Entity\Block:
       - '@collection1'
     channels:
       - '@channel'
+    contentElements:
+      - '@content_element1'
   block2:
     code: 'block2-code'
     name: 'block2-name'
