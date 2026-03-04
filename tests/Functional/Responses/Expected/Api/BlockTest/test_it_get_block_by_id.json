@@ -12,7 +12,19 @@
     "channels": [
         "/api/v2/shop/channels/code"
     ],
-    "contentElements": [],
+    "contentElements": [
+        {
+            "@type": "ContentConfiguration",
+            "@id": "@string@",
+            "id": "@integer@",
+            "type": "heading",
+            "configuration": {
+                "heading_type": "h2",
+                "heading": "Test heading"
+            },
+            "locale": "en_US"
+        }
+    ],
     "products": [],
     "taxons": [],
     "productsInTaxons": []

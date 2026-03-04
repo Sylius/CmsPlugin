@@ -7,16 +7,20 @@
         <attribute name="id">
             <group>sylius_cms:page:read:index</group>
             <group>sylius_cms:page:read:show</group>
+            <group>sylius_cms:block:read:show</group>
         </attribute>
         <attribute name="type">
             <group>sylius_cms:page:read:index</group>
             <group>sylius_cms:page:read:show</group>
+            <group>sylius_cms:block:read:show</group>
         </attribute>
         <attribute name="configuration">
             <group>sylius_cms:page:read:show</group>
+            <group>sylius_cms:block:read:show</group>
         </attribute>
         <attribute name="locale">
             <group>sylius_cms:page:read:show</group>
+            <group>sylius_cms:block:read:show</group>
         </attribute>
         <attribute name="block">
             <group>sylius_cms:page:read:show</group>
