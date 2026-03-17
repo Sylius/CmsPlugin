@@ -15,20 +15,12 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridByTaxonContentElementType;
-use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 
 final class ProductsGridByTaxonContentElementRenderer extends AbstractContentElement
 {
-    /**
-     * @param ProductRepositoryInterface<ProductInterface> $productRepository
-     * @param TaxonRepositoryInterface<TaxonInterface> $taxonRepository
-     */
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
-        private TaxonRepositoryInterface $taxonRepository,
+        private ProductsProviderInterface $productsProvider,
     ) {
     }
 
@@ -40,14 +32,10 @@ final class ProductsGridByTaxonContentElementRenderer extends AbstractContentEle
     public function render(ContentConfigurationInterface $contentConfiguration): string
     {
         $taxonCode = $contentConfiguration->getConfiguration()['products_grid_by_taxon'];
-
-        /** @var TaxonInterface|null $taxon */
-        $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
-        if (null === $taxon) {
+        $products = $this->productsProvider->getProductsByTaxonCode($taxonCode);
+        if ([] === $products) {
             return '';
         }
-
-        $products = $this->productRepository->findByTaxon($taxon);
 
         return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,

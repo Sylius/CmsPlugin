@@ -17,23 +17,23 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselContentElementType;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselContentElementRenderer;
-use Sylius\Component\Core\Model\Product;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Twig\Environment;
 
 final class ProductsCarouselContentElementRendererTest extends TestCase
 {
-    /** @var ProductRepositoryInterface&MockObject */
-    private MockObject $productRepositoryMock;
+    /** @var ProductsProviderInterface&MockObject */
+    private MockObject $productsProviderMock;
 
     private ProductsCarouselContentElementRenderer $productsCarouselContentElementRenderer;
 
     protected function setUp(): void
     {
-        $this->productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
-        $this->productsCarouselContentElementRenderer = new ProductsCarouselContentElementRenderer($this->productRepositoryMock);
+        $this->productsProviderMock = $this->createMock(ProductsProviderInterface::class);
+        $this->productsCarouselContentElementRenderer = new ProductsCarouselContentElementRenderer($this->productsProviderMock);
     }
 
     public function testInitializable(): void
@@ -64,21 +64,36 @@ final class ProductsCarouselContentElementRendererTest extends TestCase
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
         $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
-        /** @var Product&MockObject $product1Mock */
-        $product1Mock = $this->createMock(Product::class);
-        /** @var Product&MockObject $product2Mock */
-        $product2Mock = $this->createMock(Product::class);
+        /** @var ProductInterface&MockObject $product1Mock */
+        $product1Mock = $this->createMock(ProductInterface::class);
+        /** @var ProductInterface&MockObject $product2Mock */
+        $product2Mock = $this->createMock(ProductInterface::class);
         $template = 'custom_template';
         $this->productsCarouselContentElementRenderer->setTemplate($template);
         $this->productsCarouselContentElementRenderer->setTwigEnvironment($twigMock);
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'products_carousel' => ['products' => ['code1', 'code2']],
         ]);
-        $this->productRepositoryMock->expects(self::once())->method('findBy')->with(['code' => ['code1', 'code2']])->willReturn([$product1Mock, $product2Mock]);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByCodes')->with(['code1', 'code2'])->willReturn([$product1Mock, $product2Mock]);
         $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
         ])->willReturn('rendered template');
         self::assertSame('rendered template', $this->productsCarouselContentElementRenderer->render($contentConfigurationMock));
+    }
+
+    public function testReturnsEmptyStringWhenNoProductsFound(): void
+    {
+        /** @var Environment&MockObject $twigMock */
+        $twigMock = $this->createMock(Environment::class);
+        /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
+        $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        $this->productsCarouselContentElementRenderer->setTwigEnvironment($twigMock);
+        $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
+            'products_carousel' => ['products' => ['code1']],
+        ]);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByCodes')->with(['code1'])->willReturn([]);
+        $twigMock->expects(self::never())->method('render');
+        self::assertSame('', $this->productsCarouselContentElementRenderer->render($contentConfigurationMock));
     }
 }

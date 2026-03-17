@@ -15,14 +15,12 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridContentElementType;
-use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 
 final class ProductsGridContentElementRenderer extends AbstractContentElement
 {
-    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
+        private ProductsProviderInterface $productsProvider,
     ) {
     }
 
@@ -35,7 +33,7 @@ final class ProductsGridContentElementRenderer extends AbstractContentElement
     {
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_grid']['products'];
-        $products = $this->productRepository->findBy(['code' => $productsCodes]);
+        $products = $this->productsProvider->getProductsByCodes($productsCodes);
 
         return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
