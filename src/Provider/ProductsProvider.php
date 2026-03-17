@@ -25,6 +25,7 @@ final class ProductsProvider implements ProductsProviderInterface
     ) {
     }
 
+    /** @param string[] $productCodes */
     public function getProductsByCodes(array $productCodes): array
     {
         return $this->entityManager->createQueryBuilder()

@@ -17,7 +17,11 @@ use Sylius\Component\Core\Model\ProductInterface;
 
 interface ProductsProviderInterface
 {
-    /** @return ProductInterface[] */
+    /**
+     * @param string[] $productCodes
+     *
+     * @return ProductInterface[]
+     */
     public function getProductsByCodes(array $productCodes): array;
 
     /** @return ProductInterface[] */
