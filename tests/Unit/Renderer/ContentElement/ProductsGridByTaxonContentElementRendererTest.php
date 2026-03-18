@@ -21,6 +21,9 @@ use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridByTaxonContentElementRenderer;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
+use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Twig\Environment;
 
 final class ProductsGridByTaxonContentElementRendererTest extends TestCase
@@ -95,5 +98,41 @@ final class ProductsGridByTaxonContentElementRendererTest extends TestCase
         $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code')->willReturn([]);
         $twigMock->expects(self::never())->method('render');
         self::assertSame('', $this->productsGridByTaxonContentElementRenderer->render($contentConfigurationMock));
+    }
+
+    public function testRendersProductsGridByTaxonContentElementWithDeprecatedProductRepository(): void
+    {
+        /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
+        $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var TaxonRepositoryInterface&MockObject $taxonRepositoryMock */
+        $taxonRepositoryMock = $this->createMock(TaxonRepositoryInterface::class);
+        /** @var Environment&MockObject $twigMock */
+        $twigMock = $this->createMock(Environment::class);
+        /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
+        $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var TaxonInterface&MockObject $taxonMock */
+        $taxonMock = $this->createMock(TaxonInterface::class);
+        /** @var ProductInterface&MockObject $product1Mock */
+        $product1Mock = $this->createMock(ProductInterface::class);
+
+        $renderer = @new ProductsGridByTaxonContentElementRenderer($productRepositoryMock, $taxonRepositoryMock);
+        $renderer->setTemplate('custom_template');
+        $renderer->setTwigEnvironment($twigMock);
+        $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
+            'products_grid_by_taxon' => 'taxon_code',
+        ]);
+        $taxonRepositoryMock->expects(self::once())->method('findOneBy')->with(['code' => 'taxon_code'])->willReturn($taxonMock);
+        $productRepositoryMock->expects(self::once())->method('findByTaxon')->with($taxonMock)->willReturn([$product1Mock]);
+        $twigMock->expects(self::once())->method('render')->willReturn('rendered template');
+        self::assertSame('rendered template', $renderer->render($contentConfigurationMock));
+    }
+
+    public function testThrowsExceptionWhenDeprecatedRepositoryUsedWithoutTaxonRepository(): void
+    {
+        /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
+        $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+
+        $this->expectException(\InvalidArgumentException::class);
+        @new ProductsGridByTaxonContentElementRenderer($productRepositoryMock);
     }
 }

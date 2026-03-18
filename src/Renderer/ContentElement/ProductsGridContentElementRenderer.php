@@ -16,12 +16,24 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridContentElementType;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
+use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 
 final class ProductsGridContentElementRenderer extends AbstractContentElement
 {
+    /** @param ProductRepositoryInterface<\Sylius\Component\Core\Model\ProductInterface>|ProductsProviderInterface $productsProvider */
     public function __construct(
-        private ProductsProviderInterface $productsProvider,
+        private ProductRepositoryInterface|ProductsProviderInterface $productsProvider,
     ) {
+        if ($this->productsProvider instanceof ProductRepositoryInterface) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.1.5',
+                'Passing "%s" as the first argument of "%s" constructor is deprecated. Pass "%s" instead.',
+                ProductRepositoryInterface::class,
+                self::class,
+                ProductsProviderInterface::class,
+            );
+        }
     }
 
     public function supports(ContentConfigurationInterface $contentConfiguration): bool
@@ -33,7 +45,12 @@ final class ProductsGridContentElementRenderer extends AbstractContentElement
     {
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_grid']['products'];
-        $products = $this->productsProvider->getProductsByCodes($productsCodes);
+
+        if ($this->productsProvider instanceof ProductsProviderInterface) {
+            $products = $this->productsProvider->getProductsByCodes($productsCodes);
+        } else {
+            $products = $this->productsProvider->findBy(['code' => $productsCodes]);
+        }
 
         return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,

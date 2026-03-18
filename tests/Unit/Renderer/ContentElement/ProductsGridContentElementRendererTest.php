@@ -21,6 +21,7 @@ use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridContentElementRenderer;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Twig\Environment;
 
 final class ProductsGridContentElementRendererTest extends TestCase
@@ -80,5 +81,27 @@ final class ProductsGridContentElementRendererTest extends TestCase
             'products' => [$product1Mock, $product2Mock],
         ])->willReturn('rendered template');
         self::assertSame('rendered template', $this->productsGridContentElementRenderer->render($contentConfigurationMock));
+    }
+
+    public function testRendersProductsGridContentElementWithDeprecatedProductRepository(): void
+    {
+        /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
+        $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var Environment&MockObject $twigMock */
+        $twigMock = $this->createMock(Environment::class);
+        /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
+        $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var ProductInterface&MockObject $product1Mock */
+        $product1Mock = $this->createMock(ProductInterface::class);
+
+        $renderer = @new ProductsGridContentElementRenderer($productRepositoryMock);
+        $renderer->setTemplate('custom_template');
+        $renderer->setTwigEnvironment($twigMock);
+        $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
+            'products_grid' => ['products' => ['code1']],
+        ]);
+        $productRepositoryMock->expects(self::once())->method('findBy')->with(['code' => ['code1']])->willReturn([$product1Mock]);
+        $twigMock->expects(self::once())->method('render')->willReturn('rendered template');
+        self::assertSame('rendered template', $renderer->render($contentConfigurationMock));
     }
 }
