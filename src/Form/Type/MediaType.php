@@ -57,6 +57,7 @@ final class MediaType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.collections',
                 'required' => false,
                 'multiple' => true,
+                'by_reference' => false,
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_cms.ui.enabled',
