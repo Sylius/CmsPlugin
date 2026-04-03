@@ -87,7 +87,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
             'collections' => '[data-test-cms-page-collections]',
             'content' => '.cms-page-content',
             'custom-layout' => '.custom-layout',
-            'link' => '.cms-page-link',
+            'link' => '[data-test-cms-page-link]',
             'name' => '[data-test-cms-page-name]',
             'page-image' => '.page-image',
             'products' => '.cms-page-products',
