@@ -54,6 +54,7 @@ sylius_cms:
             not_blank: Název nesmí být prázdný.
             min_length: Název musí mít alespoň {{ limit }} znaků.
             max_length: Název nesmí být delší než {{ limit }} znaků.
+        invalid_type: "Kolekce '{{ collection }}' nemůže být přiřazena. Neodpovídá očekávanému typu '{{ type }}'."
     media:
         code:
             unique: Existuje již médium s tímto kódem.

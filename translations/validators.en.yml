@@ -54,6 +54,7 @@ sylius_cms:
             not_blank: Name cannot be blank.
             min_length: Name must be at least {{ limit }} characters long.
             max_length: Name can not be longer than {{ limit }} characters.
+        invalid_type: "Collection '{{ collection }}' cannot be assigned. It does not match the expected type '{{ type }}'."
     media:
         code:
             unique: There is an existing media with this code.

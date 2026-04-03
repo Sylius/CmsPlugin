@@ -51,6 +51,7 @@ sylius_cms:
             not_blank: Pavadinimą įvesti privaloma.
             min_length: Pavadinimo ilgis turi būti bent {{ limit }} simb.
             max_length: Pavadinimas negali būti ilgesnis nei {{ limit }} simb.
+        invalid_type: "Kolekcija '{{ collection }}' negali būti priskirta. Ji neatitinka numatomo tipo '{{ type }}'."
     media:
         code:
             unique: Failas su tokiu kodu jau egzistuoja.
