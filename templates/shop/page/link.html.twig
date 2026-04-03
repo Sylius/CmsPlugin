@@ -1,10 +1,11 @@
 {% if page != null %}
-    <a {{ sylius_test_html_attribute('cms-page-link') }} href="{{ path('sylius_cms_shop_page_show', { slug: page.slug }) }}"
+    <a href="{{ path('sylius_cms_shop_page_show', { slug: page.slug }) }}"
     {% if options.attr is defined %}
         {% for attrname, attrvalue in options.attr %}
             {{ attrname }}="{{ attrvalue }}"
         {% endfor %}
     {% endif %}
+    {{ sylius_test_html_attribute('cms-page-link') }}
     >
     {{ options.name|default(page.title) }}
     </a>
