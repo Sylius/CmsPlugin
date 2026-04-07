@@ -35,6 +35,8 @@ sylius_cms:
         content:
             not_blank: Inhalt darf nicht leer sein.
             min_length: Inhalt muss mindestens {{ limit }} Zeichen lang sein.
+    collection:
+        invalid_type: "Sammlung '{{ collection }}' kann nicht zugewiesen werden. Sie entspricht nicht dem erwarteten Typ '{{ type }}'."
     template:
         name:
             unique: Es gibt bereits eine Vorlage mit diesem Namen.

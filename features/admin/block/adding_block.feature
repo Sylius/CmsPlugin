@@ -31,7 +31,7 @@ Feature: Adding blocks
 
     @ui @javascript
     Scenario: Adding block with collections
-        Given there are existing collections named "Blog" and "Homepage"
+        Given there are existing collections named "Blog" and "Homepage" with "block" type
         When I go to the create block page
         And I fill the code with "intro"
         And I fill the name with "Intro"

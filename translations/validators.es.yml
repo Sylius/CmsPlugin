@@ -47,6 +47,7 @@ sylius_cms:
             not_blank: El nombre no puede ir vacío.
             min_length: El nombre debe tener al menos {{ limit }} caracteres.
             max_length: El nombre no puede tener más de {{ limit }} caracteres.
+        invalid_type: "La colección '{{ collection }}' no puede asignarse. No coincide con el tipo esperado '{{ type }}'."
     template:
         name:
             unique: Ya existe una plantilla con este nombre.

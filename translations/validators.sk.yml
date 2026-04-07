@@ -51,6 +51,7 @@ sylius_cms:
             not_blank: Názov nemôže byť prázdny.
             min_length: Názov musí mať najmenej {{ limit }} znakov.
             max_length: Názov nesmie mať viac ako {{ limit }} znakov.
+        invalid_type: "Kolekcia '{{ collection }}' nemôže byť priradená. Nezodpovedá očakávanému typu '{{ type }}'."
     media:
         code:
             unique: Médium s týmto kódom už existuje.

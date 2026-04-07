@@ -54,6 +54,19 @@ final class CollectionContext implements Context
     }
 
     /**
+     * @Given there are existing collections named :firstNameCollection and :secondNameCollection with :type type
+     */
+    public function thereAreExistingCollectionsWithType(string $type, string ...$collectionsNames): void
+    {
+        foreach ($collectionsNames as $collectionName) {
+            $collection = $this->createCollection(null, $collectionName);
+            $collection->setType($type);
+
+            $this->saveCollection($collection);
+        }
+    }
+
+    /**
      * @Given there is an existing collection with :code code
      */
     public function thereIsAnExistingCollectionWithCode(string $code): void

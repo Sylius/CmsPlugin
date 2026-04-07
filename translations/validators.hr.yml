@@ -47,6 +47,7 @@ sylius_cms:
             not_blank: Naziv ne može biti prazan.
             min_length: Naziv mora sadržavati minimalno {{ limit }} znaka.
             max_length: Naziv mora biti duži od {{ limit }} znakova.
+        invalid_type: "Kolekcija '{{ collection }}' ne može biti dodijeljena. Ne odgovara očekivanom tipu '{{ type }}'."
     template:
         name:
             unique: Već postoji predložak s tim imenom.

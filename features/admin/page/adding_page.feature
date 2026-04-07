@@ -58,7 +58,7 @@ Feature: Adding new page
 
     @ui @javascript
     Scenario: Adding page with collections
-        Given there are existing collections named "Blog" and "Homepage"
+        Given there are existing collections named "Blog" and "Homepage" with "page" type
         When I go to the create page page
         And I fill the code with "best_day_ever"
         And I fill the name with "Best day ever"

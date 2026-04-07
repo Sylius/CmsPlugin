@@ -51,6 +51,7 @@ sylius_cms:
             not_blank: Le nom de la section ne peut pas être vide.
             min_length: Le nom doit faire au moins {{ limit }} caractères.
             max_length: Le nom ne peut pas dépasser {{ limit }} caractères.
+        invalid_type: "La collection '{{ collection }}' ne peut pas être assignée. Elle ne correspond pas au type attendu '{{ type }}'."
     media:
         code:
             unique: Il existe déjà un média avec ce code.

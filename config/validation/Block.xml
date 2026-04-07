@@ -4,6 +4,13 @@
     http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Sylius\CmsPlugin\Entity\Block">
+        <constraint name="Sylius\CmsPlugin\Validator\Constraint\CollectionMatchesType">
+            <option name="type">block</option>
+            <option name="groups">
+                <value>cms</value>
+            </option>
+        </constraint>
+
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="fields">
                 <value>code</value>
