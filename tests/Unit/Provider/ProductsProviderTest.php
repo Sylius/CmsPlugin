@@ -17,7 +17,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
 use Sylius\CmsPlugin\Provider\ProductsProvider;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
@@ -27,7 +27,7 @@ use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
 final class ProductsProviderTest extends TestCase
 {
-    /** @var (ProductRepositoryInterface&EntityRepository)&MockObject */
+    /** @var ProductRepository&MockObject */
     private MockObject $productRepositoryMock;
 
     /** @var ChannelContextInterface&MockObject */
@@ -37,7 +37,7 @@ final class ProductsProviderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->productRepositoryMock = $this->createMock(EntityRepository::class);
+        $this->productRepositoryMock = $this->createMock(ProductRepository::class);
         $this->channelContextMock = $this->createMock(ChannelContextInterface::class);
         $this->productsProvider = new ProductsProvider(
             $this->productRepositoryMock,

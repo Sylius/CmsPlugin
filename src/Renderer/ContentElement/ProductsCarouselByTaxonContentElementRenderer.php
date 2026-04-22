@@ -20,6 +20,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 final class ProductsCarouselByTaxonContentElementRenderer extends AbstractContentElement
 {
@@ -64,7 +65,7 @@ final class ProductsCarouselByTaxonContentElementRenderer extends AbstractConten
         if ($this->productsRepository instanceof ProductsProviderInterface) {
             $products = $this->productsRepository->getProductsByTaxonCode($taxonCode);
         } else {
-            assert($this->taxonRepository !== null);
+            Assert::notNull($this->taxonRepository);
             /** @var TaxonInterface|null $taxon */
             $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
             if (null === $taxon) {

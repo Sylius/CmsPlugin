@@ -15,12 +15,16 @@ namespace Sylius\CmsPlugin\Provider;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
 final readonly class ProductsProvider implements ProductsProviderInterface
 {
+    /**
+     * @param EntityRepository&ProductRepositoryInterface<ProductInterface> $productRepository
+     */
     public function __construct(
-        private ProductRepositoryInterface&EntityRepository $productRepository,
+        private EntityRepository&ProductRepositoryInterface $productRepository,
         private ChannelContextInterface $channelContext,
     ) {
     }
