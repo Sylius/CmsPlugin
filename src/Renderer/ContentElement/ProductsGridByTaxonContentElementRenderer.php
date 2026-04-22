@@ -24,14 +24,14 @@ use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 final class ProductsGridByTaxonContentElementRenderer extends AbstractContentElement
 {
     /**
-     * @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsProvider
+     * @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsRepository
      * @param TaxonRepositoryInterface<TaxonInterface>|null $taxonRepository
      */
     public function __construct(
-        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsProvider,
+        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsRepository,
         private readonly ?TaxonRepositoryInterface $taxonRepository = null,
     ) {
-        if ($this->productsProvider instanceof ProductRepositoryInterface) {
+        if ($this->productsRepository instanceof ProductRepositoryInterface) {
             if (null === $this->taxonRepository) {
                 throw new \InvalidArgumentException(sprintf(
                     'The second argument of "%s" constructor must be an instance of "%s" when passing "%s" as the first argument.',
@@ -61,8 +61,8 @@ final class ProductsGridByTaxonContentElementRenderer extends AbstractContentEle
     {
         $taxonCode = $contentConfiguration->getConfiguration()['products_grid_by_taxon'];
 
-        if ($this->productsProvider instanceof ProductsProviderInterface) {
-            $products = $this->productsProvider->getProductsByTaxonCode($taxonCode);
+        if ($this->productsRepository instanceof ProductsProviderInterface) {
+            $products = $this->productsRepository->getProductsByTaxonCode($taxonCode);
         } else {
             assert($this->taxonRepository !== null);
             /** @var TaxonInterface|null $taxon */
@@ -71,7 +71,7 @@ final class ProductsGridByTaxonContentElementRenderer extends AbstractContentEle
                 return '';
             }
 
-            $products = $this->productsProvider->findByTaxon($taxon);
+            $products = $this->productsRepository->findByTaxon($taxon);
         }
 
         if ([] === $products) {

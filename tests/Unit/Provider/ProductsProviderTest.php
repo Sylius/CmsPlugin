@@ -13,21 +13,22 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\CmsPlugin\Unit\Provider;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\CmsPlugin\Provider\ProductsProvider;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
 final class ProductsProviderTest extends TestCase
 {
-    /** @var EntityManagerInterface&MockObject */
-    private MockObject $entityManagerMock;
+    /** @var (ProductRepositoryInterface&EntityRepository)&MockObject */
+    private MockObject $productRepositoryMock;
 
     /** @var ChannelContextInterface&MockObject */
     private MockObject $channelContextMock;
@@ -36,12 +37,11 @@ final class ProductsProviderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManagerMock = $this->createMock(EntityManagerInterface::class);
+        $this->productRepositoryMock = $this->createMock(EntityRepository::class);
         $this->channelContextMock = $this->createMock(ChannelContextInterface::class);
         $this->productsProvider = new ProductsProvider(
-            $this->entityManagerMock,
+            $this->productRepositoryMock,
             $this->channelContextMock,
-            'App\Entity\Product\Product',
         );
     }
 
@@ -62,7 +62,7 @@ final class ProductsProviderTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock([$product1Mock, $product2Mock]);
 
         $this->channelContextMock->method('getChannel')->willReturn($channelMock);
-        $this->entityManagerMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
+        $this->productRepositoryMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
         self::assertSame([$product1Mock, $product2Mock], $this->productsProvider->getProductsByCodes(['code1', 'code2']));
     }
@@ -76,7 +76,7 @@ final class ProductsProviderTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock([$product1Mock]);
 
         $this->channelContextMock->method('getChannel')->willReturn($channelMock);
-        $this->entityManagerMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
+        $this->productRepositoryMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
         self::assertSame([$product1Mock], $this->productsProvider->getProductsByTaxonCode('taxon_code'));
     }
@@ -88,7 +88,7 @@ final class ProductsProviderTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock([]);
 
         $this->channelContextMock->method('getChannel')->willReturn($channelMock);
-        $this->entityManagerMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
+        $this->productRepositoryMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
         self::assertSame([], $this->productsProvider->getProductsByCodes(['unknown']));
     }
@@ -100,7 +100,7 @@ final class ProductsProviderTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock([]);
 
         $this->channelContextMock->method('getChannel')->willReturn($channelMock);
-        $this->entityManagerMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
+        $this->productRepositoryMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
         self::assertSame([], $this->productsProvider->getProductsByTaxonCode('unknown_taxon'));
     }
@@ -114,8 +114,6 @@ final class ProductsProviderTest extends TestCase
         $queryMock->method('getResult')->willReturn($result);
 
         $queryBuilderMock = $this->createMock(QueryBuilder::class);
-        $queryBuilderMock->method('select')->willReturnSelf();
-        $queryBuilderMock->method('from')->willReturnSelf();
         $queryBuilderMock->method('innerJoin')->willReturnSelf();
         $queryBuilderMock->method('where')->willReturnSelf();
         $queryBuilderMock->method('andWhere')->willReturnSelf();

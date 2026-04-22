@@ -13,24 +13,22 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Provider;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
 final readonly class ProductsProvider implements ProductsProviderInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private ProductRepositoryInterface&EntityRepository $productRepository,
         private ChannelContextInterface $channelContext,
-        private string $productClass,
     ) {
     }
 
     /** @param string[] $productCodes */
     public function getProductsByCodes(array $productCodes): array
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from($this->productClass, 'p')
+        return $this->productRepository->createQueryBuilder('p')
             ->innerJoin('p.channels', 'c')
             ->where('p.code IN (:codes)')
             ->andWhere('p.enabled = true')
@@ -44,9 +42,7 @@ final readonly class ProductsProvider implements ProductsProviderInterface
 
     public function getProductsByTaxonCode(string $taxonCode): array
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from($this->productClass, 'p')
+        return $this->productRepository->createQueryBuilder('p')
             ->innerJoin('p.channels', 'c')
             ->innerJoin('p.productTaxons', 'pt')
             ->innerJoin('pt.taxon', 't')

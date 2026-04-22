@@ -21,11 +21,11 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 
 final class ProductsGridContentElementRenderer extends AbstractContentElement
 {
-    /** @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsProvider */
+    /** @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsRepository */
     public function __construct(
-        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsProvider,
+        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsRepository,
     ) {
-        if ($this->productsProvider instanceof ProductRepositoryInterface) {
+        if ($this->productsRepository instanceof ProductRepositoryInterface) {
             trigger_deprecation(
                 'sylius/cms-plugin',
                 '1.1.5',
@@ -47,10 +47,10 @@ final class ProductsGridContentElementRenderer extends AbstractContentElement
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_grid']['products'];
 
-        if ($this->productsProvider instanceof ProductsProviderInterface) {
-            $products = $this->productsProvider->getProductsByCodes($productsCodes);
+        if ($this->productsRepository instanceof ProductsProviderInterface) {
+            $products = $this->productsRepository->getProductsByCodes($productsCodes);
         } else {
-            $products = $this->productsProvider->findBy(['code' => $productsCodes]);
+            $products = $this->productsRepository->findBy(['code' => $productsCodes]);
         }
 
         return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
