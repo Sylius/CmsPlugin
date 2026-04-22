@@ -20,8 +20,7 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
 use Sylius\CmsPlugin\Provider\ProductsProvider;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 
 final class ProductsProviderTest extends TestCase
@@ -29,19 +28,12 @@ final class ProductsProviderTest extends TestCase
     /** @var ProductRepository&MockObject */
     private MockObject $productRepositoryMock;
 
-    /** @var ChannelContextInterface&MockObject */
-    private MockObject $channelContextMock;
-
     private ProductsProvider $productsProvider;
 
     protected function setUp(): void
     {
         $this->productRepositoryMock = $this->createMock(ProductRepository::class);
-        $this->channelContextMock = $this->createMock(ChannelContextInterface::class);
-        $this->productsProvider = new ProductsProvider(
-            $this->productRepositoryMock,
-            $this->channelContextMock,
-        );
+        $this->productsProvider = new ProductsProvider($this->productRepositoryMock);
     }
 
     public function testInitializable(): void
@@ -60,10 +52,9 @@ final class ProductsProviderTest extends TestCase
         $product2Mock = $this->createMock(ProductInterface::class);
         $queryBuilderMock = $this->createQueryBuilderMock([$product1Mock, $product2Mock]);
 
-        $this->channelContextMock->method('getChannel')->willReturn($channelMock);
         $this->productRepositoryMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
-        self::assertSame([$product1Mock, $product2Mock], $this->productsProvider->getProductsByCodes(['code1', 'code2']));
+        self::assertSame([$product1Mock, $product2Mock], $this->productsProvider->getProductsByCodes(['code1', 'code2'], $channelMock));
     }
 
     public function testGetProductsByTaxonCodeQueriesDatabase(): void
@@ -74,10 +65,9 @@ final class ProductsProviderTest extends TestCase
         $product1Mock = $this->createMock(ProductInterface::class);
         $queryBuilderMock = $this->createQueryBuilderMock([$product1Mock]);
 
-        $this->channelContextMock->method('getChannel')->willReturn($channelMock);
         $this->productRepositoryMock->expects(self::once())->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
-        self::assertSame([$product1Mock], $this->productsProvider->getProductsByTaxonCode('taxon_code'));
+        self::assertSame([$product1Mock], $this->productsProvider->getProductsByTaxonCode('taxon_code', $channelMock));
     }
 
     public function testGetProductsByCodesReturnsEmptyArrayWhenNoneFound(): void
@@ -86,10 +76,9 @@ final class ProductsProviderTest extends TestCase
         $channelMock = $this->createMock(ChannelInterface::class);
         $queryBuilderMock = $this->createQueryBuilderMock([]);
 
-        $this->channelContextMock->method('getChannel')->willReturn($channelMock);
         $this->productRepositoryMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
-        self::assertSame([], $this->productsProvider->getProductsByCodes(['unknown']));
+        self::assertSame([], $this->productsProvider->getProductsByCodes(['unknown'], $channelMock));
     }
 
     public function testGetProductsByTaxonCodeReturnsEmptyArrayWhenNoneFound(): void
@@ -98,10 +87,9 @@ final class ProductsProviderTest extends TestCase
         $channelMock = $this->createMock(ChannelInterface::class);
         $queryBuilderMock = $this->createQueryBuilderMock([]);
 
-        $this->channelContextMock->method('getChannel')->willReturn($channelMock);
         $this->productRepositoryMock->method('createQueryBuilder')->willReturn($queryBuilderMock);
 
-        self::assertSame([], $this->productsProvider->getProductsByTaxonCode('unknown_taxon'));
+        self::assertSame([], $this->productsProvider->getProductsByTaxonCode('unknown_taxon', $channelMock));
     }
 
     /** @param ProductInterface[] $result */

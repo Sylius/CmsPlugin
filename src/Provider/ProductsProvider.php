@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Provider;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
@@ -25,12 +25,11 @@ final readonly class ProductsProvider implements ProductsProviderInterface
      */
     public function __construct(
         private EntityRepository&ProductRepositoryInterface $productRepository,
-        private ChannelContextInterface $channelContext,
     ) {
     }
 
     /** @param string[] $productCodes */
-    public function getProductsByCodes(array $productCodes): array
+    public function getProductsByCodes(array $productCodes, ChannelInterface $channel): array
     {
         return $this->productRepository->createQueryBuilder('p')
             ->innerJoin('p.channels', 'c')
@@ -38,23 +37,24 @@ final readonly class ProductsProvider implements ProductsProviderInterface
             ->andWhere('p.enabled = true')
             ->andWhere('c = :channel')
             ->setParameter('codes', $productCodes)
-            ->setParameter('channel', $this->channelContext->getChannel())
+            ->setParameter('channel', $channel)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function getProductsByTaxonCode(string $taxonCode): array
+    public function getProductsByTaxonCode(string $taxonCode, ChannelInterface $channel): array
     {
         return $this->productRepository->createQueryBuilder('p')
             ->innerJoin('p.channels', 'c')
             ->innerJoin('p.productTaxons', 'pt')
             ->innerJoin('pt.taxon', 't')
             ->where('t.code = :taxonCode')
+            ->andWhere('t.enabled = true')
             ->andWhere('p.enabled = true')
             ->andWhere('c = :channel')
             ->setParameter('taxonCode', $taxonCode)
-            ->setParameter('channel', $this->channelContext->getChannel())
+            ->setParameter('channel', $channel)
             ->getQuery()
             ->getResult()
         ;

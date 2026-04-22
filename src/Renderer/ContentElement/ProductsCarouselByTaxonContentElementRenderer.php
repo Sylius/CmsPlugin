@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentElementType;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
@@ -30,6 +31,7 @@ final class ProductsCarouselByTaxonContentElementRenderer extends AbstractConten
      */
     public function __construct(
         private ProductRepositoryInterface|ProductsProviderInterface $productsRepository,
+        private readonly ChannelContextInterface $channelContext,
         private ?TaxonRepositoryInterface $taxonRepository = null,
     ) {
         if ($this->productsRepository instanceof ProductRepositoryInterface) {
@@ -61,9 +63,10 @@ final class ProductsCarouselByTaxonContentElementRenderer extends AbstractConten
     public function render(ContentConfigurationInterface $contentConfiguration): string
     {
         $taxonCode = $contentConfiguration->getConfiguration()['products_carousel_by_taxon'];
+        $channel = $this->channelContext->getChannel();
 
         if ($this->productsRepository instanceof ProductsProviderInterface) {
-            $products = $this->productsRepository->getProductsByTaxonCode($taxonCode);
+            $products = $this->productsRepository->getProductsByTaxonCode($taxonCode, $channel);
         } else {
             Assert::notNull($this->taxonRepository);
             /** @var TaxonInterface|null $taxon */

@@ -20,6 +20,8 @@ use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridContentElementType;
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridContentElementRenderer;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Twig\Environment;
@@ -29,12 +31,19 @@ final class ProductsGridContentElementRendererTest extends TestCase
     /** @var ProductsProviderInterface&MockObject */
     private MockObject $productsProviderMock;
 
+    /** @var ChannelContextInterface&MockObject */
+    private MockObject $channelContextMock;
+
     private ProductsGridContentElementRenderer $productsGridContentElementRenderer;
 
     protected function setUp(): void
     {
         $this->productsProviderMock = $this->createMock(ProductsProviderInterface::class);
-        $this->productsGridContentElementRenderer = new ProductsGridContentElementRenderer($this->productsProviderMock);
+        $this->channelContextMock = $this->createMock(ChannelContextInterface::class);
+        $this->productsGridContentElementRenderer = new ProductsGridContentElementRenderer(
+            $this->productsProviderMock,
+            $this->channelContextMock,
+        );
     }
 
     public function testInitializable(): void
@@ -65,6 +74,8 @@ final class ProductsGridContentElementRendererTest extends TestCase
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
         $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var ChannelInterface&MockObject $channelMock */
+        $channelMock = $this->createMock(ChannelInterface::class);
         /** @var ProductInterface&MockObject $product1Mock */
         $product1Mock = $this->createMock(ProductInterface::class);
         /** @var ProductInterface&MockObject $product2Mock */
@@ -75,7 +86,8 @@ final class ProductsGridContentElementRendererTest extends TestCase
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'products_grid' => ['products' => ['code1', 'code2']],
         ]);
-        $this->productsProviderMock->expects(self::once())->method('getProductsByCodes')->with(['code1', 'code2'])->willReturn([$product1Mock, $product2Mock]);
+        $this->channelContextMock->expects(self::once())->method('getChannel')->willReturn($channelMock);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByCodes')->with(['code1', 'code2'], $channelMock)->willReturn([$product1Mock, $product2Mock]);
         $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
@@ -87,6 +99,8 @@ final class ProductsGridContentElementRendererTest extends TestCase
     {
         /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
         $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var ChannelContextInterface&MockObject $channelContextMock */
+        $channelContextMock = $this->createMock(ChannelContextInterface::class);
         /** @var Environment&MockObject $twigMock */
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
@@ -94,7 +108,7 @@ final class ProductsGridContentElementRendererTest extends TestCase
         /** @var ProductInterface&MockObject $product1Mock */
         $product1Mock = $this->createMock(ProductInterface::class);
 
-        $renderer = @new ProductsGridContentElementRenderer($productRepositoryMock);
+        $renderer = @new ProductsGridContentElementRenderer($productRepositoryMock, $channelContextMock);
         $renderer->setTemplate('custom_template');
         $renderer->setTwigEnvironment($twigMock);
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([

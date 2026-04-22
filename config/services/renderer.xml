@@ -53,6 +53,7 @@
 
         <service id="sylius_cms.content_element.products_carousel" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselContentElementRenderer">
             <argument type="service" id="sylius_cms.products_provider" />
+            <argument type="service" id="sylius.context.channel" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
@@ -62,6 +63,8 @@
 
         <service id="sylius_cms.content_element.products_carousel_by_taxon" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselByTaxonContentElementRenderer">
             <argument type="service" id="sylius_cms.products_provider" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.repository.taxon" on-invalid="null" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_carousel.html.twig"
@@ -70,6 +73,7 @@
 
         <service id="sylius_cms.content_element.products_grid" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridContentElementRenderer">
             <argument type="service" id="sylius_cms.products_provider" />
+            <argument type="service" id="sylius.context.channel" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"
@@ -79,6 +83,8 @@
 
         <service id="sylius_cms.content_element.products_grid_by_taxon" class="Sylius\CmsPlugin\Renderer\ContentElement\ProductsGridByTaxonContentElementRenderer">
             <argument type="service" id="sylius_cms.products_provider" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.repository.taxon" on-invalid="null" />
             <tag
                 name="sylius_cms.content_element"
                 template="@SyliusCmsPlugin/shop/content_element/elements/products_grid.html.twig"

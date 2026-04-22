@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Provider;
 
+use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 
 interface ProductsProviderInterface
@@ -22,8 +23,8 @@ interface ProductsProviderInterface
      *
      * @return ProductInterface[]
      */
-    public function getProductsByCodes(array $productCodes): array;
+    public function getProductsByCodes(array $productCodes, ChannelInterface $channel): array;
 
     /** @return ProductInterface[] */
-    public function getProductsByTaxonCode(string $taxonCode): array;
+    public function getProductsByTaxonCode(string $taxonCode, ChannelInterface $channel): array;
 }

@@ -20,6 +20,8 @@ use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentEle
 use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\CmsPlugin\Renderer\ContentElement\AbstractContentElement;
 use Sylius\CmsPlugin\Renderer\ContentElement\ProductsCarouselByTaxonContentElementRenderer;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
@@ -31,12 +33,19 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
     /** @var ProductsProviderInterface&MockObject */
     private MockObject $productsProviderMock;
 
+    /** @var ChannelContextInterface&MockObject */
+    private MockObject $channelContextMock;
+
     private ProductsCarouselByTaxonContentElementRenderer $productsCarouselByTaxonContentElementRenderer;
 
     protected function setUp(): void
     {
         $this->productsProviderMock = $this->createMock(ProductsProviderInterface::class);
-        $this->productsCarouselByTaxonContentElementRenderer = new ProductsCarouselByTaxonContentElementRenderer($this->productsProviderMock);
+        $this->channelContextMock = $this->createMock(ChannelContextInterface::class);
+        $this->productsCarouselByTaxonContentElementRenderer = new ProductsCarouselByTaxonContentElementRenderer(
+            $this->productsProviderMock,
+            $this->channelContextMock,
+        );
     }
 
     public function testInitializable(): void
@@ -67,6 +76,8 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
         $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var ChannelInterface&MockObject $channelMock */
+        $channelMock = $this->createMock(ChannelInterface::class);
         /** @var ProductInterface&MockObject $product1Mock */
         $product1Mock = $this->createMock(ProductInterface::class);
         /** @var ProductInterface&MockObject $product2Mock */
@@ -77,7 +88,8 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'products_carousel_by_taxon' => 'taxon_code',
         ]);
-        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code')->willReturn([$product1Mock, $product2Mock]);
+        $this->channelContextMock->expects(self::once())->method('getChannel')->willReturn($channelMock);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code', $channelMock)->willReturn([$product1Mock, $product2Mock]);
         $twigMock->expects(self::once())->method('render')->with('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $template,
             'products' => [$product1Mock, $product2Mock],
@@ -91,11 +103,14 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         $twigMock = $this->createMock(Environment::class);
         /** @var ContentConfigurationInterface&MockObject $contentConfigurationMock */
         $contentConfigurationMock = $this->createMock(ContentConfigurationInterface::class);
+        /** @var ChannelInterface&MockObject $channelMock */
+        $channelMock = $this->createMock(ChannelInterface::class);
         $this->productsCarouselByTaxonContentElementRenderer->setTwigEnvironment($twigMock);
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
             'products_carousel_by_taxon' => 'taxon_code',
         ]);
-        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code')->willReturn([]);
+        $this->channelContextMock->expects(self::once())->method('getChannel')->willReturn($channelMock);
+        $this->productsProviderMock->expects(self::once())->method('getProductsByTaxonCode')->with('taxon_code', $channelMock)->willReturn([]);
         $twigMock->expects(self::never())->method('render');
         self::assertSame('', $this->productsCarouselByTaxonContentElementRenderer->render($contentConfigurationMock));
     }
@@ -104,6 +119,8 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
     {
         /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
         $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var ChannelContextInterface&MockObject $channelContextMock */
+        $channelContextMock = $this->createMock(ChannelContextInterface::class);
         /** @var TaxonRepositoryInterface&MockObject $taxonRepositoryMock */
         $taxonRepositoryMock = $this->createMock(TaxonRepositoryInterface::class);
         /** @var Environment&MockObject $twigMock */
@@ -115,7 +132,7 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
         /** @var ProductInterface&MockObject $product1Mock */
         $product1Mock = $this->createMock(ProductInterface::class);
 
-        $renderer = @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock, $taxonRepositoryMock);
+        $renderer = @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock, $channelContextMock, $taxonRepositoryMock);
         $renderer->setTemplate('custom_template');
         $renderer->setTwigEnvironment($twigMock);
         $contentConfigurationMock->expects(self::once())->method('getConfiguration')->willReturn([
@@ -131,8 +148,10 @@ final class ProductsCarouselByTaxonContentElementRendererTest extends TestCase
     {
         /** @var ProductRepositoryInterface&MockObject $productRepositoryMock */
         $productRepositoryMock = $this->createMock(ProductRepositoryInterface::class);
+        /** @var ChannelContextInterface&MockObject $channelContextMock */
+        $channelContextMock = $this->createMock(ChannelContextInterface::class);
 
         $this->expectException(\InvalidArgumentException::class);
-        @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock);
+        @new ProductsCarouselByTaxonContentElementRenderer($productRepositoryMock, $channelContextMock);
     }
 }
