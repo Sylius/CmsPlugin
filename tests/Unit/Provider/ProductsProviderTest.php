@@ -23,7 +23,6 @@ use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 
 final class ProductsProviderTest extends TestCase
 {
