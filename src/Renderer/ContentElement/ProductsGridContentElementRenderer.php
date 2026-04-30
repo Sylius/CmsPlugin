@@ -15,15 +15,28 @@ namespace Sylius\CmsPlugin\Renderer\ContentElement;
 
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsGridContentElementType;
+use Sylius\CmsPlugin\Provider\ProductsProviderInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 
 final class ProductsGridContentElementRenderer extends AbstractContentElement
 {
-    /** @param ProductRepositoryInterface<ProductInterface> $productRepository */
+    /** @param ProductRepositoryInterface<ProductInterface>|ProductsProviderInterface $productsRepository */
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
+        private readonly ProductRepositoryInterface|ProductsProviderInterface $productsRepository,
+        private readonly ChannelContextInterface $channelContext,
     ) {
+        if ($this->productsRepository instanceof ProductRepositoryInterface) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.2',
+                'Passing "%s" as the first argument of "%s" constructor is deprecated. Pass "%s" instead. This will become mandatory in 2.0',
+                ProductRepositoryInterface::class,
+                self::class,
+                ProductsProviderInterface::class,
+            );
+        }
     }
 
     public function supports(ContentConfigurationInterface $contentConfiguration): bool
@@ -35,7 +48,13 @@ final class ProductsGridContentElementRenderer extends AbstractContentElement
     {
         $configuration = $contentConfiguration->getConfiguration();
         $productsCodes = $configuration['products_grid']['products'];
-        $products = $this->productRepository->findBy(['code' => $productsCodes]);
+        $channel = $this->channelContext->getChannel();
+
+        if ($this->productsRepository instanceof ProductsProviderInterface) {
+            $products = $this->productsRepository->getProductsByCodes($productsCodes, $channel);
+        } else {
+            $products = $this->productsRepository->findBy(['code' => $productsCodes]);
+        }
 
         return $this->twig->render('@SyliusCmsPlugin/shop/content_element/index.html.twig', [
             'content_element' => $this->template,
