@@ -30,8 +30,8 @@ final class ProductsGridContentElementRenderer extends AbstractContentElement
         if ($this->productsRepository instanceof ProductRepositoryInterface) {
             trigger_deprecation(
                 'sylius/cms-plugin',
-                '1.1.5',
-                'Passing "%s" as the first argument of "%s" constructor is deprecated. Pass "%s" instead.',
+                '1.2',
+                'Passing "%s" as the first argument of "%s" constructor is deprecated. Pass "%s" instead. This will become mandatory in 2.0',
                 ProductRepositoryInterface::class,
                 self::class,
                 ProductsProviderInterface::class,
