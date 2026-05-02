@@ -16,17 +16,10 @@ namespace Sylius\CmsPlugin\Form\Strategy\Wysiwyg;
 use Ehyiah\QuillJsBundle\DTO\Modules\FullScreenModule;
 use Ehyiah\QuillJsBundle\DTO\QuillGroup;
 use Ehyiah\QuillJsBundle\Form\QuillType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class QuillStrategy extends AbstractWysiwygStrategy
 {
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $view->vars['block_prefix'] = 'sylius_cms_plugin_quill_strategy';
-    }
-
     public function getParent(): string
     {
         return QuillType::class;
