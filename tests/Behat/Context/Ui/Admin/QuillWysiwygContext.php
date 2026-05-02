@@ -14,21 +14,21 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Behat\Mink\Element\DocumentElement;
-use Behat\MinkExtension\Context\RawMinkContext;
+use Tests\Sylius\CmsPlugin\Behat\Element\Admin\QuillEditorElementInterface;
+use Webmozart\Assert\Assert;
 
-final class QuillWysiwygContext extends RawMinkContext implements Context
+final class QuillWysiwygContext implements Context
 {
+    public function __construct(
+        private readonly QuillEditorElementInterface $quillEditor,
+    ) {
+    }
+
     /**
      * @Then I should see the Quill WYSIWYG editor initialized
      */
     public function iShouldSeeTheQuillWysiwygEditorInitialized(): void
     {
-        $this->getPage()->find('css', '.ql-toolbar')->setValue('test');
-    }
-
-    private function getPage(): DocumentElement
-    {
-        return $this->getSession()->getPage();
+        Assert::true($this->quillEditor->isInitialized(), 'Quill WYSIWYG editor is not initialized.');
     }
 }

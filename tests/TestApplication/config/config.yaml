@@ -4,12 +4,14 @@ imports:
 
 parameters:
     sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/../../../config/api_platform/'
+    default_wysiwyg_editor: 'trix'
 
 twig:
     paths:
         '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
 
 sylius_cms:
+    wysiwyg_editor: '%env(default:default_wysiwyg_editor:SYLIUS_CMS_WYSIWYG_EDITOR)%'
     templates:
         pages:
             - "shop/template/custom_page.html.twig"

@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "@ehyiah/ux-quill": "file:../../ehyiah/ux-quill/assets",
         "@sylius-cms-plugin/admin": "file:../../../assets/admin",
         "quill": "2.0.3",
         "swiper": "^11.2.6",
