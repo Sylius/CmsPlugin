@@ -37,6 +37,9 @@ final class QuillStrategy extends AbstractWysiwygStrategy
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'quill_options' => QuillGroup::buildWithAllFields(),
+            'attr' => [
+                'data-model' => 'norender|*',
+            ],
             'modules' => [
                 new FullScreenModule(),
             ],
