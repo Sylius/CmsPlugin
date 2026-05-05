@@ -481,7 +481,7 @@ sylius_fixtures:
                                                     <p>Summer 2025 proves that the modern woman can have it all - effortless style that works from beach to boardroom, sustainable choices that feel as good as they look, and versatile pieces that adapt to any adventure. Whether you're embracing Riviera elegance or streetwear, this season's trends celebrate comfort without compromising sophistication. The best part? These aren't just trends to follow, but building blocks for a wardrobe that truly reflects who you are.</p>
                             
                             blog_post_3:
-                                name: ""
+                                name: "The Modern Man's Summer Playbook"
                                 channels:
                                     - "FASHION_WEB"
                                 collections:
