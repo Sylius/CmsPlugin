@@ -7,6 +7,14 @@
                 "fetch": "lazy",
                 "enabled": true
             }
+        },
+        "@ehyiah/ux-quill": {
+            "quill": {
+                "main": "dist/controller.js",
+                "webpackMode": "eager",
+                "fetch": "eager",
+                "enabled": true
+            }
         }
     },
     "entrypoints": []

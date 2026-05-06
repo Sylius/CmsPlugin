@@ -111,7 +111,22 @@ jobs:
                 name: Run Behat
                 run: |
                     vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/shop
-                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress features/admin || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun features/admin
+                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags='~@quill' features/admin || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun --tags='~@quill' features/admin
+
+            -
+                name: Restart webserver with Quill editor enabled
+                run: |
+                    symfony server:stop
+                    echo 'SYLIUS_CMS_WYSIWYG_EDITOR=quill' > vendor/sylius/test-application/.env.test.local
+                    (cd vendor/sylius/test-application && ../../bin/console cache:clear --env=test --no-warmup)
+                    symfony server:start --port=8080 --dir=vendor/sylius/test-application/public --daemon --no-tls
+
+            -
+                name: Run Behat (Quill)
+                env:
+                    SYLIUS_CMS_WYSIWYG_EDITOR: quill
+                run: |
+                    vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --tags='@quill' features/admin || vendor/bin/behat --colors --strict -vvv --no-interaction -f progress --rerun --tags='@quill' features/admin
 
             -
                 name: Upload Behat logs

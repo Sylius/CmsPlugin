@@ -1,7 +1,7 @@
-@managing_media @trix
+@managing_media @quill
 Feature: Managing dynamic content on media page
     As an Administrator
-    I want to be able to use the Trix WYSIWYG editor
+    I want to be able to use the Quill WYSIWYG editor
 
     Background:
         Given I am logged in as an administrator
@@ -10,4 +10,4 @@ Feature: Managing dynamic content on media page
     @ui @javascript
     Scenario: Adding media
         When I go to the create media page
-        Then I should see the Trix WYSIWYG editor initialized
+        Then I should see the Quill WYSIWYG editor initialized

@@ -1,7 +1,7 @@
-@managing_blocks @trix
+@managing_blocks @quill
 Feature: Managing dynamic content on block page
     As an Administrator
-    I want to be able to use the Trix WYSIWYG editor
+    I want to be able to use the Quill WYSIWYG editor
 
     Background:
         Given I am logged in as an administrator
@@ -11,4 +11,4 @@ Feature: Managing dynamic content on block page
     Scenario: Adding block
         When I go to the create block page
         And I add a textarea content element with "Welcome to our store" content
-        Then I should see the Trix WYSIWYG editor initialized
+        Then I should see the Quill WYSIWYG editor initialized

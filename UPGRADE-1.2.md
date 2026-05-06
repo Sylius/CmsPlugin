@@ -42,3 +42,11 @@
 
    For backward compatibility, the old constructor signatures are still supported but deprecated.
    Passing repository interfaces will trigger a deprecation notice and will be removed in version 2.0.
+
+### New WYSIWYG editor: Quill
+
+A new Quill WYSIWYG editor is available alongside the existing Trix editor.
+The default remains `trix`, so no action is required to keep the previous behavior.
+
+See the documentation for setup and configuration details:
+https://docs.sylius.com/cms-plugin/development/wysiwyg-editors
