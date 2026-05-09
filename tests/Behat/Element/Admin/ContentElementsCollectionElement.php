@@ -157,6 +157,50 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $this->waitForFormUpdate();
     }
 
+    public function moveContentElementUp(int $position): void
+    {
+        $button = $this->getSortButton($position, 'up');
+        $button->click();
+    }
+
+    public function moveContentElementDown(int $position): void
+    {
+        $button = $this->getSortButton($position, 'down');
+        $button->click();
+    }
+
+    public function getContentElementTypeAtPosition(int $position): string
+    {
+        $elements = $this->getContentElements();
+        Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
+
+        $selectedOption = $elements[$position - 1]->find('css', 'option[selected]');
+        Assert::notNull($selectedOption, sprintf('No selected type option found at position %d.', $position));
+
+        return $selectedOption->getText();
+    }
+
+    public function isContentElementMoveUpButtonDisabled(int $position): bool
+    {
+        return $this->getSortButton($position, 'up')->hasAttribute('disabled');
+    }
+
+    public function isContentElementMoveDownButtonDisabled(int $position): bool
+    {
+        return $this->getSortButton($position, 'down')->hasAttribute('disabled');
+    }
+
+    private function getSortButton(int $position, string $direction): NodeElement
+    {
+        $elements = $this->getContentElements();
+        Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
+
+        $button = $elements[$position - 1]->find('css', sprintf('[data-live-direction-param="%s"]', $direction));
+        Assert::notNull($button, sprintf('Sort %s button not found at position %d.', $direction, $position));
+
+        return $button;
+    }
+
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
