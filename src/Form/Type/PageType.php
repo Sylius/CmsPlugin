@@ -61,6 +61,7 @@ final class PageType extends AbstractResourceType
                 'label' => 'sylius_cms.ui.collections',
                 'multiple' => true,
                 'by_reference' => false,
+                'required' => false,
             ])
             ->add('channels', ChannelChoiceType::class, [
                 'label' => 'sylius_cms.ui.channels',
