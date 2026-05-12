@@ -82,15 +82,9 @@ final class ContentParser implements ContentParserInterface
         array $arguments,
     ): string {
         Assert::keyExists($functions, $functionName, sprintf('Function %s does not exist!', $functionName));
-        /** @var TwigFunction $function */
-        $function = $functions[$functionName];
-        $callable = $function->getCallable();
-        Assert::isArray($callable, sprintf('Function with name "%s" is not callable', $functionName));
-        $extension = $callable[0];
-        $extensionMethod = $callable[1];
-        $callback = [$extension, $extensionMethod];
-        Assert::isCallable($callback);
+        $callable = $functions[$functionName]->getCallable();
+        Assert::isCallable($callable, sprintf('Function with name "%s" is not callable', $functionName));
 
-        return call_user_func_array($callback, $arguments);
+        return call_user_func_array($callable, $arguments);
     }
 }
