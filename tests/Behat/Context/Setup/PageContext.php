@@ -79,6 +79,27 @@ final class PageContext implements Context
     }
 
     /**
+     * @Given there is a page in the store with a textarea content element with :firstContent content and a textarea content element with :secondContent content
+     */
+    public function thereIsAPageInTheStoreWithTwoTextareaContentElements(string $firstContent, string $secondContent): void
+    {
+        $page = $this->createPage();
+
+        foreach ([$firstContent, $secondContent] as $content) {
+            /** @var ContentConfigurationInterface $contentConfiguration */
+            $contentConfiguration = new ContentConfiguration();
+            $contentConfiguration->setType('textarea');
+            $contentConfiguration->setLocale('en_US');
+            $contentConfiguration->setConfiguration(['textarea' => $content]);
+            $contentConfiguration->setPage($page);
+
+            $page->addContentElement($contentConfiguration);
+        }
+
+        $this->savePage($page);
+    }
+
+    /**
      * @Given there is an existing page with :name name
      */
     public function thereIsAPageWithName(string $name): void

@@ -157,16 +157,30 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $this->waitForFormUpdate();
     }
 
+    public function insertContentElementAfterPosition(string $type, int $afterPosition): void
+    {
+        $this->insertContentElementAtDividerIndex($type, $afterPosition);
+    }
+
+    public function insertContentElementBeforePosition(string $type, int $beforePosition): void
+    {
+        $this->insertContentElementAtDividerIndex($type, $beforePosition - 1);
+    }
+
     public function moveContentElementUp(int $position): void
     {
         $button = $this->getSortButton($position, 'up');
         $button->click();
+
+        $this->waitForFormUpdate();
     }
 
     public function moveContentElementDown(int $position): void
     {
         $button = $this->getSortButton($position, 'down');
         $button->click();
+
+        $this->waitForFormUpdate();
     }
 
     public function getContentElementTypeAtPosition(int $position): string
@@ -176,7 +190,6 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
         return $selectedOption->getText();
     }
-
     public function getContentElementContentAtPosition(int $position): string
     {
         $element = $this->getContentElementAtPosition($position);
@@ -208,6 +221,24 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
     public function isContentElementMoveDownButtonDisabled(int $position): bool
     {
         return $this->getSortButton($position, 'down')->hasAttribute('disabled');
+    }
+
+    private function insertContentElementAtDividerIndex(string $type, int $dividerIndex): void
+    {
+        $container = $this->getElement('elements_container', ['%locale%' => $this->defaultLocaleCode]);
+        $dividers = $container->findAll('css', '[data-test-insert-element-divider]');
+
+        Assert::keyExists($dividers, $dividerIndex, sprintf('No insert element divider at index %d.', $dividerIndex));
+
+        $toggleButton = $dividers[$dividerIndex]->find('css', '[data-bs-toggle="dropdown"]');
+        Assert::isInstanceOf($toggleButton, NodeElement::class, 'Dropdown toggle not found in insert element divider.');
+        $toggleButton->click();
+
+        $insertButton = $dividers[$dividerIndex]->find('css', sprintf('[data-test-insert-%s]', $type));
+        Assert::isInstanceOf($insertButton, NodeElement::class, sprintf('Insert button for type "%s" not found in divider.', $type));
+        $insertButton->click();
+
+        $this->waitForFormUpdate();
     }
 
     private function getSortButton(int $position, string $direction): NodeElement
