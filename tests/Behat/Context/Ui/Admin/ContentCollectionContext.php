@@ -205,4 +205,56 @@ class ContentCollectionContext implements Context
     {
         Assert::false($this->contentElementsCollectionElement->hasContentElement($contentElement));
     }
+
+    /**
+     * @When I move the :ordinal content element up
+     */
+    public function iMoveTheContentElementUp(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->moveContentElementUp($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @When I move the :ordinal content element down
+     */
+    public function iMoveTheContentElementDown(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->moveContentElementDown($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @Then the :ordinal content element should be a :type element
+     */
+    public function theContentElementAtPositionShouldBeOfType(string $ordinal, string $type): void
+    {
+        Assert::same(
+            $this->contentElementsCollectionElement->getContentElementTypeAtPosition($this->parseOrdinal($ordinal)),
+            $type,
+        );
+    }
+
+    /**
+     * @Then the move up button of the :ordinal content element should be disabled
+     */
+    public function theMoveUpButtonOfTheContentElementShouldBeDisabled(string $ordinal): void
+    {
+        Assert::true(
+            $this->contentElementsCollectionElement->isContentElementMoveUpButtonDisabled($this->parseOrdinal($ordinal)),
+        );
+    }
+
+    /**
+     * @Then the move down button of the :ordinal content element should be disabled
+     */
+    public function theMoveDownButtonOfTheContentElementShouldBeDisabled(string $ordinal): void
+    {
+        Assert::true(
+            $this->contentElementsCollectionElement->isContentElementMoveDownButtonDisabled($this->parseOrdinal($ordinal)),
+        );
+    }
+
+    private function parseOrdinal(string $ordinal): int
+    {
+        return (int) preg_replace('/\D/', '', $ordinal);
+    }
 }
