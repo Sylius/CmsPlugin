@@ -1,10 +1,9 @@
 sylius_fixtures:
     suites:
-        cms:
-            listeners:
-                logger: ~
+        default:
             fixtures:
                 collection:
+                    priority: -10
                     options:
                         custom:
                             blog:
