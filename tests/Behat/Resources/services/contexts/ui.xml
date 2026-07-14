@@ -79,5 +79,11 @@
                  class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\TrixWysiwygContext"
         >
         </service>
+
+        <service id="sylius_cms.behat.context.ui.admin.quill_wysiwyg"
+                 class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin\QuillWysiwygContext"
+        >
+            <argument type="service" id="sylius_cms.behat.element.admin.quill_editor" />
+        </service>
     </services>
 </container>

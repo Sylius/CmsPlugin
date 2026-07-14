@@ -33,4 +33,14 @@ interface ContentElementsCollectionElementInterface
     public function addContentElementOfTypeWithContent(string $type, array|string $content): void;
 
     public function removeContentElement(string $type): void;
+
+    public function moveContentElementUp(int $position): void;
+
+    public function moveContentElementDown(int $position): void;
+
+    public function getContentElementTypeAtPosition(int $position): string;
+
+    public function isContentElementMoveUpButtonDisabled(int $position): bool;
+
+    public function isContentElementMoveDownButtonDisabled(int $position): bool;
 }

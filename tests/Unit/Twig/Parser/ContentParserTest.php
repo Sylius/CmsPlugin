@@ -82,4 +82,56 @@ TEXT;
 
         self::assertSame("Let's render! parsed\nLet's render twice! parsed2", $this->contentParser->parse($input));
     }
+
+    public function testParsesWithFirstClassCallable(): void
+    {
+        $twigEnvironment = $this->createMock(Environment::class);
+        $twigEnvironment
+            ->method('getFunctions')
+            ->willReturn([
+                'app_render_gallery' => new TwigFunction('app_render_gallery', $this->renderGallery(...)),
+            ])
+        ;
+
+        $contentParser = new ContentParser($twigEnvironment, ['app_render_gallery']);
+
+        self::assertSame(
+            'gallery: summer',
+            $contentParser->parse("{{ app_render_gallery('summer') }}"),
+        );
+    }
+
+    public function testSkipsDisabledFunction(): void
+    {
+        $this->renderBlockRuntime
+            ->expects(self::never())
+            ->method('renderBlock')
+        ;
+
+        $contentParser = new ContentParser($this->twigEnvironment, []);
+        $input = "{{ sylius_cms_render_block('intro') }}";
+
+        self::assertSame($input, $contentParser->parse($input));
+    }
+
+    public function testReplacesWithEmptyStringWhenFunctionNotRegisteredInTwig(): void
+    {
+        $twigEnvironment = $this->createMock(Environment::class);
+        $twigEnvironment
+            ->method('getFunctions')
+            ->willReturn([])
+        ;
+
+        $contentParser = new ContentParser($twigEnvironment, ['sylius_cms_render_block']);
+
+        self::assertSame(
+            '',
+            $contentParser->parse("{{ sylius_cms_render_block('intro') }}"),
+        );
+    }
+
+    private function renderGallery(string $slug): string
+    {
+        return sprintf('gallery: %s', $slug);
+    }
 }

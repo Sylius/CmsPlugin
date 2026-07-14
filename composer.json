@@ -13,7 +13,8 @@
         "api-platform/state": "^4.0.3",
         "sylius/sylius": "^2.0",
         "league/csv": "^9.1",
-        "sylius/telemetry": "^1.0"
+        "sylius/telemetry": "^1.0",
+        "ehyiah/ux-quill": "^3.6"
     },
     "require-dev": {
         "behat/behat": "^3.14",

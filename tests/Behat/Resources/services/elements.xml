@@ -10,5 +10,10 @@
             <argument type="service" id="Sylius\Behat\Service\Helper\AutocompleteHelperInterface" />
             <argument>%locale%</argument>
         </service>
+
+        <service id="sylius_cms.behat.element.admin.quill_editor" class="Tests\Sylius\CmsPlugin\Behat\Element\Admin\QuillEditorElement">
+            <argument type="service" id="behat.mink.default_session" />
+            <argument type="service" id="behat.mink.parameters" />
+        </service>
     </services>
 </container>

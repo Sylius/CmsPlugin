@@ -13,15 +13,18 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
+use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
  * @mixin ComponentWithFormTrait
+ * @mixin LiveCollectionTrait
  *
  * @see ContentConfigurationTranslationsType
  */
@@ -32,6 +35,46 @@ trait ContentElementsCollectionFormComponentTrait
 
     /** @var array<int|string, TemplateInterface> */
     protected array $templatesCache = [];
+
+    #[LiveAction]
+    public function moveCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        int $index,
+        #[LiveArg]
+        string $direction,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+
+        if (!\is_array($data)) {
+            return;
+        }
+
+        $keys = array_keys($data);
+        $currentPos = array_search($index, $keys, true);
+
+        if (false === $currentPos) {
+            return;
+        }
+
+        $swapPos = 'up' === $direction ? $currentPos - 1 : $currentPos + 1;
+
+        if ($swapPos < 0 || $swapPos >= \count($keys)) {
+            return;
+        }
+
+        $swapKey = $keys[$swapPos];
+        [$data[$index], $data[$swapKey]] = [$data[$swapKey], $data[$index]];
+
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+    }
 
     #[LiveAction]
     public function applyContentTemplate(#[LiveArg] string $localeCode): void
