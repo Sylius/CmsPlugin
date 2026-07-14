@@ -38,3 +38,12 @@ Feature: Displaying pages
         And this page also has "title" slug
         When I go to this page
         Then I should see page title "United States"
+
+    @ui
+    Scenario: Displaying page with a nested slug containing a slash
+        Given there is a page in the store
+        And this page has "Article one" name
+        And this page also has "Article one" title
+        And this page also has "articles/article1" slug
+        When I go to the "articles/article1" page
+        Then I should see a page with "Article one" name

@@ -3,11 +3,10 @@ parameters:
 
 sylius_fixtures:
     suites:
-        cms:
-            listeners:
-                logger: ~
+        default:
             fixtures:
                 media:
+                    priority: -10
                     options:
                         custom:
                             mid_season_sale_banner:

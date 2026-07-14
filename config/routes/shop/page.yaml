@@ -3,6 +3,8 @@ sylius_cms_shop_page_show:
     methods: [GET]
     defaults:
         _controller: sylius_cms.controller.page.overriden::showAction
+    requirements:
+        slug: .+(?<!/)
 
 sylius_cms_shop_collections_page_index:
     path: /collections/{code}/pages

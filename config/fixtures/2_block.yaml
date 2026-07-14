@@ -1,10 +1,9 @@
 sylius_fixtures:
     suites:
-        cms:
-            listeners:
-                logger: ~
+        default:
             fixtures:
                 block:
+                    priority: -10
                     options:
                         custom:
                             homepage_new_collection_header:

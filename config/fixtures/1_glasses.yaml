@@ -1,15 +1,14 @@
 sylius_fixtures:
     suites:
-        cms:
-            listeners:
-                logger: ~
+        default:
             fixtures:
                 glasses:
                     name: taxon
+                    priority: -10
                     options:
                         custom:
                             category:
-                                code: 'MENU_CATEGORY'
+                                code: 'category'
                                 name: 'Category'
                                 translations:
                                     en_US:
@@ -26,6 +25,7 @@ sylius_fixtures:
                                             fr_FR:
                                                 name: 'Lunettes'
                 product:
+                    priority: -10
                     options:
                         custom:
                             sunshine_vision_glasses:
