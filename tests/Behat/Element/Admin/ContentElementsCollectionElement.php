@@ -171,13 +171,33 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
     public function getContentElementTypeAtPosition(int $position): string
     {
-        $elements = $this->getContentElements();
-        Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
-
-        $selectedOption = $elements[$position - 1]->find('css', 'option[selected]');
+        $selectedOption = $this->getContentElementAtPosition($position)->find('css', 'option[selected]');
         Assert::notNull($selectedOption, sprintf('No selected type option found at position %d.', $position));
 
         return $selectedOption->getText();
+    }
+
+    public function getContentElementContentAtPosition(int $position): string
+    {
+        $element = $this->getContentElementAtPosition($position);
+        $autocomplete = $element->find('css', 'select[data-controller*="autocomplete"]');
+        if ($autocomplete instanceof NodeElement) {
+            $selectedOptions = $autocomplete->findAll('css', 'option[selected]');
+
+            return implode(', ', array_map(
+                static fn (NodeElement $option): string => trim($option->getText()),
+                $selectedOptions,
+            ));
+        }
+
+        $wysiwygInput = $element->find('css', 'input[type="hidden"][name$="[textarea]"]');
+        if ($wysiwygInput instanceof NodeElement) {
+            $value = $wysiwygInput->getValue();
+
+            return is_string($value) ? $value : '';
+        }
+
+        return trim($element->getText());
     }
 
     public function isContentElementMoveUpButtonDisabled(int $position): bool
@@ -192,13 +212,21 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
     private function getSortButton(int $position, string $direction): NodeElement
     {
-        $elements = $this->getContentElements();
-        Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
-
-        $button = $elements[$position - 1]->find('css', sprintf('[data-live-direction-param="%s"]', $direction));
+        $button = $this->getContentElementAtPosition($position)->find(
+            'css',
+            sprintf('[data-live-direction-param="%s"]', $direction),
+        );
         Assert::notNull($button, sprintf('Sort %s button not found at position %d.', $direction, $position));
 
         return $button;
+    }
+
+    private function getContentElementAtPosition(int $position): NodeElement
+    {
+        $elements = $this->getContentElements();
+        Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
+
+        return $elements[$position - 1];
     }
 
     protected function getDefinedElements(): array

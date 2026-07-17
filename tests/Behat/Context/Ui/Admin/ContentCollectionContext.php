@@ -234,6 +234,18 @@ class ContentCollectionContext implements Context
     }
 
     /**
+     * @Then the :ordinal content element should contain :content
+     */
+    public function theContentElementAtPositionShouldContain(string $ordinal, string $content): void
+    {
+        Assert::contains(
+            $this->contentElementsCollectionElement->getContentElementContentAtPosition($this->parseOrdinal($ordinal)),
+            $content,
+            sprintf('Expected the %s content element to contain "%s", but it did not.', $ordinal, $content),
+        );
+    }
+
+    /**
      * @Then the move up button of the :ordinal content element should be disabled
      */
     public function theMoveUpButtonOfTheContentElementShouldBeDisabled(string $ordinal): void

@@ -40,6 +40,8 @@ interface ContentElementsCollectionElementInterface
 
     public function getContentElementTypeAtPosition(int $position): string;
 
+    public function getContentElementContentAtPosition(int $position): string;
+
     public function isContentElementMoveUpButtonDisabled(int $position): bool;
 
     public function isContentElementMoveDownButtonDisabled(int $position): bool;

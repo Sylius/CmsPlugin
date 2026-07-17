@@ -15,7 +15,7 @@
         <div class="alert text-body d-flex align-items-center gap-4">
             <div class="flex-grow-1">
                 {{- form_row(form.type) -}}
-                <div>
+                <div id="{{ id }}_element_configuration_{{ form.vars.content_signature }}">
                     {{- form_row(form.configuration, {'label': false}) -}}
                 </div>
             </div>
