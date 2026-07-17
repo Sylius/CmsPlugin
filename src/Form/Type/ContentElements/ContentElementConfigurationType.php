@@ -90,7 +90,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
         $signature = '';
 
         if ($data instanceof ContentConfigurationInterface) {
-            $value = sprintf('%s|%s', $data->getType(), json_encode($data->getConfiguration(), JSON_THROW_ON_ERROR));
+            $value = sprintf('%s|%s', $data->getType(), json_encode($data->getConfiguration(), \JSON_THROW_ON_ERROR));
             $signature = substr(md5($value), 0, 12);
         }
 
