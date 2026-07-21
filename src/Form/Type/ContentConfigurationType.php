@@ -17,6 +17,8 @@ use Sylius\Bundle\AdminBundle\Form\Type\AddButtonType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
@@ -65,6 +67,25 @@ final class ContentConfigurationType extends AbstractType
                 'required' => false,
             ])
         ;
+
+        $builder->get('contentElements')->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            static function (FormEvent $event): void {
+                $data = $event->getData();
+                if (!is_array($data)) {
+                    return;
+                }
+
+                foreach ($data as $key => $element) {
+                    if (!is_array($element) || '' === ($element['type'] ?? '')) {
+                        unset($data[$key]);
+                    }
+                }
+
+                $event->setData($data);
+            },
+            1,
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
