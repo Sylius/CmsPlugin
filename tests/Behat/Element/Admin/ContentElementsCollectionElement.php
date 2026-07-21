@@ -159,6 +159,37 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $this->waitForFormUpdate();
 
         $this->getDocument()->waitFor(5, fn (): bool => $this->countContentElementRows() < $countBefore);
+
+        $this->dumpDiagnostics(sprintf('after-delete-%s', $type));
+    }
+
+    /** TEMPORARY diagnostics helper - writes the collection state to the CI-uploaded etc/build dir. */
+    public function dumpDiagnostics(string $tag): void
+    {
+        try {
+            $dir = getcwd() . '/etc/build';
+            if (!is_dir($dir)) {
+                @mkdir($dir, 0o777, true);
+            }
+
+            $rows = [];
+            $container = $this->getElement('elements_container', ['%locale%' => $this->defaultLocaleCode]);
+            foreach ($container->findAll('css', '[data-test-entry-row]') as $row) {
+                $selected = $row->find('css', 'option[selected]');
+                $rows[] = null !== $selected ? $selected->getText() : '(no-selected-type)';
+            }
+
+            $slug = preg_replace('/[^a-z0-9._-]+/i', '_', $tag);
+            file_put_contents(
+                $dir . '/diag-content-elements.log',
+                sprintf("tag=%s rowCount=%d types=[%s]\n", $tag, count($rows), implode(', ', $rows)),
+                \FILE_APPEND,
+            );
+            file_put_contents(sprintf('%s/diag-%s-container.html', $dir, $slug), $container->getOuterHtml());
+            file_put_contents(sprintf('%s/diag-%s-page.html', $dir, $slug), $this->getDocument()->getContent());
+        } catch (\Throwable $throwable) {
+            file_put_contents(getcwd() . '/etc/build/diag-content-elements.log', sprintf("tag=%s ERROR=%s\n", $tag, $throwable->getMessage()), \FILE_APPEND);
+        }
     }
 
     public function moveContentElementUp(int $position): void
