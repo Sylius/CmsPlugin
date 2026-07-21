@@ -155,6 +155,8 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $element->find('css', '[data-test-delete-action]')?->click();
 
         $this->waitForFormUpdate();
+
+        $this->getDocument()->waitFor(5, fn (): bool => !$this->hasContentElement($type));
     }
 
     public function moveContentElementUp(int $position): void
