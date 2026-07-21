@@ -86,6 +86,15 @@ final class ContentElementConfigurationType extends AbstractResourceType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['types'] = $options['types'];
+        $data = $form->getData();
+        $signature = '';
+
+        if ($data instanceof ContentConfigurationInterface) {
+            $value = sprintf('%s|%s', $data->getType(), json_encode($data->getConfiguration(), \JSON_THROW_ON_ERROR));
+            $signature = substr(md5($value), 0, 12);
+        }
+
+        $view->vars['content_signature'] = $signature;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
