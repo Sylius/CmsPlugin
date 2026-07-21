@@ -190,6 +190,7 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
         return $selectedOption->getText();
     }
+
     public function getContentElementContentAtPosition(int $position): string
     {
         $element = $this->getContentElementAtPosition($position);
