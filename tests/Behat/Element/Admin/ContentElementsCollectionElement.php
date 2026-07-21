@@ -150,13 +150,15 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
     public function removeContentElement(string $type): void
     {
+        $countBefore = $this->countContentElementRows();
+
         $element = $this->getContentElementByTypeLabel($type);
 
         $element->find('css', '[data-test-delete-action]')?->click();
 
         $this->waitForFormUpdate();
 
-        $this->getDocument()->waitFor(5, fn (): bool => !$this->hasContentElement($type));
+        $this->getDocument()->waitFor(5, fn (): bool => $this->countContentElementRows() < $countBefore);
     }
 
     public function moveContentElementUp(int $position): void
@@ -299,6 +301,13 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         Assert::notEmpty($elements, 'Content elements not found.');
 
         return $elements;
+    }
+
+    protected function countContentElementRows(): int
+    {
+        $container = $this->getElement('elements_container', ['%locale%' => $this->defaultLocaleCode]);
+
+        return count($container->findAll('css', '[data-test-entry-row]'));
     }
 
     protected function isSimpleContent(string $type): bool
