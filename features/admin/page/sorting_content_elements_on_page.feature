@@ -34,13 +34,13 @@ Feature: Sorting content elements on a page
 
     @ui @javascript
     Scenario: Reordering keeps textarea contents at their new positions
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "sort-test-page"
         And I fill the name with "Sort Test Page"
         And I fill the slug with "sort-test-page"
         And I add a textarea content element with "First textarea content" content
         And I add a textarea content element with "Second textarea content" content
-        When I move the 2nd content element up
+        And I move the 2nd content element up
         Then the 1st content element should be a "Textarea" element
         And the 2nd content element should be a "Textarea" element
         And the 1st content element should contain "Second textarea content"
@@ -55,7 +55,7 @@ Feature: Sorting content elements on a page
         And I fill the slug with "sort-test-page"
         And I add a single media content element with name "Image 1"
         And I add a single media content element with name "Image 2"
-        When I move the 2nd content element up
+        And I move the 2nd content element up
         Then the 1st content element should contain "Image 2"
         And the 2nd content element should contain "Image 1"
 
