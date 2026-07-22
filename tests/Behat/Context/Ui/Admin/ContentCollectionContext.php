@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
 use Sylius\CmsPlugin\Form\Type\ContentElements\HeadingContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\MultipleMediaContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentElementType;
@@ -233,9 +234,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @Then the :ordinal content element should contain :content
-     */
+    #[Then('the :ordinal content element should contain :content')]
     public function theContentElementAtPositionShouldContain(string $ordinal, string $content): void
     {
         Assert::contains(

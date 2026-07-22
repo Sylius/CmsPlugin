@@ -133,7 +133,7 @@ jobs:
                 uses: actions/upload-artifact@v4
                 if: failure()
                 with:
-                    name: "Behat logs - Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, ${{ matrix.database }}"
+                    name: "Behat logs - Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, ${{ env.DB_TYPE }}-${{ env.DB_VERSION }}"
                     path: etc/build/
                     if-no-files-found: ignore
                     compression-level: 6
