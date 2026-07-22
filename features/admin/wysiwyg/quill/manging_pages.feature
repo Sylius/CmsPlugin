@@ -9,11 +9,11 @@ Feature: Managing dynamic content on block page
 
     @ui @javascript
     Scenario: Adding page
-        When I go to the create page page
+        When I go to the create page
         Then I should see the Quill WYSIWYG editor initialized
 
     @ui @javascript
     Scenario: Updating page
         Given there is an existing page with "test_page" code
-        When I go to the update "test_page" page page
+        When I go to the update "test_page" page
         Then I should see the Quill WYSIWYG editor initialized

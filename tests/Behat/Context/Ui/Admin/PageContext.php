@@ -49,9 +49,9 @@ final class PageContext implements Context
     }
 
     /**
-     * @When I go to the create page page
+     * @When I go to the create page
      */
-    public function iGoToTheCreatePagePage(): void
+    public function iGoToTheCreatePage(): void
     {
         $this->createPage->open();
     }
@@ -77,9 +77,9 @@ final class PageContext implements Context
     }
 
     /**
-     * @When I go to the update :code page page
+     * @When I go to the update :code page
      */
-    public function iGoToTheUpdatePagePage(string $code): void
+    public function iGoToTheUpdatePage(string $code): void
     {
         $page = $this->pageRepository->findOneBy(['code' => $code]);
 

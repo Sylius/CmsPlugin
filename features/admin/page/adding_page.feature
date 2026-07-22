@@ -10,7 +10,7 @@ Feature: Adding new page
 
     @ui
     Scenario: Adding page minimal data
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "page_with_title"
         And I fill the slug with "page_with_title"
         And I fill the name with "page_with_title"
@@ -19,7 +19,7 @@ Feature: Adding new page
 
     @ui
     Scenario: Adding page
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "top_5_outfits_for_this_summer"
         And I fill the slug with "top_5_outfits_for_this_summer"
         And I fill the name with "Top 5 outfits for this summer"
@@ -31,27 +31,27 @@ Feature: Adding new page
     @ui
     Scenario: Trying to add page with existing code
         Given there is an existing page with "terms" code
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "terms"
         And I try to add it
         Then I should be notified that there is already an existing page with provided code
 
     @ui
     Scenario: Adding new page with blank data
-        When I go to the create page page
+        When I go to the create page
         And I add it
         And I should be notified that "Code, Name, Slug" fields cannot be blank
 
     @ui
     Scenario: Trying to add a page with too short data
-        When I go to the create page page
+        When I go to the create page
         And I fill "Code, Name, Slug, Meta keywords, Meta description" fields with 1 character
         And I try to add it
         Then I should be notified that "Code, Name, Slug, Meta keywords, Meta description" fields are too short
 
     @ui
     Scenario: Trying to add a page with too long data
-        When I go to the create page page
+        When I go to the create page
         And I fill "Code, Name, Slug, Meta keywords, Meta description" fields with 6000 characters
         And I try to add it
         Then I should be notified that "Code, Name, Slug, Meta keywords, Meta description" fields are too long
@@ -59,7 +59,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with collections
         Given there are existing collections named "Blog" and "Homepage" with "page" type
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "best_day_ever"
         And I fill the name with "Best day ever"
         And I fill the slug with "Slug"
@@ -70,7 +70,7 @@ Feature: Adding new page
 
     @ui @javascript
     Scenario: Adding page with textarea content element
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -82,7 +82,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with single media content element
         Given there is an existing media with "image_1" code and name "Image 1"
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -94,7 +94,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with multiple media content element
         Given there is an existing media with names "Image 1" and "Image 2"
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -105,7 +105,7 @@ Feature: Adding new page
 
     @ui @javascript
     Scenario: Adding page with heading content element
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -117,7 +117,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with products carousel content element
         Given the store has "iPhone 8" and "iPhone X" products
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -129,7 +129,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with products carousel by taxon content element
         Given the store has "Smartphones" taxonomy
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -141,7 +141,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with products grid content element
         Given the store has "iPhone 8" and "iPhone X" products
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -153,7 +153,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with products grid by taxon content element
         Given the store has "Smartphones" taxonomy
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -165,7 +165,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with taxons list content element
         Given the store classifies its products as "Smartphones" and "Laptops"
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -177,7 +177,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with two content elements
         Given there is an existing media with names "Image 1" and "Image 2"
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -191,7 +191,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with content template
         Given there is an existing content template named "Homepage" with "page" type that contains "Textarea, Single media" content elements
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"
@@ -204,7 +204,7 @@ Feature: Adding new page
 
     @ui
     Scenario: Adding page with with a custom template
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my-page"
         And I fill the name with "My page"
@@ -218,7 +218,7 @@ Feature: Adding new page
     @ui @javascript
     Scenario: Adding page with header and content template
         Given there is an existing content template named "Homepage" with "page" type that contains "Textarea, Heading" content elements
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "my_page"
         And I fill the slug with "my_page"
         And I fill the name with "My page"

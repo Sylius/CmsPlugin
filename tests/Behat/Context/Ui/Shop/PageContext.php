@@ -29,7 +29,7 @@ final class PageContext implements Context
     }
 
     /**
-     * @When I go to the :slug page
+     * @When I go to the ":slug" page
      */
     public function iGoToThePage(string $slug): void
     {
