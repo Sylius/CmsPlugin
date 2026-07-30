@@ -70,28 +70,20 @@ trait ContentElementsCollectionFormComponentTrait
             return;
         }
 
-        $items = array_values($data);
-        [$items[$currentPos], $items[$swapPos]] = [$items[$swapPos], $items[$currentPos]];
+        // Swap the two values while both rows keep their original keys. Handing a moved row
+        // a fresh key makes it look like a brand new element to Symfony's CollectionType,
+        // which only ever appends unknown keys at the end of its children (see the note in
+        // insertCollectionItem) - the row would jump to the bottom of the collection instead
+        // of moving one position, and every following move would work on an order that no
+        // longer matches what is rendered. Keeping the keys is safe for the stateful WYSIWYG
+        // widgets because ContentElementConfigurationType puts a signature of the element's
+        // content into the configuration container's DOM id: when the content at a position
+        // changes, so does that id, and the Live Component replaces the whole subtree instead
+        // of morphing the widget in place.
+        $swapKey = $keys[$swapPos];
+        [$data[$index], $data[$swapKey]] = [$data[$swapKey], $data[$index]];
 
-        // Give fresh keys to the two moved rows only, while keeping the visual (insertion)
-        // order. New keys mean new DOM ids, so the Live Component re-creates exactly those
-        // two rows instead of patching them in place. This keeps stateful WYSIWYG widgets
-        // correct regardless of their morphing strategy: Trix opts out of morphing via
-        // "data-live-ignore", while Quill builds its own DOM the server never renders - in
-        // both cases an in-place patch would leave stale or corrupted content. Re-creating
-        // the row triggers the editor's disconnect()/connect() cycle, which is the path it
-        // is built to support. Untouched rows keep their keys (and initialized editors).
-        $keys = array_keys($data);
-        $freshIndex = $this->provideNewCollectionItemIndex($data);
-        $keys[$currentPos] = $freshIndex;
-        $keys[$swapPos] = $freshIndex + 1;
-
-        $reordered = [];
-        foreach ($items as $position => $item) {
-            $reordered[$keys[$position]] = $item;
-        }
-
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $reordered);
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
     }
 
     #[LiveAction]
