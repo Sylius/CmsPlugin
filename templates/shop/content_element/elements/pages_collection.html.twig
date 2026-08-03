@@ -21,7 +21,7 @@
                             {% endif %}
                             {% if page.teaserContent %}
                                 <p class="card-text small text-secondary line-clamp mb-0" style="--line-clamp-number: 3;">
-                                    {{ page.teaserContent }}
+                                    {{ page.teaserContent|raw }}
                                 </p>
                                 <a href="{{ path('sylius_cms_shop_page_show', {'slug': page.slug}) }}" class="btn btn-light btn-sm mt-4">
                                     {{ 'sylius_cms.ui.read_more'|trans }}
