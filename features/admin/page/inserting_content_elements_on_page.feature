@@ -10,7 +10,7 @@ Feature: Inserting content elements between existing elements on a page
 
     @ui @javascript
     Scenario: Inserting a content element between two existing elements
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "insert-test-page"
         And I fill the name with "Insert Test Page"
         And I fill the slug with "insert-test-page"
@@ -23,7 +23,7 @@ Feature: Inserting content elements between existing elements on a page
 
     @ui @javascript
     Scenario: Inserting a content element before the first element
-        When I go to the create page page
+        When I go to the create page
         And I fill the code with "insert-test-page"
         And I fill the name with "Insert Test Page"
         And I fill the slug with "insert-test-page"
