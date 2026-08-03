@@ -42,7 +42,7 @@ final class ContentElementRendererStrategy implements ContentElementRendererStra
 
             foreach ($this->renderers as $renderer) {
                 if ($renderer->supports($contentElement)) {
-                    $content .= html_entity_decode($renderer->render($contentElement), \ENT_QUOTES);
+                    $content .= $renderer->render($contentElement);
 
                     break;
                 }

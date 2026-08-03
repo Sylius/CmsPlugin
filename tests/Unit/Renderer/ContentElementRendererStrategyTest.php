@@ -63,10 +63,32 @@ final class ContentElementRendererStrategyTest extends TestCase
         $contentElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
 
         $this->rendererMock->expects(self::once())->method('supports')->with($contentElementMock)->willReturn(true);
-        $this->rendererMock->expects(self::once())->method('render')->with($contentElementMock)->willReturn('&lt;p&gt;Hello World&lt;/p&gt;');
+        $this->rendererMock->expects(self::once())->method('render')->with($contentElementMock)->willReturn('<p>Hello World</p>');
         $this->contentParserMock->expects(self::once())->method('parse')->with('<p>Hello World</p>')->willReturn('<p>Hello World</p>');
 
         self::assertSame('<p>Hello World</p>', $this->contentElementRendererStrategy->render($pageMock));
+    }
+
+    public function testEmitsRenderedMarkupUntouched(): void
+    {
+        /** @var PageInterface&MockObject $pageMock */
+        $pageMock = $this->createMock(PageInterface::class);
+        /** @var ContentConfigurationInterface&MockObject $contentElementMock */
+        $contentElementMock = $this->createMock(ContentConfigurationInterface::class);
+
+        $pageMock->expects(self::once())->method('getContentElements')->willReturn(new ArrayCollection([$contentElementMock]));
+        $this->localeContextMock->expects(self::once())->method('getLocaleCode')->willReturn('en_US');
+        $contentElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
+
+        // Escaped text must stay escaped and attributes carrying entities must survive:
+        // decoding would unescape user input and cut the attribute at the first quote.
+        $markup = '<h2>Summer &lt;em&gt;offer&lt;/em&gt;</h2><div data-live-props-value="{&quot;product&quot;:1}"></div>';
+
+        $this->rendererMock->expects(self::once())->method('supports')->with($contentElementMock)->willReturn(true);
+        $this->rendererMock->expects(self::once())->method('render')->with($contentElementMock)->willReturn($markup);
+        $this->contentParserMock->expects(self::once())->method('parse')->with($markup)->willReturn($markup);
+
+        self::assertSame($markup, $this->contentElementRendererStrategy->render($pageMock));
     }
 
     public function testSkipsContentElementWithNonMatchingLocale(): void
@@ -99,7 +121,7 @@ final class ContentElementRendererStrategyTest extends TestCase
         $supportedElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
         $unsupportedElementMock->expects(self::once())->method('getLocale')->willReturn('en_US');
 
-        $this->rendererMock->expects(self::once())->method('render')->with($supportedElementMock)->willReturn('&lt;p&gt;Supported&lt;/p&gt;');
+        $this->rendererMock->expects(self::once())->method('render')->with($supportedElementMock)->willReturn('<p>Supported</p>');
         $this->rendererMock->expects(self::exactly(2))->method('supports')->willReturnOnConsecutiveCalls(true, false);
         $this->contentParserMock->expects(self::once())->method('parse')->with('<p>Supported</p>')->willReturn('<p>Supported</p>');
 
