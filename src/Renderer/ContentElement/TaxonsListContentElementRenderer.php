@@ -37,10 +37,8 @@ final class TaxonsListContentElementRenderer extends AbstractContentElement
         $taxonsCodes = $configuration['taxons_list']['taxons'];
 
         $taxonsByCode = [];
-        foreach ($this->taxonRepository->findBy(['code' => $taxonsCodes]) as $taxon) {
-            if ($taxon->isEnabled()) {
-                $taxonsByCode[(string) $taxon->getCode()] = $taxon;
-            }
+        foreach ($this->taxonRepository->findBy(['code' => $taxonsCodes, 'enabled' => true]) as $taxon) {
+            $taxonsByCode[(string) $taxon->getCode()] = $taxon;
         }
 
         $taxons = [];
