@@ -70,16 +70,6 @@ trait ContentElementsCollectionFormComponentTrait
             return;
         }
 
-        // Swap the two values while both rows keep their original keys. Handing a moved row
-        // a fresh key makes it look like a brand new element to Symfony's CollectionType,
-        // which only ever appends unknown keys at the end of its children (see the note in
-        // insertCollectionItem) - the row would jump to the bottom of the collection instead
-        // of moving one position, and every following move would work on an order that no
-        // longer matches what is rendered. Keeping the keys is safe for the stateful WYSIWYG
-        // widgets because ContentElementConfigurationType puts a signature of the element's
-        // content into the configuration container's DOM id: when the content at a position
-        // changes, so does that id, and the Live Component replaces the whole subtree instead
-        // of morphing the widget in place.
         $swapKey = $keys[$swapPos];
         [$data[$index], $data[$swapKey]] = [$data[$swapKey], $data[$index]];
 
@@ -135,14 +125,6 @@ trait ContentElementsCollectionFormComponentTrait
 
         array_splice($items, $insertPosition, 0, [$newItem]);
 
-        // Symfony's CollectionType (via ResizeFormListener) never reorders existing form
-        // children - it only appends keys it doesn't have yet, always at the end of its
-        // internal list, no matter where that key sits in the submitted array. Giving only
-        // the new row a fresh key therefore isn't enough to place it mid-collection: the
-        // form would still render it last. Every row from the insertion point onward must
-        // look "new" too, so Symfony drops and re-appends that whole tail in one pass, in
-        // the order we submit it - landing it right after the untouched prefix. Rows
-        // strictly before the insertion point keep their original key/DOM node untouched.
         $freshKeysNeeded = \count($items) - $insertPosition;
         $nextKey = $this->provideNewCollectionItemIndex($data);
 
