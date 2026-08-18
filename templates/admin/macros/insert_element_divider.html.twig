@@ -1,0 +1,21 @@
+{% macro insert_element_divider(collection_types, collection_name, insert_after_index) %}
+    <div class="d-flex align-items-center gap-1 my-2 px-2" {{ sylius_test_html_attribute('insert-element-divider') }}>
+        <hr class="flex-grow-1 m-0 border-secondary-subtle opacity-100">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-outline-primary p-2" type="button" data-bs-toggle="dropdown">
+                {{ 'sylius_cms.ui.add_element'|trans }}
+                {{ ux_icon('tabler:chevron-down', {style: 'display: block; margin:auto;'}) }}
+            </button>
+            <ul class="dropdown-menu">
+                {%- for type, typeLabel in collection_types -%}
+                    <li>
+                        <button class="dropdown-item" type="button" data-action="live#action" data-live-action-param="insertCollectionItem" data-live-name-param="{{ collection_name }}" data-live-type-param="{{ type }}" data-live-insert-after-index-param="{{ insert_after_index }}" {{ sylius_test_html_attribute('insert-' ~ type) }}>
+                            {{ typeLabel|trans }}
+                        </button>
+                    </li>
+                {%- endfor -%}
+            </ul>
+        </div>
+        <hr class="flex-grow-1 m-0 border-secondary-subtle opacity-100">
+    </div>
+{% endmacro %}

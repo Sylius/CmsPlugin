@@ -208,22 +208,6 @@ class ContentCollectionContext implements Context
     }
 
     /**
-     * @When I move the :ordinal content element up
-     */
-    public function iMoveTheContentElementUp(string $ordinal): void
-    {
-        $this->contentElementsCollectionElement->moveContentElementUp($this->parseOrdinal($ordinal));
-    }
-
-    /**
-     * @When I move the :ordinal content element down
-     */
-    public function iMoveTheContentElementDown(string $ordinal): void
-    {
-        $this->contentElementsCollectionElement->moveContentElementDown($this->parseOrdinal($ordinal));
-    }
-
-    /**
      * @Then the :ordinal content element should be a :type element
      */
     public function theContentElementAtPositionShouldBeOfType(string $ordinal, string $type): void
@@ -262,6 +246,44 @@ class ContentCollectionContext implements Context
         Assert::true(
             $this->contentElementsCollectionElement->isContentElementMoveDownButtonDisabled($this->parseOrdinal($ordinal)),
         );
+    }
+
+    /**
+     * @When I insert a textarea content element after the :ordinal content element
+     */
+    public function iInsertATextareaContentElementAfterTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->insertContentElementAfterPosition(
+            TextareaContentElementType::TYPE,
+            $this->parseOrdinal($ordinal),
+        );
+    }
+
+    /**
+     * @When I insert a textarea content element before the :ordinal content element
+     */
+    public function iInsertATextareaContentElementBeforeTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->insertContentElementBeforePosition(
+            TextareaContentElementType::TYPE,
+            $this->parseOrdinal($ordinal),
+        );
+    }
+
+    /**
+     * @When I move the :ordinal content element up
+     */
+    public function iMoveTheContentElementUp(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->moveContentElementUp($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @When I move the :ordinal content element down
+     */
+    public function iMoveTheContentElementDown(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->moveContentElementDown($this->parseOrdinal($ordinal));
     }
 
     private function parseOrdinal(string $ordinal): int
