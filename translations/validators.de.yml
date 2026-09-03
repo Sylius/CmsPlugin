@@ -2,15 +2,21 @@ sylius_cms:
     block:
         image:
             mime_types: Nur PNG, SVG und JPEG Dateien sind erlaubt.
+            not_blank: Bild darf nicht leer sein.
         code:
             unique: Es existiert bereits ein Block für diesen Code.
             not_blank: Code darf nicht leer sein.
             min_length: Code muss mindestens {{ limit }} Zeichen lang sein.
             max_length: Code darf nicht länger als {{ limit }} Zeichen sein.
+            regex: Blockcode darf nur aus Buchstaben, Zahlen, Bindestrichen und Unterstrichen bestehen.
         name:
             min_length: Name muss mindestens {{ limit }} Zeichen lang sein.
             max_length: Name darf nicht länger als {{ limit }} Zeichen sein.
+        link:
+            min_length: Link muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Link darf nicht länger als {{ limit }} Zeichen sein.
         content:
+            not_blank: Inhalt darf nicht leer sein.
             min_length: Inhalt muss mindestens {{ limit }} Zeichen lang sein.
     page:
         code:
@@ -18,14 +24,16 @@ sylius_cms:
             not_blank: Code darf nicht leer sein.
             min_length: Code muss mindestens {{ limit }} Zeichen lang sein.
             max_length: Code darf nicht länger als {{ limit }} Zeichen sein.
+            regex: Seitencode darf nur aus Buchstaben, Zahlen, Bindestrichen und Unterstrichen bestehen.
         name:
             not_blank: Name darf nicht leer sein.
             min_length: Name muss mindestens {{ limit }} Zeichen lang sein.
             max_length: Name darf nicht länger als {{ limit }} Zeichen sein.
         slug:
-            not_blank:  Slug darf nicht leer sein.
+            not_blank: Slug darf nicht leer sein.
             min_length: Slug muss mindestens {{ limit }} Zeichen lang sein.
             max_length: Slug darf nicht länger als {{ limit }} Zeichen sein.
+            unique: Slug muss eindeutig sein.
         meta_keywords:
             min_length: Meta Stichwörter müssen mindestens {{ limit }} Zeichen lang sein.
             max_length: Meta Stichwörter dürfen nicht länger als {{ limit }} Zeichen sein.
@@ -36,7 +44,43 @@ sylius_cms:
             not_blank: Inhalt darf nicht leer sein.
             min_length: Inhalt muss mindestens {{ limit }} Zeichen lang sein.
     collection:
+        code:
+            unique: Es existiert bereits eine Sammlung für diesen Code.
+            not_blank: Code darf nicht leer sein.
+            min_length: Code muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Code darf nicht länger als {{ limit }} Zeichen sein.
+            regex: Sammlungscode darf nur aus Buchstaben, Zahlen, Bindestrichen und Unterstrichen bestehen.
+        name:
+            not_blank: Name darf nicht leer sein.
+            min_length: Name muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Name darf nicht länger als {{ limit }} Zeichen sein.
         invalid_type: "Sammlung '{{ collection }}' kann nicht zugewiesen werden. Sie entspricht nicht dem erwarteten Typ '{{ type }}'."
+    media:
+        code:
+            unique: Es existiert bereits ein Medium für diesen Code.
+            not_blank: Code darf nicht leer sein.
+            min_length: Code muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Code darf nicht länger als {{ limit }} Zeichen sein.
+            regex: Mediencode darf nur aus Buchstaben, Zahlen, Bindestrichen und Unterstrichen bestehen.
+        file:
+            not_blank: Datei darf nicht leer sein.
+            type_image: Die hochgeladene Datei kann nicht als Bild markiert werden.
+            type_video: Die hochgeladene Datei kann nicht als Video markiert werden.
+        name:
+            not_blank: Name darf nicht leer sein.
+            min_length: Name muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Name darf nicht länger als {{ limit }} Zeichen sein.
+        content:
+            min_length: Inhalt muss mindestens {{ limit }} Zeichen lang sein.
+        alt:
+            min_length: Alt muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Alt darf nicht länger als {{ limit }} Zeichen sein.
+        link:
+            min_length: Link muss mindestens {{ limit }} Zeichen lang sein.
+            max_length: Link darf nicht länger als {{ limit }} Zeichen sein.
+    import:
+        not_blank: Importdatei darf nicht leer sein.
+        invalid_format: Laden Sie eine gültige CSV-Importdatei hoch.
     template:
         name:
             unique: Es gibt bereits eine Vorlage mit diesem Namen.

@@ -8,9 +8,13 @@ sylius_cms:
             not_blank: Code cannot be blank.
             min_length: Code must be at least {{ limit }} characters long.
             max_length: Code can not be longer than {{ limit }} characters.
+            regex: Kod bloku może zawierać wyłącznie litery, cyfry, myślniki i podkreślenia.
         name:
             min_length: Name must be at least {{ limit }} characters long.
             max_length: Name can not be longer than {{ limit }} characters.
+        link:
+            min_length: Link musi mieć co najmniej {{ limit }} znaków.
+            max_length: Link nie może mieć więcej niż {{ limit }} znaków.
         content:
             not_blank: Content cannot be blank.
             min_length: Content must be at least {{ limit }} characters long.
@@ -20,14 +24,16 @@ sylius_cms:
             not_blank: Code cannot be blank.
             min_length: Code must be at least {{ limit }} characters long.
             max_length: Code can not be longer than {{ limit }} characters.
+            regex: Kod strony może zawierać wyłącznie litery, cyfry, myślniki i podkreślenia.
         name:
             not_blank: Name cannot be blank.
             min_length: Name must be at least {{ limit }} characters long.
             max_length: Name can not be longer than {{ limit }} characters.
         slug:
-            not_blank:  Slug cannot be blank.
+            not_blank: Slug cannot be blank.
             min_length: Slug must be at least {{ limit }} characters long.
             max_length: Slug can not be longer than {{ limit }} characters.
+            unique: Slug musi być unikalny.
         meta_keywords:
             min_length: Meta keywords must be at least {{ limit }} characters long.
             max_length: Meta keywords can not be longer than {{ limit }} characters.
@@ -43,15 +49,38 @@ sylius_cms:
             not_blank: Code cannot be blank.
             min_length: Code must be at least {{ limit }} characters long.
             max_length: Code can not be longer than {{ limit }} characters.
+            regex: Kod kolekcji może zawierać wyłącznie litery, cyfry, myślniki i podkreślenia.
         name:
             not_blank: Name cannot be blank.
             min_length: Name must be at least {{ limit }} characters long.
             max_length: Name can not be longer than {{ limit }} characters.
         invalid_type: "Kolekcja '{{ collection }}' nie może być przypisana. Nie pasuje do oczekiwanego typu '{{ type }}'."
     media:
+        code:
+            unique: Istnieje już medium o tym kodzie.
+            not_blank: Kod nie może być pusty.
+            min_length: Kod musi mieć co najmniej {{ limit }} znaków.
+            max_length: Kod nie może mieć więcej niż {{ limit }} znaków.
+            regex: Kod medium może zawierać wyłącznie litery, cyfry, myślniki i podkreślenia.
         file:
+            not_blank: Plik nie może być pusty.
             type_image: Przesłanego pliku nie można oznaczyć jako obraz.
             type_video: Przesłanego pliku nie można oznaczyć jako wideo.
+        name:
+            not_blank: Nazwa nie może być pusta.
+            min_length: Nazwa musi mieć co najmniej {{ limit }} znaków.
+            max_length: Nazwa nie może mieć więcej niż {{ limit }} znaków.
+        content:
+            min_length: Treść musi mieć co najmniej {{ limit }} znaków.
+        alt:
+            min_length: Tekst alternatywny musi mieć co najmniej {{ limit }} znaków.
+            max_length: Tekst alternatywny nie może mieć więcej niż {{ limit }} znaków.
+        link:
+            min_length: Link musi mieć co najmniej {{ limit }} znaków.
+            max_length: Link nie może mieć więcej niż {{ limit }} znaków.
+    import:
+        not_blank: Plik importu nie może być pusty.
+        invalid_format: Prześlij prawidłowy plik CSV do importu.
     template:
         name:
             unique: Istnieje już szablon o tej nazwie.
