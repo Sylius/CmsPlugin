@@ -1,6 +1,7 @@
 sylius_cms:
     ui:
         add_element: Element hinzufügen
+        elements: Elemente
         blocks: Blöcke
         block: Block
         pages: Seiten
@@ -10,19 +11,14 @@ sylius_cms:
         enabled: Aktiviert
         blocks_header: Blöcke
         blocks_subheader: Blöcke verwalten
-        text_block: Text Block
-        html_block: HTML Block
-        image_block: Bild Block
         pages_header: Seite
         pages_subheader: Seiten verwalten
         products: Produkte
+        taxons: Taxons
         page_related_products: Seitenbezogene Produkte
         name: Name
-        slug: Slug
         path: Pfad
-        empty_name: Leerer Name
-        publish_at: Veröffentlichen am
-        page_will_be_publish_at: Diese Seite wird veröffentlicht am
+        slug: Slug
         meta_title: Meta Titel
         meta_keywords: Meta Stichwörter
         meta_description: Meta Beschreibung
@@ -33,13 +29,13 @@ sylius_cms:
         image: Bild
         link: Link
         link_content: Link-Inhalt
-        title: Titel
-        csv_file: CSV-Datei
+        question: Frage
+        answer: Antwort
+        collection: Sammlung
         collections: Sammlungen
         collections_header: Sammlungen
         collections_subheader: Verwalten Sie Ihre Sammlungen
-        question: Frage
-        answer: Antwort
+        position: Position
         channels: Ausgabekanäle
         preview: Vorschau
         download: Herunterladen
@@ -50,13 +46,23 @@ sylius_cms:
         media_subheader: Digitale Assets verwalten
         type: Typ
         file: Datei
+        video: Video
+        alt: Alt
         description: Beschreibung
-        image_provider: Bild
         file_provider: Datei
+        image_provider: Bild
+        video_provider: Video
         read_more: Mehr lesen
+        breadcrumb: Brotkrümelnavigation
         import: Importieren
+        csv_file: CSV-Datei
         successfully_imported: Die Daten wurden importiert.
         form_was_submitted_with_errors: "Das Formular wurde mit folgenden Fehlern übermittelt:"
+        title: Titel
+        empty_name: Leerer Name
+        publish_at: Veröffentlichen am
+        page_will_be_publish_at: Diese Seite wird veröffentlicht am
+        save_with_original_name: Mit ursprünglichem Namen speichern
         content_elements:
             title: Inhalt
             type:
@@ -74,7 +80,9 @@ sylius_cms:
                 spacer_height: Höhe des Abstandshalters in Pixeln
             heading_type: Überschrift-Typ
             template: Inhaltselementvorlage
+            template_help: Stellt eine vordefinierte Sammlung von Elementen bereit. Eine Änderung löscht die aktuelle Konfiguration.
         taxon: Taxon
+        seo: SEO
         display_for_products:
             label: Display für Produkte
             help: Wählen Sie Produkte aus, in denen dieser Block angezeigt wird
@@ -99,3 +107,7 @@ sylius_cms:
             content: Vorschau-Inhalt
             image: Vorschau-Bild
             help: Es ist eine kleine Vorschau der Seite. Sie wird beim Rendern einer Sammlung von Seiten verwendet.
+        content_preview:
+            missing_template:
+                title: Fehlende Vorlage
+                content: Die Vorlage, die Sie für die Vorschau verwenden möchten, fehlt. Die Standardvorlage wird angezeigt.

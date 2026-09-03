@@ -8,9 +8,13 @@ sylius_cms:
             not_blank: El código no puede ir vacío.
             min_length: El código debe tener al menos {{ limit }} caracteres.
             max_length: El código no puede tener más de {{ limit }} caracteres.
+            regex: El código del bloque solo puede contener letras, números, guiones y guiones bajos.
         name:
             min_length: El nombre debe tener al menos {{ limit }} caracteres.
             max_length: El nombre no puede tener más de {{ limit }} caracteres.
+        link:
+            min_length: El enlace debe tener al menos {{ limit }} caracteres.
+            max_length: El enlace no puede tener más de {{ limit }} caracteres.
         content:
             not_blank: El contenido no puede ir vacío.
             min_length: El contenido debe tener al menos {{ limit }} caracteres.
@@ -20,14 +24,16 @@ sylius_cms:
             not_blank: El código no puede ir vacío.
             min_length: El código debe tener al menos {{ limit }} caracteres.
             max_length: El código no puede tener más de {{ limit }} caracteres.
+            regex: El código de la página solo puede contener letras, números, guiones y guiones bajos.
         name:
             not_blank: El nombre no puede ir vacío.
             min_length: El nombre debe tener al menos {{ limit }} caracteres.
             max_length: El nombre no puede tener más de {{ limit }} caracteres.
         slug:
-            not_blank:  El slug no puede ir vacío.
+            not_blank: El slug no puede ir vacío.
             min_length: El slug debe tener al menos {{ limit }} caracteres.
             max_length: El slug no puede tener más de {{ limit }} caracteres.
+            unique: El slug debe ser único.
         meta_keywords:
             min_length: Meta keywords debe tener al menos {{ limit }} caracteres.
             max_length: Meta keywords no puede tener más de {{ limit }} caracteres.
@@ -43,11 +49,38 @@ sylius_cms:
             not_blank: El código no puede ir vacío.
             min_length: El código debe tener al menos {{ limit }} caracteres.
             max_length: El código no puede tener más de {{ limit }} caracteres.
+            regex: El código de la colección solo puede contener letras, números, guiones y guiones bajos.
         name:
             not_blank: El nombre no puede ir vacío.
             min_length: El nombre debe tener al menos {{ limit }} caracteres.
             max_length: El nombre no puede tener más de {{ limit }} caracteres.
         invalid_type: "La colección '{{ collection }}' no puede asignarse. No coincide con el tipo esperado '{{ type }}'."
+    media:
+        code:
+            unique: Ya existe un medio con este código.
+            not_blank: El código no puede ir vacío.
+            min_length: El código debe tener al menos {{ limit }} caracteres.
+            max_length: El código no puede tener más de {{ limit }} caracteres.
+            regex: El código del medio solo puede contener letras, números, guiones y guiones bajos.
+        file:
+            not_blank: El archivo no puede ir vacío.
+            type_image: El archivo subido no puede marcarse como imagen.
+            type_video: El archivo subido no puede marcarse como vídeo.
+        name:
+            not_blank: El nombre no puede ir vacío.
+            min_length: El nombre debe tener al menos {{ limit }} caracteres.
+            max_length: El nombre no puede tener más de {{ limit }} caracteres.
+        content:
+            min_length: El contenido debe tener al menos {{ limit }} caracteres.
+        alt:
+            min_length: El texto alternativo debe tener al menos {{ limit }} caracteres.
+            max_length: El texto alternativo no puede tener más de {{ limit }} caracteres.
+        link:
+            min_length: El enlace debe tener al menos {{ limit }} caracteres.
+            max_length: El enlace no puede tener más de {{ limit }} caracteres.
+    import:
+        not_blank: El archivo de importación no puede ir vacío.
+        invalid_format: Suba un archivo CSV de importación válido.
     template:
         name:
             unique: Ya existe una plantilla con este nombre.

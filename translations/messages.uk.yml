@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Додати елемент
+        elements: Елементи
         blocks: Блоки
         block: Блок
         pages: Сторінки
@@ -12,8 +14,10 @@ sylius_cms:
         pages_header: Сторінки
         pages_subheader: Управління сторінками
         products: Товари
+        taxons: Таксони
         page_related_products: Супутні товари
         name: Назва
+        path: Шлях
         slug: Шлях
         meta_title: Заголовок (мета)
         meta_keywords: Ключові слова (мета)
@@ -27,6 +31,7 @@ sylius_cms:
         link_content: Вміст посилання
         question: Питання
         answer: Відповідь
+        collection: Колекція
         collections: Колекції
         collections_header: Колекції
         collections_subheader: Керуйте своїми колекціями
@@ -41,6 +46,7 @@ sylius_cms:
         media_subheader: Управління цифровим контентом
         type: Тип
         file: Файл
+        video: Відео
         alt: Альт
         description: Опис
         file_provider: Файл
@@ -51,7 +57,12 @@ sylius_cms:
         import: Імпорт
         csv_file: CSV файл
         successfully_imported: Дані успішно імпортовані
+        form_was_submitted_with_errors: "Форму надіслано з такими помилками:"
         title: заголовок
+        empty_name: Порожня назва
+        publish_at: Опублікувати
+        page_will_be_publish_at: Ця сторінка буде опублікована
+        save_with_original_name: Зберегти з початковою назвою
         content_elements:
             title: Зміст
             type:
@@ -69,7 +80,9 @@ sylius_cms:
                 spacer_height: Висота роздільника в пікселях
             heading_type: Тип заголовка
             template: Шаблон елементів контенту
+            template_help: Надає попередньо визначений набір елементів. Його зміна видалить поточну конфігурацію.
         taxon: Таксон
+        seo: SEO
         display_for_products:
             label: Дисплей для продуктів
             help: Цей блок буде відображатися для вибраних продуктів
@@ -94,3 +107,7 @@ sylius_cms:
             content: Контент анонсу
             image: Зображення анонсу
             help: Це невеликий попередній перегляд сторінки. Використовується при рендерингу колекції сторінок.
+        content_preview:
+            missing_template:
+                title: Відсутній шаблон
+                content: Шаблон, який ви намагаєтеся використати для попереднього перегляду, відсутній. Відображається шаблон за замовчуванням.

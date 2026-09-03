@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Dodaj element
+        elements: Elementy
         blocks: Bloki
         block: Blok
         pages: Strony
@@ -9,14 +11,13 @@ sylius_cms:
         enabled: Włączony
         blocks_header: Bloki
         blocks_subheader: Zarządzaj blokami
-        text_block: Blok tekstu
-        html_block: Blok HTML
-        image_block: Blok zdjęcia
         pages_header: Strony
         pages_subheader: Zarządzaj swoimi stronami
         products: Produkty
+        taxons: Taksonomie
         page_related_products: Produkty powiązane ze stroną
         name: Nazwa
+        path: Ścieżka
         slug: Link
         meta_title: Tytuł meta
         meta_keywords: Słowa kluczowe
@@ -30,10 +31,33 @@ sylius_cms:
         link_content: Treść linka
         question: Pytanie
         answer: Odpowiedź
+        collection: Kolekcja
         collections: Kolekcje
         collections_header: Kolekcje
         collections_subheader: Zarządzaj kolekcjami
         position: Pozycja
+        channels: Kanały
+        preview: Podgląd
+        download: Pobierz
+        name_when_linked: Nazwa w linku
+        description_when_linked: Opis w linku
+        media: Media
+        media_header: Media
+        media_subheader: Zarządzaj zasobami cyfrowymi
+        type: Typ
+        file: Plik
+        video: Wideo
+        alt: Alt
+        description: Opis
+        file_provider: Plik
+        image_provider: Zdjęcie
+        video_provider: Wideo
+        read_more: Czytaj więcej
+        breadcrumb: Okruszki
+        import: Import
+        csv_file: Plik CSV
+        successfully_imported: Dane zostały zaimportowane.
+        form_was_submitted_with_errors: "Formularz zawiera następujące błędy:"
         title: Tytuł
         empty_name: Brak nazwy
         publish_at: Opublikuj
@@ -56,7 +80,9 @@ sylius_cms:
                 spacer_height: Wysokość odstępu w pikselach
             heading_type: Typ nagłówka
             template: Szablon elementów treści
+            template_help: Udostępnia predefiniowaną kolekcję elementów. Jej zmiana usunie bieżącą konfigurację.
         taxon: Taksonomia
+        seo: SEO
         display_for_products:
             label: Wyświetlaj dla produktów
             help: Wybierz produkty, dla których ten blok będzie wyświetlany
@@ -81,3 +107,7 @@ sylius_cms:
             content: Treść zapowiedzi
             image: Obrazek zapowiedzi
             help: To mały podgląd strony. Używa się go podczas renderowania kolekcji stron.
+        content_preview:
+            missing_template:
+                title: Brakujący szablon
+                content: Szablon, którego próbujesz użyć do podglądu, nie istnieje. Wyświetlany jest szablon domyślny.
