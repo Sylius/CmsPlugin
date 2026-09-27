@@ -227,6 +227,12 @@ class ContentCollectionContext implements Context
         );
     }
 
+    #[When('I duplicate the :ordinal content element')]
+    public function iDuplicateTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->duplicateContentElement($this->parseOrdinal($ordinal));
+    }
+
     #[When('I move the :ordinal content element up')]
     public function iMoveTheContentElementUp(string $ordinal): void
     {

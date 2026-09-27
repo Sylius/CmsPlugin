@@ -7,6 +7,7 @@ sylius_cms:
         page: Seite
         content_management: Inhaltsverwaltung
         cms: Inhaltsverwaltung
+        duplicate_element: Duplizieren
         enabled: Aktiviert
         blocks_header: Blöcke
         blocks_subheader: Blöcke verwalten

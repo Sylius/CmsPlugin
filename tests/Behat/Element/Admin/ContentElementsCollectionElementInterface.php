@@ -38,6 +38,8 @@ interface ContentElementsCollectionElementInterface
 
     public function insertContentElementBeforePosition(string $type, int $beforePosition): void;
 
+    public function duplicateContentElement(int $position): void;
+
     public function moveContentElementUp(int $position): void;
 
     public function moveContentElementDown(int $position): void;
