@@ -167,6 +167,46 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $this->insertContentElementAtDividerIndex($type, $beforePosition - 1);
     }
 
+    public function copyContentElement(int $position): void
+    {
+        $copyButton = $this->getContentElementAtPosition($position)->find('css', '[data-test-copy-element]');
+        Assert::isInstanceOf($copyButton, NodeElement::class, sprintf('Copy button not found at position %d.', $position));
+        $copyButton->click();
+
+        $this->waitForFormUpdate();
+    }
+
+    public function pasteContentElementAfterPosition(int $afterPosition): void
+    {
+        if ($afterPosition >= $this->getContentElementsCount()) {
+            $this->pasteContentElementAtTheEnd();
+
+            return;
+        }
+
+        $this->pasteContentElementAtDividerIndex($afterPosition);
+    }
+
+    public function pasteContentElementBeforePosition(int $beforePosition): void
+    {
+        $this->pasteContentElementAtDividerIndex($beforePosition - 1);
+    }
+
+    public function arePasteContentElementButtonsDisabled(): bool
+    {
+        $container = $this->getElement('elements_container', ['%locale%' => $this->defaultLocaleCode]);
+        $pasteButtons = $container->findAll('css', '[data-test-paste-element], [data-test-paste-element-at-the-end]');
+        Assert::notEmpty($pasteButtons, 'Paste element buttons not found.');
+
+        foreach ($pasteButtons as $pasteButton) {
+            if (!$pasteButton->hasAttribute('disabled')) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function moveContentElementUp(int $position): void
     {
         $button = $this->getSortButton($position, 'up');
@@ -226,20 +266,43 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
     private function insertContentElementAtDividerIndex(string $type, int $dividerIndex): void
     {
+        $divider = $this->getInsertElementDividerAtIndex($dividerIndex);
+
+        $toggleButton = $divider->find('css', '[data-bs-toggle="dropdown"]');
+        Assert::isInstanceOf($toggleButton, NodeElement::class, 'Dropdown toggle not found in insert element divider.');
+        $toggleButton->click();
+
+        $insertButton = $divider->find('css', sprintf('[data-test-insert-%s]', $type));
+        Assert::isInstanceOf($insertButton, NodeElement::class, sprintf('Insert button for type "%s" not found in divider.', $type));
+        $insertButton->click();
+
+        $this->waitForFormUpdate();
+    }
+
+    private function pasteContentElementAtDividerIndex(int $dividerIndex): void
+    {
+        $pasteButton = $this->getInsertElementDividerAtIndex($dividerIndex)->find('css', '[data-test-paste-element]');
+        Assert::isInstanceOf($pasteButton, NodeElement::class, sprintf('Paste button not found in divider at index %d.', $dividerIndex));
+        $pasteButton->click();
+
+        $this->waitForFormUpdate();
+    }
+
+    private function pasteContentElementAtTheEnd(): void
+    {
+        $this->getElement('elements_paste_at_the_end', ['%locale%' => $this->defaultLocaleCode])->click();
+
+        $this->waitForFormUpdate();
+    }
+
+    private function getInsertElementDividerAtIndex(int $dividerIndex): NodeElement
+    {
         $container = $this->getElement('elements_container', ['%locale%' => $this->defaultLocaleCode]);
         $dividers = $container->findAll('css', '[data-test-insert-element-divider]');
 
         Assert::keyExists($dividers, $dividerIndex, sprintf('No insert element divider at index %d.', $dividerIndex));
 
-        $toggleButton = $dividers[$dividerIndex]->find('css', '[data-bs-toggle="dropdown"]');
-        Assert::isInstanceOf($toggleButton, NodeElement::class, 'Dropdown toggle not found in insert element divider.');
-        $toggleButton->click();
-
-        $insertButton = $dividers[$dividerIndex]->find('css', sprintf('[data-test-insert-%s]', $type));
-        Assert::isInstanceOf($insertButton, NodeElement::class, sprintf('Insert button for type "%s" not found in divider.', $type));
-        $insertButton->click();
-
-        $this->waitForFormUpdate();
+        return $dividers[$dividerIndex];
     }
 
     private function getSortButton(int $position, string $direction): NodeElement
@@ -267,6 +330,7 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
             'form' => '[data-live-name-value^="sylius_cms:admin"][data-live-name-value$=":form"]',
             'elements_container' => '#translation-elements-%locale% [data-test-elements-collection]',
             'elements_add' => '#translation-elements-%locale% [data-test-add-element-button]',
+            'elements_paste_at_the_end' => '#translation-elements-%locale% [data-test-paste-element-at-the-end]',
             'elements_template_select' => '#translation-elements-%locale% [data-test-content-template]',
             'elements_template_apply' => '#translation-elements-%locale% [data-test-apply-template-button]',
         ]);

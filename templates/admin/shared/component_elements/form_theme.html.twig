@@ -5,17 +5,18 @@
 
     {%- set collection_types = button_add is defined ? button_add.vars.types : {} -%}
     {%- set collection_name = button_add is defined ? button_add.vars.attr['data-live-name-param'] : '' -%}
+    {%- set can_paste = has_clipboard|default(false) -%}
 
     <div>
         {%- for child in form -%}
             {%- if loop.first and collection_types is not empty -%}
-                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, -1) }}
+                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, -1, can_paste) }}
             {%- endif -%}
 
             {{ form_row(child) }}
 
             {%- if not loop.last and collection_types is not empty -%}
-                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, child.vars.name) }}
+                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, child.vars.name, can_paste) }}
             {%- endif -%}
         {%- endfor -%}
     </div>
@@ -29,7 +30,7 @@
     <div class="sortable-item" id="{{ id }}" {{ block('attributes') }} {{ sylius_test_html_attribute('entry-row') }}>
         {{- form_errors(form) -}}
 
-        <div class="alert text-body d-flex align-items-center gap-4">
+        <div class="alert text-body d-flex align-items-start gap-4">
             <div class="flex-grow-1">
                 {{- form_row(form.type) -}}
                 <div id="{{ id }}_element_configuration_{{ form.vars.content_signature }}">
@@ -37,6 +38,21 @@
                 </div>
             </div>
             <div class="d-flex flex-column align-items-center gap-2">
+            <div class="mt-5 mb-3">
+                <button
+                    type="button"
+                    class="btn p-1 btn-outline-primary d-flex align-items-center justify-content-center mb-3"
+                    data-action="live#action"
+                    data-live-action-param="copyCollectionItem"
+                    data-live-name-param="{{ form.parent.vars.full_name }}"
+                    data-live-index-param="{{ form.vars.name }}"
+                    {{ sylius_test_html_attribute('copy-element') }}
+                    data-bs-toggle="tooltip"
+                    title="{{ 'sylius_cms.ui.copy_element_tooltip'|trans }}"
+                >
+                    {{ ux_icon('tabler:clipboard-copy', {style: 'display: block; margin: auto'}) }}
+                </button>
+            </div>
                 <button
                     type="button"
                     class="btn p-1 btn-outline-primary d-flex align-items-center justify-content-center"
@@ -74,22 +90,36 @@
 
 {% block add_button_row %}
     {% if types is not empty %}
-        <div class="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{ label|trans }}</button>
-            <ul class="dropdown-menu">
-                {% for type, label in types %}
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            data-action="live#action"
-                            data-live-action-param="insertCollectionItem"
-                            data-live-name-param="{{ attr['data-live-name-param'] }}"
-                            data-live-type-param="{{ type }}"
-                            {{ sylius_test_html_attribute('add-' ~ type) }}>
-                            {{ (label)|trans }}
-                        </button>
-                    </li>
-                {% endfor %}
-            </ul>
+        <div class="d-flex align-items-center gap-1">
+            <div class="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{ label|trans }}</button>
+                <ul class="dropdown-menu">
+                    {% for type, label in types %}
+                        <li>
+                            <button class="dropdown-item" type="button"
+                                data-action="live#action"
+                                data-live-action-param="insertCollectionItem"
+                                data-live-name-param="{{ attr['data-live-name-param'] }}"
+                                data-live-type-param="{{ type }}"
+                                {{ sylius_test_html_attribute('add-' ~ type) }}>
+                                {{ (label)|trans }}
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button
+                class="btn p-2 btn-outline-primary d-flex align-items-center gap-1"
+                type="button"
+                data-action="live#action"
+                data-live-action-param="pasteCollectionItem"
+                data-live-name-param="{{ attr['data-live-name-param'] }}"
+                {{ form.parent.vars.has_clipboard|default(false) ? '' : 'disabled' }}
+                {{ sylius_test_html_attribute('paste-element-at-the-end') }}
+            >
+                {{ 'sylius_cms.ui.paste_element'|trans }}
+                {{ ux_icon('tabler:clipboard', {style: 'display: block; margin:auto;'}) }}
+            </button>
         </div>
     {% endif %}
 {% endblock %}

@@ -26,6 +26,7 @@ use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Twig\Environment;
 
@@ -61,6 +62,14 @@ class FormComponent
         $this->initialize($blockRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
         $this->initializePreview($twig, $localeProvider, $previewTemplate);
+    }
+
+    protected function instantiateForm(): FormInterface
+    {
+        /** @var class-string<AbstractType<BlockInterface>> $formClass */
+        $formClass = $this->formClass;
+
+        return $this->formFactory->create($formClass, $this->resource, $this->contentElementsFormOptions());
     }
 
     /** @return array{resource: BlockInterface|null, content: string} */

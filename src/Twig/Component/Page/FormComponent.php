@@ -27,6 +27,7 @@ use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Sylius\Resource\Model\TranslatableInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
@@ -72,6 +73,14 @@ class FormComponent
         $this->formValues['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(
             $this->formValues['name'],
         );
+    }
+
+    protected function instantiateForm(): FormInterface
+    {
+        /** @var class-string<AbstractType<PageInterface>> $formClass */
+        $formClass = $this->formClass;
+
+        return $this->formFactory->create($formClass, $this->resource, $this->contentElementsFormOptions());
     }
 
     protected function beforePreviewDispatch(): void

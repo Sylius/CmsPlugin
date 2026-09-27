@@ -1,10 +1,24 @@
-{% macro insert_element_divider(collection_types, collection_name, insert_after_index) %}
+{% macro insert_element_divider(collection_types, collection_name, insert_after_index, has_clipboard) %}
+    {%- set can_paste = has_clipboard|default(false) -%}
     <div class="d-flex align-items-center gap-1 my-2 px-2" {{ sylius_test_html_attribute('insert-element-divider') }}>
         <hr class="flex-grow-1 m-0 border-secondary-subtle opacity-100">
         <div class="dropdown">
             <button class="btn btn-sm btn-outline-primary p-2" type="button" data-bs-toggle="dropdown">
                 {{ 'sylius_cms.ui.add_element'|trans }}
                 {{ ux_icon('tabler:chevron-down', {style: 'display: block; margin:auto;'}) }}
+            </button>
+            <button
+                class="btn btn-sm btn-outline-primary p-2"
+                type="button"
+                data-action="live#action"
+                data-live-action-param="pasteCollectionItem"
+                data-live-name-param="{{ collection_name }}"
+                data-live-insert-after-index-param="{{ insert_after_index }}"
+                {{ can_paste ? '' : 'disabled' }}
+                {{ sylius_test_html_attribute('paste-element') }}
+            >
+                {{ 'sylius_cms.ui.paste_element'|trans }}
+                {{ ux_icon('tabler:clipboard', {style: 'display: block; margin:auto;'}) }}
             </button>
             <ul class="dropdown-menu">
                 {%- for type, typeLabel in collection_types -%}
