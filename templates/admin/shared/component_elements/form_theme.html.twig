@@ -72,6 +72,21 @@
     </div>
 {%- endblock live_collection_entry_row -%}
 
+{#
+    Without data-model, Live Component has no way to learn the selected value of an
+    autocomplete field on a LiveAction (e.g. moveCollectionItem), so a re-render after
+    reordering falls back to the server's last known (empty) selection instead of what was
+    actually picked. See the same issue and fix for the Trix editor in
+    templates/admin/shared/editor/trix.html.twig.
+#}
+{% block ux_entity_autocomplete_widget %}
+    {% if form.autocomplete is defined %}
+        {{ form_widget(form.autocomplete, {attr: form.autocomplete.vars.attr|merge({required: required, 'data-model': 'norender|' ~ form.autocomplete.vars.full_name})}) }}
+    {% else %}
+        {{ form_widget(form, {attr: attr|merge({'data-model': 'norender|' ~ full_name})}) }}
+    {% endif %}
+{% endblock ux_entity_autocomplete_widget %}
+
 {% block add_button_row %}
     {% if types is not empty %}
         {% set dropdown_menu_id = id ~ '_menu' %}

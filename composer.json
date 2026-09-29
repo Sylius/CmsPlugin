@@ -14,7 +14,10 @@
         "sylius/sylius": "^2.0",
         "league/csv": "^9.1",
         "sylius/telemetry": "^1.0",
-        "ehyiah/ux-quill": "^3.6"
+        "ehyiah/ux-quill": "^3.6",
+        "symfony/ux-autocomplete": "^2.20 || ^3.0",
+        "symfony/ux-live-component": "^2.20 || ^3.0",
+        "symfony/ux-twig-component": "^2.20 || ^3.0"
     },
     "require-dev": {
         "behat/behat": "^3.14 || 4.0.0-alpha1",

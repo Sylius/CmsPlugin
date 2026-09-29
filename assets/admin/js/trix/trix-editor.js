@@ -40,12 +40,62 @@ const bodyObserver = new MutationObserver((mutationsList) => {
 bodyObserver.observe(document.body, { childList: true, subtree: true });
 
 document.addEventListener('trix-blur', (event) => {
-    const innerInput = document.getElementById(event.target.attributes.input.value);
+    const innerInput = syncTrixValueFromDocument(event.target);
 
     if (innerInput) {
         innerInput.dispatchEvent(new Event('change', { bubbles: true }));
         updateToolbars();
     }
+});
+
+function getTrixDocumentHtml(trixEditorElement) {
+    return trixEditorElement.innerHTML.replace(/<!--block-->/g, '');
+}
+
+function textContentOf(html) {
+    const element = document.createElement('div');
+    element.innerHTML = html;
+
+    return element.textContent;
+}
+
+function syncTrixValueFromDocument(trixEditorElement) {
+    const innerInput = document.getElementById(trixEditorElement.getAttribute('input'));
+
+    if (!innerInput) {
+        return null;
+    }
+
+    const documentHtml = getTrixDocumentHtml(trixEditorElement);
+    if (innerInput.value !== documentHtml && textContentOf(innerInput.value) === textContentOf(documentHtml)) {
+        innerInput.value = documentHtml;
+    }
+
+    return innerInput;
+}
+
+document.addEventListener('live:connect', (event) => {
+    const { component } = event.detail;
+
+    if (!component) {
+        return;
+    }
+
+    component.on('model:set', () => {
+        document.querySelectorAll('trix-editor').forEach((trixEditorElement) => {
+            const innerInput = syncTrixValueFromDocument(trixEditorElement);
+
+            if (!innerInput?.hasAttribute('data-model')) {
+                return;
+            }
+
+            const modelName = innerInput.getAttribute('name');
+            const freshValue = innerInput.value;
+            if (component.getData(modelName) !== freshValue) {
+                component.set(modelName, freshValue, false);
+            }
+        });
+    });
 });
 
 document.addEventListener('trix-file-accept', (event) => {
