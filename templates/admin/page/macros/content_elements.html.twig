@@ -1,0 +1,115 @@
+{% macro insert_divider(types, collection_name, insert_after_index) %}
+    {% if types is not empty %}
+        <div class="dropdown cms-insert-divider" {{ sylius_test_html_attribute('insert-element-divider') }}>
+            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-label="{{ 'sylius_cms.ui.page_form.content.insert_here'|trans }}">
+                {{ ux_icon('tabler:plus', { class: 'icon me-1' }) }}{{ 'sylius_cms.ui.page_form.content.insert_here'|trans }}
+            </button>
+            <ul class="dropdown-menu">
+                {%- for type, type_label in types -%}
+                    <li>
+                        <button
+                            class="dropdown-item"
+                            type="button"
+                            data-action="live#action"
+                            data-live-action-param="insertCollectionItem"
+                            data-live-name-param="{{ collection_name }}"
+                            data-live-type-param="{{ type }}"
+                            data-live-insert-after-index-param="{{ insert_after_index }}"
+                            {{ sylius_test_html_attribute('insert-' ~ type) }}
+                        >
+                            {{ type_label|trans }}
+                        </button>
+                    </li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro type_label(element) %}
+    {%- set type = element.type.vars.value -%}
+    {%- set types = element.parent.vars.button_add.vars.types|default({}) -%}
+    {{- type is not empty and types[type] is defined ? types[type]|trans : 'sylius_cms.ui.page_form.content.new_element'|trans -}}
+{% endmacro %}
+
+{% macro summary(element) %}
+    {%- set type = element.type.vars.value -%}
+    {%- set source = type is not empty and element.configuration.children[type] is defined ? element.configuration.children[type] : null -%}
+    {%- if source is not null and source.children is not empty -%}
+        {%- set compound = source -%}
+        {%- set source = null -%}
+        {%- for child in compound.children -%}
+            {%- if source is null and child.vars.value is not empty -%}{%- set source = child -%}{%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+    {%- set value = source is not null ? source.vars.value : null -%}
+
+    {%- set labels = [] -%}
+    {%- if value is not empty and source.vars.choices is defined -%}
+        {%- set selected = value is iterable ? value : [value] -%}
+        {%- for choice in source.vars.choices -%}
+            {%- if choice.value is defined and choice.value in selected -%}{%- set labels = labels|merge([choice.label|trans]) -%}{%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if labels is not empty -%}
+        {{- labels|first }}{{ labels|length > 1 ? ' +' ~ (labels|length - 1) -}}
+    {%- elseif value is iterable -%}
+        {{- value is empty ? '' : 'sylius_cms.ui.page_form.content.items'|trans({ '%count%': value|length }) -}}
+    {%- elseif value is not null -%}
+        {{- value|striptags|replace({ '&nbsp;': ' ' })|trim -}}
+    {%- endif -%}
+{% endmacro %}
+
+{% macro copy_from(ui_state, locale, compact = false) %}
+    {%- set sources = [] -%}
+    {%- for source in ui_state.locales -%}
+        {%- if source != locale and ui_state.element_counts[source]|default(0) > 0 -%}{%- set sources = sources|merge([source]) -%}{%- endif -%}
+    {%- endfor -%}
+
+    {% if sources is not empty %}
+        {% if compact %}
+            <div class="dropdown">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" {{ sylius_test_html_attribute('copy-elements', locale) }}>
+                    {{ ux_icon('tabler:language', { class: 'icon' }) }}
+                    {{ 'sylius_cms.ui.page_form.content.copy_from'|trans }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% for source in sources %}
+                        <li>{{ _self.copy_from_button(ui_state, source, locale, 'dropdown-item d-flex align-items-center') }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="d-flex flex-column align-items-center gap-2 mt-3">
+                <div class="small">{{ 'sylius_cms.ui.page_form.content.copy_from_hint'|trans }}</div>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    {% for source in sources %}
+                        {{ _self.copy_from_button(ui_state, source, locale, 'btn btn-sm d-inline-flex align-items-center') }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro copy_from_button(ui_state, source, locale, class) %}
+    {%- set count = ui_state.element_counts[locale]|default(0) -%}
+    <button
+        type="button"
+        class="{{ class }}"
+        {% if count > 0 %}
+            {{ stimulus_action('@sylius-cms-plugin/admin/ui-state', 'confirm', 'click', { message: 'sylius_cms.ui.page_form.content.copy_from_confirm'|trans({ '%count%': count }) })|stimulus_action('live', 'action', 'click') }}
+        {% else %}
+            data-action="live#action"
+        {% endif %}
+        data-live-action-param="copyContentElements"
+        data-live-locale-code-param="{{ locale }}"
+        data-live-source-locale-code-param="{{ source }}"
+        {{ sylius_test_html_attribute('copy-elements-from', source) }}
+    >
+        {{ ux_icon('tabler:copy', { class: 'icon' }) }}
+        {{ source|sylius_locale_name }}
+        <span class="text-secondary ms-auto ps-2">{{ ui_state.element_counts[source] }}</span>
+    </button>
+{% endmacro %}

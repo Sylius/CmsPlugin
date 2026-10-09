@@ -1,0 +1,12 @@
+{% set form = hookable_metadata.context.form %}
+
+{% set items = form.code is defined and form.code.vars.value is not empty ? [form.code.vars.value] : [] %}
+{% for channel in form.channels %}
+    {% if channel.vars.checked %}
+        {% set items = items|merge([channel.vars.label|trans]) %}
+    {% endif %}
+{% endfor %}
+
+<div class="text-secondary small me-auto" {{ sylius_test_html_attribute('page-form-meta') }}>
+    {{ items|join(' · ') }}
+</div>

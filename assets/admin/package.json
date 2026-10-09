@@ -5,8 +5,20 @@
     "author": "Sylius Sp. z o.o.",
     "symfony": {
         "controllers": {
+            "widget-state": {
+                "main": "controllers/WidgetStateController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            },
             "preview": {
                 "main": "controllers/PreviewController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "ui-state": {
+                "main": "controllers/UiStateController.js",
                 "webpackMode": "lazy",
                 "fetch": "lazy",
                 "enabled": true

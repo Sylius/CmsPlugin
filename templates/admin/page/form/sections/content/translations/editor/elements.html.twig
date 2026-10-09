@@ -1,0 +1,14 @@
+{% set collection = hookable_metadata.context.form.contentElements %}
+{% set locale = hookable_metadata.context.locale %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+{% if collection.children is empty %}
+    <div class="card-body text-secondary text-center py-5">
+        {{ 'sylius_cms.ui.page_form.content.editor_empty'|trans }}
+    </div>
+{% endif %}
+
+{{ form_widget(collection, {
+    ui_prop: 'activeElements.' ~ locale,
+    active_key: ui_state.active_elements[locale],
+}) }}

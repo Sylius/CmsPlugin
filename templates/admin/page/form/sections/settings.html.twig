@@ -1,0 +1,11 @@
+<div
+    id="page-tab-settings"
+    role="tabpanel"
+    tabindex="0"
+    class="tab-pane mb-3 {{ hookable_metadata.configuration.active|default(false) ? 'show active' }}"
+>
+    <p class="text-secondary mb-3">{{ 'sylius_cms.ui.page_form.settings.help'|trans }}</p>
+    <div class="d-grid gap-4 cms-settings-grid">
+        {% hook 'settings' %}
+    </div>
+</div>

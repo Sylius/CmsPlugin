@@ -1,9 +1,11 @@
-<div class="card mb-3">
-    <div class="card-header">
-        <div class="card-title">
-            {{ 'sylius_cms.ui.teaser.header'|trans }}
-            <small class="card-subtitle">{{ 'sylius_cms.ui.teaser.help'|trans }}</small>
-        </div>
+<div
+    id="page-tab-teaser"
+    role="tabpanel"
+    tabindex="0"
+    class="tab-pane mb-3 {{ hookable_metadata.configuration.active|default(false) ? 'show active' }}"
+    data-translatable
+>
+    <div class="row g-4">
+        {% hook 'teaser' %}
     </div>
-    {% hook 'teaser' %}
 </div>

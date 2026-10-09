@@ -1,0 +1,13 @@
+{% set form = hookable_metadata.context.form %}
+
+<div {{ sylius_test_html_attribute('page-form-status') }}>
+    {% if form.vars.data.id is null %}
+        <span class="badge bg-secondary-lt">{{ 'sylius_cms.ui.page_form.not_saved'|trans }}</span>
+    {% elseif form.enabled.vars.checked %}
+        <span class="badge bg-green-lt">
+            <span class="status-dot bg-green me-1"></span>{{ 'sylius.ui.enabled'|trans }}
+        </span>
+    {% else %}
+        <span class="badge bg-secondary-lt">{{ 'sylius.ui.disabled'|trans }}</span>
+    {% endif %}
+</div>

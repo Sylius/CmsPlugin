@@ -1,6 +1,6 @@
 {% form_theme form '@SyliusCmsPlugin/admin/block/form_theme.html.twig' %}
 
-<div class="container-xl" {{ attributes }}>
+<div class="container-xl" {{ attributes.defaults(stimulus_controller('@sylius-cms-plugin/admin/widget-state')) }}>
     {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate', 'id': form.vars.id}}) }}
     {% if hookable_metadata.configuration.method is defined %}
         <input type="hidden" name="_method" value="{{ hookable_metadata.configuration.method }}" />

@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
 use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
+use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -74,6 +75,7 @@ trait ContentElementsCollectionFormComponentTrait
         [$data[$index], $data[$swapKey]] = [$data[$swapKey], $data[$index]];
 
         $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+        $this->onCollectionItemActivated($propertyPath, $swapKey);
     }
 
     #[LiveAction]
@@ -86,6 +88,27 @@ trait ContentElementsCollectionFormComponentTrait
         }
 
         $this->populateElements($localeCode, $template);
+    }
+
+    #[LiveAction]
+    public function copyContentElements(#[LiveArg] string $localeCode, #[LiveArg] string $sourceLocaleCode): void
+    {
+        $elements = $this->formValues['contentElements'][$sourceLocaleCode]['contentElements'] ?? null;
+        if ($localeCode === $sourceLocaleCode || !\is_array($elements) || !isset($this->formValues['contentElements'][$localeCode])) {
+            return;
+        }
+
+        $copies = [];
+        foreach ($elements as $element) {
+            if (\is_array($element)) {
+                unset($element[ContentElementConfigurationType::KEY_FIELD]);
+            }
+
+            $copies[] = $element;
+        }
+
+        $this->formValues['contentElements'][$localeCode]['contentElements'] = $copies;
+        $this->onCollectionItemActivated(sprintf('[contentElements][%s][contentElements]', $localeCode), null);
     }
 
     #[LiveAction]
@@ -109,8 +132,51 @@ trait ContentElementsCollectionFormComponentTrait
             $data = [];
         }
 
-        $newItem = null === $type ? [] : ['type' => $type];
+        $key = $this->insertItem($data, null === $type ? [] : ['type' => $type], $insertAfterIndex);
 
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+        $this->onCollectionItemActivated($propertyPath, $key);
+    }
+
+    #[LiveAction]
+    public function duplicateCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        int $index,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+
+        if (!\is_array($data) || !\array_key_exists($index, $data)) {
+            return;
+        }
+
+        $copy = $data[$index];
+        if (\is_array($copy)) {
+            unset($copy[ContentElementConfigurationType::KEY_FIELD]);
+        }
+
+        $key = $this->insertItem($data, $copy, $index);
+
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+        $this->onCollectionItemActivated($propertyPath, $key);
+    }
+
+    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
+    {
+    }
+
+    /**
+     * @param array<int, mixed> $data
+     */
+    protected function insertItem(array &$data, mixed $item, ?int $insertAfterIndex): int
+    {
         $keys = array_keys($data);
         $items = array_values($data);
 
@@ -123,7 +189,7 @@ trait ContentElementsCollectionFormComponentTrait
             $insertPosition = false !== $pos ? $pos + 1 : \count($items);
         }
 
-        array_splice($items, $insertPosition, 0, [$newItem]);
+        array_splice($items, $insertPosition, 0, [$item]);
 
         $freshKeysNeeded = \count($items) - $insertPosition;
         $nextKey = $this->provideNewCollectionItemIndex($data);
@@ -133,7 +199,9 @@ trait ContentElementsCollectionFormComponentTrait
             $keys[] = $nextKey + $i;
         }
 
-        $propertyAccessor->setValue($this->formValues, $propertyPath, array_combine($keys, $items));
+        $data = array_combine($keys, $items);
+
+        return $nextKey;
     }
 
     /** @param TemplateRepositoryInterface<TemplateInterface> $templateRepository */
@@ -156,6 +224,7 @@ trait ContentElementsCollectionFormComponentTrait
             ];
         }
 
+        $this->onCollectionItemActivated(sprintf('[contentElements][%s][contentElements]', $locale), null);
         $this->submitForm();
     }
 

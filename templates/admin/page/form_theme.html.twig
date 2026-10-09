@@ -4,17 +4,19 @@
     {{ form_label(form) }}
 
     {% for channel in form %}
-        {{ form_row(channel, sylius_test_form_attribute('channel-code', channel.vars.value)|merge({ label_attr: { class: 'checkbox-switch' } })) }}
+        {{ form_row(channel, sylius_test_form_attribute('channel-code', channel.vars.value)|merge({ row_attr: { class: 'cms-channel border rounded px-3 py-2 mb-2' } })) }}
     {% endfor %}
 
     {{ form_errors(form) }}
+    {{ form_help(form) }}
 {% endblock %}
 
 {% block _sylius_cms_admin_page_translations_entry_slug_row %}
     {% set locale = form.parent.vars.name %}
 
     {{ form_label(form) }}
-    <div class="input-group mb-3">
+    <div class="input-group {{ errors|length > 0 ? 'has-validation' }}">
+        <span class="input-group-text">{{ path('sylius_cms_shop_page_show', { _locale: locale, slug: '__slug__' })|replace({ '__slug__': '' }) }}</span>
         {{ form_widget(form, sylius_test_form_attribute('slug', locale)) }}
         <button
             class="btn btn-outline-secondary"
@@ -24,10 +26,12 @@
             data-live-locale-code-param="{{ locale }}"
             {{ sylius_test_html_attribute('generate-slug-button', locale) }}
         >
-            {{ ux_icon('tabler:wand', {'class': 'icon mx-0'}) }}
+            {{ ux_icon('tabler:wand', {'class': 'icon'}) }}
+            {{ 'sylius_cms.ui.page_form.seo.generate_slug'|trans }}
         </button>
+        {{ form_errors(form) }}
     </div>
-    {{ form_errors(form) }}
+    <div class="mb-3"></div>
 {% endblock %}
 
 {% block _sylius_cms_admin_page_contentElements_entry_template_row %}
@@ -35,8 +39,8 @@
 
     {{ form_label(form) }}
     {{ form_help(form) }}
-    <div class="input-group mb-3">
-        {{ form_widget(form, sylius_test_form_attribute('content-template', locale)) }}
+    <div class="input-group mb-3 cms-autocomplete-group">
+        <div>{{ form_widget(form, sylius_test_form_attribute('content-template', locale)) }}</div>
         <button
             class="btn btn-outline-secondary"
             type="button"

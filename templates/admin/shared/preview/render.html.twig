@@ -1,6 +1,6 @@
 <div {{ stimulus_controller('@sylius-cms-plugin/admin/preview') }}>
     <button
-        class="btn btn-primary"
+        class="{{ hookable_metadata.configuration.button_class|default('btn btn-primary') }}"
         data-action="live#action:prevent"
         data-live-action-param="preview"
         {{ sylius_test_html_attribute('preview') }}

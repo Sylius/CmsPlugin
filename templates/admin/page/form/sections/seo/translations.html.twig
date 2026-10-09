@@ -1,6 +1,16 @@
-{% import '@SyliusAdmin/shared/helper/translations.html.twig' as translations %}
+{% import '@SyliusCmsPlugin/admin/page/macros/locale_panes.html.twig' as locale_panes %}
 
 {% set form = hookable_metadata.context.form %}
 {% set prefixes = hookable_metadata.prefixes %}
 
-{{ translations.with_hook(form.translations, prefixes, null, { accordion_flush: true, accordion_id: 'seo' }) }}
+<div class="col-12 col-lg">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <h3 class="card-title">{{ 'sylius_cms.ui.seo'|trans }}</h3>
+                <p class="card-subtitle">{{ 'sylius_cms.ui.page_form.seo.help'|trans }}</p>
+            </div>
+        </div>
+        {{ locale_panes.with_hook(form.translations, prefixes, hookable_metadata.context.ui_state, 'seo') }}
+    </div>
+</div>

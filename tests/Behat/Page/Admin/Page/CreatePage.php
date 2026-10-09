@@ -20,12 +20,14 @@ use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsPageFormFieldsTrait;
 use Tests\Sylius\CmsPlugin\Behat\Service\FormHelper;
 use Webmozart\Assert\Assert;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
+    use RevealsPageFormFieldsTrait;
 
     public function __construct(
         Session $session,
@@ -39,6 +41,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function fillField(string $field, string $value): void
     {
+        $this->revealField($field);
         $this->getDocument()->fillField($field, $value);
     }
 
@@ -49,31 +52,37 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function fillCode(string $code): void
     {
+        $this->revealField('Code');
         $this->getDocument()->fillField('Code', $code);
     }
 
     public function fillName(string $name): void
     {
+        $this->revealField('Name');
         $this->getDocument()->fillField('Name', $name);
     }
 
     public function fillSlug(string $slug): void
     {
+        $this->revealField('Slug');
         $this->getDocument()->fillField('Slug', $slug);
     }
 
     public function fillMetaKeywords(string $metaKeywords): void
     {
+        $this->revealField('Meta keywords');
         $this->getDocument()->fillField('Meta keywords', $metaKeywords);
     }
 
     public function fillMetaDescription(string $metaDescription): void
     {
+        $this->revealField('Meta description');
         $this->getDocument()->fillField('Meta description', $metaDescription);
     }
 
     public function fillContent(string $content): void
     {
+        $this->revealField('Content');
         $this->getDocument()->fillField('Content', $content);
     }
 
@@ -91,6 +100,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         Assert::true(DriverHelper::isJavascript($this->getDriver()));
 
+        $this->revealElement($this->getElement('collections'));
         $collectionsElementXpath = $this->getElement('collections')->getXpath();
 
         foreach ($collectionsNames as $collectionName) {
@@ -106,11 +116,13 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function selectTemplate(string $templateName): void
     {
+        $this->revealElement($this->getElement('template'));
         $this->getElement('template')->selectOption($templateName);
     }
 
     public function selectChannel(string $code): void
     {
+        $this->revealField($code);
         $this->getDocument()->checkField($code);
     }
 
@@ -121,6 +133,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             ->find('css', 'select[id*="' . $element . '"]')
         ;
 
+        $this->revealElement($element);
         $element->selectOption($option);
     }
 
@@ -131,6 +144,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
             ->find('css', 'trix-editor')
         ;
 
+        $this->revealElement($element);
         $element->setValue($value);
     }
 

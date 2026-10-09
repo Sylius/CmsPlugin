@@ -1,0 +1,33 @@
+{% set ui_state = hookable_metadata.context.ui_state %}
+{% set controller = '@sylius-cms-plugin/admin/ui-state' %}
+
+{% set languages = ui_state.locales|map(locale => locale|split('_')|first) %}
+
+<div class="cms-locale-switcher align-items-center gap-2 pb-2">
+    <span class="text-secondary small">{{ 'sylius.ui.language'|trans }}</span>
+    <div class="btn-group cms-page-locales" role="group" aria-label="{{ 'sylius.ui.language'|trans }}">
+        {% for locale in ui_state.locales %}
+            {% set language = locale|split('_')|first %}
+            {% set label = languages|filter(l => l == language)|length > 1 ? locale|replace({ '_': '-' }) : language %}
+            {% set has_errors = ui_state.locale_errors[locale]|default(0) > 0 %}
+            {% set warnings = ui_state.locale_warnings[locale]|default({}) %}
+            <button
+                type="button"
+                class="btn btn-sm gap-2 {{ ui_state.active_locale == locale ? 'active' }}"
+                title="{{ locale|sylius_locale_name }}{% for warning in warnings %} · {{ warning|trans }}{% endfor %}"
+                aria-label="{{ locale|sylius_locale_name }}"
+                data-ui-trigger="activeLocale"
+                data-ui-trigger-value="{{ locale }}"
+                {{ stimulus_action(controller, 'select', 'click', { prop: 'activeLocale', value: locale }) }}
+                {{ sylius_test_html_attribute('page-locale', locale) }}
+            >
+                {{ label|upper }}
+                {% if has_errors %}
+                    <span class="status-dot bg-red" {{ sylius_test_html_attribute('page-locale-errors', locale) }}></span>
+                {% elseif warnings is not empty %}
+                    <span class="status-dot bg-orange" {{ sylius_test_html_attribute('page-locale-warning', locale) }}></span>
+                {% endif %}
+            </button>
+        {% endfor %}
+    </div>
+</div>

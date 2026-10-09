@@ -1,0 +1,29 @@
+{% import '@SyliusCmsPlugin/admin/page/macros/content_elements.html.twig' as content_elements %}
+
+{% set locale = hookable_metadata.context.locale %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+<div class="col-12 cms-col-structure">
+    <div class="card cms-structure sticky-lg-top" style="top: 1rem; z-index: 990;" {{ sylius_test_html_attribute('elements-structure') }}>
+        <div class="card-header">
+            <h3 class="card-title">{{ 'sylius_cms.ui.page_form.content.structure'|trans }}</h3>
+            <div class="card-actions d-flex gap-2">
+                {{ content_elements.copy_from(ui_state, locale, true) }}
+                <button
+                    type="button"
+                    class="btn btn-sm"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#elements-template-{{ locale }}"
+                    aria-expanded="false"
+                    aria-controls="elements-template-{{ locale }}"
+                    {{ sylius_test_html_attribute('toggle-elements-template', locale) }}
+                >
+                    {{ ux_icon('tabler:template', { class: 'icon' }) }}
+                    {{ 'sylius_cms.ui.page_form.content.load_template'|trans }}
+                    {{ ux_icon('tabler:chevron-down', { class: 'icon ms-1 me-0' }) }}
+                </button>
+            </div>
+        </div>
+        {% hook 'structure' %}
+    </div>
+</div>

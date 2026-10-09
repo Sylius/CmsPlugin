@@ -1,5 +1,9 @@
 {% set form = hookable_metadata.context.form %}
 
-<div class="col-12 cold-md-12">
-    {{ form_row(form.metaDescription, sylius_test_form_attribute('meta-description')) }}
+<div class="col-12">
+    {{ form_row(form.metaDescription, sylius_test_form_attribute('meta-description')|merge({
+        help: 'sylius_cms.ui.page_form.seo.characters'|trans({ '%count%': form.metaDescription.vars.value|length, '%max%': 160 }),
+        help_attr: { class: 'text-end' },
+        attr: { rows: 3 },
+    })) }}
 </div>

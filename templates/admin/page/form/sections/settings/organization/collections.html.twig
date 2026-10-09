@@ -1,0 +1,5 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    {{ form_row(form.collections, sylius_test_form_attribute('collections')|merge({ help: 'sylius_cms.ui.page_form.settings.collections_help' })) }}
+</div>

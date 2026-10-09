@@ -1,0 +1,28 @@
+{% set form = hookable_metadata.context.form %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+<div class="card" {{ sylius_test_html_attribute('seo-search-preview') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ 'sylius_cms.ui.page_form.seo.search_preview'|trans }}</h3>
+    </div>
+    <div class="card-body">
+        {% for locale, translation in form.translations %}
+            {% set slug = translation.slug.vars.value %}
+            {% set description = translation.metaDescription.vars.value %}
+            <div
+                class="{{ ui_state.active_locale != locale ? 'd-none' }}"
+                data-ui-pane="activeLocale"
+                data-ui-pane-value="{{ locale }}"
+            >
+                <div class="small text-secondary text-break">
+                    {{ path('sylius_cms_shop_page_show', { _locale: locale, slug: '__slug__' })|replace({ '__slug__': '' })|split('/')|filter(part => part is not empty)|join(' › ') }} ›
+                    {% if slug is not empty %}{{ slug }}{% else %}<span class="text-danger">[slug]</span>{% endif %}
+                </div>
+                <div class="fs-3 text-blue my-1">{{ translation.title.vars.value ?: form.name.vars.value ?: 'sylius_cms.ui.page_form.untitled'|trans }}</div>
+                <div class="small {{ description is empty ? 'text-secondary fst-italic' }}">
+                    {{ description is not empty ? description : 'sylius_cms.ui.page_form.seo.description_missing'|trans }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

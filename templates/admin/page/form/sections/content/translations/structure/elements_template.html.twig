@@ -1,0 +1,10 @@
+{% set locale = hookable_metadata.context.locale %}
+{% set form = hookable_metadata.context.form.template %}
+
+{% form_theme form '@SyliusCmsPlugin/admin/page/form_theme.html.twig' %}
+
+<div class="collapse" id="elements-template-{{ locale }}">
+    <div class="card-body border-bottom bg-surface-secondary">
+        {{ form_row(form, sylius_test_form_attribute('elements-template')) }}
+    </div>
+</div>

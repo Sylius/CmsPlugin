@@ -1,8 +1,11 @@
-<div class="card mb-3">
-    <div class="card-header">
-        <div class="card-title">
-            {{ 'sylius_cms.ui.seo'|trans }}
-        </div>
+<div
+    id="page-tab-seo"
+    role="tabpanel"
+    tabindex="0"
+    class="tab-pane mb-3 {{ hookable_metadata.configuration.active|default(false) ? 'show active' }}"
+    data-translatable
+>
+    <div class="row g-4">
+        {% hook 'seo' %}
     </div>
-    {% hook 'seo' %}
 </div>

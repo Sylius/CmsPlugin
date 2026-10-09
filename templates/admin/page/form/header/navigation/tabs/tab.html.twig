@@ -1,0 +1,35 @@
+{% set ui_state = hookable_metadata.context.ui_state %}
+{% set tab = hookable_metadata.configuration.tab %}
+{% set is_active = hookable_metadata.configuration.active|default(false) %}
+
+<li class="nav-item" role="presentation">
+    <button
+        type="button"
+        role="tab"
+        class="nav-link d-flex align-items-center gap-2 {{ is_active ? 'active' }}"
+        aria-selected="{{ is_active ? 'true' : 'false' }}"
+        aria-controls="page-tab-{{ tab }}"
+        data-bs-toggle="tab"
+        data-bs-target="#page-tab-{{ tab }}"
+        {{ sylius_test_html_attribute('page-tab', tab) }}
+    >
+        {{ ('sylius_cms.ui.page_form.tab.' ~ tab)|trans }}
+        {% if hookable_metadata.configuration.elements_count|default(false) %}
+            {% for locale in ui_state.locales %}
+                <span
+                    class="badge bg-secondary-lt {{ ui_state.active_locale != locale ? 'd-none' }}"
+                    data-ui-pane="activeLocale"
+                    data-ui-pane-value="{{ locale }}"
+                    {{ sylius_test_html_attribute('page-tab-elements-count', locale) }}
+                >{{ ui_state.element_counts[locale] }}</span>
+            {% endfor %}
+        {% endif %}
+        {% if ui_state.tab_warnings[tab]|default(false) %}
+            <span
+                class="badge bg-orange-lt cms-tab-warning"
+                title="{{ 'sylius_cms.ui.page_form.warnings.tab'|trans }}"
+                {{ sylius_test_html_attribute('page-tab-warning', tab) }}
+            >!</span>
+        {% endif %}
+    </button>
+</li>

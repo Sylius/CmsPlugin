@@ -1,0 +1,195 @@
+/*
+ * This file is part of the Sylius CMS Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.cms-page-tabs {
+    --tblr-nav-underline-gap: 1.5rem;
+    --tblr-nav-link-padding-y: .75rem;
+    --tblr-nav-link-color: var(--tblr-secondary);
+    --tblr-nav-link-hover-color: var(--tblr-body-color);
+    --tblr-nav-link-hover-bg: transparent;
+    --tblr-nav-underline-link-active-color: var(--tblr-body-color);
+    margin-bottom: -1px;
+
+    .nav-link:hover,
+    .nav-link:focus {
+        border-bottom-color: transparent;
+    }
+
+    .nav-link.active {
+        font-weight: var(--tblr-font-weight-medium);
+        border-bottom-color: var(--tblr-primary);
+    }
+}
+
+.cms-page-locales > .btn {
+    --tblr-btn-padding-x: .75rem;
+    --tblr-btn-font-size: .8125rem;
+    --tblr-btn-active-bg: var(--tblr-body-color);
+    --tblr-btn-active-color: var(--tblr-bg-surface);
+    --tblr-btn-active-border-color: var(--tblr-body-color);
+    height: 2rem;
+
+    &.active {
+        font-weight: var(--tblr-font-weight-bold);
+    }
+}
+
+.cms-locale-switcher {
+    display: none;
+}
+
+.cms-page-form:has(.tab-pane.active[data-translatable]) .cms-locale-switcher {
+    display: flex;
+}
+
+.nav-link:has(.tab-error) > .cms-tab-warning {
+    display: none;
+}
+
+.cms-insert-divider {
+    position: relative;
+    height: .5rem;
+    z-index: 3;
+
+    > .btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 .5rem;
+        font-size: .75rem;
+        line-height: 1.25rem;
+        border-radius: 1rem;
+        --tblr-btn-bg: var(--tblr-bg-surface);
+        opacity: 0;
+        transition: opacity .15s;
+
+        &:focus,
+        &.show {
+            opacity: 1;
+        }
+    }
+}
+
+.cms-structure:hover .cms-insert-divider > .btn {
+    opacity: 1;
+}
+
+@media (min-width: 992px) {
+    .cms-col-structure {
+        flex: 0 0 360px;
+        width: 360px;
+    }
+
+    .cms-col-aside {
+        flex: 0 0 380px;
+        width: 380px;
+    }
+}
+
+.cms-page-form .avatar-xs {
+    --tblr-avatar-size: 1.5rem;
+    --tblr-avatar-font-size: .75rem;
+    flex-shrink: 0;
+    font-weight: var(--tblr-font-weight-bold);
+}
+
+.cms-structure-list {
+    --tblr-list-group-item-padding-x: 1rem;
+    --tblr-list-group-item-padding-y: .625rem;
+    --tblr-list-group-active-bg: var(--tblr-primary-lt);
+
+    .list-group-item.active {
+        box-shadow: inset 3px 0 0 var(--tblr-primary);
+
+        .avatar {
+            --tblr-avatar-bg: var(--tblr-primary);
+            color: var(--tblr-primary-fg);
+        }
+
+        .subheader {
+            color: var(--tblr-primary);
+        }
+    }
+}
+
+.cms-channel {
+    &:has(input:checked) {
+        border-color: var(--tblr-primary) !important;
+        background: var(--tblr-primary-lt);
+    }
+
+    .form-check {
+        margin-bottom: 0;
+    }
+}
+
+.cms-publish-at > input[type="time"] {
+    max-width: 9rem;
+}
+
+@media (min-width: 992px) {
+    .cms-settings-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-flow: dense;
+        align-items: start;
+
+        > .cms-settings-publishing {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+    }
+}
+
+.cms-page-form,
+.cms-autocomplete-group {
+    .ts-wrapper.form-select .ts-control::after {
+        display: none;
+    }
+
+    .ts-wrapper.single {
+        display: flex;
+        min-height: 44px;
+
+        .ts-control {
+            flex: 1 1 auto;
+            align-items: center;
+        }
+    }
+
+    .plugin-clear_button .clear-button {
+        top: 50% !important;
+        transform: translateY(-50%);
+    }
+}
+
+.cms-autocomplete-group > div:first-child {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+
+    .ts-control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.cms-products-picker {
+    .input-icon-addon {
+        z-index: 2;
+    }
+
+    .ts-wrapper.multi .ts-control {
+        padding-left: 2.5rem;
+    }
+
+    .ts-control > .item {
+        display: none;
+    }
+}

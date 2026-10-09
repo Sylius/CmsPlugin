@@ -1,0 +1,12 @@
+{% macro with_hook(translation_fields, prefixes, ui_state, pane_id) %}
+    {% for locale, translation_form in translation_fields %}
+        <div
+            id="translation-{{ pane_id }}-{{ locale }}"
+            class="card-body row {{ ui_state.active_locale != locale ? 'd-none' }}"
+            data-ui-pane="activeLocale"
+            data-ui-pane-value="{{ locale }}"
+        >
+            {% hook 'translations' with { form: translation_form, locale, _prefixes: prefixes } %}
+        </div>
+    {% endfor %}
+{% endmacro %}

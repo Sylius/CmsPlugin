@@ -3,7 +3,7 @@
     {% set toolbar_id = 'trix-toolbar-' ~ uid %}
 
     <div {{ sylius_test_html_attribute('editor') }}>
-        <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" />
+        <input type="text" hidden id="{{ id }}" name="{{ full_name }}" value="{{ value }}" />
 
         <trix-toolbar id="{{ toolbar_id }}"></trix-toolbar>
         <trix-editor input="{{ id }}" toolbar="{{ toolbar_id }}" data-live-ignore></trix-editor>

@@ -1,5 +1,64 @@
 sylius_cms:
     ui:
+        page_form:
+            warnings:
+                tab: Niektóre języki wymagają uwagi
+                slug_missing: Brak sluga
+            teaser:
+                tile_preview: Podgląd kafla
+                read_more: Czytaj więcej
+                preview_hint: Przybliżony wygląd. Ostateczny styl zależy od motywu sklepu.
+            seo:
+                help: Używane przez wyszukiwarki i w adresie strony.
+                characters: '%count% / %max%'
+                keywords_help: Oddzielone przecinkami.
+                search_preview: Podgląd w wynikach wyszukiwania
+                description_missing: Dodaj meta opis, aby kontrolować ten fragment.
+                translations: Tłumaczenia
+                status_complete: Kompletne
+                status_empty: Brak tłumaczenia
+                generate_slug: Generuj
+            errors: 'Błędy: %count%'
+            untitled: Strona bez tytułu
+            not_saved: Jeszcze nie zapisana
+            content:
+                load_template: Wczytaj szablon
+                items: 'Elementy: %count%'
+                empty_element: Jeszcze nie uzupełniony
+                duplicate: Duplikuj
+                type_help: Zmiana typu czyści pola tego elementu.
+                new_element: Nowy element
+                no_elements: Ta strona nie ma jeszcze elementów treści.
+                editor_empty: Dodaj pierwszy element przyciskiem po lewej.
+                insert_here: Wstaw tutaj
+                of: 'z %count%'
+                move_up: Przesuń w górę
+                move_down: Przesuń w dół
+                previous: Poprzedni
+                next: Następny
+                structure: Struktura
+                copy_from: Kopiuj z
+                copy_from_hint: 'Albo skopiuj treść z innego języka:'
+                copy_from_confirm: 'Elementy tego języka (%count%) zostaną zastąpione. Kontynuować?'
+                products_selected: 'Wybrane: %count%'
+                search_products: Wyszukaj produkty po nazwie lub kodzie, aby je dodać…
+            settings:
+                code_help: Identyfikator techniczny. Ustawiany przy tworzeniu strony, nie można go zmienić.
+                name_help: Nazwa wewnętrzna, widoczna tylko w panelu.
+                template_help: Layout Twig, w którym renderowana jest strona.
+                collections_help: Grupuje strony i wyświetla je w sklepie.
+                enabled_help: Strona jest widoczna w wybranych kanałach.
+                publish_at_help: Zostaw puste, aby opublikować od razu po zapisaniu.
+                channels_help: Kanały, w których strona jest dostępna.
+                general: Ogólne
+                organization: Organizacja
+                publishing: Publikacja
+                help: Ustawienia są wspólne dla wszystkich języków.
+            tab:
+                content: Treść
+                teaser: Zajawka
+                seo: SEO
+                settings: Ustawienia
         blocks: Bloki
         block: Blok
         pages: Strony

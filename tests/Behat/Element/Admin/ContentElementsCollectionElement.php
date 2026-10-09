@@ -17,6 +17,7 @@ use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Session;
 use FriendsOfBehat\SymfonyExtension\Mink\MinkParameters;
 use Sylius\Behat\Element\Admin\Crud\FormElement;
+use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\HeadingContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\MultipleMediaContentElementType;
@@ -29,10 +30,13 @@ use Sylius\CmsPlugin\Form\Type\ContentElements\SingleMediaContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\SpacerContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\TaxonsListContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\TextareaContentElementType;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsPageFormFieldsTrait;
 use Webmozart\Assert\Assert;
 
 class ContentElementsCollectionElement extends FormElement implements ContentElementsCollectionElementInterface
 {
+    use RevealsPageFormFieldsTrait;
+
     public const CONTENT_TYPE_AUTOCOMPLETE = [
         MultipleMediaContentElementType::TYPE,
         PagesCollectionContentElementType::TYPE,
@@ -204,7 +208,7 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
             ));
         }
 
-        $wysiwygInput = $element->find('css', 'input[type="hidden"][name$="[textarea]"]');
+        $wysiwygInput = $element->find('css', 'input[hidden][name$="[textarea]"]');
         if ($wysiwygInput instanceof NodeElement) {
             $value = $wysiwygInput->getValue();
 
@@ -257,6 +261,7 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
     {
         $elements = $this->getContentElements();
         Assert::keyExists($elements, $position - 1, sprintf('No content element at position %d.', $position));
+        $this->revealElement($elements[$position - 1]);
 
         return $elements[$position - 1];
     }
@@ -335,6 +340,8 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
                 continue;
             }
 
+            $this->revealElement($item);
+
             return $item;
         }
 
@@ -345,8 +352,11 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
     {
         $elements = $this->getContentElements();
 
-        /** @phpstan-ignore-next-line */
-        return end($elements);
+        $element = end($elements);
+        Assert::isInstanceOf($element, NodeElement::class);
+        $this->revealElement($element);
+
+        return $element;
     }
 
     /** @return NodeElement[] */
@@ -366,7 +376,10 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
 
     protected function setSimpleComponentContent(NodeElement $element, string $content): void
     {
-        $input = $element->find('css', 'input') ?? $element->find('css', 'textarea');
+        $editor = DriverHelper::isJavascript($this->getDriver()) ? $element->find('css', 'trix-editor') : null;
+        $input = $editor
+            ?? $element->find('css', 'input[name*="[configuration]"]')
+            ?? $element->find('css', 'textarea[name*="[configuration]"]');
         Assert::isInstanceOf($input, NodeElement::class, 'Input element not found.');
 
         $input->setValue($content);

@@ -1,5 +1,64 @@
 sylius_cms:
     ui:
+        page_form:
+            warnings:
+                tab: Some languages need attention
+                slug_missing: Slug missing
+            teaser:
+                tile_preview: Tile preview
+                read_more: Read more
+                preview_hint: Approximate look. Real styling comes from the shop theme.
+            seo:
+                help: Used by search engines and in the page URL.
+                characters: '%count% / %max%'
+                keywords_help: Comma-separated.
+                search_preview: Search result preview
+                description_missing: Add a meta description to control this snippet.
+                translations: Translations
+                status_complete: Complete
+                status_empty: Not translated
+                generate_slug: Generate
+            errors: '%count% error(s)'
+            untitled: Untitled page
+            not_saved: Not saved yet
+            content:
+                load_template: Load template
+                items: '%count% item(s)'
+                empty_element: Not filled in yet
+                duplicate: Duplicate
+                type_help: Changing the type resets this element's fields.
+                new_element: New element
+                no_elements: This page has no content elements yet.
+                editor_empty: Add the first element using the button on the left.
+                insert_here: Insert here
+                of: 'of %count%'
+                move_up: Move up
+                move_down: Move down
+                previous: Previous
+                next: Next
+                structure: Structure
+                copy_from: Copy from
+                copy_from_hint: 'Or copy the content of another language:'
+                copy_from_confirm: 'This replaces %count% element(s) of this language. Continue?'
+                products_selected: '%count% selected'
+                search_products: Search products by name or code to add…
+            settings:
+                code_help: Technical identifier. Set when the page is created and cannot be changed.
+                name_help: Internal name, visible only in the admin.
+                template_help: Twig layout the page is rendered in.
+                collections_help: Groups pages and lists them in the shop.
+                enabled_help: The page is visible in the selected channels.
+                publish_at_help: Leave empty to publish right after saving.
+                channels_help: Channels in which the page is available.
+                general: General
+                organization: Organization
+                publishing: Publishing
+                help: Settings are shared by all languages.
+            tab:
+                content: Content
+                teaser: Teaser
+                seo: SEO
+                settings: Settings
         add_element: Add element
         elements: Elements
         blocks: Blocks

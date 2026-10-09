@@ -20,12 +20,14 @@ use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsPageFormFieldsTrait;
 use Tests\Sylius\CmsPlugin\Behat\Service\FormHelper;
 use Webmozart\Assert\Assert;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     use ChecksCodeImmutabilityTrait;
+    use RevealsPageFormFieldsTrait;
 
     /** @param MinkParameters|array<array-key, mixed> $minkParameters */
     public function __construct(
@@ -40,6 +42,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function fillField(string $field, string $value): void
     {
+        $this->revealField($field);
         $this->getDocument()->fillField($field, $value);
     }
 
@@ -65,6 +68,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
             ->find('css', 'select[id*="' . $element . '"]')
         ;
 
+        $this->revealElement($element);
         $element->selectOption($option);
     }
 
@@ -98,6 +102,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
             ->find('css', 'div')
         ;
 
+        $this->revealElement($element);
         $element->setValue($value);
     }
 

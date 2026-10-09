@@ -15,8 +15,8 @@
 
     {{ form_label(form) }}
     {{ form_help(form) }}
-    <div class="input-group mb-3">
-        {{ form_widget(form, sylius_test_form_attribute('content-template', locale)) }}
+    <div class="input-group mb-3 cms-autocomplete-group">
+        <div>{{ form_widget(form, sylius_test_form_attribute('content-template', locale)) }}</div>
         <button
             class="btn btn-outline-secondary"
             type="button"

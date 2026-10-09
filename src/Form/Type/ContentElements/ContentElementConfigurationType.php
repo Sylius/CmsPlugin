@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Form\Type\ContentElements;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElementChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -26,6 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentElementConfigurationType extends AbstractResourceType
 {
+    public const KEY_FIELD = 'key';
+
     /** @var array<string, string> */
     private array $elementTypes = [];
 
@@ -52,6 +55,9 @@ final class ContentElementConfigurationType extends AbstractResourceType
             ->add('type', ContentElementChoiceType::class, [
                 'label' => 'sylius_cms.ui.type',
             ])
+            ->add(self::KEY_FIELD, HiddenType::class, [
+                'mapped' => false,
+            ])
         ;
 
         $builder
@@ -71,8 +77,16 @@ final class ContentElementConfigurationType extends AbstractResourceType
 
                 $event->getForm()->get('type')->setData($elementType);
             })
+            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
+                $event->getForm()->get(self::KEY_FIELD)->setData(self::generateKey());
+            })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
+
+                if (\is_array($data) && '' === (string) ($data[self::KEY_FIELD] ?? '')) {
+                    $data[self::KEY_FIELD] = self::generateKey();
+                    $event->setData($data);
+                }
 
                 if (!isset($data['type']) || $data['type'] === '') {
                     return;
@@ -89,8 +103,8 @@ final class ContentElementConfigurationType extends AbstractResourceType
         $data = $form->getData();
         $signature = '';
 
-        if ($data instanceof ContentConfigurationInterface) {
-            $value = sprintf('%s|%s', $data->getType(), json_encode($data->getConfiguration(), \JSON_THROW_ON_ERROR));
+        if ($data instanceof ContentConfigurationInterface && $form->has(self::KEY_FIELD)) {
+            $value = sprintf('%s|%s', $data->getType(), (string) $form->get(self::KEY_FIELD)->getData());
             $signature = substr(md5($value), 0, 12);
         }
 
@@ -111,6 +125,11 @@ final class ContentElementConfigurationType extends AbstractResourceType
     public function getBlockPrefix(): string
     {
         return 'sylius_cms_content_element_configuration';
+    }
+
+    public static function generateKey(): string
+    {
+        return bin2hex(random_bytes(6));
     }
 
     private function resolveElementType(FormInterface $form, mixed $data = null): ?string

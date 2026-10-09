@@ -1,14 +1,22 @@
 {% form_theme form '@SyliusCmsPlugin/admin/page/form_theme.html.twig' %}
 
-<div class="container-xl" {{ attributes }}>
+{% set ui_state = this.uiState %}
+
+<div class="container-xl cms-page-form" {{ attributes.defaults(stimulus_controller('@sylius-cms-plugin/admin/ui-state')|stimulus_controller('@sylius-cms-plugin/admin/widget-state')) }}>
     {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate', 'id': form.vars.id}}) }}
     {% if hookable_metadata.configuration.method is defined %}
         <input type="hidden" name="_method" value="{{ hookable_metadata.configuration.method }}" />
     {% endif %}
+    {% set ui_snapshot = { activeLocale: ui_state.active_locale } %}
+    {% for locale, key in ui_state.active_elements %}
+        {% set ui_snapshot = ui_snapshot|merge({ ('activeElements.' ~ locale): key }) %}
+    {% endfor %}
+    <div hidden data-state="{{ ui_snapshot|json_encode }}" {{ stimulus_target('@sylius-cms-plugin/admin/ui-state', 'snapshot') }}></div>
+
     {{ form_errors(form) }}
     {{ form_widget(form._token) }}
 
-    {% hook 'form' with { form } %}
+    {% hook 'form' with { form, ui_state } %}
 
     {{ form_end(form, {render_rest: false}) }}
 </div>

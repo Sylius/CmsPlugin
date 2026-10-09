@@ -1,0 +1,54 @@
+{% import '@SyliusCmsPlugin/admin/page/macros/content_elements.html.twig' as content_elements %}
+
+{% set collection = hookable_metadata.context.form.contentElements %}
+{% set locale = hookable_metadata.context.locale %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+{% set ui_controller = '@sylius-cms-plugin/admin/ui-state' %}
+
+{% set prop = 'activeElements.' ~ locale %}
+{% set types = collection.vars.button_add.vars.types|default({}) %}
+
+<div class="list-group list-group-flush cms-structure-list">
+    {% for key, element in collection %}
+        {% if loop.first %}
+            {{ content_elements.insert_divider(types, collection.vars.full_name, -1) }}
+        {% endif %}
+
+        {% set is_active = ui_state.active_elements[locale] == key ~ '' %}
+        {% set summary = content_elements.summary(element)|trim %}
+        <button
+            type="button"
+            class="list-group-item list-group-item-action d-flex align-items-center gap-3 {{ is_active ? 'active' }}"
+            aria-selected="{{ is_active ? 'true' : 'false' }}"
+            data-ui-trigger="{{ prop }}"
+            data-ui-trigger-value="{{ key }}"
+            {{ stimulus_action(ui_controller, 'select', 'click', { prop: prop, value: key ~ '' }) }}
+            {{ sylius_test_html_attribute('structure-row', key) }}
+        >
+            <span class="avatar avatar-xs rounded-circle">{{ loop.index }}</span>
+            <span class="flex-grow-1 text-start overflow-hidden">
+                <span class="subheader fw-bold d-block">{{ content_elements.type_label(element) }}</span>
+                <span class="d-block text-truncate {{ summary is empty ? 'text-secondary' }}">
+                    {{ summary is not empty ? summary : 'sylius_cms.ui.page_form.content.empty_element'|trans }}
+                </span>
+            </span>
+            {% if ui_state.element_errors[locale][key] is defined %}
+                <span class="badge bg-red text-red-fg" title="{{ 'sylius_cms.ui.page_form.errors'|trans({ '%count%': ui_state.element_errors[locale][key] }) }}">!</span>
+            {% endif %}
+        </button>
+
+        {% if not loop.last %}
+            {{ content_elements.insert_divider(types, collection.vars.full_name, key) }}
+        {% endif %}
+    {% else %}
+        <div class="card-body text-center text-secondary">
+            {{ ux_icon('tabler:layout-rows', { class: 'icon icon-lg mb-2' }) }}
+            <div>{{ 'sylius_cms.ui.page_form.content.no_elements'|trans }}</div>
+            {{ content_elements.copy_from(ui_state, locale) }}
+        </div>
+    {% endfor %}
+</div>
+
+<div class="card-body border-top">
+    {{ form_row(collection.vars.button_add) }}
+</div>

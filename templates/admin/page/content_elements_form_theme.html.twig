@@ -1,0 +1,205 @@
+{% extends '@SyliusCmsPlugin/admin/shared/component_elements/form_theme.html.twig' %}
+
+{%- block live_collection_widget -%}
+    {%- for child in form -%}
+        {{ form_row(child, { ui_prop: ui_prop|default(''), active_key: active_key|default(null) }) }}
+    {%- endfor -%}
+{%- endblock live_collection_widget -%}
+
+{%- block live_collection_entry_row -%}
+    {%- import '@SyliusCmsPlugin/admin/page/macros/content_elements.html.twig' as content_elements -%}
+    {%- set ui_controller = '@sylius-cms-plugin/admin/ui-state' -%}
+    {%- set ui_prop = ui_prop|default('') -%}
+    {%- set collection = form.parent -%}
+    {%- set keys = collection.children|keys -%}
+    {%- set key = form.vars.name -%}
+    {%- set position = 0 -%}
+    {%- for k in keys -%}{%- if k ~ '' == key ~ '' -%}{%- set position = loop.index -%}{%- endif -%}{%- endfor -%}
+    {%- set prev_key = position > 1 ? keys[position - 2] : null -%}
+    {%- set next_key = position < keys|length ? keys[position] : null -%}
+
+    <div
+        id="{{ id }}"
+        class="{{ active_key|default(null) ~ '' != key ~ '' ? 'd-none' }}"
+        data-ui-pane="{{ ui_prop }}"
+        data-ui-pane-value="{{ key }}"
+        {{ block('attributes') }}
+        {{ sylius_test_html_attribute('entry-row') }}
+    >
+        <div class="card-header">
+            <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
+                <span class="avatar avatar-xs rounded-circle bg-primary text-primary-fg">{{ position }}</span>
+                <h3 class="card-title text-truncate">{{ content_elements.type_label(form) }}</h3>
+                <span class="text-secondary small text-nowrap">{{ 'sylius_cms.ui.page_form.content.of'|trans({ '%count%': keys|length }) }}</span>
+            </div>
+            <div class="d-flex align-items-center gap-1">
+                <button
+                    type="button"
+                    class="btn btn-icon btn-ghost-secondary"
+                    title="{{ 'sylius_cms.ui.page_form.content.move_up'|trans }}"
+                    aria-label="{{ 'sylius_cms.ui.page_form.content.move_up'|trans }}"
+                    data-action="live#action"
+                    data-live-action-param="moveCollectionItem"
+                    data-live-name-param="{{ collection.vars.full_name }}"
+                    data-live-index-param="{{ key }}"
+                    data-live-direction-param="up"
+                    {{ prev_key is null ? 'disabled' }}
+                >
+                    {{ ux_icon('tabler:arrow-up', { class: 'icon m-0' }) }}
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-icon btn-ghost-secondary"
+                    title="{{ 'sylius_cms.ui.page_form.content.move_down'|trans }}"
+                    aria-label="{{ 'sylius_cms.ui.page_form.content.move_down'|trans }}"
+                    data-action="live#action"
+                    data-live-action-param="moveCollectionItem"
+                    data-live-name-param="{{ collection.vars.full_name }}"
+                    data-live-index-param="{{ key }}"
+                    data-live-direction-param="down"
+                    {{ next_key is null ? 'disabled' }}
+                >
+                    {{ ux_icon('tabler:arrow-down', { class: 'icon m-0' }) }}
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-icon btn-ghost-secondary"
+                    title="{{ 'sylius_cms.ui.page_form.content.duplicate'|trans }}"
+                    aria-label="{{ 'sylius_cms.ui.page_form.content.duplicate'|trans }}"
+                    data-action="live#action"
+                    data-live-action-param="duplicateCollectionItem"
+                    data-live-name-param="{{ collection.vars.full_name }}"
+                    data-live-index-param="{{ key }}"
+                    {{ sylius_test_html_attribute('duplicate-action') }}
+                >
+                    {{ ux_icon('tabler:copy', { class: 'icon m-0' }) }}
+                </button>
+                <div class="vr mx-1"></div>
+                {{- form_widget(button_delete, sylius_test_form_attribute('delete-action')|sylius_merge_recursive({
+                    label: ux_icon('tabler:trash', { class: 'icon' }) ~ ' ' ~ 'sylius.ui.delete'|trans,
+                    label_html: true,
+                    attr: { class: 'btn btn-sm btn-outline-danger' },
+                })) -}}
+            </div>
+        </div>
+
+        <div class="card-body">
+            {{- form_errors(form) -}}
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    {{- form_row(form.type, { help: 'sylius_cms.ui.page_form.content.type_help' }) -}}
+                </div>
+            </div>
+            {{- form_widget(form.key) -}}
+            <div id="{{ id }}_element_configuration_{{ form.vars.content_signature }}">
+                {{- form_row(form.configuration, { label: false }) -}}
+            </div>
+        </div>
+
+        {% if prev_key is not null or next_key is not null %}
+            <div class="card-footer d-flex justify-content-between gap-2">
+                <div>
+                    {% if prev_key is not null %}
+                        <button type="button" class="btn btn-sm" {{ stimulus_action(ui_controller, 'select', 'click', { prop: ui_prop, value: prev_key ~ '' }) }}>
+                            {{ ux_icon('tabler:arrow-left', { class: 'icon' }) }}
+                            {{ position - 1 }} · {{ content_elements.type_label(collection.children[prev_key]) }}
+                        </button>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if next_key is not null %}
+                        <button type="button" class="btn btn-sm" {{ stimulus_action(ui_controller, 'select', 'click', { prop: ui_prop, value: next_key ~ '' }) }}>
+                            {{ position + 1 }} · {{ content_elements.type_label(collection.children[next_key]) }}
+                            {{ ux_icon('tabler:arrow-right', { class: 'icon ms-1 me-0' }) }}
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{%- endblock live_collection_entry_row -%}
+
+{% block add_button_row %}
+    {% if types is not empty %}
+        <div class="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
+            <button class="btn btn-outline-primary w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                {{ ux_icon('tabler:plus', { class: 'icon' }) }}
+                {{ label|trans }}
+            </button>
+            <ul class="dropdown-menu w-100">
+                {% for type, type_label in types %}
+                    <li>
+                        <button
+                            class="dropdown-item"
+                            type="button"
+                            data-action="live#action"
+                            data-live-action-param="insertCollectionItem"
+                            data-live-name-param="{{ attr['data-live-name-param'] }}"
+                            data-live-type-param="{{ type }}"
+                            {{ sylius_test_html_attribute('add-' ~ type) }}
+                        >
+                            {{ type_label|trans }}
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{%- block sylius_cms_content_elements_products_carousel_widget -%}
+    {{- block('cms_products_picker') -}}
+{%- endblock -%}
+
+{%- block sylius_cms_content_elements_products_grid_widget -%}
+    {{- block('cms_products_picker') -}}
+{%- endblock -%}
+
+{%- block cms_products_picker -%}
+    {%- set products = (form.children|first).products -%}
+    {%- set selected = products.vars.value -%}
+
+    {{- form_errors(form) -}}
+    <div class="cms-products-picker">
+        <div class="d-flex align-items-baseline justify-content-between">
+            {{- form_label(products) -}}
+            <span class="small text-secondary" {{ sylius_test_html_attribute('selected-products-count') }}>
+                {{- 'sylius_cms.ui.page_form.content.products_selected'|trans({ '%count%': selected|length }) -}}
+            </span>
+        </div>
+        <div class="input-icon mb-2">
+            <span class="input-icon-addon">{{ ux_icon('tabler:search', { class: 'icon' }) }}</span>
+            {{- form_widget(products, { attr: { placeholder: 'sylius_cms.ui.page_form.content.search_products'|trans } }) -}}
+        </div>
+        {{- form_errors(products) -}}
+
+        {% if selected is not empty %}
+            <div class="list-group">
+                {%- for choice in products.vars.choices|filter(choice => choice.value in selected) -%}
+                    {%- set image = choice.data.images|first -%}
+                    <div class="list-group-item d-flex align-items-center gap-3" {{ sylius_test_html_attribute('selected-product', choice.data.code) }}>
+                        {% if image %}
+                            <span class="avatar" style="background-image: url({{ image.path|imagine_filter('sylius_admin_product_thumbnail') }})"></span>
+                        {% else %}
+                            <span class="avatar">{{ ux_icon('tabler:photo', { class: 'icon' }) }}</span>
+                        {% endif %}
+                        <div class="flex-grow-1 overflow-hidden">
+                            <div class="fw-bold text-truncate">{{ choice.label }}</div>
+                            <div class="small text-secondary text-truncate">{{ choice.data.code }}</div>
+                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-icon btn-sm btn-ghost-secondary"
+                            title="{{ 'sylius.ui.delete'|trans }}"
+                            aria-label="{{ 'sylius.ui.delete'|trans }}"
+                            {{ stimulus_action('@sylius-cms-plugin/admin/widget-state', 'removeAutocompleteItem', 'click', { select: products.vars.id, value: choice.value }) }}
+                            {{ sylius_test_html_attribute('remove-product', choice.data.code) }}
+                        >
+                            {{ ux_icon('tabler:x', { class: 'icon m-0' }) }}
+                        </button>
+                    </div>
+                {%- endfor -%}
+            </div>
+        {% endif %}
+    </div>
+{%- endblock cms_products_picker -%}

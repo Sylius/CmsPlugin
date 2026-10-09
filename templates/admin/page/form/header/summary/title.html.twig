@@ -1,0 +1,6 @@
+{% set form = hookable_metadata.context.form %}
+{% set name = form.name.vars.value %}
+
+<h2 class="m-0 fs-3 {{ name is empty ? 'text-secondary' }}" {{ sylius_test_html_attribute('page-form-title') }}>
+    {{ name is not empty ? name : 'sylius_cms.ui.page_form.untitled'|trans }}
+</h2>

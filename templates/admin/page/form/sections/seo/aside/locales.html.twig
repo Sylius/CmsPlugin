@@ -1,0 +1,32 @@
+{% set form = hookable_metadata.context.form %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+<div class="card" {{ sylius_test_html_attribute('seo-locales') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ 'sylius_cms.ui.page_form.seo.translations'|trans }}</h3>
+    </div>
+    <div class="list-group list-group-flush">
+        {% for locale, translation in form.translations %}
+            {% if ui_state.locale_errors[locale]|default(0) > 0 %}
+                {% set status = { color: 'red', text: 'sylius_cms.ui.page_form.errors'|trans({ '%count%': ui_state.locale_errors[locale] }) } %}
+            {% elseif ui_state.locale_warnings[locale] is defined %}
+                {% set status = { color: 'orange', text: ui_state.locale_warnings[locale]|first|trans } %}
+            {% elseif translation.slug.vars.value is not empty %}
+                {% set status = { color: 'green', text: 'sylius_cms.ui.page_form.seo.status_complete'|trans } %}
+            {% else %}
+                {% set status = { color: 'secondary', text: 'sylius_cms.ui.page_form.seo.status_empty'|trans } %}
+            {% endif %}
+            <button
+                type="button"
+                class="list-group-item list-group-item-action d-flex align-items-center gap-2 {{ ui_state.active_locale == locale ? 'active' }}"
+                data-ui-trigger="activeLocale"
+                data-ui-trigger-value="{{ locale }}"
+                {{ stimulus_action('@sylius-cms-plugin/admin/ui-state', 'select', 'click', { prop: 'activeLocale', value: locale }) }}
+            >
+                <span class="status-dot bg-{{ status.color }}"></span>
+                <span class="flex-grow-1">{{ locale|sylius_locale_name }}</span>
+                <span class="small text-{{ status.color == 'secondary' ? 'secondary' : status.color }}">{{ status.text }}</span>
+            </button>
+        {% endfor %}
+    </div>
+</div>

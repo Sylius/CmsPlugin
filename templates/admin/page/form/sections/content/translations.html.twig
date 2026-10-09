@@ -1,8 +1,17 @@
-{% import '@SyliusAdmin/shared/helper/translations.html.twig' as translations %}
-
 {% set form = hookable_metadata.context.form %}
-{% set prefixes = hookable_metadata.prefixes %}
+{% set ui_state = hookable_metadata.context.ui_state %}
 
-{% form_theme form '@SyliusCmsPlugin/admin/shared/component_elements/form_theme.html.twig' %}
+{% form_theme form.contentElements '@SyliusCmsPlugin/admin/page/content_elements_form_theme.html.twig' %}
 
-{{ translations.with_hook(form.contentElements, prefixes, null, { accordion_flush: true, accordion_id: 'elements' }) }}
+{% for locale, translation_form in form.contentElements %}
+    <div
+        id="translation-elements-{{ locale }}"
+        class="{{ ui_state.active_locale != locale ? 'd-none' }}"
+        data-ui-pane="activeLocale"
+        data-ui-pane-value="{{ locale }}"
+    >
+        <div class="row g-4" {{ sylius_test_html_attribute('elements-collection') }}>
+            {% hook 'translations' with { form: translation_form, locale } %}
+        </div>
+    </div>
+{% endfor %}
