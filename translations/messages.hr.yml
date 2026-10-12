@@ -62,7 +62,6 @@ sylius_cms:
         display_for_taxons:
             label: Prikaz za takson
             help: Odaberite taksone u kojima će se ovaj blok prikazati
-        manage_block_display: Upravljanje prikazom bloka
         templates: Predlošci
         template: Predložak
         content_templates: Predloške sadržaja

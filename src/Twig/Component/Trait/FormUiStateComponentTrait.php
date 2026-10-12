@@ -13,14 +13,22 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
+use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
  * @experimental
  *
+ * Overrides `removeCollectionItem` of {@see LiveCollectionTrait} and `onCollectionItemActivated`
+ * of {@see ContentElementsCollectionFormComponentTrait}, so resolve these conflicts with `insteadof`.
+ *
  * @mixin ComponentWithFormTrait
+ * @mixin LiveCollectionTrait
  */
 trait FormUiStateComponentTrait
 {
@@ -124,6 +132,39 @@ trait FormUiStateComponentTrait
         }
 
         $this->activeElements[$matches['locale']] = (string) $key;
+    }
+
+    #[LiveAction]
+    public function removeCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        int|string $index,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+        if (!\is_array($data)) {
+            return;
+        }
+
+        $keys = array_keys($data);
+        $position = array_search((string) $index, array_map('strval', $keys), true);
+        unset($data[$index]);
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+
+        if (false !== $position) {
+            $this->activateElement($propertyPath, $keys[$position + 1] ?? $keys[$position - 1] ?? null);
+        }
+    }
+
+    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
+    {
+        $this->activateElement($propertyPath, $key);
     }
 
     /**

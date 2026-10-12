@@ -1,9 +1,62 @@
 sylius_cms:
     ui:
-        page_form:
+        form:
+            errors: '%count% error(s)'
+            untitled: Untitled
+            not_saved: Not saved yet
             warnings:
                 tab: Some languages need attention
+            tab:
+                content: Content
+                settings: Settings
+            content:
+                structure: Structure
+                load_template: Load template
+                copy_from: Copy from
+                copy_from_hint: 'Or copy the content of another language:'
+                copy_from_confirm: 'This replaces %count% element(s) of this language. Continue?'
+                no_elements: No content elements yet.
+                editor_empty: Add the first element using the button on the left.
+                empty_element: Not filled in yet
+                new_element: New element
+                items: '%count% item(s)'
+                insert_here: Insert here
+                of: 'of %count%'
+                move_up: Move up
+                move_down: Move down
+                duplicate: Duplicate
+                type_help: Changing the type resets this element's fields.
+                products_selected: '%count% selected'
+                search_products: Search products by name or code to add…
+            settings:
+                help: Settings are shared by all languages.
+                general: General
+                organization: Organization
+                publishing: Publishing
+        block_form:
+            untitled: Untitled block
+            not_saved: Not saved yet
+            content:
+                no_elements: This block has no content elements yet.
+            display:
+                title: Display rules
+                help: Restricts the block to the selected product and taxon pages. Leave empty to display it wherever it is rendered.
+            settings:
+                code_help: Technical identifier used to render the block. Set when the block is created and cannot be changed.
+                name_help: Internal name, visible only in the admin.
+                template_help: Twig layout the block is rendered in.
+                collections_help: Groups blocks and lists them in the shop.
+                enabled_help: The block is visible in the selected channels.
+                channels_help: Channels in which the block is available.
+            tab:
+                display: Display
+        page_form:
+            untitled: Untitled page
+            not_saved: Not saved yet
+            warnings:
                 slug_missing: Slug missing
+            content:
+                no_elements: This page has no content elements yet.
             teaser:
                 tile_preview: Tile preview
                 read_more: Read more
@@ -18,30 +71,6 @@ sylius_cms:
                 status_complete: Complete
                 status_empty: Not translated
                 generate_slug: Generate
-            errors: '%count% error(s)'
-            untitled: Untitled page
-            not_saved: Not saved yet
-            content:
-                load_template: Load template
-                items: '%count% item(s)'
-                empty_element: Not filled in yet
-                duplicate: Duplicate
-                type_help: Changing the type resets this element's fields.
-                new_element: New element
-                no_elements: This page has no content elements yet.
-                editor_empty: Add the first element using the button on the left.
-                insert_here: Insert here
-                of: 'of %count%'
-                move_up: Move up
-                move_down: Move down
-                previous: Previous
-                next: Next
-                structure: Structure
-                copy_from: Copy from
-                copy_from_hint: 'Or copy the content of another language:'
-                copy_from_confirm: 'This replaces %count% element(s) of this language. Continue?'
-                products_selected: '%count% selected'
-                search_products: Search products by name or code to add…
             settings:
                 code_help: Technical identifier. Set when the page is created and cannot be changed.
                 name_help: Internal name, visible only in the admin.
@@ -50,17 +79,10 @@ sylius_cms:
                 enabled_help: The page is visible in the selected channels.
                 publish_at_help: Leave empty to publish right after saving.
                 channels_help: Channels in which the page is available.
-                general: General
-                organization: Organization
-                publishing: Publishing
-                help: Settings are shared by all languages.
             tab:
-                content: Content
                 teaser: Teaser
                 seo: SEO
-                settings: Settings
         add_element: Add element
-        elements: Elements
         blocks: Blocks
         block: Block
         pages: Pages
@@ -151,7 +173,6 @@ sylius_cms:
         display_for_taxons:
             label: Display for taxons
             help: Select taxons in which this block will be displayed
-        manage_block_display: Manage block display
         templates: Templates
         template: Template
         content_templates: Content Templates

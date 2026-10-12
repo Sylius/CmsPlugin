@@ -29,7 +29,6 @@ use Sylius\Resource\Model\TranslatableInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
@@ -45,7 +44,10 @@ class FormComponent
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
-    use FormUiStateComponentTrait;
+    use FormUiStateComponentTrait {
+        FormUiStateComponentTrait::removeCollectionItem insteadof LiveCollectionTrait;
+        FormUiStateComponentTrait::onCollectionItemActivated insteadof ContentElementsCollectionFormComponentTrait;
+    }
     use PreviewComponentTrait;
 
     /**
@@ -76,39 +78,6 @@ class FormComponent
         $this->formValues['translations'][$localeCode]['slug'] = $this->slugGenerator->generate(
             $this->formValues['name'],
         );
-    }
-
-    #[LiveAction]
-    public function removeCollectionItem(
-        PropertyAccessorInterface $propertyAccessor,
-        #[LiveArg]
-        string $name,
-        #[LiveArg]
-        int|string $index,
-    ): void {
-        if (null === $this->formName) {
-            return;
-        }
-
-        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
-        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-        if (!\is_array($data)) {
-            return;
-        }
-
-        $keys = array_keys($data);
-        $position = array_search((string) $index, array_map('strval', $keys), true);
-        unset($data[$index]);
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
-
-        if (false !== $position) {
-            $this->activateElement($propertyPath, $keys[$position + 1] ?? $keys[$position - 1] ?? null);
-        }
-    }
-
-    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
-    {
-        $this->activateElement($propertyPath, $key);
     }
 
     /**

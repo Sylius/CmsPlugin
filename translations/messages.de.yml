@@ -84,7 +84,6 @@ sylius_cms:
         display_for_taxons:
             label: Display für Taxons
             help: Wählen Sie Taxonen aus, in denen dieser Block angezeigt wird
-        manage_block_display: Blockanzeige verwalten
         templates: Vorlagen
         template: Vorlage
         content_templates: Inhaltsvorlagen

@@ -1,0 +1,9 @@
+{% set form = hookable_metadata.context.form %}
+{% set options = sylius_test_form_attribute('template') %}
+{% if hookable_metadata.configuration.help is defined %}
+    {% set options = options|merge({ help: hookable_metadata.configuration.help }) %}
+{% endif %}
+
+<div class="col-12">
+    {{ form_row(form.template, options) }}
+</div>

@@ -21,6 +21,7 @@ use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
+use Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait;
 use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
@@ -39,6 +40,10 @@ class FormComponent
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
+    use FormUiStateComponentTrait {
+        FormUiStateComponentTrait::removeCollectionItem insteadof LiveCollectionTrait;
+        FormUiStateComponentTrait::onCollectionItemActivated insteadof ContentElementsCollectionFormComponentTrait;
+    }
     use PreviewComponentTrait;
 
     /**
@@ -61,6 +66,16 @@ class FormComponent
         $this->initialize($blockRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
         $this->initializePreview($twig, $localeProvider, $previewTemplate);
+    }
+
+    protected function getUiStateTranslationsPaths(): array
+    {
+        return ['contentElements'];
+    }
+
+    protected function getUiStateElementsPath(): string
+    {
+        return 'contentElements.%locale%.contentElements';
     }
 
     /** @return array{resource: BlockInterface|null, content: string} */

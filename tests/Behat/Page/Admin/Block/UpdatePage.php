@@ -20,11 +20,13 @@ use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsFormFieldsTrait;
 use Webmozart\Assert\Assert;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     use ChecksCodeImmutabilityTrait;
+    use RevealsFormFieldsTrait;
 
     /** @param MinkParameters|array<array-key, mixed> $minkParameters */
     public function __construct(
@@ -39,16 +41,19 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function fillName(string $name): void
     {
+        $this->revealField('Name');
         $this->getDocument()->fillField('Name', $name);
     }
 
     public function fillLink(string $link): void
     {
+        $this->revealField('Link');
         $this->getDocument()->fillField('Link', $link);
     }
 
     public function disable(): void
     {
+        $this->revealField('Enabled');
         $this->getDocument()->uncheckField('Enabled');
     }
 
@@ -71,7 +76,7 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
     {
         return array_merge(parent::getDefinedElements(), [
             'form' => '[data-live-name-value="sylius_cms:admin:block:form"]',
-            'association_dropdown_collection' => '[data-test-collection-autocomplete]',
+            'association_dropdown_collection' => '[data-test-collections]',
         ]);
     }
 }
