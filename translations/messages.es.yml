@@ -62,7 +62,6 @@ sylius_cms:
         display_for_taxons:
             label: Mostrar para taxones
             help: Seleccione taxones en los que se mostrará este bloque
-        manage_block_display: Administrar visualización de bloques
         templates: Plantillas
         template: Plantilla
         content_templates: Plantillas de contenido

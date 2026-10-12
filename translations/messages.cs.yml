@@ -33,7 +33,6 @@ sylius_cms:
         display_for_taxons:
             label: Zobrazit pro taxony
             help: Vyberte taxony, ve kterých se bude tento blok zobrazovat
-        manage_block_display: Správa zobrazení bloku
         templates: Šablony
         template: Šablona
         content_templates: Obsahové šablony

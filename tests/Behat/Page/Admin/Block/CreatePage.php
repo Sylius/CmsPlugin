@@ -19,10 +19,12 @@ use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsFormFieldsTrait;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
+    use RevealsFormFieldsTrait;
 
     /** @param MinkParameters|array<array-key, mixed> $minkParameters */
     public function __construct(
@@ -37,37 +39,44 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function fillField(string $field, string $value): void
     {
+        $this->revealField($field);
         $this->getDocument()->fillField($field, $value);
     }
 
     public function fillCode(string $code): void
     {
+        $this->revealField('Code');
         $this->getDocument()->fillField('Code', $code);
     }
 
     public function fillName(string $name): void
     {
+        $this->revealField('Name');
         $this->getDocument()->fillField('Name', $name);
     }
 
     public function fillLink(string $link): void
     {
+        $this->revealField('Link');
         $this->getDocument()->fillField('Link', $link);
     }
 
     public function fillContent(string $content): void
     {
+        $this->revealField('Content');
         $this->getDocument()->fillField('Content', $content);
     }
 
     public function disable(): void
     {
+        $this->revealField('Enabled');
         $this->getDocument()->uncheckField('Enabled');
     }
 
     public function associateCollections(array $collectionsNames): void
     {
         $collectionElement = $this->getElement('association_dropdown_collection');
+        $this->revealElement($collectionElement);
 
         foreach ($collectionsNames as $collectionName) {
             $this->autocompleteHelper->selectByName(
@@ -82,7 +91,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         return array_merge(parent::getDefinedElements(), [
             'form' => '[data-live-name-value="sylius_cms:admin:block:form"]',
-            'association_dropdown_collection' => '[data-test-collection-autocomplete]',
+            'association_dropdown_collection' => '[data-test-collections]',
         ]);
     }
 }

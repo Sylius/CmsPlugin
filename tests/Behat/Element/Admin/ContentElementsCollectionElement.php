@@ -30,12 +30,12 @@ use Sylius\CmsPlugin\Form\Type\ContentElements\SingleMediaContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\SpacerContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\TaxonsListContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\TextareaContentElementType;
-use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsPageFormFieldsTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsFormFieldsTrait;
 use Webmozart\Assert\Assert;
 
 class ContentElementsCollectionElement extends FormElement implements ContentElementsCollectionElementInterface
 {
-    use RevealsPageFormFieldsTrait;
+    use RevealsFormFieldsTrait;
 
     public const CONTENT_TYPE_AUTOCOMPLETE = [
         MultipleMediaContentElementType::TYPE,

@@ -8,7 +8,7 @@
     <div class="list-group list-group-flush">
         {% for locale, translation in form.translations %}
             {% if ui_state.locale_errors[locale]|default(0) > 0 %}
-                {% set status = { color: 'red', text: 'sylius_cms.ui.page_form.errors'|trans({ '%count%': ui_state.locale_errors[locale] }) } %}
+                {% set status = { color: 'red', text: 'sylius_cms.ui.form.errors'|trans({ '%count%': ui_state.locale_errors[locale] }) } %}
             {% elseif ui_state.locale_warnings[locale] is defined %}
                 {% set status = { color: 'orange', text: ui_state.locale_warnings[locale]|first|trans } %}
             {% elseif translation.slug.vars.value is not empty %}

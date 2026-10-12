@@ -79,7 +79,6 @@ sylius_cms:
         display_for_taxons:
             label: Отображать для таксонов
             help: Выберите таксоны, в которых будет отображаться этот блок
-        manage_block_display: Управление отображением блоков
         templates: Шаблоны
         template: Шаблон
         content_templates: Шаблоны контента

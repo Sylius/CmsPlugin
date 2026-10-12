@@ -80,7 +80,6 @@ sylius_cms:
         display_for_taxons:
             label: Afficher pour les taxons
             help: Ce bloc sera affiché pour les taxons sélectionnés
-        manage_block_display: Gérer l'affichage du bloc
         templates: Modèles
         template: Modèle
         content_templates: Modèles de contenu

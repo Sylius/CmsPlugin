@@ -20,14 +20,14 @@ use Sylius\Behat\Service\DriverHelper;
 use Sylius\Behat\Service\Helper\AutocompleteHelperInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
-use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsPageFormFieldsTrait;
+use Tests\Sylius\CmsPlugin\Behat\Behaviour\RevealsFormFieldsTrait;
 use Tests\Sylius\CmsPlugin\Behat\Service\FormHelper;
 use Webmozart\Assert\Assert;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
-    use RevealsPageFormFieldsTrait;
+    use RevealsFormFieldsTrait;
 
     public function __construct(
         Session $session,

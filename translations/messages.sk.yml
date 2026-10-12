@@ -80,7 +80,6 @@ sylius_cms:
         display_for_taxons:
             label: Zobrazenie pre taxóny
             help: Vyberte taxóny, v ktorých sa tento blok zobrazí
-        manage_block_display: Spravovať zobrazenie bloku
         templates: Šablóny
         template: Šablóna
         content_templates: Šablóny obsahu

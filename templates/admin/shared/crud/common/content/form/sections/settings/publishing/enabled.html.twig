@@ -1,0 +1,11 @@
+{% set form = hookable_metadata.context.form %}
+{% set options = sylius_test_form_attribute('enabled')|merge({ row_attr: { class: 'mb-0' } }) %}
+{% if hookable_metadata.configuration.help is defined %}
+    {% set options = options|merge({ help: hookable_metadata.configuration.help }) %}
+{% endif %}
+
+<div class="col-12 mb-3">
+    <div class="border rounded p-3">
+        {{ form_row(form.enabled, options) }}
+    </div>
+</div>
