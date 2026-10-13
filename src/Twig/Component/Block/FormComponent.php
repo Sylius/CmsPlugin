@@ -73,7 +73,7 @@ class FormComponent
         return ['contentElements'];
     }
 
-    protected function getUiStateElementsPath(): string
+    protected function getUiStateElementsPath(): ?string
     {
         return 'contentElements.%locale%.contentElements';
     }

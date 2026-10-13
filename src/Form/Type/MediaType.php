@@ -16,12 +16,15 @@ namespace Sylius\CmsPlugin\Form\Type;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
+use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Form\Type\Translation\MediaTranslationType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 final class MediaType extends AbstractResourceType
 {
@@ -49,6 +52,7 @@ final class MediaType extends AbstractResourceType
             ->add('type', ChoiceType::class, [
                 'label' => 'sylius_cms.ui.type',
                 'choices' => $this->providers,
+                'expanded' => true,
             ])
             ->add('file', FileType::class, [
                 'label' => 'sylius_cms.ui.file',
@@ -80,6 +84,12 @@ final class MediaType extends AbstractResourceType
             ->add('translations', ResourceTranslationsType::class, [
                 'entry_type' => MediaTranslationType::class,
             ])
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+                $media = $event->getData();
+                if ($media instanceof MediaInterface && null === $media->getType() && [] !== $this->providers) {
+                    $media->setType(\in_array(MediaInterface::IMAGE_TYPE, $this->providers, true) ? MediaInterface::IMAGE_TYPE : array_values($this->providers)[0]);
+                }
+            })
         ;
     }
 

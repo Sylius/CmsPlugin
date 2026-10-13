@@ -1,0 +1,9 @@
+{% set media_type = hookable_metadata.context.media_type %}
+
+{% if media_type != 'image' %}
+    <div class="col-12">
+        <div class="alert alert-info mb-0" {{ sylius_test_html_attribute('media-images-only') }}>
+            {{ ('sylius_cms.ui.media_form.images_only.' ~ (media_type == 'video' ? 'video' : 'file'))|trans }}
+        </div>
+    </div>
+{% endif %}

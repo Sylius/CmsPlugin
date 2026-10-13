@@ -33,7 +33,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
         Assert::fileExists($path);
 
-        $this->getDocument()->attachFileToField('File', realpath($path));
+        $this->getElement('file')->attachFile((string) realpath($path));
     }
 
     public function fillCode(string $code): void
@@ -76,6 +76,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
+            'file' => '[data-test-file]',
             'association_dropdown_collection' => '.field > label:contains("Collections") ~ .sylius-autocomplete',
             'association_dropdown_collection_item' => '.field > label:contains("Collections") ~ .sylius-autocomplete > div.menu > div.item:contains("%item%")',
         ]);

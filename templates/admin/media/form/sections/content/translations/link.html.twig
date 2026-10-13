@@ -1,0 +1,11 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12 col-md-6 {{ hookable_metadata.context.media_type != 'image' ? 'd-none' }}">
+    {{ form_label(form.link) }}
+    <div class="input-icon">
+        <span class="input-icon-addon">{{ ux_icon('tabler:link', { class: 'icon' }) }}</span>
+        {{ form_widget(form.link, { attr: { placeholder: 'sylius_cms.ui.media_form.link_placeholder'|trans }|merge(sylius_test_form_attribute('link').attr|default({})) }) }}
+    </div>
+    {{ form_errors(form.link) }}
+    {{ form_help(form.link, { help: 'sylius_cms.ui.media_form.link_help' }) }}
+</div>

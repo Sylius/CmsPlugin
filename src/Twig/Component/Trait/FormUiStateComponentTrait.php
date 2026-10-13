@@ -46,7 +46,11 @@ trait FormUiStateComponentTrait
      */
     abstract protected function getUiStateTranslationsPaths(): array;
 
-    abstract protected function getUiStateElementsPath(): string;
+    /**
+     * Path of the content elements collection, with the locale replaced by `%locale%`;
+     * null when the form has no content elements.
+     */
+    abstract protected function getUiStateElementsPath(): ?string;
 
     /**
      * @return array{
@@ -77,8 +81,9 @@ trait FormUiStateComponentTrait
         $activeElements = [];
         $elementErrors = [];
         $elementCounts = [];
+        $elementsPath = $this->getUiStateElementsPath();
         foreach ($locales as $locale) {
-            $elements = $this->findFormView($form, str_replace(self::LOCALE_PLACEHOLDER, $locale, $this->getUiStateElementsPath()))?->children ?? [];
+            $elements = null === $elementsPath ? [] : $this->findFormView($form, str_replace(self::LOCALE_PLACEHOLDER, $locale, $elementsPath))?->children ?? [];
             $keys = [];
             $elementErrors[$locale] = [];
             foreach ($elements as $key => $element) {
@@ -119,7 +124,12 @@ trait FormUiStateComponentTrait
 
     protected function activateElement(string $collectionPropertyPath, int|string|null $key): void
     {
-        $pattern = preg_quote('[' . str_replace('.', '][', $this->getUiStateElementsPath()) . ']', '/');
+        $elementsPath = $this->getUiStateElementsPath();
+        if (null === $elementsPath) {
+            return;
+        }
+
+        $pattern = preg_quote('[' . str_replace('.', '][', $elementsPath) . ']', '/');
         $pattern = str_replace(preg_quote(self::LOCALE_PLACEHOLDER, '/'), '(?<locale>[^\]]+)', $pattern);
         if (1 !== preg_match('/^' . $pattern . '$/', $collectionPropertyPath, $matches)) {
             return;

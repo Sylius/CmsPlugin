@@ -1,0 +1,11 @@
+{% set form = hookable_metadata.context.form %}
+{% set media = hookable_metadata.context.media %}
+{% set help = media.path is not empty ? 'sylius_cms.ui.media_form.save_with_original_name_update_help' : 'sylius_cms.ui.media_form.save_with_original_name_help' %}
+
+<div class="col-12">
+    {{ form_row(form.saveWithOriginalName, sylius_test_form_attribute('save-with-original-filename')|merge({
+        row_attr: { class: 'mb-0' },
+        help: help,
+        help_attr: stimulus_target('@sylius-cms-plugin/admin/media-upload', 'saveAsHelp').toArray(),
+    })) }}
+</div>
