@@ -7,6 +7,9 @@ default:
                 - sylius.behat.context.setup.channel
                 - sylius.behat.context.setup.admin_security
                 - sylius_cms.behat.context.setup.collection
+                - sylius_cms.behat.context.setup.page
+
+                - sylius.behat.context.transform.shared_storage
 
                 - sylius_cms.behat.context.ui.admin.collection
             filters:

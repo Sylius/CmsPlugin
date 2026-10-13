@@ -1,0 +1,89 @@
+{% set form = hookable_metadata.context.form %}
+{% set type = hookable_metadata.context.type %}
+{% set count = hookable_metadata.context.elements.vars.value|length %}
+{% set invalid = not form.type.vars.valid %}
+{% set hint_id = form.type.vars.id ~ '_hint' %}
+{% set controller = '@sylius-cms-plugin/admin/collection-type' %}
+{% set icons = { page: 'tabler:file-text', block: 'tabler:template', media: 'tabler:photo' } %}
+{% set type_label = ('sylius_cms.ui.' ~ type)|trans %}
+{% set elements_label = ('sylius_cms.ui.collection_form.type.elements.' ~ type)|trans({ '%count%': count }) %}
+{% set submit_label = (form.vars.data.id is null ? 'sylius.ui.create' : 'sylius.ui.update')|trans %}
+
+<div class="card" {{ stimulus_controller(controller, { count: count, current: type }) }} {{ sylius_test_html_attribute('collection-type') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ form.type.vars.label|trans }} <span class="text-danger">*</span></h3>
+    </div>
+    <div class="card-body">
+        <div class="d-grid gap-2" role="radiogroup" aria-label="{{ form.type.vars.label|trans }}" aria-describedby="{{ hint_id }}" {% if invalid %}aria-invalid="true"{% endif %}>
+            {% for choice in form.type.children %}
+                <label class="cms-choice-card d-flex align-items-start gap-3 border rounded p-3" for="{{ choice.vars.id }}">
+                    <input
+                        {% for name, value in choice.vars.attr|filter(value => value is not same as(false)) %}{{ name }}{% if value is not same as(true) %}="{{ value }}"{% endif %} {% endfor %}
+                        type="radio"
+                        class="form-check-input mt-2 flex-shrink-0 {{ invalid ? 'is-invalid' }}"
+                        id="{{ choice.vars.id }}"
+                        name="{{ choice.vars.full_name }}"
+                        value="{{ choice.vars.value }}"
+                        {{ choice.vars.value == type ? 'checked' }}
+                        {{ choice.vars.required ? 'required' }}
+                        {{ choice.vars.disabled ? 'disabled' }}
+                        data-confirm-title="{{ 'sylius_cms.ui.collection_form.type.confirm.title'|trans({ '%type%': choice.vars.label|trans }) }}"
+                        {{ stimulus_action(controller, 'confirm', 'click') }}
+                        {{ sylius_test_html_attribute('type', choice.vars.value) }}
+                    >
+                    <span class="avatar flex-shrink-0">{{ ux_icon(icons[choice.vars.value]|default('tabler:folder'), { class: 'icon' }) }}</span>
+                    <span>
+                        <span class="d-block fw-bold">{{ choice.vars.label|trans }}</span>
+                        <span class="d-block small text-secondary">{{ ('sylius_cms.ui.collection_form.type.description.' ~ choice.vars.value)|trans }}</span>
+                    </span>
+                </label>
+                {% do choice.setRendered %}
+            {% endfor %}
+        </div>
+        {{ form_errors(form.type) }}
+        <div class="form-hint mt-2" id="{{ hint_id }}" {{ sylius_test_html_attribute('collection-type-hint') }}>
+            {% if count > 0 %}
+                {{ 'sylius_cms.ui.collection_form.type.change_hint'|trans({ '%elements%': elements_label }) }}
+            {% else %}
+                {{ 'sylius_cms.ui.collection_form.type.hint'|trans }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div
+        class="modal modal-blur fade"
+        tabindex="-1"
+        role="alertdialog"
+        aria-hidden="true"
+        aria-labelledby="{{ form.type.vars.id }}_confirm_title"
+        {{ stimulus_target(controller, 'modal') }}
+        {{ sylius_test_html_attribute('collection-type-confirm') }}
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-status bg-warning"></div>
+                <div class="modal-body d-flex gap-3">
+                    <span class="avatar rounded-circle bg-orange-lt flex-shrink-0">{{ ux_icon('tabler:alert-triangle', { class: 'icon' }) }}</span>
+                    <div>
+                        <h3 class="mb-2" id="{{ form.type.vars.id }}_confirm_title" {{ stimulus_target(controller, 'title') }}></h3>
+                        <p class="mb-2">
+                            {{ 'sylius_cms.ui.collection_form.type.confirm.message'|trans({
+                                '%elements%': '<strong>' ~ elements_label|e ~ '</strong>',
+                                '%button%': submit_label|e,
+                            })|raw }}
+                        </p>
+                        <p class="text-secondary mb-0">{{ ('sylius_cms.ui.collection_form.type.confirm.not_deleted.' ~ type)|trans }}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal" {{ sylius_test_html_attribute('keep-collection-type') }}>
+                        {{ 'sylius_cms.ui.collection_form.type.confirm.keep'|trans({ '%type%': type_label }) }}
+                    </button>
+                    <button type="button" class="btn btn-danger" {{ stimulus_action(controller, 'apply') }} {{ sylius_test_html_attribute('confirm-collection-type') }}>
+                        {{ 'sylius_cms.ui.collection_form.type.confirm.apply'|trans({ '%elements%': elements_label }) }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

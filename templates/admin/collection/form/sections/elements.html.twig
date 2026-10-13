@@ -1,5 +1,16 @@
-<div class="card mb-3">
-    <div class="card-body">
+{% set form = hookable_metadata.context.form %}
+{% set type = hookable_metadata.context.type %}
+{% set elements = hookable_metadata.context.elements %}
+
+<div class="col-12 col-lg">
+    <div class="card" {{ sylius_test_html_attribute('collection-elements') }}>
+        <div class="card-header">
+            <h3 class="card-title">{{ ('sylius_cms.ui.collection_form.elements.title.' ~ type)|trans }}</h3>
+            <span class="badge bg-secondary-lt ms-2" {{ sylius_test_html_attribute('collection-elements-count') }}>{{ elements.vars.value|length }}</span>
+            <div class="card-actions small text-secondary">
+                {{ form.type.vars.label|trans }}: <strong class="text-body">{{ ('sylius_cms.ui.' ~ type)|trans }}</strong>
+            </div>
+        </div>
         {% hook 'elements' %}
     </div>
 </div>

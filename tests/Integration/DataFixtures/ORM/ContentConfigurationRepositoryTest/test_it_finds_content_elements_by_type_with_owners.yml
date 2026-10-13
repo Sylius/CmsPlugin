@@ -1,0 +1,32 @@
+Sylius\CmsPlugin\Entity\PageTranslation:
+  page1_translation:
+    locale: 'en_US'
+Sylius\CmsPlugin\Entity\Page:
+  page1:
+    code: 'page1-code'
+    enabled: true
+    translations:
+      - '@page1_translation'
+Sylius\CmsPlugin\Entity\Block:
+  block1:
+    code: 'block1-code'
+    enabled: true
+Sylius\CmsPlugin\Entity\ContentConfiguration:
+  page1_collection:
+    type: 'pages_collection'
+    configuration:
+      pages_collection: 'collection1-code'
+    locale: 'en_US'
+    page: '@page1'
+  block1_collection:
+    type: 'pages_collection'
+    configuration:
+      pages_collection: 'collection2-code'
+    locale: 'en_US'
+    block: '@block1'
+  page1_textarea:
+    type: 'textarea'
+    configuration:
+      textarea: 'Lorem ipsum'
+    locale: 'en_US'
+    page: '@page1'

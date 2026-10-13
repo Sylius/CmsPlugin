@@ -19,4 +19,9 @@ use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityTrait;
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     use ChecksCodeImmutabilityTrait;
+
+    public function changeType(string $type): void
+    {
+        $this->getDocument()->selectFieldOption('sylius_cms_collection[type]', $type);
+    }
 }

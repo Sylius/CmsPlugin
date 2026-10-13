@@ -1,3 +1,7 @@
-<div class="col-12">
-    {% hook 'sections' %}
+{% set form = hookable_metadata.context.form %}
+{% set type = form.type.vars.value|default('page') %}
+{% set elements = form[constant('Sylius\\CmsPlugin\\Form\\Type\\CollectionType::ELEMENTS_FIELDS')[type]|default('pages')] %}
+
+<div class="row g-4 mb-3">
+    {% hook 'sections' with { type, elements } %}
 </div>

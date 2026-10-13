@@ -16,6 +16,7 @@ namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 use Behat\Behat\Context\Context;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
+use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Repository\CollectionRepositoryInterface;
 use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -82,6 +83,17 @@ final class CollectionContext implements Context
     public function thereIsACollectionInTheStore(string $collectionName): void
     {
         $collection = $this->createCollection(strtolower(StringInflector::nameToCode($collectionName)), $collectionName);
+
+        $this->saveCollection($collection);
+    }
+
+    /**
+     * @Given /^(this collection) contains (this page)$/
+     */
+    public function thisCollectionContainsThisPage(CollectionInterface $collection, PageInterface $page): void
+    {
+        $collection->setType('page');
+        $collection->addPage($page);
 
         $this->saveCollection($collection);
     }

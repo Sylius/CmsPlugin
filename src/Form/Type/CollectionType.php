@@ -14,13 +14,12 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Symfony\Component\Form\Event\PreSubmitEvent;
+use Sylius\CmsPlugin\Entity\CollectionInterface;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 
 final class CollectionType extends AbstractResourceType
 {
@@ -30,94 +29,71 @@ final class CollectionType extends AbstractResourceType
 
     public const MEDIA = 'media';
 
+    /** Names of the fields holding the elements of each collection type. */
+    public const ELEMENTS_FIELDS = [
+        self::PAGE => 'pages',
+        self::BLOCK => 'blocks',
+        self::MEDIA => 'media',
+    ];
+
+    private const ELEMENTS_FIELD_TYPES = [
+        'pages' => PageAutocompleteType::class,
+        'blocks' => BlockAutocompleteType::class,
+        'media' => MediaAutocompleteType::class,
+    ];
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('code', TextType::class, [
                 'label' => 'sylius_cms.ui.code',
                 'disabled' => null !== $builder->getData()->getCode(),
+                'attr' => ['placeholder' => 'sylius_cms.ui.collection_form.code_placeholder'],
             ])
             ->add('name', TextType::class, [
                 'label' => 'sylius_cms.ui.name',
+                'attr' => ['placeholder' => 'sylius_cms.ui.collection_form.name_placeholder'],
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'sylius_cms.ui.type',
+                'expanded' => true,
                 'choices' => [
                     'sylius_cms.ui.page' => self::PAGE,
                     'sylius_cms.ui.block' => self::BLOCK,
                     'sylius_cms.ui.media' => self::MEDIA,
                 ],
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event): void {
-                $formData = $event->getData();
-                switch ($formData['type']) {
-                    case self::PAGE:
-                        unset($formData['blocks'], $formData['media']);
+        ;
 
-                        break;
-                    case self::BLOCK:
-                        unset($formData['pages'], $formData['media']);
+        // All the element fields are kept in the form, so switching the type back and forth does not lose the selection.
+        foreach (self::ELEMENTS_FIELDS as $field) {
+            $builder->add($field, self::ELEMENTS_FIELD_TYPES[$field], [
+                'multiple' => true,
+                'required' => false,
+            ]);
+        }
 
-                        break;
-                    case self::MEDIA:
-                        unset($formData['pages'], $formData['blocks']);
-
-                        break;
-                }
-
-                $event->setData($formData);
-            });
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-            $data = $event->getData();
-            if (null === $data) {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event): void {
+            $collection = $event->getData();
+            if (!$collection instanceof CollectionInterface || null === $collection->getType()) {
                 return;
             }
 
-            $type = $data->getType() ?? self::PAGE;
-
-            $this->addContentField($event->getForm(), $type);
-        });
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
-            $data = $event->getData();
-            if (!isset($data['type'])) {
-                return;
+            // A collection holds elements of a single type, so the ones of the previous type are removed.
+            if (self::PAGE !== $collection->getType()) {
+                $collection->getPages()?->clear();
             }
-
-            $this->addContentField($event->getForm(), $data['type']);
+            if (self::BLOCK !== $collection->getType()) {
+                $collection->getBlocks()?->clear();
+            }
+            if (self::MEDIA !== $collection->getType()) {
+                $collection->getMedia()?->clear();
+            }
         });
     }
 
     public function getBlockPrefix(): string
     {
         return 'sylius_cms_collection';
-    }
-
-    private function addContentField(FormInterface $form, ?string $type): void
-    {
-        switch ($type) {
-            case self::PAGE:
-                $form->add('pages', PageAutocompleteType::class, [
-                    'multiple' => true,
-                    'required' => false,
-                ]);
-
-                break;
-            case self::BLOCK:
-                $form->add('blocks', BlockAutocompleteType::class, [
-                    'multiple' => true,
-                    'required' => false,
-                ]);
-
-                break;
-            case self::MEDIA:
-                $form->add('media', MediaAutocompleteType::class, [
-                    'multiple' => true,
-                    'required' => false,
-                ]);
-
-                break;
-        }
     }
 }

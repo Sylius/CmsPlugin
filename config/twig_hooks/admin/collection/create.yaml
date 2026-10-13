@@ -1,43 +1,60 @@
 sylius_twig_hooks:
     hooks:
         'sylius_cms.admin.collection.create.content':
+            form_error_alert:
+                enabled: false
             form:
                 component: 'sylius_cms:admin:collection:form'
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
-                    template: '@SyliusCmsPlugin/admin/collection/form.html.twig'
+                    template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    form_errors: false
                 priority: 0
 
         'sylius_cms.admin.collection.create.content.form':
+            errors:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/errors.html.twig'
+                configuration:
+                    message: 'sylius_cms.ui.collection_form.errors.create'
+                priority: 100
             sections:
                 template: '@SyliusCmsPlugin/admin/collection/form/sections.html.twig'
                 priority: 0
 
         'sylius_cms.admin.collection.create.content.form.sections':
             general:
-                template: '@SyliusCmsPlugin/admin/collection/form/sections/general.html.twig'
-                priority: 100
+                enabled: false
             elements:
                 template: '@SyliusCmsPlugin/admin/collection/form/sections/elements.html.twig'
+                priority: 100
+            settings:
+                template: '@SyliusCmsPlugin/admin/collection/form/sections/settings.html.twig'
                 priority: 0
 
-        'sylius_cms.admin.collection.create.content.form.sections.general':
-            default:
-                enabled: false
-            code:
-                template: '@SyliusCmsPlugin/admin/collection/form/sections/general/code.html.twig'
-                priority: 300
-            name:
-                template: '@SyliusCmsPlugin/admin/collection/form/sections/general/name.html.twig'
+        'sylius_cms.admin.collection.create.content.form.sections.elements':
+            search:
+                template: '@SyliusCmsPlugin/admin/collection/form/sections/elements/search.html.twig'
+                priority: 100
+            list:
+                template: '@SyliusCmsPlugin/admin/collection/form/sections/elements/list.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.collection.create.content.form.sections.settings':
+            general:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general.html.twig'
                 priority: 200
             type:
-                template: '@SyliusCmsPlugin/admin/collection/form/sections/general/type.html.twig'
+                template: '@SyliusCmsPlugin/admin/collection/form/sections/settings/type.html.twig'
                 priority: 100
 
-        'sylius_cms.admin.collection.create.content.form.sections.elements':
-            default:
-                enabled: false
-            collection_elements:
-                template: '@SyliusCmsPlugin/admin/collection/form/sections/elements/collection_elements.html.twig'
+        'sylius_cms.admin.collection.create.content.form.sections.settings.general':
+            code:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general/code.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.collection_form.settings.code_help'
+                priority: 100
+            name:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general/name.html.twig'
                 priority: 0

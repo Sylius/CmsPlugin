@@ -1,0 +1,26 @@
+{% set usages = hookable_metadata.context.component.usages|default([]) %}
+{% set icons = { page: 'tabler:file-text', block: 'tabler:template' } %}
+
+<div class="card" {{ sylius_test_html_attribute('collection-usage') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ 'sylius_cms.ui.collection_form.usage.title'|trans }}</h3>
+    </div>
+    {% if usages is empty %}
+        <div class="card-body text-secondary small" {{ sylius_test_html_attribute('collection-usage-empty') }}>
+            {{ 'sylius_cms.ui.collection_form.usage.empty'|trans }}
+        </div>
+    {% else %}
+        <div class="list-group list-group-flush">
+            {% for usage in usages %}
+                <div class="list-group-item d-flex align-items-center gap-2" {{ sylius_test_html_attribute('collection-usage-item', usage.resource.code) }}>
+                    <span class="text-secondary">{{ ux_icon(icons[usage.type], { class: 'icon' }) }}</span>
+                    <div class="overflow-hidden">
+                        <a href="{{ path('sylius_cms_admin_' ~ usage.type ~ '_update', { id: usage.resource.id }) }}" class="d-block fw-bold text-truncate">{{ usage.resource.name ?: usage.resource.code }}</a>
+                        <div class="small text-secondary">{{ ('sylius_cms.ui.collection_form.usage.via.' ~ usage.type)|trans }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="card-footer form-hint">{{ 'sylius_cms.ui.collection_form.usage.help'|trans }}</div>
+</div>

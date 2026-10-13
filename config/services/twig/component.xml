@@ -22,12 +22,13 @@
 
         <service
             id="sylius_cms.twig.component.collection.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Collection\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.collection" />
             <argument type="service" id="form.factory" />
             <argument>%sylius_cms.model.collection.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\CollectionType</argument>
+            <argument type="service" id="sylius_cms.repository.content_configuration" />
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:collection:form" />
         </service>

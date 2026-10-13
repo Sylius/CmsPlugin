@@ -130,6 +130,29 @@
     }
 }
 
+.cms-choice-card {
+    cursor: pointer;
+
+    &:has(input:checked) {
+        border-color: var(--tblr-primary) !important;
+        background: var(--tblr-primary-lt);
+
+        .avatar {
+            --tblr-avatar-bg: var(--tblr-primary);
+            color: var(--tblr-primary-fg);
+        }
+    }
+}
+
+.cms-table-actions .btn-sm.btn-icon {
+    width: 2rem;
+    height: 2rem;
+
+    .icon {
+        margin: 0;
+    }
+}
+
 .cms-publish-at > input[type="time"] {
     max-width: 9rem;
 }

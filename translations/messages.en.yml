@@ -141,6 +141,65 @@ sylius_cms:
                 enabled_help: The media is available in the selected channels.
                 channels_help: Channels in which the media is available.
                 collections_help: Groups media in the CMS.
+        collection_form:
+            code_placeholder: e.g. black_friday
+            name_placeholder: e.g. Black Friday
+            errors:
+                create: 'The collection was not created. Fix %count% error(s) and click Create again.'
+                update: 'The collection was not saved. Fix %count% error(s) and click Update again.'
+            settings:
+                code_help: '2–250 characters: letters, digits, _ and -. Cannot be changed later.'
+                code_locked_help: Set on creation, cannot be changed.
+            elements:
+                title:
+                    page: Pages in this collection
+                    block: Blocks in this collection
+                    media: Media in this collection
+                search:
+                    page: Search pages to add…
+                    block: Search blocks to add…
+                    media: Search media to add…
+                empty:
+                    page: No pages yet
+                    block: No blocks yet
+                    media: No media yet
+                empty_help:
+                    page: Search above to add pages. You can also add this collection from the Page form.
+                    block: Search above to add blocks. You can also add this collection from the Block form.
+                    media: Search above to add media. You can also add this collection from the Media form.
+                showing:
+                    page: 'Showing %from%–%to% of %count% pages'
+                    block: 'Showing %from%–%to% of %count% blocks'
+                    media: 'Showing %from%–%to% of %count% media'
+                no_channel: No channel
+                remove: Remove from collection
+            type:
+                hint: Decides which elements can be added to this collection.
+                change_hint: 'Changing the type removes the %elements% added below.'
+                description:
+                    page: Pages listed together in the shop, e.g. Blog or FAQ
+                    block: Reusable content blocks rendered in templates
+                    media: Images, videos and files
+                elements:
+                    page: '%count% page|%count% pages'
+                    block: '%count% block|%count% blocks'
+                    media: '%count% media'
+                confirm:
+                    title: 'Change type to %type%?'
+                    message: 'This collection holds %elements%. A collection can contain only one type, so they will be removed from it when you click %button%.'
+                    keep: 'Keep %type%'
+                    apply: 'Change type and remove %elements%'
+                    not_deleted:
+                        page: The pages themselves are not deleted.
+                        block: The blocks themselves are not deleted.
+                        media: The media themselves are not deleted.
+            usage:
+                title: Usage
+                empty: Not used in any page or block yet.
+                help: Only the “Pages collection” content elements are listed; collections rendered in templates are not.
+                via:
+                    page: Page · “Pages collection” element
+                    block: Block · “Pages collection” element
         add_element: Add element
         blocks: Blocks
         block: Block

@@ -18,4 +18,5 @@ use Tests\Sylius\CmsPlugin\Behat\Behaviour\ChecksCodeImmutabilityInterface;
 
 interface UpdatePageInterface extends BaseUpdatePageInterface, ChecksCodeImmutabilityInterface
 {
+    public function changeType(string $type): void;
 }
