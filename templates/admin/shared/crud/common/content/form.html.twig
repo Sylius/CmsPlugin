@@ -18,7 +18,7 @@
     {% endif %}
     {{ form_widget(form._token) }}
 
-    {% hook 'form' with { form, ui_state, form_validated: this.isValidated } %}
+    {% hook 'form' with { form, ui_state, form_validated: this.isValidated, component: this } %}
 
     {{ form_end(form, {render_rest: false}) }}
 </div>

@@ -141,6 +141,65 @@ sylius_cms:
                 enabled_help: Medium jest dostępne w wybranych kanałach.
                 channels_help: Kanały, w których medium jest dostępne.
                 collections_help: Grupuje media w CMS.
+        collection_form:
+            code_placeholder: np. black_friday
+            name_placeholder: np. Black Friday
+            errors:
+                create: 'Kolekcja nie została utworzona. Popraw błędy (%count%) i kliknij ponownie Utwórz.'
+                update: 'Kolekcja nie została zapisana. Popraw błędy (%count%) i kliknij ponownie Aktualizuj.'
+            settings:
+                code_help: '2–250 znaków: litery, cyfry, _ i -. Nie można go później zmienić.'
+                code_locked_help: Ustawiany przy tworzeniu, nie można go zmienić.
+            elements:
+                title:
+                    page: Strony w tej kolekcji
+                    block: Bloki w tej kolekcji
+                    media: Media w tej kolekcji
+                search:
+                    page: Wyszukaj strony do dodania…
+                    block: Wyszukaj bloki do dodania…
+                    media: Wyszukaj media do dodania…
+                empty:
+                    page: Brak stron
+                    block: Brak bloków
+                    media: Brak mediów
+                empty_help:
+                    page: Wyszukaj powyżej, aby dodać strony. Kolekcję możesz też dodać w formularzu strony.
+                    block: Wyszukaj powyżej, aby dodać bloki. Kolekcję możesz też dodać w formularzu bloku.
+                    media: Wyszukaj powyżej, aby dodać media. Kolekcję możesz też dodać w formularzu medium.
+                showing:
+                    page: 'Strony %from%–%to% z %count%'
+                    block: 'Bloki %from%–%to% z %count%'
+                    media: 'Media %from%–%to% z %count%'
+                no_channel: Brak kanału
+                remove: Usuń z kolekcji
+            type:
+                hint: Określa, jakie elementy można dodać do tej kolekcji.
+                change_hint: 'Zmiana typu usunie elementy dodane poniżej (%elements%).'
+                description:
+                    page: Strony wyświetlane razem w sklepie, np. Blog lub FAQ
+                    block: Bloki treści wielokrotnego użytku renderowane w szablonach
+                    media: Obrazy, wideo i pliki
+                elements:
+                    page: '%count% strona|%count% strony|%count% stron'
+                    block: '%count% blok|%count% bloki|%count% bloków'
+                    media: '%count% medium|%count% media|%count% mediów'
+                confirm:
+                    title: 'Zmienić typ na %type%?'
+                    message: 'Ta kolekcja zawiera: %elements%. Kolekcja może zawierać tylko jeden typ, więc zostaną z niej usunięte po kliknięciu %button%.'
+                    keep: 'Zostaw %type%'
+                    apply: 'Zmień typ i usuń: %elements%'
+                    not_deleted:
+                        page: Same strony nie zostaną usunięte.
+                        block: Same bloki nie zostaną usunięte.
+                        media: Same media nie zostaną usunięte.
+            usage:
+                title: Użycie
+                empty: Nie jest jeszcze używana na żadnej stronie ani w bloku.
+                help: Wyświetlane są tylko elementy treści „Kolekcja stron”; kolekcje renderowane w szablonach nie są tu widoczne.
+                via:
+                    page: Strona · element „Kolekcja stron”
+                    block: Blok · element „Kolekcja stron”
         blocks: Bloki
         block: Blok
         pages: Strony

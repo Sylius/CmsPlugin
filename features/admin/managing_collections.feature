@@ -21,3 +21,14 @@ Feature: Managing collections
         Given there is a collection in the store
         When I want to edit this collection
         Then the code field should be disabled
+
+    @ui
+    Scenario: Removing the pages of a collection when changing its type
+        Given there is a page in the store
+        And there is a collection in the store
+        And this collection contains this page
+        When I want to edit this collection
+        And I change its type to "block"
+        And I save my changes
+        Then I should be notified that the collection has been successfully updated
+        And this collection should not contain any pages

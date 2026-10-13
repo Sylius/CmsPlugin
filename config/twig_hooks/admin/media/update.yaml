@@ -16,7 +16,7 @@ sylius_twig_hooks:
 
         'sylius_cms.admin.media.update.content.form':
             errors:
-                template: '@SyliusCmsPlugin/admin/media/form/errors.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/errors.html.twig'
                 configuration:
                     message: 'sylius_cms.ui.media_form.errors.update'
                 priority: 100

@@ -89,6 +89,7 @@
    The media form component (`sylius_cms:admin:media:form`) is now `Sylius\CmsPlugin\Twig\Component\Media\FormComponent` and renders
    `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig`. Its templates live under `@SyliusCmsPlugin/admin/media/form/`;
    `@SyliusCmsPlugin/admin/media/form.html.twig` and the previous templates of the media form sections have been removed.
+   The errors summary is rendered by `@SyliusCmsPlugin/admin/shared/crud/common/content/form/errors.html.twig`.
    The `sylius_cms:admin:media:preview` component (`Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent`) and its
    `@SyliusCmsPlugin/admin/media/preview/*.html.twig` templates have been removed; the preview is rendered by the `file` hookable.
 
@@ -105,3 +106,45 @@
 
 8. `Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait::getUiStateElementsPath()` returns `?string` now;
    return `null` when the form has no content elements.
+
+9. The admin collection create/update form has been redesigned (shown for `update`; `create` changed the same way, without the `usage` hookable):
+
+   | Before                                                                  | After                                                                                   |
+   |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+   | `sylius_cms.admin.collection.update.content.form.sections.general` (`code`, `name`) | `...form.sections.settings.general` (`code`, `name`)                         |
+   | `...form.sections.general.type`                                         | `...form.sections.settings.type`                                                         |
+   | `...form.sections.elements.collection_elements`                         | `...form.sections.elements` (`search`, `list`)                                           |
+   |                                                                         | `...form.sections.settings.usage` (new: pages and blocks rendering the collection)       |
+
+   The `general` hookable of `sylius_cms.admin.collection.update.content.form.sections`, inherited from `sylius_admin.common`, is disabled.
+   A new `sylius_cms.admin.collection.update.content.form.errors` hookable renders the summary of validation errors, so the
+   `form_error_alert` hookable of `sylius_cms.admin.collection.update.content` has been disabled.
+   If you have added or overridden hookables under the old hooks, move them to the new ones.
+
+   `@SyliusCmsPlugin/admin/collection/form.html.twig`, `@SyliusCmsPlugin/admin/collection/form/sections/general.html.twig`,
+   `@SyliusCmsPlugin/admin/collection/form/sections/general/{code,name,type}.html.twig` and
+   `@SyliusCmsPlugin/admin/collection/form/sections/elements/collection_elements.html.twig` have been removed.
+   The errors summary template `@SyliusCmsPlugin/admin/media/form/errors.html.twig` has been moved to
+   `@SyliusCmsPlugin/admin/shared/crud/common/content/form/errors.html.twig` and is used by the media and collection forms.
+   The `form` hook of `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig` receives the live component as `component` in its context.
+
+   The collection form component (`sylius_cms:admin:collection:form`) is now `Sylius\CmsPlugin\Twig\Component\Collection\FormComponent`
+   and renders `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig`. Its constructor has a new
+   `Sylius\CmsPlugin\Repository\ContentConfigurationRepositoryInterface $contentConfigurationRepository` argument.
+   `Sylius\CmsPlugin\Repository\ContentConfigurationRepository` implements this new interface; if you have configured
+   a custom content configuration repository, make it implement the interface as well.
+
+   `Sylius\CmsPlugin\Form\Type\CollectionType` has changed:
+   - the `type` field is expanded (radio buttons);
+   - the `pages`, `blocks` and `media` fields are always added (previously only the one matching the type), and the names of
+     the fields per type are available in the `CollectionType::ELEMENTS_FIELDS` constant;
+   - on submit, the elements that do not match the type of the collection are removed from it.
+
+   A new `@sylius-cms-plugin/admin/collection-type` Stimulus controller asks for a confirmation before changing the type
+   of a collection that contains elements. If your application lists the controllers of the plugin in `assets/admin/controllers.json`, add it:
+
+   ```json
+   "@sylius-cms-plugin/admin": {
+       "collection-type": { "enabled": true, "fetch": "lazy" }
+   }
+   ```

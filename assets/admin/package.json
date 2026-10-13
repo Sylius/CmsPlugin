@@ -28,6 +28,18 @@
                 "webpackMode": "lazy",
                 "fetch": "lazy",
                 "enabled": true
+            },
+            "collection-type": {
+                "main": "controllers/CollectionTypeController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "tooltip": {
+                "main": "controllers/TooltipController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
             }
         }
     },

@@ -15,6 +15,18 @@ namespace Sylius\CmsPlugin\Repository;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-class ContentConfigurationRepository extends EntityRepository
+class ContentConfigurationRepository extends EntityRepository implements ContentConfigurationRepositoryInterface
 {
+    public function findByTypeWithOwners(string $type): array
+    {
+        return $this->createQueryBuilder('o')
+            ->addSelect('page', 'block')
+            ->leftJoin('o.page', 'page')
+            ->leftJoin('o.block', 'block')
+            ->andWhere('o.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
