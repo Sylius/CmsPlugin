@@ -118,7 +118,7 @@ class FormComponent
         return ['translations', 'contentElements'];
     }
 
-    protected function getUiStateElementsPath(): string
+    protected function getUiStateElementsPath(): ?string
     {
         return 'contentElements.%locale%.contentElements';
     }

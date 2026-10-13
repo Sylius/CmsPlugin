@@ -1,0 +1,141 @@
+/*
+ * This file is part of the Sylius CMS Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.cms-media-types > .btn {
+    --tblr-btn-padding-x: .75rem;
+    --tblr-btn-font-size: .8125rem;
+    --tblr-btn-active-bg: var(--tblr-body-color);
+    --tblr-btn-active-color: var(--tblr-bg-surface);
+    --tblr-btn-active-border-color: var(--tblr-body-color);
+    height: 2rem;
+}
+
+.cms-media-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    min-height: 17.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    border: 2px dashed var(--tblr-border-color-dark);
+    border-radius: var(--tblr-border-radius-lg);
+    background: var(--tblr-bg-surface-secondary);
+    transition: border-color .15s, background-color .15s;
+}
+
+.cms-media-frame {
+    overflow: hidden;
+    border: 1px solid var(--tblr-border-color);
+    border-radius: var(--tblr-border-radius);
+    background: var(--tblr-bg-surface-secondary);
+
+    > img,
+    > video {
+        display: block;
+        width: 100%;
+        max-height: 22.5rem;
+        object-fit: contain;
+    }
+}
+
+.cms-media-frame-link {
+    position: absolute;
+    right: .75rem;
+    bottom: .75rem;
+}
+
+.cms-media-frame-actions {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+}
+
+.cms-media-file:not([hidden]) {
+    display: flex;
+}
+
+.cms-media-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: .75rem;
+    margin: .75rem 0 0;
+    padding: .75rem 1rem;
+    border: 1px solid var(--tblr-border-color);
+    border-radius: var(--tblr-border-radius);
+    background: var(--tblr-bg-surface-secondary);
+
+    dt {
+        font-size: .6875rem;
+        font-weight: var(--tblr-font-weight-bold);
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--tblr-secondary);
+    }
+
+    dd {
+        margin: .125rem 0 0;
+        font-weight: var(--tblr-font-weight-medium);
+    }
+}
+
+.cms-media-selected,
+.cms-media-stage-label,
+.cms-media-replace-note {
+    display: none;
+}
+
+.cms-media-selected > .alert {
+    margin-top: .75rem;
+}
+
+.cms-media.has-file {
+    .cms-media-dropzone {
+        display: none;
+    }
+
+    .cms-media-selected {
+        display: block;
+    }
+}
+
+.cms-media.has-current.has-file {
+    .cms-media-stage-label,
+    .cms-media-replace-note {
+        display: block;
+    }
+
+    .cms-media-replace,
+    .cms-media-frame-actions,
+    .cms-media-create-note {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .cms-media.has-current.has-file .cms-media-stage {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+}
+
+.cms-media.is-dragging {
+    .cms-media-dropzone,
+    .cms-media-current .cms-media-frame {
+        border-color: var(--tblr-primary);
+        background: var(--tblr-primary-lt);
+    }
+}
+
+.btn.collapsed .cms-when-expanded,
+.btn:not(.collapsed) .cms-when-collapsed {
+    display: none;
+}

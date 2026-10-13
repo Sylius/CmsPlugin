@@ -3,7 +3,7 @@
 
 {% set languages = ui_state.locales|map(locale => locale|split('_')|first) %}
 
-<div class="cms-locale-switcher align-items-center gap-2 pb-2">
+<div class="cms-locale-switcher align-items-center gap-2 {{ hookable_metadata.configuration.visible|default(false) ? 'd-flex' : 'pb-2' }}">
     <span class="text-secondary small">{{ 'sylius.ui.language'|trans }}</span>
     <div class="btn-group cms-form-locales" role="group" aria-label="{{ 'sylius.ui.language'|trans }}">
         {% for locale in ui_state.locales %}

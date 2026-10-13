@@ -82,6 +82,65 @@ sylius_cms:
             tab:
                 teaser: Teaser
                 seo: SEO
+        media_form:
+            detected: Detected from file
+            current: Current
+            new_file: New · not saved
+            open_original: Open original
+            replace: Replace file
+            drop_to_replace: 'Tip: drop a new file onto the preview to replace it.'
+            choose_another: Choose another
+            remove: Remove
+            keep_current: Keep current file
+            selected_note: 'Preview of the selected file. It is uploaded when you click %button%.'
+            replace_note: 'The current file is replaced when you click %button%. The path changes and pages using this media show the new file.'
+            type_mismatch: 'Type is set to %type%, but the selected file does not match it (%mime%). Change the type or choose another file.'
+            switch_to: 'Switch to %type%'
+            save_as: 'The file will be saved as %name%.'
+            save_with_original_name_help: Keeps the uploaded file name instead of a generated one.
+            save_with_original_name_update_help: Keeps the uploaded file name instead of a generated one. Applies to the next upload.
+            copy: Copy
+            copied: Copied
+            open: Open
+            download_requires_channel: The Download link is built from a channel's locale, so it needs at least one enabled channel. Select a channel in Publishing.
+            shop_preview: How it looks in the shop
+            alt_help: Read by screen readers and used by search engines.
+            alt_placeholder: Describe what the image shows
+            link_help: Optional. Makes the image clickable in the shop.
+            link_placeholder: https://… or /en_US/taxons/summer
+            images_only:
+                video: Alt text and Link apply to images only, so they are hidden for videos.
+                file: Alt text and Link apply to images only, so they are hidden for files.
+            content_help:
+                image: Optional description shown below the image.
+                video: Optional description shown below the video.
+                file: Optional description shown below the file name.
+            dropzone:
+                title: Drag a file here
+                or: or
+                browse: Browse files
+                help: Image, video or any file for download. The type is detected from the file.
+            details:
+                file_type: File type
+                size: Size
+                dimensions: Dimensions
+                resolution: Resolution
+                duration: Duration
+                file_name: File name
+            errors:
+                create: 'The media was not created. Fix %count% error(s) and click Create again.'
+                update: 'The media was not saved. Fix %count% error(s) and click Update again.'
+            collections:
+                search: Search collections to add…
+                empty: Not in any collection yet.
+                show_all: 'Show all %count%'
+                show_less: Show less
+            settings:
+                code_help: 'Letters, digits, _ and -. Set when the media is created and cannot be changed.'
+                name_help: Internal name. For videos and files it is also shown in the shop as a heading.
+                enabled_help: The media is available in the selected channels.
+                channels_help: Channels in which the media is available.
+                collections_help: Groups media in the CMS.
         add_element: Add element
         blocks: Blocks
         block: Block

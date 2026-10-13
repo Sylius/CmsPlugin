@@ -82,6 +82,65 @@ sylius_cms:
             tab:
                 teaser: Zajawka
                 seo: SEO
+        media_form:
+            detected: Wykryty z pliku
+            current: Obecny
+            new_file: Nowy · niezapisany
+            open_original: Otwórz oryginał
+            replace: Zamień plik
+            drop_to_replace: 'Wskazówka: upuść nowy plik na podgląd, aby go zamienić.'
+            choose_another: Wybierz inny
+            remove: Usuń
+            keep_current: Zachowaj obecny plik
+            selected_note: 'Podgląd wybranego pliku. Zostanie wysłany po kliknięciu %button%.'
+            replace_note: 'Obecny plik zostanie zamieniony po kliknięciu %button%. Ścieżka się zmieni, a strony używające tego medium pokażą nowy plik.'
+            type_mismatch: 'Wybrany typ to %type%, ale plik do niego nie pasuje (%mime%). Zmień typ lub wybierz inny plik.'
+            switch_to: 'Zmień na %type%'
+            save_as: 'Plik zostanie zapisany jako %name%.'
+            save_with_original_name_help: Zachowuje nazwę wysłanego pliku zamiast generowanej.
+            save_with_original_name_update_help: Zachowuje nazwę wysłanego pliku zamiast generowanej. Dotyczy następnego wysłania.
+            copy: Kopiuj
+            copied: Skopiowano
+            open: Otwórz
+            download_requires_channel: Link do pobrania korzysta z języka kanału, więc wymaga co najmniej jednego włączonego kanału. Wybierz kanał w sekcji Publikacja.
+            shop_preview: Jak to wygląda w sklepie
+            alt_help: Odczytywany przez czytniki ekranu i używany przez wyszukiwarki.
+            alt_placeholder: Opisz, co przedstawia obraz
+            link_help: Opcjonalny. Sprawia, że obraz w sklepie jest klikalny.
+            link_placeholder: https://… lub /pl_PL/taxons/lato
+            images_only:
+                video: Tekst alternatywny i link dotyczą tylko obrazów, dlatego są ukryte dla wideo.
+                file: Tekst alternatywny i link dotyczą tylko obrazów, dlatego są ukryte dla plików.
+            content_help:
+                image: Opcjonalny opis wyświetlany pod obrazem.
+                video: Opcjonalny opis wyświetlany pod wideo.
+                file: Opcjonalny opis wyświetlany pod nazwą pliku.
+            dropzone:
+                title: Przeciągnij plik tutaj
+                or: lub
+                browse: Wybierz plik
+                help: Obraz, wideo lub dowolny plik do pobrania. Typ jest wykrywany na podstawie pliku.
+            details:
+                file_type: Typ pliku
+                size: Rozmiar
+                dimensions: Wymiary
+                resolution: Rozdzielczość
+                duration: Czas trwania
+                file_name: Nazwa pliku
+            errors:
+                create: 'Medium nie zostało utworzone. Popraw błędy (%count%) i ponownie kliknij Utwórz.'
+                update: 'Medium nie zostało zapisane. Popraw błędy (%count%) i ponownie kliknij Aktualizuj.'
+            collections:
+                search: Wyszukaj kolekcje do dodania…
+                empty: Nie należy jeszcze do żadnej kolekcji.
+                show_all: 'Pokaż wszystkie (%count%)'
+                show_less: Pokaż mniej
+            settings:
+                code_help: 'Litery, cyfry, _ i -. Ustawiany przy tworzeniu medium, nie można go zmienić.'
+                name_help: Nazwa wewnętrzna. Dla wideo i plików wyświetlana też w sklepie jako nagłówek.
+                enabled_help: Medium jest dostępne w wybranych kanałach.
+                channels_help: Kanały, w których medium jest dostępne.
+                collections_help: Grupuje media w CMS.
         blocks: Bloki
         block: Blok
         pages: Strony

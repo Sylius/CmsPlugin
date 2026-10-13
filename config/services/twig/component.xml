@@ -55,7 +55,7 @@
 
         <service
             id="sylius_cms.twig.component.media.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Media\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.media" />
             <argument type="service" id="form.factory" />
@@ -63,13 +63,6 @@
             <argument>Sylius\CmsPlugin\Form\Type\MediaType</argument>
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.media.preview"
-            class="Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent"
-        >
-            <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
         </service>
 
         <service

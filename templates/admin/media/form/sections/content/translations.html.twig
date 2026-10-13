@@ -1,0 +1,32 @@
+{% set form = hookable_metadata.context.form %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+{% set media_type = form.type.vars.value %}
+
+<div class="card" {{ sylius_test_html_attribute('translations-card') }}>
+    <div class="card-header flex-wrap gap-2">
+        <h3 class="card-title">{{ 'sylius.ui.translations'|trans }}</h3>
+        {% for locale in ui_state.locales %}
+            <span
+                class="text-secondary small {{ ui_state.active_locale != locale ? 'd-none' }}"
+                data-ui-pane="activeLocale"
+                data-ui-pane-value="{{ locale }}"
+            >{{ locale|sylius_locale_name }}</span>
+        {% endfor %}
+        <div class="ms-auto">
+            {% hook 'translations.header' %}
+        </div>
+    </div>
+    <div class="card-body">
+        {% for locale, translation_form in form.translations %}
+            <div
+                id="media-translation-{{ locale }}"
+                class="row g-3 {{ ui_state.active_locale != locale ? 'd-none' }}"
+                data-ui-pane="activeLocale"
+                data-ui-pane-value="{{ locale }}"
+                {{ sylius_test_html_attribute('translation', locale) }}
+            >
+                {% hook 'translations' with { form: translation_form, locale, media_type } %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

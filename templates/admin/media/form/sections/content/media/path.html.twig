@@ -1,0 +1,32 @@
+{% set form = hookable_metadata.context.form %}
+{% set media = hookable_metadata.context.media %}
+
+{% if media.type == 'image' and media.path is not empty %}
+    {% set url = media.path|imagine_filter('sylius_original') %}
+{% elseif media.type == 'video' and media.path is not empty %}
+    {% set url = media.path|sylius_cms_resolve_media_video_path %}
+{% else %}
+    {% set url = null %}
+{% endif %}
+
+<div class="col-12">
+    {{ form_label(form.path) }}
+    <div class="input-group">
+        {{ form_widget(form.path, sylius_test_form_attribute('path')) }}
+        <button
+            type="button"
+            class="btn"
+            {{ stimulus_action('@sylius-cms-plugin/admin/media-upload', 'copyPath') }}
+            data-copied="{{ 'sylius_cms.ui.media_form.copied'|trans }}"
+            {{ sylius_test_html_attribute('media-copy-path') }}
+        >
+            {{ ux_icon('tabler:copy', { class: 'icon' }) }}<span>{{ 'sylius_cms.ui.media_form.copy'|trans }}</span>
+        </button>
+        {% if url is not null %}
+            <a class="btn" href="{{ url }}" target="_blank" rel="noopener" {{ sylius_test_html_attribute('media-open') }}>
+                {{ ux_icon('tabler:external-link', { class: 'icon' }) }}{{ 'sylius_cms.ui.media_form.open'|trans }}
+            </a>
+        {% endif %}
+    </div>
+    {{ form_errors(form.path) }}
+</div>

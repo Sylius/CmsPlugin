@@ -1,0 +1,23 @@
+{% set form = hookable_metadata.context.form %}
+{% set media = hookable_metadata.context.media %}
+
+{% if media.type == 'file' and media.path is not empty and media.code is not empty %}
+    {% set locale_code = null %}
+    {% for choice in form.channels.vars.choices %}
+        {% if locale_code is null and choice.data.enabled and choice.data.defaultLocale is not null and choice.value in form.channels.vars.value %}
+            {% set locale_code = choice.data.defaultLocale.code %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="col-12" {{ sylius_test_html_attribute('media-download') }}>
+        {% if locale_code is not null %}
+            <a class="btn btn-sm" target="_blank" rel="noopener" href="{{ path('sylius_cms_shop_media_download', { code: media.code, _locale: locale_code }) }}">
+                {{ ux_icon('tabler:download', { class: 'icon' }) }}{{ 'sylius_cms.ui.download'|trans }}
+            </a>
+        {% else %}
+            <div class="alert alert-warning mb-0" role="alert" {{ sylius_test_html_attribute('media-download-unavailable') }}>
+                {{ 'sylius_cms.ui.media_form.download_requires_channel'|trans }}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

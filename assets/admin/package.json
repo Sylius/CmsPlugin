@@ -22,6 +22,12 @@
                 "webpackMode": "lazy",
                 "fetch": "lazy",
                 "enabled": true
+            },
+            "media-upload": {
+                "main": "controllers/MediaUploadController.js",
+                "webpackMode": "lazy",
+                "fetch": "lazy",
+                "enabled": true
             }
         }
     },

@@ -28,10 +28,17 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function uploadFile(string $file): void
     {
-        $path = __DIR__ . '/../../../Resources/media/' . $file;
+        $path = __DIR__ . '/../../../Resources/images/' . $file;
 
         Assert::fileExists($path);
 
-        $this->getDocument()->attachFileToField('Choose file', $path);
+        $this->getElement('file')->attachFile((string) realpath($path));
+    }
+
+    protected function getDefinedElements(): array
+    {
+        return array_merge(parent::getDefinedElements(), [
+            'file' => '[data-test-file]',
+        ]);
     }
 }

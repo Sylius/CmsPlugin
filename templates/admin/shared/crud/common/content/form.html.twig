@@ -13,10 +13,12 @@
     {% endfor %}
     <div hidden data-state="{{ ui_snapshot|json_encode }}" {{ stimulus_target('@sylius-cms-plugin/admin/ui-state', 'snapshot') }}></div>
 
-    {{ form_errors(form) }}
+    {% if hookable_metadata.configuration.form_errors|default(true) %}
+        {{ form_errors(form) }}
+    {% endif %}
     {{ form_widget(form._token) }}
 
-    {% hook 'form' with { form, ui_state } %}
+    {% hook 'form' with { form, ui_state, form_validated: this.isValidated } %}
 
     {{ form_end(form, {render_rest: false}) }}
 </div>

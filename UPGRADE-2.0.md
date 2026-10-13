@@ -70,3 +70,38 @@
 6. The input of the Trix editor (`@SyliusCmsPlugin/admin/shared/editor/trix.html.twig`) is now `<input type="text" hidden>`
    instead of `<input type="hidden">`, so that live re-renders do not overwrite the edited content.
    Update selectors relying on `input[type="hidden"]` (e.g. in Behat contexts) to `input[hidden]`.
+
+7. The admin media create/update form has been redesigned (shown for `update`; `create` changed the same way, without the `download`,
+   `path` and `shop_preview` hookables):
+
+   | Before                                                                  | After                                                                                   |
+   |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+   | `sylius_admin.media.update.content.form.sections` (`general`, `collections`, `media`, `translations`) | `sylius_cms.admin.media.update.content.form.sections` (`content`, `settings`)             |
+   | `sylius_cms.admin.media.update.content.form.sections.general` (`code`, `name`, `enabled`, `channels`) | `...form.sections.settings.general` (`code`, `name`) and `...form.sections.settings.publishing` (`enabled`, `channels`) |
+   | `...form.sections.collections`                                          | `...form.sections.settings.collections`                                                  |
+   | `...form.sections.media` (`type`, `file`, `path`, `save_with_original_filename`, `preview`) | `...form.sections.content.media` (`file`, `download`, `path`, `save_with_original_name`, `shop_preview`); the type is rendered in the header of the `media` card |
+   | `...form.sections.translations` (`alt`, `link`, `content`)              | `...form.sections.content.translations` (`images_only`, `alt`, `link`, `content`) and `...form.sections.content.translations.header` (`locale_switcher`) |
+
+   A new `sylius_cms.admin.media.update.content.form.errors` hookable renders the summary of validation errors, so the
+   `form_error_alert` hookable of `sylius_cms.admin.media.update.content` has been disabled.
+   If you have added or overridden hookables under the old hooks, move them to the new ones.
+
+   The media form component (`sylius_cms:admin:media:form`) is now `Sylius\CmsPlugin\Twig\Component\Media\FormComponent` and renders
+   `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig`. Its templates live under `@SyliusCmsPlugin/admin/media/form/`;
+   `@SyliusCmsPlugin/admin/media/form.html.twig` and the previous templates of the media form sections have been removed.
+   The `sylius_cms:admin:media:preview` component (`Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent`) and its
+   `@SyliusCmsPlugin/admin/media/preview/*.html.twig` templates have been removed; the preview is rendered by the `file` hookable.
+
+   The `type` field of `Sylius\CmsPlugin\Form\Type\MediaType` is now expanded (radio buttons) and defaults to `image` for a new media.
+
+   A new `@sylius-cms-plugin/admin/media-upload` Stimulus controller handles drag & drop and the preview of the selected file.
+   If your application lists the controllers of the plugin in `assets/admin/controllers.json`, add it:
+
+   ```json
+   "@sylius-cms-plugin/admin": {
+       "media-upload": { "enabled": true, "fetch": "lazy" }
+   }
+   ```
+
+8. `Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait::getUiStateElementsPath()` returns `?string` now;
+   return `null` when the form has no content elements.
