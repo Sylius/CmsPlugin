@@ -1,17 +1,22 @@
 {% form_theme form hookable_metadata.configuration.form_theme|default('@SyliusAdmin/shared/form_theme.html.twig') %}
 
-{% set ui_state = this.uiState %}
+{# Components without locales or content elements (e.g. templates) skip the UI state. #}
+{% set ui_state = this.uiState is defined ? this.uiState : null %}
 
-<div class="container-xl cms-form" {{ attributes.defaults(stimulus_controller('@sylius-cms-plugin/admin/ui-state')|stimulus_controller('@sylius-cms-plugin/admin/widget-state')) }}>
+{% set controllers = ui_state is null ? stimulus_controller('@sylius-cms-plugin/admin/widget-state') : stimulus_controller('@sylius-cms-plugin/admin/ui-state')|stimulus_controller('@sylius-cms-plugin/admin/widget-state') %}
+
+<div class="container-xl cms-form" {{ attributes.defaults(controllers) }}>
     {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate', 'id': form.vars.id}}) }}
     {% if hookable_metadata.configuration.method is defined %}
         <input type="hidden" name="_method" value="{{ hookable_metadata.configuration.method }}" />
     {% endif %}
-    {% set ui_snapshot = { activeLocale: ui_state.active_locale } %}
-    {% for locale, key in ui_state.active_elements %}
-        {% set ui_snapshot = ui_snapshot|merge({ ('activeElements.' ~ locale): key }) %}
-    {% endfor %}
-    <div hidden data-state="{{ ui_snapshot|json_encode }}" {{ stimulus_target('@sylius-cms-plugin/admin/ui-state', 'snapshot') }}></div>
+    {% if ui_state is not null %}
+        {% set ui_snapshot = { activeLocale: ui_state.active_locale } %}
+        {% for locale, key in ui_state.active_elements %}
+            {% set ui_snapshot = ui_snapshot|merge({ ('activeElements.' ~ locale): key }) %}
+        {% endfor %}
+        <div hidden data-state="{{ ui_snapshot|json_encode }}" {{ stimulus_target('@sylius-cms-plugin/admin/ui-state', 'snapshot') }}></div>
+    {% endif %}
 
     {% if hookable_metadata.configuration.form_errors|default(true) %}
         {{ form_errors(form) }}

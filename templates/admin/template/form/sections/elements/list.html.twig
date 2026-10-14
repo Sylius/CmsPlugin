@@ -1,0 +1,133 @@
+{% import '@SyliusCmsPlugin/admin/macros/content_elements.html.twig' as content_elements %}
+{% form_theme hookable_metadata.context.collection '@SyliusCmsPlugin/admin/shared/component_elements/form_theme.html.twig' %}
+
+{% set form = hookable_metadata.context.form %}
+{% set collection = hookable_metadata.context.collection %}
+{% set types = collection.vars.button_add.vars.types|default({}) %}
+
+{% if collection.children is empty %}
+    <div class="card-body text-center py-5" {{ sylius_test_html_attribute('template-elements-empty') }}>
+        <span class="avatar avatar-lg rounded-circle bg-primary-lt mb-3">{{ ux_icon('tabler:layout-rows', { class: 'icon' }) }}</span>
+        <div class="fw-bold">{{ 'sylius_cms.ui.template_form.elements.empty'|trans }}</div>
+        {% if form.type.vars.value is not empty %}
+            <div class="text-secondary small">{{ ('sylius_cms.ui.template_form.elements.empty_help.' ~ form.type.vars.value)|trans }}</div>
+        {% endif %}
+        {{ form_errors(collection) }}
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+            {% for type in hookable_metadata.configuration.quick_types|default([])|filter(type => types[type] is defined) %}
+                <button
+                    type="button"
+                    class="btn btn-sm"
+                    data-action="live#action"
+                    data-live-action-param="insertCollectionItem"
+                    data-live-name-param="{{ collection.vars.full_name }}"
+                    data-live-type-param="{{ type }}"
+                    {{ sylius_test_html_attribute('quick-add', type) }}
+                >
+                    {{ ux_icon('tabler:plus', { class: 'icon' }) }}
+                    {{ types[type]|trans }}
+                </button>
+            {% endfor %}
+        </div>
+        <div class="mt-3 text-start">{{ form_row(collection.vars.button_add) }}</div>
+    </div>
+{% else %}
+    <div class="card-body">
+        <div class="alert alert-info mb-3">
+            <div class="d-flex gap-2">
+                <div>{{ ux_icon('tabler:info-circle', { class: 'icon alert-icon' }) }}</div>
+                <div>
+                    {{ 'sylius_cms.ui.template_form.elements.note'|trans }}
+                    {% if form.vars.data.id is not null %}
+                        {{ 'sylius_cms.ui.template_form.elements.update_note'|trans }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {{ form_errors(collection) }}
+
+        <ol class="list-unstyled mb-0 cms-template-elements" {{ sylius_test_html_attribute('content-elements') }}>
+            {% for key, element in collection %}
+                {% set type = element.type.vars.value %}
+                {% set label = content_elements.type_label(element) %}
+                {% set description_key = 'sylius_cms.ui.template_form.element_descriptions.' ~ type %}
+                {% set description = description_key|trans %}
+                <li>
+                    {% if loop.first %}
+                        {{ content_elements.insert_divider(types, collection.vars.full_name, -1) }}
+                    {% endif %}
+                    <div class="d-flex align-items-center gap-3 border rounded ps-3 pe-2 py-2 bg-surface" {{ sylius_test_html_attribute('content-element', type) }}>
+                        <span class="avatar avatar-xs rounded-circle">{{ loop.index }}</span>
+                        <span class="flex-grow-1 min-w-0">
+                            <span class="d-block fw-bold text-truncate" {{ sylius_test_html_attribute('content-element-label') }}>{{ label }}</span>
+                            {% if description != description_key %}
+                                <span class="d-block small text-secondary text-truncate">{{ description }}</span>
+                            {% endif %}
+                            {{ form_errors(element) }}
+                            {{ form_errors(element.type) }}
+                        </span>
+                        <input type="hidden" name="{{ element.type.vars.full_name }}" value="{{ type }}">
+                        {% do element.type.setRendered %}
+                        <div class="d-flex gap-1">
+                            {% for direction, target in { up: loop.first, down: loop.last } %}
+                                <button
+                                    type="button"
+                                    class="btn btn-icon"
+                                    aria-label="{{ ('sylius_cms.ui.form.content.move_' ~ direction)|trans }}: {{ loop.parent.loop.index }} · {{ label }}"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="{{ ('sylius_cms.ui.form.content.move_' ~ direction)|trans }}"
+                                    {{ stimulus_controller('@sylius-cms-plugin/admin/tooltip') }}
+                                    data-action="live#action"
+                                    data-live-action-param="moveCollectionItem"
+                                    data-live-name-param="{{ collection.vars.full_name }}"
+                                    data-live-index-param="{{ key }}"
+                                    data-live-direction-param="{{ direction }}"
+                                    {{ target ? 'disabled' }}
+                                    {{ sylius_test_html_attribute('move-' ~ direction) }}
+                                >
+                                    {{ ux_icon('tabler:arrow-' ~ direction) }}
+                                </button>
+                            {% endfor %}
+                            <button
+                                type="button"
+                                class="btn btn-icon"
+                                aria-label="{{ 'sylius_cms.ui.form.content.duplicate'|trans }}: {{ loop.index }} · {{ label }}"
+                                data-bs-toggle="tooltip"
+                                data-bs-title="{{ 'sylius_cms.ui.form.content.duplicate'|trans }}"
+                                {{ stimulus_controller('@sylius-cms-plugin/admin/tooltip') }}
+                                data-action="live#action"
+                                data-live-action-param="duplicateCollectionItem"
+                                data-live-name-param="{{ collection.vars.full_name }}"
+                                data-live-index-param="{{ key }}"
+                                {{ sylius_test_html_attribute('duplicate-element') }}
+                            >
+                                {{ ux_icon('tabler:copy') }}
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-icon"
+                                aria-label="{{ 'sylius.ui.delete'|trans }}: {{ loop.index }} · {{ label }}"
+                                data-bs-toggle="tooltip"
+                                data-bs-title="{{ 'sylius.ui.delete'|trans }}"
+                                {{ stimulus_controller('@sylius-cms-plugin/admin/tooltip') }}
+                                data-action="live#action"
+                                data-live-action-param="removeCollectionItem"
+                                data-live-name-param="{{ collection.vars.full_name }}"
+                                data-live-index-param="{{ key }}"
+                                {{ sylius_test_html_attribute('delete-element') }}
+                            >
+                                {{ ux_icon('tabler:trash', { class: 'icon text-danger' }) }}
+                            </button>
+                        </div>
+                    </div>
+                    {% if not loop.last %}
+                        {{ content_elements.insert_divider(types, collection.vars.full_name, key) }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+
+        <div class="mt-3">{{ form_row(collection.vars.button_add) }}</div>
+        <div class="form-hint mt-2">{{ 'sylius_cms.ui.template_form.elements.hint'|trans }}</div>
+    </div>
+{% endif %}

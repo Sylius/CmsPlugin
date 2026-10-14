@@ -56,7 +56,8 @@ class Template implements TemplateInterface
 
     public function setContentElements(array $contentElements): void
     {
-        $this->contentElements = $contentElements;
+        // Removing or inserting elements in the form leaves gaps in the keys, which would store a JSON object instead of a list.
+        $this->contentElements = array_values($contentElements);
     }
 
     public function __toString(): string

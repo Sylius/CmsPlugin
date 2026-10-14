@@ -64,6 +64,7 @@
         <service id="sylius_cms.form.type.template" class="Sylius\CmsPlugin\Form\Type\TemplateType">
             <argument>%sylius_cms.model.template.class%</argument>
             <argument>%sylius_cms.form.type.template.validation_groups%</argument>
+            <argument type="tagged_iterator" tag="sylius_cms.content_elements.type" index-by="key" />
             <tag name="form.type" />
         </service>
 

@@ -10,7 +10,7 @@
 
         <service
             id="sylius_cms.twig.component.template.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Template\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.template" />
             <argument type="service" id="form.factory" />

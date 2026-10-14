@@ -21,7 +21,6 @@ use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\PagesCollectionContentElementType;
 use Sylius\CmsPlugin\Repository\ContentConfigurationRepositoryInterface;
-use Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -35,8 +34,6 @@ class FormComponent
 
     /** @use ResourceFormComponentTrait<CollectionInterface> */
     use ResourceFormComponentTrait;
-
-    use FormUiStateComponentTrait;
 
     public const ELEMENTS_PER_PAGE = 8;
 
@@ -104,15 +101,5 @@ class FormComponent
         }
 
         return $this->usages = array_values($usages);
-    }
-
-    protected function getUiStateTranslationsPaths(): array
-    {
-        return [];
-    }
-
-    protected function getUiStateElementsPath(): ?string
-    {
-        return null;
     }
 }

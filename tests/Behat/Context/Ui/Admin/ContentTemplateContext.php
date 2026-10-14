@@ -73,6 +73,14 @@ final class ContentTemplateContext implements Context
     }
 
     /**
+     * @When I move :name content element :direction
+     */
+    public function iMoveContentElement(string $name, string $direction): void
+    {
+        $this->updatePage->moveContentElement($name, $direction);
+    }
+
+    /**
      * @When I choose :type in Type field
      */
     public function iChooseInTypeField(string $type): void
@@ -226,6 +234,14 @@ final class ContentTemplateContext implements Context
     public function iShouldSeeNewlyCreatedContentElementInContentElementsSection(string $contentElement): void
     {
         Assert::true($this->resolveCurrentPage()->hasContentElement($contentElement));
+    }
+
+    /**
+     * @Then the content elements should be in order :first and :second
+     */
+    public function theContentElementsShouldBeInOrder(string $first, string $second): void
+    {
+        Assert::same($this->updatePage->getContentElements(), [$first, $second]);
     }
 
     /**

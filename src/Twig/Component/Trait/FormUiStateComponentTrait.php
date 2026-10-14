@@ -25,7 +25,8 @@ use Symfony\UX\LiveComponent\ComponentWithFormTrait;
  * @experimental
  *
  * Overrides `removeCollectionItem` of {@see LiveCollectionTrait} and `onCollectionItemActivated`
- * of {@see ContentElementsCollectionFormComponentTrait}, so resolve these conflicts with `insteadof`.
+ * of {@see CollectionItemsFormComponentTrait} (also used by {@see ContentElementsCollectionFormComponentTrait}),
+ * so resolve these conflicts with `insteadof`.
  *
  * @mixin ComponentWithFormTrait
  * @mixin LiveCollectionTrait

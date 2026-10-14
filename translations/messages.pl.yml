@@ -200,6 +200,38 @@ sylius_cms:
                 via:
                     page: Strona · element „Kolekcja stron”
                     block: Blok · element „Kolekcja stron”
+        template_form:
+            name_placeholder: np. Landing
+            name_help: Widoczna na liście „Szablon elementów treści”. Musi być unikalna.
+            errors:
+                create: 'Szablon nie został utworzony. Popraw błędy (%count%) i kliknij ponownie Utwórz.'
+                update: 'Szablon nie został zapisany. Popraw błędy (%count%) i kliknij ponownie Aktualizuj.'
+            type:
+                description:
+                    page: Dostępny podczas edycji stron
+                    block: Dostępny podczas edycji bloków
+            elements:
+                title: Elementy treści
+                note: Kolejność ma znaczenie. Wybranie tego szablonu na stronie lub w bloku wstawia te elementy w tej kolejności jako puste. Treść uzupełnia się tam.
+                update_note: Edycja szablonu nie zmienia stron ani bloków, które już z niego utworzono.
+                hint: Użyj ↑ ↓, aby zmienić kolejność. Najedź między elementy, aby wstawić tam nowy.
+                empty: Brak elementów
+                empty_help:
+                    page: Dodaj elementy w kolejności, w jakiej mają pojawić się na stronie.
+                    block: Dodaj elementy w kolejności, w jakiej mają pojawić się w bloku.
+            element_descriptions:
+                heading: Tytuł sekcji
+                textarea: Tekst sformatowany
+                single_media: Jeden obraz, film lub plik
+                multiple_media: Kilka mediów
+                products_carousel: Wybrane produkty w karuzeli
+                products_carousel_by_taxon: Produkty z taksonu w karuzeli
+                products_grid: Wybrane produkty w siatce
+                products_grid_by_taxon: Produkty z taksonu w siatce
+                taxons_list: Linki do taksonów
+                pages_collection: Zajawki stron z kolekcji
+                spacer: Odstęp w pionie
+        add_element: Dodaj element
         blocks: Bloki
         block: Blok
         pages: Strony

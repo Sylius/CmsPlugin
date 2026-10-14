@@ -77,7 +77,8 @@
     }
 }
 
-.cms-structure:hover .cms-insert-divider > .btn {
+.cms-structure:hover .cms-insert-divider > .btn,
+.cms-template-elements:hover .cms-insert-divider > .btn {
     opacity: 1;
 }
 
@@ -132,6 +133,16 @@
 
 .cms-choice-card {
     cursor: pointer;
+
+    &:hover {
+        border-color: var(--tblr-primary) !important;
+    }
+
+    &:has(input:focus-visible),
+    &:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 .25rem rgba(var(--tblr-primary-rgb), .25);
+    }
 
     &:has(input:checked) {
         border-color: var(--tblr-primary) !important;

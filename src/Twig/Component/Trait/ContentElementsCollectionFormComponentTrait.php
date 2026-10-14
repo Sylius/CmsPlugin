@@ -18,7 +18,6 @@ use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
@@ -31,52 +30,13 @@ use Symfony\UX\LiveComponent\ComponentWithFormTrait;
  */
 trait ContentElementsCollectionFormComponentTrait
 {
+    use CollectionItemsFormComponentTrait;
+
     /** @var TemplateRepositoryInterface<TemplateInterface> */
     protected TemplateRepositoryInterface $templateRepository;
 
     /** @var array<int|string, TemplateInterface> */
     protected array $templatesCache = [];
-
-    #[LiveAction]
-    public function moveCollectionItem(
-        PropertyAccessorInterface $propertyAccessor,
-        #[LiveArg]
-        string $name,
-        #[LiveArg]
-        int $index,
-        #[LiveArg]
-        string $direction,
-    ): void {
-        if (null === $this->formName) {
-            return;
-        }
-
-        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
-        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-
-        if (!\is_array($data)) {
-            return;
-        }
-
-        $keys = array_keys($data);
-        $currentPos = array_search($index, $keys, true);
-
-        if (false === $currentPos) {
-            return;
-        }
-
-        $swapPos = 'up' === $direction ? $currentPos - 1 : $currentPos + 1;
-
-        if ($swapPos < 0 || $swapPos >= \count($keys)) {
-            return;
-        }
-
-        $swapKey = $keys[$swapPos];
-        [$data[$index], $data[$swapKey]] = [$data[$swapKey], $data[$index]];
-
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
-        $this->onCollectionItemActivated($propertyPath, $swapKey);
-    }
 
     #[LiveAction]
     public function applyContentTemplate(#[LiveArg] string $localeCode): void
@@ -98,110 +58,17 @@ trait ContentElementsCollectionFormComponentTrait
             return;
         }
 
-        $copies = [];
-        foreach ($elements as $element) {
-            if (\is_array($element)) {
-                unset($element[ContentElementConfigurationType::KEY_FIELD]);
-            }
-
-            $copies[] = $element;
-        }
-
-        $this->formValues['contentElements'][$localeCode]['contentElements'] = $copies;
+        $this->formValues['contentElements'][$localeCode]['contentElements'] = array_values(array_map($this->copyCollectionItem(...), $elements));
         $this->onCollectionItemActivated(sprintf('[contentElements][%s][contentElements]', $localeCode), null);
     }
 
-    #[LiveAction]
-    public function insertCollectionItem(
-        PropertyAccessorInterface $propertyAccessor,
-        #[LiveArg]
-        string $name,
-        #[LiveArg]
-        ?string $type = null,
-        #[LiveArg]
-        ?int $insertAfterIndex = null,
-    ): void {
-        if (null === $this->formName) {
-            return;
-        }
-
-        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
-        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-
-        if (!\is_array($data)) {
-            $data = [];
-        }
-
-        $key = $this->insertItem($data, null === $type ? [] : ['type' => $type], $insertAfterIndex);
-
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
-        $this->onCollectionItemActivated($propertyPath, $key);
-    }
-
-    #[LiveAction]
-    public function duplicateCollectionItem(
-        PropertyAccessorInterface $propertyAccessor,
-        #[LiveArg]
-        string $name,
-        #[LiveArg]
-        int $index,
-    ): void {
-        if (null === $this->formName) {
-            return;
-        }
-
-        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
-        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-
-        if (!\is_array($data) || !\array_key_exists($index, $data)) {
-            return;
-        }
-
-        $copy = $data[$index];
-        if (\is_array($copy)) {
-            unset($copy[ContentElementConfigurationType::KEY_FIELD]);
-        }
-
-        $key = $this->insertItem($data, $copy, $index);
-
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
-        $this->onCollectionItemActivated($propertyPath, $key);
-    }
-
-    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
+    protected function copyCollectionItem(mixed $item): mixed
     {
-    }
-
-    /**
-     * @param array<int, mixed> $data
-     */
-    protected function insertItem(array &$data, mixed $item, ?int $insertAfterIndex): int
-    {
-        $keys = array_keys($data);
-        $items = array_values($data);
-
-        if (null === $insertAfterIndex) {
-            $insertPosition = \count($items);
-        } elseif ($insertAfterIndex < 0) {
-            $insertPosition = 0;
-        } else {
-            $pos = array_search($insertAfterIndex, $keys, true);
-            $insertPosition = false !== $pos ? $pos + 1 : \count($items);
+        if (\is_array($item)) {
+            unset($item[ContentElementConfigurationType::KEY_FIELD]);
         }
 
-        array_splice($items, $insertPosition, 0, [$item]);
-
-        $freshKeysNeeded = \count($items) - $insertPosition;
-        $nextKey = $this->provideNewCollectionItemIndex($data);
-
-        $keys = array_slice($keys, 0, $insertPosition);
-        for ($i = 0; $i < $freshKeysNeeded; ++$i) {
-            $keys[] = $nextKey + $i;
-        }
-
-        $data = array_combine($keys, $items);
-
-        return $nextKey;
+        return $item;
     }
 
     /** @param TemplateRepositoryInterface<TemplateInterface> $templateRepository */

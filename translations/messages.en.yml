@@ -200,6 +200,37 @@ sylius_cms:
                 via:
                     page: Page · “Pages collection” element
                     block: Block · “Pages collection” element
+        template_form:
+            name_placeholder: e.g. Landing
+            name_help: Shown in the “Content elements template” select. Must be unique.
+            errors:
+                create: 'The template was not created. Fix %count% error(s) and click Create again.'
+                update: 'The template was not saved. Fix %count% error(s) and click Update again.'
+            type:
+                description:
+                    page: Available when editing pages
+                    block: Available when editing blocks
+            elements:
+                title: Content elements
+                note: Order matters. Choosing this template in a page or block inserts these elements, in this order, as empty elements. Content is filled in there.
+                update_note: Editing the template does not change pages or blocks already created from it.
+                hint: Use ↑ ↓ to change the order. Hover between elements to insert one there.
+                empty: No elements yet
+                empty_help:
+                    page: Add elements in the order they should appear on the page.
+                    block: Add elements in the order they should appear in the block.
+            element_descriptions:
+                heading: Section title
+                textarea: Rich text
+                single_media: One image, video or file
+                multiple_media: Several media items
+                products_carousel: Hand-picked products in a slider
+                products_carousel_by_taxon: Products from a taxon in a slider
+                products_grid: Hand-picked products in a grid
+                products_grid_by_taxon: Products from a taxon in a grid
+                taxons_list: Links to taxons
+                pages_collection: Teasers of pages from a collection
+                spacer: Vertical space
         add_element: Add element
         blocks: Blocks
         block: Block

@@ -1,0 +1,38 @@
+{% set form = hookable_metadata.context.form %}
+{% set invalid = not form.type.vars.valid %}
+{% set icons = { page: 'tabler:file-text', block: 'tabler:template' } %}
+
+<div class="card" {{ sylius_test_html_attribute('template-type') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ form.type.vars.label|trans }} <span class="text-danger">*</span></h3>
+    </div>
+    <div class="card-body">
+        <div class="row g-2" role="radiogroup" aria-label="{{ form.type.vars.label|trans }}" {% if invalid %}aria-invalid="true"{% endif %}>
+            {% for choice in form.type.children %}
+                <div class="col-12">
+                    <label class="cms-choice-card d-flex align-items-start gap-3 border rounded p-3 h-100" for="{{ choice.vars.id }}">
+                        <input
+                            {% for name, value in choice.vars.attr|filter(value => value is not same as(false)) %}{{ name }}{% if value is not same as(true) %}="{{ value }}"{% endif %} {% endfor %}
+                            type="radio"
+                            class="visually-hidden {{ invalid ? 'is-invalid' }}"
+                            id="{{ choice.vars.id }}"
+                            name="{{ choice.vars.full_name }}"
+                            value="{{ choice.vars.value }}"
+                            {{ choice.vars.checked ? 'checked' }}
+                            {{ choice.vars.required ? 'required' }}
+                            {{ choice.vars.disabled ? 'disabled' }}
+                            {{ sylius_test_html_attribute('type', choice.vars.value) }}
+                        >
+                        <span class="avatar flex-shrink-0">{{ ux_icon(icons[choice.vars.value]|default('tabler:folder'), { class: 'icon' }) }}</span>
+                        <span>
+                            <span class="d-block fw-bold">{{ choice.vars.label|trans }}</span>
+                            <span class="d-block small text-secondary">{{ ('sylius_cms.ui.template_form.type.description.' ~ choice.vars.value)|trans }}</span>
+                        </span>
+                    </label>
+                    {% do choice.setRendered %}
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_errors(form.type) }}
+    </div>
+</div>

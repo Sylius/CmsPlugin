@@ -106,6 +106,8 @@
 
 8. `Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait::getUiStateElementsPath()` returns `?string` now;
    return `null` when the form has no content elements.
+   `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig` renders the UI state only for components providing
+   `getUiState()` (e.g. through this trait); for other components `ui_state` in the context of the `form` hook is `null`.
 
 9. The admin collection create/update form has been redesigned (shown for `update`; `create` changed the same way, without the `usage` hookable):
 
@@ -148,3 +150,35 @@
        "collection-type": { "enabled": true, "fetch": "lazy" }
    }
    ```
+
+10. The admin content template create/update form has been redesigned (shown for `update`; `create` changed the same way):
+
+   | Before                                                                  | After                                                                                   |
+   |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+   | `sylius_cms.admin.template.update.content.form.sections.general.name`   | `...form.sections.settings.general.name`                                                 |
+   | `...form.sections.general.type`                                         | `...form.sections.settings.type`                                                         |
+   | `...form.sections.elements.content_elements`                            | `...form.sections.elements.list`                                                         |
+
+   The `general` hookable of `sylius_cms.admin.template.update.content.form.sections`, inherited from `sylius_admin.common`, is disabled.
+   A new `sylius_cms.admin.template.update.content.form.errors` hookable renders the summary of validation errors, so the
+   `form_error_alert` hookable of `sylius_cms.admin.template.update.content` has been disabled.
+   The `list` hookable takes the element types offered when the template is empty in its `quick_types` configuration.
+   If you have added or overridden hookables under the old hooks, move them to the new ones.
+
+   `@SyliusCmsPlugin/admin/template/form.html.twig`, `@SyliusCmsPlugin/admin/template/form/sections/general.html.twig`,
+   `@SyliusCmsPlugin/admin/template/form/sections/general/{name,type}.html.twig` and
+   `@SyliusCmsPlugin/admin/template/form/sections/elements/content_elements.html.twig` have been removed.
+
+   The content template form component (`sylius_cms:admin:template:form`) is now `Sylius\CmsPlugin\Twig\Component\Template\FormComponent`
+   and renders `@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig`.
+   The `moveCollectionItem`, `insertCollectionItem` and `duplicateCollectionItem` live actions have been moved from
+   `Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait` to the new
+   `Sylius\CmsPlugin\Twig\Component\Trait\CollectionItemsFormComponentTrait`, which the former uses. If you resolve
+   conflicts of `onCollectionItemActivated` with `insteadof` in a component using only the new trait, name `CollectionItemsFormComponentTrait`.
+
+   `Sylius\CmsPlugin\Form\Type\TemplateType` has changed:
+   - its constructor has a new `iterable $contentElementTypes` argument (the `sylius_cms.content_elements.type` tagged services);
+   - the `type` field is expanded (radio buttons) and set to `TemplateType::DEFAULT_TYPE` (`page`) for a template without a type;
+   - the `contentElements` collection uses `Sylius\Bundle\AdminBundle\Form\Type\AddButtonType` with the available element types.
+
+   `Sylius\CmsPlugin\Entity\Template::setContentElements()` reindexes the elements, so they are always stored as a JSON list.
