@@ -20,13 +20,42 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
- * Moves, inserts and duplicates the items of a live collection.
+ * Removes, moves, inserts and duplicates the items of a live collection.
  *
  * @mixin ComponentWithFormTrait
- * @mixin LiveCollectionTrait
  */
 trait CollectionItemsFormComponentTrait
 {
+    use LiveCollectionTrait;
+
+    #[LiveAction]
+    public function removeCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        int|string $index,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+        if (!\is_array($data)) {
+            return;
+        }
+
+        $keys = array_keys($data);
+        $position = array_search((string) $index, array_map('strval', $keys), true);
+        unset($data[$index]);
+        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
+
+        if (false !== $position) {
+            $this->onCollectionItemActivated($propertyPath, $keys[$position + 1] ?? $keys[$position - 1] ?? null);
+        }
+    }
+
     #[LiveAction]
     public function moveCollectionItem(
         PropertyAccessorInterface $propertyAccessor,
@@ -120,9 +149,7 @@ trait CollectionItemsFormComponentTrait
         $this->onCollectionItemActivated($propertyPath, $key);
     }
 
-    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
-    {
-    }
+    abstract protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void;
 
     /** Prepares the values of a duplicated item, e.g. drops the ones that must stay unique. */
     protected function copyCollectionItem(mixed $item): mixed

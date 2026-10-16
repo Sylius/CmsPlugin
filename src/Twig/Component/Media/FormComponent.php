@@ -17,6 +17,8 @@ use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\TemplatePropTrait;
 use Sylius\CmsPlugin\Entity\MediaInterface;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateConfiguration;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateResolverInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
@@ -30,9 +32,7 @@ class FormComponent
     /** @use ResourceFormComponentTrait<MediaInterface> */
     use ResourceFormComponentTrait;
 
-    use FormUiStateComponentTrait {
-        FormUiStateComponentTrait::removeCollectionItem insteadof LiveCollectionTrait;
-    }
+    use FormUiStateComponentTrait;
 
     /**
      * @param RepositoryInterface<MediaInterface> $mediaRepository
@@ -44,17 +44,9 @@ class FormComponent
         FormFactoryInterface $formFactory,
         string $resourceClass,
         string $formClass,
+        FormUiStateResolverInterface $formUiStateResolver,
     ) {
         $this->initialize($mediaRepository, $formFactory, $resourceClass, $formClass);
-    }
-
-    protected function getUiStateTranslationsPaths(): array
-    {
-        return ['translations'];
-    }
-
-    protected function getUiStateElementsPath(): ?string
-    {
-        return null;
+        $this->initializeUiState($formUiStateResolver, new FormUiStateConfiguration(['translations']));
     }
 }

@@ -46,6 +46,7 @@
             <argument type="service" id="sylius.provider.locale" />
             <argument>@SyliusCmsPlugin/admin/block/preview.html.twig</argument>
             <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
 
             <call method="setLiveResponder">
                 <argument type="service" id="ux.live_component.live_responder"/>
@@ -62,6 +63,7 @@
             <argument type="service" id="form.factory" />
             <argument>%sylius_cms.model.media.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\MediaType</argument>
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
         </service>
@@ -79,6 +81,8 @@
             <argument type="service" id="sylius.provider.locale" />
             <argument>@SyliusCmsPlugin/admin/page/preview.html.twig</argument>
             <argument type="service" id="sylius.generator.slug" />
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
+            <argument type="service" id="sylius_cms.form.ui_state.page_slug_warnings_provider" />
 
             <call method="setLiveResponder">
                 <argument type="service" id="ux.live_component.live_responder"/>

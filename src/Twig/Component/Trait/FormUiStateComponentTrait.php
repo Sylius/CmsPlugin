@@ -13,28 +13,18 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
-use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\UX\LiveComponent\Attribute\LiveAction;
-use Symfony\UX\LiveComponent\Attribute\LiveArg;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateConfiguration;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateResolverInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
  * @experimental
  *
- * Overrides `removeCollectionItem` of {@see LiveCollectionTrait} and `onCollectionItemActivated`
- * of {@see CollectionItemsFormComponentTrait} (also used by {@see ContentElementsCollectionFormComponentTrait}),
- * so resolve these conflicts with `insteadof`.
- *
  * @mixin ComponentWithFormTrait
- * @mixin LiveCollectionTrait
  */
 trait FormUiStateComponentTrait
 {
-    public const LOCALE_PLACEHOLDER = '%locale%';
-
     #[LiveProp(writable: true)]
     public string $activeLocale = '';
 
@@ -42,190 +32,42 @@ trait FormUiStateComponentTrait
     #[LiveProp(writable: true)]
     public array $activeElements = [];
 
-    /**
-     * @return list<string>
-     */
-    abstract protected function getUiStateTranslationsPaths(): array;
+    protected FormUiStateResolverInterface $formUiStateResolver;
 
-    /**
-     * Path of the content elements collection, with the locale replaced by `%locale%`;
-     * null when the form has no content elements.
-     */
-    abstract protected function getUiStateElementsPath(): ?string;
+    protected FormUiStateConfiguration $formUiStateConfiguration;
 
-    /**
-     * @return array{
-     *     active_locale: string,
-     *     locales: list<string>,
-     *     locale_errors: array<string, int>,
-     *     active_elements: array<string, string|null>,
-     *     element_errors: array<string, array<string, int>>,
-     *     element_counts: array<string, int>,
-     *     locale_warnings: array<string, array<string, string>>,
-     *     tab_warnings: array<string, bool>,
-     * }
-     */
+    /** @return array<string, mixed> */
     public function getUiState(): array
     {
-        $form = $this->getFormView();
-        $translationsPaths = $this->getUiStateTranslationsPaths();
-        $locales = array_values(array_map('strval', array_keys($this->findFormView($form, $translationsPaths[0] ?? '')?->children ?? [])));
-
-        $localeErrors = [];
-        foreach ($locales as $locale) {
-            $localeErrors[$locale] = 0;
-            foreach ($translationsPaths as $path) {
-                $localeErrors[$locale] += $this->countFormErrors($this->findFormView($form, $path . '.' . $locale));
-            }
-        }
-
-        $activeElements = [];
-        $elementErrors = [];
-        $elementCounts = [];
-        $elementsPath = $this->getUiStateElementsPath();
-        foreach ($locales as $locale) {
-            $elements = null === $elementsPath ? [] : $this->findFormView($form, str_replace(self::LOCALE_PLACEHOLDER, $locale, $elementsPath))?->children ?? [];
-            $keys = [];
-            $elementErrors[$locale] = [];
-            foreach ($elements as $key => $element) {
-                $keys[] = (string) $key;
-                $errors = $this->countFormErrors($element);
-                if ($errors > 0) {
-                    $elementErrors[$locale][(string) $key] = $errors;
-                }
-            }
-
-            $elementCounts[$locale] = \count($keys);
-            $activeElements[$locale] = $this->resolveActive(
-                $this->activeElements[$locale] ?? '',
-                $keys,
-                array_keys($elementErrors[$locale]),
-            );
-        }
-
-        $localeWarnings = $this->getUiStateLocaleWarnings($form, $locales, $elementCounts);
-        $tabWarnings = [];
-        foreach ($localeWarnings as $warnings) {
-            foreach (array_keys($warnings) as $tab) {
-                $tabWarnings[$tab] = true;
-            }
-        }
-
-        return [
-            'active_locale' => $this->resolveActive($this->activeLocale, $locales, array_keys(array_filter($localeErrors))) ?? '',
-            'locales' => $locales,
-            'locale_errors' => $localeErrors,
-            'active_elements' => $activeElements,
-            'element_errors' => $elementErrors,
-            'element_counts' => $elementCounts,
-            'locale_warnings' => $localeWarnings,
-            'tab_warnings' => $tabWarnings,
-        ];
+        return $this->formUiStateResolver->resolve(
+            $this->getFormView(),
+            $this->formUiStateConfiguration,
+            $this->activeLocale,
+            $this->activeElements,
+        );
     }
 
-    protected function activateElement(string $collectionPropertyPath, int|string|null $key): void
-    {
-        $elementsPath = $this->getUiStateElementsPath();
-        if (null === $elementsPath) {
-            return;
-        }
-
-        $pattern = preg_quote('[' . str_replace('.', '][', $elementsPath) . ']', '/');
-        $pattern = str_replace(preg_quote(self::LOCALE_PLACEHOLDER, '/'), '(?<locale>[^\]]+)', $pattern);
-        if (1 !== preg_match('/^' . $pattern . '$/', $collectionPropertyPath, $matches)) {
-            return;
-        }
-
-        if (null === $key) {
-            unset($this->activeElements[$matches['locale']]);
-
-            return;
-        }
-
-        $this->activeElements[$matches['locale']] = (string) $key;
-    }
-
-    #[LiveAction]
-    public function removeCollectionItem(
-        PropertyAccessorInterface $propertyAccessor,
-        #[LiveArg]
-        string $name,
-        #[LiveArg]
-        int|string $index,
+    protected function initializeUiState(
+        FormUiStateResolverInterface $formUiStateResolver,
+        FormUiStateConfiguration $formUiStateConfiguration,
     ): void {
-        if (null === $this->formName) {
-            return;
-        }
-
-        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
-        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-        if (!\is_array($data)) {
-            return;
-        }
-
-        $keys = array_keys($data);
-        $position = array_search((string) $index, array_map('strval', $keys), true);
-        unset($data[$index]);
-        $propertyAccessor->setValue($this->formValues, $propertyPath, $data);
-
-        if (false !== $position) {
-            $this->activateElement($propertyPath, $keys[$position + 1] ?? $keys[$position - 1] ?? null);
-        }
+        $this->formUiStateResolver = $formUiStateResolver;
+        $this->formUiStateConfiguration = $formUiStateConfiguration;
     }
 
     protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
     {
-        $this->activateElement($propertyPath, $key);
-    }
-
-    /**
-     * @param list<string> $locales
-     * @param array<string, int> $elementCounts
-     *
-     * @return array<string, array<string, string>>
-     */
-    protected function getUiStateLocaleWarnings(FormView $form, array $locales, array $elementCounts): array
-    {
-        return [];
-    }
-
-    /**
-     * @param list<string> $available
-     * @param list<string> $withErrors
-     */
-    private function resolveActive(string $selected, array $available, array $withErrors): ?string
-    {
-        if (\in_array($selected, $available, true)) {
-            return $selected;
+        $locale = $this->formUiStateConfiguration->matchElementsLocale($propertyPath);
+        if (null === $locale) {
+            return;
         }
 
-        return $withErrors[0] ?? $available[0] ?? null;
-    }
+        if (null === $key) {
+            unset($this->activeElements[$locale]);
 
-    private function findFormView(FormView $form, string $path): ?FormView
-    {
-        foreach (explode('.', $path) as $name) {
-            if (!isset($form->children[$name])) {
-                return null;
-            }
-
-            $form = $form->children[$name];
+            return;
         }
 
-        return $form;
-    }
-
-    private function countFormErrors(?FormView $form): int
-    {
-        if (null === $form) {
-            return 0;
-        }
-
-        $count = \count($form->vars['errors'] ?? []);
-        foreach ($form->children as $child) {
-            $count += $this->countFormErrors($child);
-        }
-
-        return $count;
+        $this->activeElements[$locale] = (string) $key;
     }
 }

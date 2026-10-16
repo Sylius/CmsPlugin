@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Trait;
 
-use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
 use Sylius\CmsPlugin\Form\Type\Translation\ContentConfigurationTranslationsType;
@@ -24,7 +23,6 @@ use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
  * @mixin ComponentWithFormTrait
- * @mixin LiveCollectionTrait
  *
  * @see ContentConfigurationTranslationsType
  */

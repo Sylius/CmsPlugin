@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Block;
 
-use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\TemplatePropTrait;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateConfiguration;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateResolverInterface;
 use Sylius\CmsPlugin\Renderer\ContentElementRendererStrategyInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
@@ -33,17 +34,13 @@ use Twig\Environment;
 class FormComponent
 {
     use ComponentToolsTrait;
-    use LiveCollectionTrait;
     use TemplatePropTrait;
 
     /** @use ResourceFormComponentTrait<BlockInterface> */
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
-    use FormUiStateComponentTrait {
-        FormUiStateComponentTrait::removeCollectionItem insteadof LiveCollectionTrait;
-        FormUiStateComponentTrait::onCollectionItemActivated insteadof ContentElementsCollectionFormComponentTrait;
-    }
+    use FormUiStateComponentTrait;
     use PreviewComponentTrait;
 
     /**
@@ -62,20 +59,15 @@ class FormComponent
         LocaleProviderInterface $localeProvider,
         string $previewTemplate,
         protected readonly ContentElementRendererStrategyInterface $contentElementRendererStrategy,
+        FormUiStateResolverInterface $formUiStateResolver,
     ) {
         $this->initialize($blockRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
         $this->initializePreview($twig, $localeProvider, $previewTemplate);
-    }
-
-    protected function getUiStateTranslationsPaths(): array
-    {
-        return ['contentElements'];
-    }
-
-    protected function getUiStateElementsPath(): ?string
-    {
-        return 'contentElements.%locale%.contentElements';
+        $this->initializeUiState($formUiStateResolver, new FormUiStateConfiguration(
+            ['contentElements'],
+            'contentElements.%locale%.contentElements',
+        ));
     }
 
     /** @return array{resource: BlockInterface|null, content: string} */

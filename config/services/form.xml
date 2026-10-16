@@ -177,5 +177,10 @@
 
             <tag name="form.type" />
         </service>
+
+        <service id="sylius_cms.form.ui_state.resolver" class="Sylius\CmsPlugin\Form\UiState\FormUiStateResolver" />
+        <service id="Sylius\CmsPlugin\Form\UiState\FormUiStateResolverInterface" alias="sylius_cms.form.ui_state.resolver" />
+
+        <service id="sylius_cms.form.ui_state.page_slug_warnings_provider" class="Sylius\CmsPlugin\Form\UiState\PageSlugWarningsProvider" />
     </services>
 </container>

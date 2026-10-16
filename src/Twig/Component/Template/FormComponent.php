@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Template;
 
-use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\TemplatePropTrait;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
@@ -24,7 +23,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 class FormComponent
 {
-    use LiveCollectionTrait;
     use TemplatePropTrait;
 
     /** @use ResourceFormComponentTrait<TemplateInterface> */
@@ -44,5 +42,9 @@ class FormComponent
         string $formClass,
     ) {
         $this->initialize($templateRepository, $formFactory, $resourceClass, $formClass);
+    }
+
+    protected function onCollectionItemActivated(string $propertyPath, int|string|null $key): void
+    {
     }
 }
