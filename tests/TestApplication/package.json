@@ -5,5 +5,8 @@
         "quill": "2.0.3",
         "swiper": "^11.2.6",
         "trix": "^2.0.0"
+    },
+    "devDependencies": {
+        "@symfony/stimulus-bridge": "^4.0.0"
     }
 }
