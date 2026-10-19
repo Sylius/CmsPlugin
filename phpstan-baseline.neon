@@ -1,2 +1,7 @@
 parameters:
-    ignoreErrors: []
+    ignoreErrors:
+        -
+            message: '#^Trait Sylius\\CmsPlugin\\Entity\\Trait\\LocaleAwareTrait is used zero times and is not analysed\.$#'
+            identifier: trait.unused
+            count: 1
+            path: src/Entity/Trait/LocaleAwareTrait.php
