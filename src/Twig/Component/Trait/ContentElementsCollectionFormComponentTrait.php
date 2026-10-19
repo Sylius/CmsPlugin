@@ -90,7 +90,6 @@ trait ContentElementsCollectionFormComponentTrait
         }
 
         $this->onCollectionItemActivated(sprintf('[contentElements][%s][contentElements]', $locale), null);
-        $this->submitForm();
     }
 
     protected function getTemplateElements(mixed $templateId): ?TemplateInterface

@@ -85,8 +85,14 @@ trait ResourceDataProcessingTrait
     private function getMediaPathIfNotNull(MediaInterface $media): string
     {
         Assert::string($media->getPath());
-        Assert::string($this->getParameter('sylius_cms.files_dir'));
 
-        return $this->getParameter('sylius_cms.files_dir') . $media->getPath();
+        $directory = $this->getParameter(match ($media->getType()) {
+            'image' => 'sylius_cms.images_dir',
+            'video' => 'sylius_cms.videos_dir',
+            default => 'sylius_cms.files_dir',
+        });
+        Assert::string($directory);
+
+        return $directory . $media->getPath();
     }
 }

@@ -75,6 +75,18 @@
             opacity: 1;
         }
     }
+
+    &:has(> .dropdown-menu.show) {
+        z-index: 1000;
+    }
+}
+
+.card.cms-structure {
+    z-index: 990;
+
+    &:has(.dropdown-menu.show) {
+        z-index: 1000;
+    }
 }
 
 .cms-structure:hover .cms-insert-divider > .btn,
