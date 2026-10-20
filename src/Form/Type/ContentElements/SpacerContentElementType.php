@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 final class SpacerContentElementType extends AbstractType
 {
     public const TYPE = 'spacer';

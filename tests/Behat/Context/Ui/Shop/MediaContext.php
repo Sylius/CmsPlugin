@@ -16,6 +16,7 @@ namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Shop;
 use Behat\Behat\Context\Context;
 use Behat\Mink\Element\DocumentElement;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Step\When;
 use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
 
 class MediaContext extends RawMinkContext implements Context
@@ -25,9 +26,7 @@ class MediaContext extends RawMinkContext implements Context
     ) {
     }
 
-    /**
-     * @When I want to see a media with code :arg1
-     */
+    #[When('I want to see a media with code :arg1')]
     public function iWantToSeeAMedia(string $arg1): void
     {
         $media = $this->mediaRepository->findOneBy(['code' => $arg1]);

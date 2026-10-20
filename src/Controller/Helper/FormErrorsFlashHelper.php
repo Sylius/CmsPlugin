@@ -27,6 +27,7 @@ final class FormErrorsFlashHelper implements FormErrorsFlashHelperInterface
     ) {
     }
 
+    /** @param FormInterface<mixed> $form */
     public function addFlashErrors(FormInterface $form): void
     {
         if ($form->isValid()) {

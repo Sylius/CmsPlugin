@@ -19,9 +19,6 @@ use Sylius\CmsPlugin\Entity\Block;
 use Sylius\CmsPlugin\Entity\ContentConfigurationInterface;
 use Sylius\CmsPlugin\Entity\Page;
 
-/**
- * @property Collection $contentElements
- */
 trait ContentElementsAwareTrait
 {
     /** @var Collection<array-key, ContentConfigurationInterface> */
@@ -45,7 +42,6 @@ trait ContentElementsAwareTrait
     public function addContentElement(ContentConfigurationInterface $contentElement): void
     {
         if (!$this->hasContentElement($contentElement)) {
-            /** @phpstan-var Block|Page $this */
             if ($this instanceof Block) {
                 $contentElement->setBlock($this);
             } elseif ($this instanceof Page) {
@@ -61,7 +57,6 @@ trait ContentElementsAwareTrait
         if ($this->hasContentElement($contentElement)) {
             $this->contentElements->removeElement($contentElement);
 
-            /** @phpstan-var Block|Page $this */
             if ($this instanceof Block) {
                 $contentElement->setBlock(null);
             } elseif ($this instanceof Page) {

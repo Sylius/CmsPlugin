@@ -3,7 +3,12 @@
     {% set toolbar_id = 'trix-toolbar-' ~ uid %}
 
     <div {{ sylius_test_html_attribute('editor') }}>
-        <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" />
+        {#
+            Without an explicit data-model binding, LiveComponent doesn't know this
+            field's value on a LiveAction (e.g. moveCollectionItem), so re-renders keep
+            the previous value in place instead of the one Trix wrote into the input.
+        #}
+        <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ value }}" data-model="norender|{{ full_name }}" />
 
         <trix-toolbar id="{{ toolbar_id }}"></trix-toolbar>
         <trix-editor input="{{ id }}" toolbar="{{ toolbar_id }}" data-live-ignore></trix-editor>

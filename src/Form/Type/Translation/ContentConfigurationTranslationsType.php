@@ -22,6 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<mixed> */
 final class ContentConfigurationTranslationsType extends AbstractType implements DataMapperInterface
 {
     /** @var string[] */
@@ -55,6 +56,7 @@ final class ContentConfigurationTranslationsType extends AbstractType implements
         ]);
     }
 
+    /** @param \Traversable<array-key, FormInterface<mixed>> $forms */
     public function mapDataToForms(mixed $viewData, \Traversable $forms): void
     {
         $translationsData = [];
@@ -66,7 +68,7 @@ final class ContentConfigurationTranslationsType extends AbstractType implements
             }
         }
 
-        /** @var array<string, FormInterface> $formsArray */
+        /** @var array<string, FormInterface<mixed>> $formsArray */
         $formsArray = iterator_to_array($forms);
         foreach ($formsArray as $localeCode => $form) {
             if (false === isset($translationsData[$localeCode])) {
@@ -80,6 +82,7 @@ final class ContentConfigurationTranslationsType extends AbstractType implements
         }
     }
 
+    /** @param \Traversable<array-key, FormInterface<mixed>> $forms */
     public function mapFormsToData(\Traversable $forms, mixed &$viewData): void
     {
         $data = [];

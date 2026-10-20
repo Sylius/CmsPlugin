@@ -17,6 +17,7 @@ use Sylius\Bundle\AdminBundle\Form\Type\CatalogPromotionScope\ForTaxonsScopeConf
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 final class TaxonsListContentElementType extends AbstractType
 {
     public const TYPE = 'taxons_list';

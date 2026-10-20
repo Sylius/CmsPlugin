@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormView;
 
 final class TrixStrategy extends AbstractWysiwygStrategy
 {
+    /** @param FormInterface<mixed> $form */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['block_prefix'] = 'sylius_cms_plugin_trix_strategy';

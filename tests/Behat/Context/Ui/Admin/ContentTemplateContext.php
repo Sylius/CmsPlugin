@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
@@ -40,49 +42,37 @@ final class ContentTemplateContext implements Context
     ) {
     }
 
-    /**
-     * @When I go to the create template page
-     */
+    #[When('I go to the create template page')]
     public function iGoToTheCreateTemplatePage(): void
     {
         $this->createPage->open();
     }
 
-    /**
-     * @When I go to the templates page
-     */
+    #[When('I go to the templates page')]
     public function iGoToTheTemplatesPage()
     {
         $this->indexPage->open();
     }
 
-    /**
-     * @When I fill the name with :name
-     */
+    #[When('I fill the name with :name')]
     public function iFillTheNameWith(string $name): void
     {
         $this->resolveCurrentPage()->fillName($name);
     }
 
-    /**
-     * @When I delete :name content element
-     */
+    #[When('I delete :name content element')]
     public function iDeleteContentElement(string $name): void
     {
         $this->resolveCurrentPage()->deleteContentElement($name);
     }
 
-    /**
-     * @When I choose :type in Type field
-     */
+    #[When('I choose :type in Type field')]
     public function iChooseInTypeField(string $type): void
     {
         $this->resolveCurrentPage()->chooseType($type);
     }
 
-    /**
-     * @Then I should be notified that the template has been created
-     */
+    #[Then('I should be notified that the template has been created')]
     public function iShouldBeNotifiedThatNewImageBlockHasBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -91,9 +81,7 @@ final class ContentTemplateContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the template has been deleted
-     */
+    #[Then('I should be notified that the template has been deleted')]
     public function iShouldBeNotifiedThatTheTemplateHasBeenDeleted(): void
     {
         $this->notificationChecker->checkNotification(
@@ -102,9 +90,7 @@ final class ContentTemplateContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the template has been successfully updated
-     */
+    #[Then('I should be notified that the template has been successfully updated')]
     public function iShouldBeNotifiedThatTheTemplateHasBeenSuccessfullyUpdated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -113,9 +99,7 @@ final class ContentTemplateContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that there is already existing template with provided name
-     */
+    #[Then('I should be notified that there is already existing template with provided name')]
     public function iShouldBeNotifiedThatThereIsAlreadyExistingTemplateWithName(): void
     {
         Assert::true($this->resolveCurrentPage()->containsErrorWithMessage(
@@ -124,10 +108,8 @@ final class ContentTemplateContext implements Context
         ));
     }
 
-    /**
-     * @Then I should be notified that :fields fields cannot be blank
-     * @Then I should be notified that :fields field cannot be blank
-     */
+    #[Then('I should be notified that :fields fields cannot be blank')]
+    #[Then('I should be notified that :fields field cannot be blank')]
     public function iShouldBeNotifiedThatFieldsCannotBeBlank(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -140,10 +122,8 @@ final class ContentTemplateContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too short
-     * @Then I should be notified that :fields field is too short
-     */
+    #[Then('I should be notified that :fields fields are too short')]
+    #[Then('I should be notified that :fields field is too short')]
     public function iShouldBeNotifiedThatFieldsAreTooShort(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -157,10 +137,8 @@ final class ContentTemplateContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too long
-     * @Then I should be notified that :fields field is too long
-     */
+    #[Then('I should be notified that :fields fields are too long')]
+    #[Then('I should be notified that :fields field is too long')]
     public function iShouldBeNotifiedThatFieldsAreTooLong(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -174,10 +152,8 @@ final class ContentTemplateContext implements Context
         }
     }
 
-    /**
-     * @When /^I fill "([^"]*)" fields with (\d+) (?:character|characters)$/
-     * @When /^I fill "([^"]*)" field with (\d+) (?:character|characters)$/
-     */
+    #[When('/^I fill "([^"]*)" fields with (\\d+) (?:character|characters)$/')]
+    #[When('/^I fill "([^"]*)" field with (\\d+) (?:character|characters)$/')]
     public function iFillFieldsWithCharacters(string $fields, int $length): void
     {
         $fields = explode(',', $fields);
@@ -187,50 +163,38 @@ final class ContentTemplateContext implements Context
         }
     }
 
-    /**
-     * @When I add it
-     * @When I try to add it
-     */
+    #[When('I add it')]
+    #[When('I try to add it')]
     public function iAddIt(): void
     {
         $this->createPage->create();
     }
 
-    /**
-     * @When I click on Add button in Content elements section
-     */
+    #[When('I click on Add button in Content elements section')]
     public function iClickOnAddButtonInContentElementsSection(): void
     {
         $this->resolveCurrentPage()->clickOnAddContentElementButton();
     }
 
-    /**
-     * @When I select :option content element
-     */
+    #[When('I select :option content element')]
     public function iSelectContentElement(string $option): void
     {
         $this->resolveCurrentPage()->selectContentElement($option);
     }
 
-    /**
-     * @Then I should see only :name content element in Content elements section
-     */
+    #[Then('I should see only :name content element in Content elements section')]
     public function iShouldSeeOnlyContentElementInContentElementsSection(string $name): void
     {
         Assert::true($this->resolveCurrentPage()->hasOnlyContentElement($name));
     }
 
-    /**
-     * @Then I should see newly created :contentElement content element in Content elements section
-     */
+    #[Then('I should see newly created :contentElement content element in Content elements section')]
     public function iShouldSeeNewlyCreatedContentElementInContentElementsSection(string $contentElement): void
     {
         Assert::true($this->resolveCurrentPage()->hasContentElement($contentElement));
     }
 
-    /**
-     * @When I delete this template
-     */
+    #[When('I delete this template')]
     public function iDeleteThisTemplate()
     {
         $template = $this->sharedStorage->get('template');
@@ -238,17 +202,13 @@ final class ContentTemplateContext implements Context
         $this->indexPage->deleteTemplate($template);
     }
 
-    /**
-     * @Then I should see empty list of templates
-     */
+    #[Then('I should see empty list of templates')]
     public function iShouldSeeEmptyListOfTemplates(): void
     {
         $this->resolveCurrentPage()->isEmpty();
     }
 
-    /**
-     * @When I go to the update :name template page
-     */
+    #[When('I go to the update :name template page')]
     public function iGoToTheUpdateTemplatePage(string $name)
     {
         $id = $this->templateRepository->findOneBy(['name' => $name])->getId();
@@ -256,9 +216,7 @@ final class ContentTemplateContext implements Context
         $this->updatePage->open(['id' => $id]);
     }
 
-    /**
-     * @When I update it
-     */
+    #[When('I update it')]
     public function iUpdateIt(): void
     {
         $this->updatePage->saveChanges();

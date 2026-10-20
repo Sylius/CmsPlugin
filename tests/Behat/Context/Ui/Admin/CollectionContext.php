@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
@@ -38,25 +40,19 @@ final class CollectionContext implements Context
     ) {
     }
 
-    /**
-     * @When I go to the collections page
-     */
+    #[When('I go to the collections page')]
     public function iGoToTheCollectionsPage(): void
     {
         $this->indexPage->open();
     }
 
-    /**
-     * @When I go to the create collection page
-     */
+    #[When('I go to the create collection page')]
     public function iGoToTheCreateCollectionPage(): void
     {
         $this->createPage->open();
     }
 
-    /**
-     * @When I delete this collection
-     */
+    #[When('I delete this collection')]
     public function iDeleteThisCollection(): void
     {
         $collection = $this->sharedStorage->get('collection');
@@ -64,9 +60,7 @@ final class CollectionContext implements Context
         $this->indexPage->deleteCollection($collection->getCode());
     }
 
-    /**
-     * @When I want to edit this collection
-     */
+    #[When('I want to edit this collection')]
     public function iWantToEditThisCollection(): void
     {
         $collection = $this->sharedStorage->get('collection');
@@ -74,34 +68,26 @@ final class CollectionContext implements Context
         $this->updatePage->open(['id' => $collection->getId()]);
     }
 
-    /**
-     * @When I fill the code with :code
-     */
+    #[When('I fill the code with :code')]
     public function iFillTheCodeWith(string $code): void
     {
         $this->resolveCurrentPage()->fillCode($code);
     }
 
-    /**
-     * @When I fill the name with :name
-     */
+    #[When('I fill the name with :name')]
     public function iFillTheNameWith(string $name): void
     {
         $this->resolveCurrentPage()->fillName($name);
     }
 
-    /**
-     * @When I add it
-     * @When I try to add it
-     */
+    #[When('I add it')]
+    #[When('I try to add it')]
     public function iAddIt(): void
     {
         $this->createPage->create();
     }
 
-    /**
-     * @When /^I fill "([^"]*)" fields with (\d+) (?:character|characters)$/
-     */
+    #[When('/^I fill "([^"]*)" fields with (\\d+) (?:character|characters)$/')]
     public function iFillFieldsWithCharacters(string $fields, int $length): void
     {
         $fields = explode(',', $fields);
@@ -112,9 +98,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields cannot be blank
-     */
+    #[Then('I should be notified that :fields fields cannot be blank')]
     public function iShouldBeNotifiedThatFieldsCannotBeBlank(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -127,9 +111,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too short
-     */
+    #[Then('I should be notified that :fields fields are too short')]
     public function iShouldBeNotifiedThatFieldsAreTooShort(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -143,9 +125,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too long
-     */
+    #[Then('I should be notified that :fields fields are too long')]
     public function iShouldBeNotifiedThatFieldsAreTooLong(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -158,9 +138,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that there is already an existing collection with provided code
-     */
+    #[Then('I should be notified that there is already an existing collection with provided code')]
     public function iShouldBeNotifiedThatThereIsAlreadyAnExistingCollectionWithCode(): void
     {
         Assert::true($this->resolveCurrentPage()->containsErrorWithMessage(
@@ -169,9 +147,7 @@ final class CollectionContext implements Context
         ));
     }
 
-    /**
-     * @Then I should be notified that new collection has been created
-     */
+    #[Then('I should be notified that new collection has been created')]
     public function iShouldBeNotifiedThatNewCollectionHasBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -180,9 +156,7 @@ final class CollectionContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the collection has been deleted
-     */
+    #[Then('I should be notified that the collection has been deleted')]
     public function iShouldBeNotifiedThatTheCollectionHasBeenDeleted(): void
     {
         $this->notificationChecker->checkNotification(
@@ -191,17 +165,13 @@ final class CollectionContext implements Context
         );
     }
 
-    /**
-     * @Then the code field should be disabled
-     */
+    #[Then('the code field should be disabled')]
     public function theCodeFieldShouldBeDisabled(): void
     {
         Assert::true($this->resolveCurrentPage()->isCodeDisabled());
     }
 
-    /**
-     * @Then I should see empty list of collections
-     */
+    #[Then('I should see empty list of collections')]
     public function iShouldSeeEmptyListOfCollections(): void
     {
         $this->resolveCurrentPage()->isEmpty();

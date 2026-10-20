@@ -17,5 +17,6 @@ use Symfony\Component\Form\FormInterface;
 
 interface FormErrorsFlashHelperInterface
 {
+    /** @param FormInterface<mixed> $form */
     public function addFlashErrors(FormInterface $form): void;
 }

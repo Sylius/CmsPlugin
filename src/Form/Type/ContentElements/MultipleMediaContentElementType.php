@@ -20,6 +20,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 final class MultipleMediaContentElementType extends AbstractType
 {
     public const TYPE = 'multiple_media';
