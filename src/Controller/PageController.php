@@ -78,8 +78,9 @@ final class PageController extends ResourceController
 
         $form->handleRequest($request);
 
-        $page->setFallbackLocale($request->get('_locale', $defaultLocale));
-        $page->setCurrentLocale($request->get('_locale', $defaultLocale));
+        $locale = $request->attributes->get('_locale') ?? $request->query->get('_locale') ?? $request->request->get('_locale') ?? $defaultLocale;
+        $page->setFallbackLocale($locale);
+        $page->setCurrentLocale($locale);
 
         $this->formErrorsFlashHelper->addFlashErrors($form);
 

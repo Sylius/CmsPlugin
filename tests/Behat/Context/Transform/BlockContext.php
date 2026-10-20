@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
+use Behat\Transformation\Transform;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Repository\BlockRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -26,12 +27,10 @@ final class BlockContext implements Context
     ) {
     }
 
-    /**
-     * @Transform /^block(?:|s) "([^"]+)"$/
-     * @Transform /^"([^"]+)" block(?:|s)$/
-     * @Transform /^(?:a|an) "([^"]+)"$/
-     * @Transform :block
-     */
+    #[Transform('/^block(?:|s) "([^"]+)"$/')]
+    #[Transform('/^"([^"]+)" block(?:|s)$/')]
+    #[Transform('/^(?:a|an) "([^"]+)"$/')]
+    #[Transform(':block')]
     public function getBlockByCode(string $blockCode): BlockInterface
     {
         $block = $this->blockRepository->findEnabledByCode($blockCode, $this->locale);

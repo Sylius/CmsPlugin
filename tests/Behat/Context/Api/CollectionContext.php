@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Api;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
 use Sylius\Behat\Client\ApiClientInterface;
 use Sylius\Behat\Client\ResponseCheckerInterface;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
@@ -28,17 +30,13 @@ final class CollectionContext implements Context
     ) {
     }
 
-    /**
-     * @Given /^I want to browse collections$/
-     */
+    #[Given('/^I want to browse collections$/')]
     public function iWantToBrowseCollections(): void
     {
         $this->apiClient->index(Resources::COLLECTIONS);
     }
 
-    /**
-     * @Then /^I should see (\d+) collections in the list$/
-     */
+    #[Then('/^I should see (\\d+) collections in the list$/')]
     public function iShouldSeeCollectionsInTheList(int $count): void
     {
         Assert::count(
@@ -49,18 +47,14 @@ final class CollectionContext implements Context
         );
     }
 
-    /**
-     * @Given I view collection with code :collection
-     * @Then I should see collection with code :collection
-     */
+    #[Given('I view collection with code :collection')]
+    #[Then('I should see collection with code :collection')]
     public function iShouldSeeCollectionWithCode(CollectionInterface $collection): void
     {
         $this->apiClient->show(Resources::COLLECTIONS, (string) $collection->getId());
     }
 
-    /**
-     * @Then /^I should see collection name$/
-     */
+    #[Then('/^I should see collection name$/')]
     public function iShouldSeeCollectionName(): void
     {
         Assert::false(

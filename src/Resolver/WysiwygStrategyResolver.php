@@ -17,7 +17,7 @@ use Sylius\CmsPlugin\Form\Strategy\Wysiwyg\WysiwygStrategyInterface;
 
 final class WysiwygStrategyResolver implements WysiwygStrategyResolverInterface
 {
-    /** @param array<string, WysiwygStrategyInterface> $strategies */
+    /** @param iterable<string, WysiwygStrategyInterface> $strategies */
     public function __construct(
         private iterable $strategies,
         private string $default,

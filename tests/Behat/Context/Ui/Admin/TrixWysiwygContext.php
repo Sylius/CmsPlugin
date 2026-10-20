@@ -16,12 +16,11 @@ namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 use Behat\Behat\Context\Context;
 use Behat\Mink\Element\DocumentElement;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Step\Then;
 
 final class TrixWysiwygContext extends RawMinkContext implements Context
 {
-    /**
-     * @Then I should see the Trix WYSIWYG editor initialized
-     */
+    #[Then('I should see the Trix WYSIWYG editor initialized')]
     public function iShouldSeeTheTrixWysiwygEditorInitialized(): void
     {
         $this->getPage()->find('css', 'trix-toolbar')->setValue('test');

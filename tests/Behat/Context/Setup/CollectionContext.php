@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Sylius\CmsPlugin\Repository\CollectionRepositoryInterface;
@@ -31,9 +32,7 @@ final class CollectionContext implements Context
     ) {
     }
 
-    /**
-     * @Given there is a collection in the store
-     */
+    #[Given('there is a collection in the store')]
     public function thereIsAnExistingCollection(): void
     {
         $collection = $this->createCollection();
@@ -41,9 +40,7 @@ final class CollectionContext implements Context
         $this->saveCollection($collection);
     }
 
-    /**
-     * @Given there are existing collections named :firstNameCollection and :secondNameCollection
-     */
+    #[Given('there are existing collections named :firstNameCollection and :secondNameCollection')]
     public function thereAreExistingCollections(string ...$collectionsNames): void
     {
         foreach ($collectionsNames as $collectionName) {
@@ -53,9 +50,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Given there are existing collections named :firstNameCollection and :secondNameCollection with :type type
-     */
+    #[Given('there are existing collections named :firstNameCollection and :secondNameCollection with :type type')]
     public function thereAreExistingCollectionsWithType(string $type, string ...$collectionsNames): void
     {
         foreach ($collectionsNames as $collectionName) {
@@ -66,9 +61,7 @@ final class CollectionContext implements Context
         }
     }
 
-    /**
-     * @Given there is an existing collection with :code code
-     */
+    #[Given('there is an existing collection with :code code')]
     public function thereIsAnExistingCollectionWithCode(string $code): void
     {
         $collection = $this->createCollection($code);
@@ -76,9 +69,7 @@ final class CollectionContext implements Context
         $this->saveCollection($collection);
     }
 
-    /**
-     * @Given there is a :collectionName collection in the store
-     */
+    #[Given('there is a :collectionName collection in the store')]
     public function thereIsACollectionInTheStore(string $collectionName): void
     {
         $collection = $this->createCollection(strtolower(StringInflector::nameToCode($collectionName)), $collectionName);

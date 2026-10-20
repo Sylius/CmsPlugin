@@ -92,13 +92,10 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function fillTextareaContentElement(string $value): void
     {
-        $element = $this
-            ->getElement('form')
-            ->find('css', 'trix-editor')
-            ->find('css', 'div')
-        ;
+        $editorElement = $this->getElement('form')->find('css', 'trix-editor');
+        Assert::notNull($editorElement, 'The Trix editor was not found in the form.');
 
-        $element->setValue($value);
+        $editorElement->setValue($value);
     }
 
     public function getTextareaContent(): ?string

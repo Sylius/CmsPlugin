@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
@@ -40,25 +42,19 @@ final class BlockContext implements Context
     ) {
     }
 
-    /**
-     * @When I go to the blocks page
-     */
+    #[When('I go to the blocks page')]
     public function iGoToTheBlocksPage()
     {
         $this->indexPage->open();
     }
 
-    /**
-     * @When I go to the create block page
-     */
+    #[When('I go to the create block page')]
     public function iGoToTheCreateImageBlockPage(): void
     {
         $this->createPage->open();
     }
 
-    /**
-     * @When I delete this block
-     */
+    #[When('I delete this block')]
     public function iDeleteThisBlock()
     {
         $block = $this->sharedStorage->get('block');
@@ -66,9 +62,7 @@ final class BlockContext implements Context
         $this->indexPage->deleteBlock($block->getCode());
     }
 
-    /**
-     * @When I go to the update :code block page
-     */
+    #[When('I go to the update :code block page')]
     public function iGoToTheUpdateBlockPage(string $code)
     {
         $id = $this->blockRepository->findOneBy(['code' => $code])->getId();
@@ -76,9 +70,7 @@ final class BlockContext implements Context
         $this->updatePage->open(['id' => $id]);
     }
 
-    /**
-     * @When I want to edit this block
-     */
+    #[When('I want to edit this block')]
     public function iWantToEditThisBlock()
     {
         $block = $this->sharedStorage->get('block');
@@ -86,9 +78,7 @@ final class BlockContext implements Context
         $this->updatePage->open(['id' => $block->getId()]);
     }
 
-    /**
-     * @When I fill :fields fields
-     */
+    #[When('I fill :fields fields')]
     public function iFillFields(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -98,9 +88,7 @@ final class BlockContext implements Context
         }
     }
 
-    /**
-     * @When /^I fill "([^"]*)" fields with (\d+) (?:character|characters)$/
-     */
+    #[When('/^I fill "([^"]*)" fields with (\\d+) (?:character|characters)$/')]
     public function iFillFieldsWithCharacters(string $fields, int $length): void
     {
         $fields = explode(',', $fields);
@@ -110,66 +98,50 @@ final class BlockContext implements Context
         }
     }
 
-    /**
-     * @When I fill the code with :code
-     */
+    #[When('I fill the code with :code')]
     public function iFillTheCodeWith(string $code): void
     {
         $this->resolveCurrentPage()->fillCode($code);
     }
 
-    /**
-     * @When I fill the name with :name
-     */
+    #[When('I fill the name with :name')]
     public function iFillTheNameWith(string $name): void
     {
         $this->resolveCurrentPage()->fillName($name);
     }
 
-    /**
-     * @When I fill the link with :link
-     */
+    #[When('I fill the link with :link')]
     public function iFillTheLinkWith(string $link): void
     {
         $this->resolveCurrentPage()->fillLink($link);
     }
 
-    /**
-     * @When I disable it
-     */
+    #[When('I disable it')]
     public function iDisableIt(): void
     {
         $this->resolveCurrentPage()->disable();
     }
 
-    /**
-     * @When I add :firstCollection and :secondCollection collections to it
-     */
+    #[When('I add :firstCollection and :secondCollection collections to it')]
     public function iAddAndCollectionsToIt(string ...$collectionsNames): void
     {
         $this->resolveCurrentPage()->associateCollections($collectionsNames);
     }
 
-    /**
-     * @When I add it
-     * @When I try to add it
-     */
+    #[When('I add it')]
+    #[When('I try to add it')]
     public function iAddIt(): void
     {
         $this->createPage->create();
     }
 
-    /**
-     * @When I update it
-     */
+    #[When('I update it')]
     public function iUpdateIt(): void
     {
         $this->updatePage->saveChanges();
     }
 
-    /**
-     * @Then I should be notified that the block has been created
-     */
+    #[Then('I should be notified that the block has been created')]
     public function iShouldBeNotifiedThatNewImageBlockHasBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -178,9 +150,7 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the block has been successfully updated
-     */
+    #[Then('I should be notified that the block has been successfully updated')]
     public function iShouldBeNotifiedThatTheBlockHasBeenSuccessfullyUpdated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -189,9 +159,7 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the block has been deleted
-     */
+    #[Then('I should be notified that the block has been deleted')]
     public function iShouldBeNotifiedThatTheBlockHasBeenDeleted(): void
     {
         $this->notificationChecker->checkNotification(
@@ -200,17 +168,13 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Then this block should be disabled
-     */
+    #[Then('this block should be disabled')]
     public function thisBlockShouldBeDisabled(): void
     {
         Assert::false($this->resolveCurrentPage()->isBlockDisabled());
     }
 
-    /**
-     * @Then I should be notified that :fields fields cannot be blank
-     */
+    #[Then('I should be notified that :fields fields cannot be blank')]
     public function iShouldBeNotifiedThatCannotBeBlank(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -223,9 +187,7 @@ final class BlockContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that there is already an existing block with provided code
-     */
+    #[Then('I should be notified that there is already an existing block with provided code')]
     public function iShouldBeNotifiedThatThereIsAlreadyAnExistingBlockWithCode(): void
     {
         Assert::true($this->resolveCurrentPage()->containsErrorWithMessage(
@@ -234,9 +196,7 @@ final class BlockContext implements Context
         ));
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too long
-     */
+    #[Then('I should be notified that :fields fields are too long')]
     public function iShouldBeNotifiedThatFieldsAreTooLong(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -249,9 +209,7 @@ final class BlockContext implements Context
         }
     }
 
-    /**
-     * @Then this block should have collections :firstCollection and :secondCollection
-     */
+    #[Then('this block should have collections :firstCollection and :secondCollection')]
     public function thisBlockShouldHaveCollections(string ...$collectionsNames): void
     {
         $pageCollections = $this->resolveCurrentPage()->getCollections();
@@ -264,17 +222,13 @@ final class BlockContext implements Context
         }
     }
 
-    /**
-     * @Then the code field should be disabled
-     */
+    #[Then('the code field should be disabled')]
     public function theCodeFieldShouldBeDisabled(): void
     {
         Assert::true($this->resolveCurrentPage()->isCodeDisabled());
     }
 
-    /**
-     * @Then I should see empty list of blocks
-     */
+    #[Then('I should see empty list of blocks')]
     public function iShouldSeeEmptyListOfBlocks(): void
     {
         $this->resolveCurrentPage()->isEmpty();
