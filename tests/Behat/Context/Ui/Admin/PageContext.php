@@ -146,6 +146,7 @@ final class PageContext implements Context
         }
     }
 
+    #[When('I add :collection collection to it')]
     #[When('I add :firstCollection and :secondCollection collections to it')]
     public function iAddAndCollectionsToIt(string ...$collectionsNames): void
     {
@@ -248,9 +249,13 @@ final class PageContext implements Context
     }
 
     #[Then('this page should have collections :firstCollection and :secondCollection')]
+    #[Then('this page should have collections :firstCollection, :secondCollection and :thirdCollection')]
     public function thisPageShouldHaveCollections(string ...$collectionsNames): void
     {
-        $pageCollections = $this->resolveCurrentPage()->getCollections();
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $pageCollections = $currentPage->getCollections();
         foreach ($collectionsNames as $name) {
             Assert::inArray(
                 $name,
@@ -313,9 +318,42 @@ final class PageContext implements Context
     #[Then('I should see Textarea content with value :value')]
     public function iShouldSeeTextareaContentWithValue(string $value)
     {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
         Assert::same(
-            $this->resolveCurrentPage()->getTextareaContent(),
-            "<div>${value}</div>",
+            $currentPage->getTextareaContent(),
+            "<div>{$value}</div>",
+        );
+    }
+
+    #[Then('the heading type should be :type')]
+    public function theHeadingTypeShouldBe(string $type): void
+    {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $headingType = $currentPage->getHeadingType();
+        Assert::notNull($headingType);
+
+        Assert::same(
+            strtoupper($headingType),
+            strtoupper($type),
+            sprintf('Heading type should be "%s" but got "%s"', $type, $headingType),
+        );
+    }
+
+    #[Then('the page name should be :name')]
+    public function thePageNameShouldBe(string $name): void
+    {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $pageName = $currentPage->getName();
+        Assert::same(
+            $pageName,
+            $name,
+            sprintf('Page name should be "%s" but got "%s"', $name, $pageName),
         );
     }
 

@@ -51,6 +51,7 @@ final class CollectionContext implements Context
     }
 
     #[Given('there are existing collections named :firstNameCollection and :secondNameCollection with :type type')]
+    #[Given('there are existing collections named :firstNameCollection, :secondNameCollection and :thirdNameCollection with :type type')]
     public function thereAreExistingCollectionsWithType(string $type, string ...$collectionsNames): void
     {
         foreach ($collectionsNames as $collectionName) {
