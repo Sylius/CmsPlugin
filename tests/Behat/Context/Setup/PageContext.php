@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Step\Given;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
@@ -160,12 +161,24 @@ final class PageContext implements Context
     }
 
     #[Given('this page has these collections associated with it')]
-    public function thisPageHasTheseCollectionsAssociatedWithIt(): void
+    #[Given('this page has these collections associated with it:')]
+    public function thisPageHasTheseCollectionsAssociatedWithIt(?TableNode $table = null): void
     {
-        $collections = $this->collectionRepository->findAll();
+        $page = $this->sharedStorage->get('page');
+        assert($page instanceof PageInterface);
 
-        foreach ($collections as $collection) {
-            $this->sharedStorage->get('page')->addCollection($collection);
+        if (null === $table) {
+            $collections = $this->collectionRepository->findAll();
+            foreach ($collections as $collection) {
+                $page->addCollection($collection);
+            }
+        } elseif ($table instanceof TableNode) {
+            foreach ($table->getColumn(0) as $collectionName) {
+                $collection = $this->collectionRepository->findOneBy(['name' => $collectionName]);
+                if (null !== $collection) {
+                    $page->addCollection($collection);
+                }
+            }
         }
 
         $this->entityManager->flush();
