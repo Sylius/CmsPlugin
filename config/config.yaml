@@ -51,3 +51,4 @@ sylius_ui:
 twig:
     form_themes:
         - '@SyliusCmsPlugin/admin/shared/editor/trix.html.twig'
+        - '@SyliusCmsPlugin/admin/shared/editor/quill.html.twig'
