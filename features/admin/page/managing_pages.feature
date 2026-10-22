@@ -26,9 +26,10 @@ Feature: Managing cms pages
     Scenario: Updating page
         Given there is a page in the store
         When I want to edit this page
-        And I fill "Code, Name" fields
+        And I fill the name with "Updated Page Name"
         And I update it
         Then I should be notified that the page was updated
+        And the page name should be "Updated Page Name"
 
     @ui
     Scenario: Updating page with textarea content element
@@ -53,7 +54,37 @@ Feature: Managing cms pages
     Scenario: Updating page with header and content template
         Given there is a page in the store with "Textarea, Heading" content elements
         When I want to edit this page
-        And I fill textarea content element value to "Content"
+        And I fill "Code, Name" fields
+        And I change textarea content element value to "Updated Content"
         And I select "H3" option from "heading_type"
-        Then I should see trix toolbar with children in "Textarea" element
-        And I should see Textarea content with value "Content"
+        And I update it
+        Then I should be notified that the page was updated
+        And I should see a "Textarea" element with "Updated Content" content
+        And the heading type should be "H3"
+        And I should see trix toolbar with children in "Textarea" element
+
+    @ui @javascript
+    Scenario: Updating page with all available fields
+        Given there are existing collections named "Blog" and "News" with "page" type
+        And there is a page in the store
+        When I want to edit this page
+        And I fill the name with "Updated Page Name"
+        And I fill the slug with "updated-page-slug"
+        And I fill the meta keywords with "updated, keywords, for, seo"
+        And I fill the meta description with "This is an updated meta description for the page"
+        And I add "Blog" and "News" collections to it
+        And I update it
+        Then I should be notified that the page was updated
+        And this page should have collections "Blog" and "News"
+
+    @ui @javascript
+    Scenario: Associating collections to existing page
+        Given there are existing collections named "Blog", "Homepage" and "News" with "page" type
+        And there is a page in the store
+        And this page has these collections associated with it:
+            | Homepage |
+        When I want to edit this page
+        And I add "Blog" and "News" collections to it
+        And I update it
+        Then I should be notified that the page was updated
+        And this page should have collections "Homepage", "Blog" and "News"

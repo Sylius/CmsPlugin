@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
@@ -34,9 +35,7 @@ final class MediaContext implements Context
     ) {
     }
 
-    /**
-     * @Given there is an existing media with :code code
-     */
+    #[Given('there is an existing media with :code code')]
     public function thereIsAnExistingMediaWithCode(string $code): void
     {
         $media = $this->createMedia($code);
@@ -46,9 +45,7 @@ final class MediaContext implements Context
         $this->saveMedia($media);
     }
 
-    /**
-     * @Given there is an existing media with :code code and name :name
-     */
+    #[Given('there is an existing media with :code code and name :name')]
     public function thereIsAnExistingMediaWithCodeAndName(string $code, string $name): void
     {
         $media = $this->createMedia($code, $name);
@@ -58,9 +55,7 @@ final class MediaContext implements Context
         $this->saveMedia($media);
     }
 
-    /**
-     * @Given there is an existing :type media with :code code
-     */
+    #[Given('there is an existing :type media with :code code')]
     public function thereIsAnExistingTypeMediaWithCode(string $type, string $code): void
     {
         $media = $this->createMedia($code, null, null, $type);
@@ -70,9 +65,7 @@ final class MediaContext implements Context
         $this->saveMedia($media);
     }
 
-    /**
-     * @Given there is an existing media with names :firstMediaName and :secondMediaName
-     */
+    #[Given('there is an existing media with names :firstMediaName and :secondMediaName')]
     public function thereIsExistingMediaWithNames(string ...$mediaNames): void
     {
         foreach ($mediaNames as $mediaName) {

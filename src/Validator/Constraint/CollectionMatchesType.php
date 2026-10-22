@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Validator\Constraint;
 
 use Sylius\CmsPlugin\Validator\CollectionMatchesTypeValidator;
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 final class CollectionMatchesType extends Constraint
@@ -21,6 +22,19 @@ final class CollectionMatchesType extends Constraint
     public string $message = 'sylius_cms.collection.invalid_type';
 
     public string $type;
+
+    #[HasNamedArguments]
+    public function __construct(
+        string $type,
+        ?string $message = null,
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        parent::__construct(null, $groups, $payload);
+
+        $this->type = $type;
+        $this->message = $message ?? $this->message;
+    }
 
     public function getTargets(): string
     {

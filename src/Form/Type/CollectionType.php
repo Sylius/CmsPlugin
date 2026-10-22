@@ -94,6 +94,7 @@ final class CollectionType extends AbstractResourceType
         return 'sylius_cms_collection';
     }
 
+    /** @param FormInterface<mixed> $form */
     private function addContentField(FormInterface $form, ?string $type): void
     {
         switch ($type) {

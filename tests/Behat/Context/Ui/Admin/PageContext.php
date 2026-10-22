@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
@@ -40,25 +42,19 @@ final class PageContext implements Context
     ) {
     }
 
-    /**
-     * @When I go to the cms pages page
-     */
+    #[When('I go to the cms pages page')]
     public function iGoToTheCmsPagesPage(): void
     {
         $this->indexPage->open();
     }
 
-    /**
-     * @When I go to the create page
-     */
+    #[When('I go to the create page')]
     public function iGoToTheCreatePage(): void
     {
         $this->createPage->open();
     }
 
-    /**
-     * @When I delete this page
-     */
+    #[When('I delete this page')]
     public function iDeleteThisPage(): void
     {
         $page = $this->sharedStorage->get('page');
@@ -66,9 +62,7 @@ final class PageContext implements Context
         $this->indexPage->deletePage($page->getCode());
     }
 
-    /**
-     * @When I want to edit this page
-     */
+    #[When('I want to edit this page')]
     public function iWantToEditThisPage(): void
     {
         $page = $this->sharedStorage->get('page');
@@ -76,9 +70,7 @@ final class PageContext implements Context
         $this->updatePage->open(['id' => $page->getId()]);
     }
 
-    /**
-     * @When I go to the update :code page
-     */
+    #[When('I go to the update :code page')]
     public function iGoToTheUpdatePage(string $code): void
     {
         $page = $this->pageRepository->findOneBy(['code' => $code]);
@@ -90,9 +82,7 @@ final class PageContext implements Context
         $this->updatePage->open(['id' => $page->getId()]);
     }
 
-    /**
-     * @When I fill the code with :code
-     */
+    #[When('I fill the code with :code')]
     public function iFillTheCodeWith(string $code): void
     {
         $this->resolveCurrentPage()->fillCode($code);
@@ -100,57 +90,43 @@ final class PageContext implements Context
         $this->sharedStorage->set('page_code', $code);
     }
 
-    /**
-     * @When I fill the name with :name
-     */
+    #[When('I fill the name with :name')]
     public function iFillTheNameWith(string $name): void
     {
         $this->resolveCurrentPage()->fillName($name);
     }
 
-    /**
-     * @When I select :code channel
-     */
+    #[When('I select :code channel')]
     public function iSelectChannel(string $code): void
     {
         $this->resolveCurrentPage()->selectChannel($code);
     }
 
-    /**
-     * @When I fill the slug with :slug
-     */
+    #[When('I fill the slug with :slug')]
     public function iFillTheSlugWith(string $slug): void
     {
         $this->resolveCurrentPage()->fillSlug($slug);
     }
 
-    /**
-     * @When I fill the meta keywords with :metaKeywords
-     */
+    #[When('I fill the meta keywords with :metaKeywords')]
     public function iFillTheMetaKeywordsWith(string $metaKeywords): void
     {
         $this->resolveCurrentPage()->fillMetaKeywords($metaKeywords);
     }
 
-    /**
-     * @When I fill the meta description with :metaDescription
-     */
+    #[When('I fill the meta description with :metaDescription')]
     public function iFillTheMetaDescriptionWith(string $metaDescription): void
     {
         $this->resolveCurrentPage()->fillMetaDescription($metaDescription);
     }
 
-    /**
-     * @When I fill the content with :content
-     */
+    #[When('I fill the content with :content')]
     public function iFillTheContentWith(string $content): void
     {
         $this->resolveCurrentPage()->fillContent($content);
     }
 
-    /**
-     * @When /^I fill "([^"]*)" fields with (\d+) (?:character|characters)$/
-     */
+    #[When('/^I fill "([^"]*)" fields with (\\d+) (?:character|characters)$/')]
     public function iFillFieldsWithCharacters(string $fields, int $length): void
     {
         $fields = explode(',', $fields);
@@ -160,9 +136,7 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @When I fill :fields fields
-     */
+    #[When('I fill :fields fields')]
     public function iFillFields(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -172,42 +146,33 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @When I add :firstCollection and :secondCollection collections to it
-     */
+    #[When('I add :collection collection to it')]
+    #[When('I add :firstCollection and :secondCollection collections to it')]
     public function iAddAndCollectionsToIt(string ...$collectionsNames): void
     {
         $this->resolveCurrentPage()->associateCollections($collectionsNames);
     }
 
-    /**
-     * @Then I select :templateName template
-     */
+    #[Then('I select :templateName template')]
     public function iSelectTemplate(string $templateName): void
     {
         $this->resolveCurrentPage()->selectTemplate($templateName);
     }
 
-    /**
-     * @When I add it
-     * @When I try to add it
-     */
+    #[When('I add it')]
+    #[When('I try to add it')]
     public function iAddIt(): void
     {
         $this->resolveCurrentPage()->create();
     }
 
-    /**
-     * @When I update it
-     */
+    #[When('I update it')]
     public function iUpdateIt(): void
     {
         $this->resolveCurrentPage()->saveChanges();
     }
 
-    /**
-     * @Then I should be notified that the page has been created
-     */
+    #[Then('I should be notified that the page has been created')]
     public function iShouldBeNotifiedThatNewPageWasCreated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -216,9 +181,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the page was updated
-     */
+    #[Then('I should be notified that the page was updated')]
     public function iShouldBeNotifiedThatThePageWasUpdated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -227,9 +190,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that the page has been deleted
-     */
+    #[Then('I should be notified that the page has been deleted')]
     public function iShouldBeNotifiedThatThePageHasBeenDeleted(): void
     {
         $this->notificationChecker->checkNotification(
@@ -238,9 +199,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @Then I should be notified that there is already an existing page with provided code
-     */
+    #[Then('I should be notified that there is already an existing page with provided code')]
     public function iShouldBeNotifiedThatThereIsAlreadyAnExistingPageWithCode(): void
     {
         Assert::true($this->resolveCurrentPage()->containsErrorWithMessage(
@@ -249,9 +208,7 @@ final class PageContext implements Context
         ));
     }
 
-    /**
-     * @Then I should be notified that :fields fields cannot be blank
-     */
+    #[Then('I should be notified that :fields fields cannot be blank')]
     public function iShouldBeNotifiedThatFieldsCannotBeBlank(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -264,9 +221,7 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too short
-     */
+    #[Then('I should be notified that :fields fields are too short')]
     public function iShouldBeNotifiedThatFieldsAreTooShort(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -280,9 +235,7 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified that :fields fields are too long
-     */
+    #[Then('I should be notified that :fields fields are too long')]
     public function iShouldBeNotifiedThatFieldsAreTooLong(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -295,12 +248,14 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Then this page should have collections :firstCollection and :secondCollection
-     */
+    #[Then('this page should have collections :firstCollection and :secondCollection')]
+    #[Then('this page should have collections :firstCollection, :secondCollection and :thirdCollection')]
     public function thisPageShouldHaveCollections(string ...$collectionsNames): void
     {
-        $pageCollections = $this->resolveCurrentPage()->getCollections();
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $pageCollections = $currentPage->getCollections();
         foreach ($collectionsNames as $name) {
             Assert::inArray(
                 $name,
@@ -310,65 +265,49 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Then only :number pages should exist in the store
-     */
+    #[Then('only :number pages should exist in the store')]
     public function onlyPagesShouldAppearInTheStore(int $number): void
     {
         Assert::eq($number, $this->resolveCurrentPage()->countItems());
     }
 
-    /**
-     * @Then the code field should be disabled
-     */
+    #[Then('the code field should be disabled')]
     public function theCodeFieldShouldBeDisabled()
     {
         Assert::true($this->resolveCurrentPage()->isCodeDisabled());
     }
 
-    /**
-     * @Then I should see empty list of pages
-     */
+    #[Then('I should see empty list of pages')]
     public function iShouldSeeEmptyListOfBlocks(): void
     {
         $this->resolveCurrentPage()->isEmpty();
     }
 
-    /**
-     * @When I choose :code media as image
-     */
+    #[When('I choose :code media as image')]
     public function iChooseMediaAsImage(string $code): void
     {
         $this->resolveCurrentPage()->chooseImage($code);
     }
 
-    /**
-     * @When I select :option option from :element
-     */
+    #[When('I select :option option from :element')]
     public function iSelectOptionFrom(string $option, string $element): void
     {
         $this->resolveCurrentPage()->selectOptionFrom($element, $option);
     }
 
-    /**
-     * @Then /^I should see trix toolbar with children in "([^"]*)" element$/
-     */
-    public function iShouldSeeTrixToolbarWithChildrenInElement()
+    #[Then('/^I should see trix toolbar with children in "([^"]*)" element$/')]
+    public function iShouldSeeTrixToolbarWithChildrenInElement(string $element)
     {
         Assert::true($this->resolveCurrentPage()->hasTrixToolbarChildren());
     }
 
-    /**
-     * @Then I should see content in "Textarea" element
-     */
+    #[Then('I should see content in "Textarea" element')]
     public function iShouldSeeContentInTextareaElement()
     {
         Assert::true($this->resolveCurrentPage()->hasTextareaContent());
     }
 
-    /**
-     * @Then I fill textarea content element value to :value
-     */
+    #[Then('I fill textarea content element value to :value')]
     public function iFillTextareaContentElementValueTo(string $value)
     {
         $this->resolveCurrentPage()->fillTextareaContentElement($value);
@@ -376,14 +315,45 @@ final class PageContext implements Context
         $this->sharedStorage->set('page_textarea_content_element', $value);
     }
 
-    /**
-     * @Then I should see Textarea content with value :value
-     */
+    #[Then('I should see Textarea content with value :value')]
     public function iShouldSeeTextareaContentWithValue(string $value)
     {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
         Assert::same(
-            $this->resolveCurrentPage()->getTextareaContent(),
-            "<div>${value}</div>",
+            $currentPage->getTextareaContent(),
+            "<div>{$value}</div>",
+        );
+    }
+
+    #[Then('the heading type should be :type')]
+    public function theHeadingTypeShouldBe(string $type): void
+    {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $headingType = $currentPage->getHeadingType();
+        Assert::notNull($headingType);
+
+        Assert::same(
+            strtoupper($headingType),
+            strtoupper($type),
+            sprintf('Heading type should be "%s" but got "%s"', $type, $headingType),
+        );
+    }
+
+    #[Then('the page name should be :name')]
+    public function thePageNameShouldBe(string $name): void
+    {
+        $currentPage = $this->resolveCurrentPage();
+        assert($currentPage instanceof UpdatePageInterface);
+
+        $pageName = $currentPage->getName();
+        Assert::same(
+            $pageName,
+            $name,
+            sprintf('Page name should be "%s" but got "%s"', $name, $pageName),
         );
     }
 

@@ -17,6 +17,7 @@ use Sylius\CmsPlugin\Form\Type\WysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 final class TextareaContentElementType extends AbstractType
 {
     public const TYPE = 'textarea';
