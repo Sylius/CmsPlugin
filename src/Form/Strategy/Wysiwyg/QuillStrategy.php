@@ -42,11 +42,8 @@ final class QuillStrategy extends AbstractWysiwygStrategy
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         parent::buildView($view, $form, $options);
-        // data-model="norender|*" doesn't work on individual elements — Live Component
-        // treats "*" as a literal model name instead of substituting the field's name
-        // attribute. Use the actual full_name so the Quill content is included in the
-        // component's formValues when a LiveAction (e.g. moveCollectionItem) fires.
         $view->vars['attr']['data-model'] = 'norender|' . $view->vars['full_name'];
+        $view->vars['id'] .= '_' . substr(md5((string) $view->vars['value']), 0, 12);
     }
 
     public function getBlockPrefix(): string

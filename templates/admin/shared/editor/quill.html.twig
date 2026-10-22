@@ -1,0 +1,7 @@
+{% use '@QuillJs/form.html.twig' %}
+
+{% block sylius_cms_plugin_quill_strategy_widget %}
+    <div id="quill-{{ id }}">
+        {{- block('quill_widget') -}}
+    </div>
+{% endblock %}

@@ -72,6 +72,23 @@ final class ContentElementConfigurationTypeTest extends TestCase
         self::assertSame('', $view->vars['content_signature']);
     }
 
+    public function testItPropagatesTheSignatureToAllDescendantViews(): void
+    {
+        $view = $this->buildViewFor('single_media', ['media' => 'image']);
+        $configuration = new FormView($view);
+        $media = new FormView($configuration);
+        $autocomplete = new FormView($media);
+        $view->children['configuration'] = $configuration;
+        $configuration->children['media'] = $media;
+        $media->children['autocomplete'] = $autocomplete;
+
+        $this->type->finishView($view, $this->createMock(FormInterface::class), ['types' => []]);
+
+        self::assertSame($view->vars['content_signature'], $configuration->vars['content_element_signature']);
+        self::assertSame($view->vars['content_signature'], $media->vars['content_element_signature']);
+        self::assertSame($view->vars['content_signature'], $autocomplete->vars['content_element_signature']);
+    }
+
     /** @param array<string, mixed> $configuration */
     private function buildViewFor(string $type, array $configuration): FormView
     {

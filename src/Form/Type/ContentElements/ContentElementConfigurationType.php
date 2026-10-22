@@ -97,6 +97,11 @@ final class ContentElementConfigurationType extends AbstractResourceType
         $view->vars['content_signature'] = $signature;
     }
 
+    public function finishView(FormView $view, FormInterface $form, array $options): void
+    {
+        $this->propagateContentElementSignature($view, $view->vars['content_signature']);
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -125,6 +130,14 @@ final class ContentElementConfigurationType extends AbstractResourceType
         }
 
         return null;
+    }
+
+    private function propagateContentElementSignature(FormView $view, string $signature): void
+    {
+        foreach ($view->children as $child) {
+            $child->vars['content_element_signature'] = $signature;
+            $this->propagateContentElementSignature($child, $signature);
+        }
     }
 
     /** @param FormInterface<mixed> $form */
