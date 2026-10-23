@@ -15,34 +15,26 @@ namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Template;
 
 use Behat\Mink\Element\NodeElement;
 use Sylius\Behat\Page\Admin\Crud\UpdatePage as BaseUpdatePage;
+use Webmozart\Assert\Assert;
 
 class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 {
     public function hasContentElement(string $contentElement): bool
     {
-        $selects = $this->getDocument()->findAll('css', 'select');
-        foreach ($selects as $select) {
-            $selectedOptionElement = $select->find('css', 'option[selected]');
-            if (null !== $selectedOptionElement && $selectedOptionElement->getText() === $contentElement) {
-                return true;
-            }
-        }
-
-        return false;
+        return \in_array($contentElement, $this->getContentElements(), true);
     }
 
     public function hasOnlyContentElement(string $contentElement): bool
     {
-        $selects = $this->getDocument()->findAll('css', 'select');
-        $contentElementsCount = 0;
-        foreach ($selects as $select) {
-            $selectedOptionElement = $select->find('css', 'option[selected]');
-            if (null !== $selectedOptionElement && $selectedOptionElement->getText() === $contentElement) {
-                ++$contentElementsCount;
-            }
-        }
+        return [$contentElement] === $this->getContentElements();
+    }
 
-        return 1 === $contentElementsCount;
+    public function getContentElements(): array
+    {
+        return array_map(
+            static fn (NodeElement $label): string => trim($label->getText()),
+            $this->getDocument()->findAll('css', '[data-test-content-element-label]'),
+        );
     }
 
     public function fillName(string $name): void
@@ -52,12 +44,32 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function deleteContentElement(string $name): void
     {
-        $contentElementSelect = $this->getDocument()->find('css', sprintf('option:contains("%s")', $name));
-        $ancestorXpath = $contentElementSelect->getXpath() . '/ancestor::*[@data-test-content_element][1]';
-        /** @var NodeElement|null $container */
-        $container = $this->getDocument()->find('xpath', $ancestorXpath);
-        $deleteButton = $container->find('css', '[data-test-delete-element]');
+        $this->clickContentElementAction($name, 'delete-element');
+    }
 
-        $deleteButton->click();
+    public function moveContentElement(string $name, string $direction): void
+    {
+        $this->clickContentElementAction($name, 'move-' . $direction);
+    }
+
+    private function clickContentElementAction(string $name, string $action): void
+    {
+        $elements = $this->getContentElements();
+        $element = $this->getDocument()->find('xpath', sprintf(
+            '//*[@data-test-content-element][.//*[@data-test-content-element-label][normalize-space(.) = %s]]',
+            $this->getSession()->getSelectorsHandler()->xpathLiteral($name),
+        ));
+        Assert::notNull($element, sprintf('There is no "%s" content element.', $name));
+
+        $button = $element->find('css', sprintf('[data-test-%s]', $action));
+        Assert::notNull($button, sprintf('There is no "%s" action for the "%s" content element.', $action, $name));
+        Assert::false($button->hasAttribute('disabled'), sprintf('The "%s" action for the "%s" content element is disabled.', $action, $name));
+        $button->click();
+
+        Assert::true(
+            $this->getDocument()->waitFor(5, fn (): bool => $this->getContentElements() !== $elements),
+            sprintf('The content elements did not change after the "%s" action for the "%s" content element.', $action, $name),
+        );
+        $this->waitForFormUpdate();
     }
 }

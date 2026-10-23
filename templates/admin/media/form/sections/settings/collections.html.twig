@@ -1,0 +1,67 @@
+{% set form = hookable_metadata.context.form %}
+{% set collections = form.collections %}
+{% set selected = collections.vars.value %}
+{% set selected_choices = collections.vars.choices|filter(choice => choice.value in selected) %}
+{% set visible_count = 3 %}
+
+<div class="card" {{ sylius_test_html_attribute('collections-card') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ collections.vars.label|trans }}</h3>
+        {% if selected is not empty %}
+            <span class="badge bg-secondary-lt ms-2" {{ sylius_test_html_attribute('selected-collections-count') }}>{{ selected|length }}</span>
+        {% endif %}
+    </div>
+    <div class="card-body cms-collections-picker">
+        {{ form_label(collections, null, { label_attr: { class: 'visually-hidden' } }) }}
+        <div class="input-icon mb-2">
+            <span class="input-icon-addon">{{ ux_icon('tabler:search', { class: 'icon' }) }}</span>
+            {{ form_widget(collections, { attr: { placeholder: 'sylius_cms.ui.media_form.collections.search'|trans }|merge(sylius_test_form_attribute('collections').attr|default({})) }) }}
+        </div>
+        {{ form_errors(collections) }}
+
+        {% if selected_choices is empty %}
+            <div class="text-secondary small py-2" {{ sylius_test_html_attribute('collections-empty') }}>{{ 'sylius_cms.ui.media_form.collections.empty'|trans }}</div>
+        {% else %}
+            <div id="{{ collections.vars.id }}_selected" class="list-group">
+                {% for choice in selected_choices %}
+                    <div
+                        class="list-group-item py-2 {{ loop.index > visible_count ? 'collapse cms-collections-more' }}"
+                        {{ sylius_test_html_attribute('selected-collection', choice.data.code) }}
+                    >
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="flex-grow-1 overflow-hidden">
+                                <div class="text-truncate">{{ choice.label }}</div>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-icon btn-sm btn-ghost-secondary"
+                                title="{{ 'sylius.ui.delete'|trans }}"
+                                aria-label="{{ 'sylius.ui.delete'|trans }}"
+                                {{ stimulus_action('@sylius-cms-plugin/admin/widget-state', 'removeAutocompleteItem', 'click', { select: collections.vars.id, value: choice.value }) }}
+                                {{ sylius_test_html_attribute('remove-collection', choice.data.code) }}
+                            >
+                                {{ ux_icon('tabler:x', { class: 'icon m-0' }) }}
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if selected_choices|length > visible_count %}
+                <button
+                    type="button"
+                    class="btn btn-link btn-sm px-0 mt-1 collapsed"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{ collections.vars.id }}_selected .cms-collections-more"
+                    aria-expanded="false"
+                >
+                    <span class="cms-when-collapsed">{{ 'sylius_cms.ui.media_form.collections.show_all'|trans({ '%count%': selected_choices|length }) }}</span>
+                    <span class="cms-when-expanded">{{ 'sylius_cms.ui.media_form.collections.show_less'|trans }}</span>
+                </button>
+            {% endif %}
+        {% endif %}
+
+        {% if hookable_metadata.configuration.help is defined %}
+            <div class="form-text mb-0 mt-2">{{ hookable_metadata.configuration.help|trans }}</div>
+        {% endif %}
+    </div>
+</div>

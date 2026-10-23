@@ -1,0 +1,11 @@
+# Shared by the create and update forms, so a new content element type is configured only once.
+sylius_twig_hooks:
+    hooks:
+        'sylius_cms.admin.template.create.content.form.sections.elements': &template_elements
+            list:
+                template: '@SyliusCmsPlugin/admin/template/form/sections/elements/list.html.twig'
+                configuration:
+                    quick_types: [heading, textarea, single_media, products_carousel]
+                priority: 0
+
+        'sylius_cms.admin.template.update.content.form.sections.elements': *template_elements

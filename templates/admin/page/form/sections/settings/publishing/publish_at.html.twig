@@ -1,0 +1,5 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    {{ form_row(form.publishAt, sylius_test_form_attribute('publish-at')|merge({ help: 'sylius_cms.ui.page_form.settings.publish_at_help', attr: { class: 'd-flex gap-2 cms-publish-at' } })) }}
+</div>

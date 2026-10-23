@@ -61,7 +61,6 @@ sylius_cms:
         display_for_taxons:
             label: Display voor taxons
             help: Selecteer taxonen waarin dit blok wordt weergegeven
-        manage_block_display: Beheer blok weergave
         templates: Sjablonen
         template: Sjabloon
         content_templates: Inhoudsjablonen

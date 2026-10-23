@@ -1,0 +1,52 @@
+{% set form = hookable_metadata.context.form %}
+{% set media = form.vars.data %}
+{% set controller = '@sylius-cms-plugin/admin/media-upload' %}
+{% set icons = { image: 'tabler:photo', video: 'tabler:movie', file: 'tabler:file' } %}
+
+<div
+    class="card cms-media {{ media.path is not empty ? 'has-current' }}"
+    {{ stimulus_controller(controller, {
+        mismatchMessage: 'sylius_cms.ui.media_form.type_mismatch'|trans,
+        switchMessage: 'sylius_cms.ui.media_form.switch_to'|trans,
+        saveAsMessage: 'sylius_cms.ui.media_form.save_as'|trans,
+    }) }}
+    {{ stimulus_action(controller, 'dragOver', 'dragover')|stimulus_action(controller, 'dragLeave', 'dragleave')|stimulus_action(controller, 'drop', 'drop') }}
+    {{ sylius_test_html_attribute('media-card') }}
+>
+    <div class="card-header flex-wrap gap-2">
+        <h3 class="card-title">{{ 'sylius_cms.ui.media'|trans }}</h3>
+        <div class="ms-auto d-flex flex-wrap align-items-center gap-2">
+            <span class="text-secondary small">{{ form.type.vars.label|trans }} <span class="text-danger">*</span></span>
+            <div class="btn-group cms-media-types" role="group" aria-label="{{ form.type.vars.label|trans }}">
+                {% set order = { image: 0, video: 1, file: 2 } %}
+                {% for choice in form.type.children|sort((a, b) => (order[a.vars.value] ?? 99) <=> (order[b.vars.value] ?? 99)) %}
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="{{ choice.vars.id }}"
+                        name="{{ choice.vars.full_name }}"
+                        value="{{ choice.vars.value }}"
+                        {{ choice.vars.checked ? 'checked' }}
+                        {{ stimulus_target(controller, 'type') }}
+                        {{ stimulus_action(controller, 'checkType', 'change') }}
+                        {{ sylius_test_html_attribute('type', choice.vars.value) }}
+                    >
+                    <label class="btn btn-sm gap-1" for="{{ choice.vars.id }}">
+                        {{ ux_icon(icons[choice.vars.value]|default('tabler:file'), { class: 'icon m-0' }) }}
+                        {{ choice.vars.label|trans }}
+                    </label>
+                    {% do choice.setRendered %}
+                {% endfor %}
+            </div>
+            <span class="badge bg-blue-lt d-none" {{ stimulus_target(controller, 'detected') }} {{ sylius_test_html_attribute('media-type-detected') }}>
+                {{ 'sylius_cms.ui.media_form.detected'|trans }}
+            </span>
+        </div>
+    </div>
+    <div class="card-body">
+        {{ form_errors(form.type) }}
+        <div class="row g-3">
+            {% hook 'media' with { media } %}
+        </div>
+    </div>
+</div>

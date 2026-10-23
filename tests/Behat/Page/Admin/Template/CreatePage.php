@@ -16,7 +16,6 @@ namespace Tests\Sylius\CmsPlugin\Behat\Page\Admin\Template;
 use DMore\ChromeDriver\ChromeDriver;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Tests\Sylius\CmsPlugin\Behat\Behaviour\ContainsErrorTrait;
-use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 use Webmozart\Assert\Assert;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
@@ -35,43 +34,45 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
 
     public function chooseType(string $name): void
     {
-        $this->getDocument()->selectFieldOption('Type', $name);
+        $this->getDocument()->selectFieldOption('sylius_cms_template[type]', strtolower($name));
     }
 
     public function clickOnAddContentElementButton(): void
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
 
-        $addButton = $this->getElement('content_elements_add_button');
-        $addButton->click();
-
-        $addButton->waitFor(1, function (): bool {
-            return $this->hasElement('content_elements_select_type');
-        });
+        $dropdown = $this->getElement('content_elements_add_button');
+        $toggle = $dropdown->find('css', '[data-bs-toggle="dropdown"]');
+        Assert::notNull($toggle, 'There is no button opening the content element types.');
+        $toggle->click();
+        $dropdown->waitFor(5, static fn (): bool => null !== $dropdown->find('css', '.dropdown-menu.show'));
     }
 
     public function selectContentElement(string $contentElement): void
     {
         Assert::isInstanceOf($this->getDriver(), ChromeDriver::class);
-        $this->waitForFormUpdate();
 
-        $allSelects = $this->getDocument()->findAll('css', '[data-test-content-element-type]');
-        $select = end($allSelects);
-        $select->selectOption($contentElement);
-        $select->waitFor(1, function () use ($contentElement): bool {
-            return $this->hasElement(
-                ContentElementHelper::getDefinedElementThatShouldAppearAfterSelectContentElement($contentElement),
-            );
-        });
+        $count = \count($this->getDocument()->findAll('css', '[data-test-content-element]'));
+        $option = $this->getElement('content_elements_add_button')->find('xpath', sprintf(
+            '//button[@data-live-type-param][normalize-space(.) = %s]',
+            $this->getSession()->getSelectorsHandler()->xpathLiteral($contentElement),
+        ));
+        Assert::notNull($option, sprintf('There is no "%s" content element type to add.', $contentElement));
+        $option->click();
+
+        Assert::true(
+            $this->getDocument()->waitFor(5, fn (): bool => \count($this->getDocument()->findAll('css', '[data-test-content-element]')) > $count),
+            sprintf('The "%s" content element has not been added.', $contentElement),
+        );
+        $this->waitForFormUpdate();
     }
 
     protected function getDefinedElements(): array
     {
         return array_merge(
             parent::getDefinedElements(),
-            ContentElementHelper::getDefinedContentElements(),
             [
-                'content_elements_add_button' => '[data-test-add-content-element]',
+                'content_elements_add_button' => '[data-test-template-elements] [data-test-add-element-button]',
                 'form' => 'form[name="sylius_cms_template"]',
             ],
         );

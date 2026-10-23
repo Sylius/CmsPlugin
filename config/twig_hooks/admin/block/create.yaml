@@ -6,72 +6,170 @@ sylius_twig_hooks:
                 props:
                     resource: '@=_context.resource'
                     form: '@=_context.form'
-                    template: '@SyliusCmsPlugin/admin/block/form.html.twig'
+                    template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form.html.twig'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form':
+            header:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header.html.twig'
+                priority: 100
             sections:
-                template: '@SyliusCmsPlugin/admin/block/form/sections.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.header':
+            summary:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/summary.html.twig'
+                priority: 100
+            navigation:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.header.summary':
+            title:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/summary/title.html.twig'
+                configuration:
+                    untitled: 'sylius_cms.ui.block_form.untitled'
+                priority: 200
+            status:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/summary/status.html.twig'
+                configuration:
+                    not_saved: 'sylius_cms.ui.block_form.not_saved'
+                priority: 100
+            meta:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/summary/meta.html.twig'
+                priority: 50
+            preview:
+                template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
+                configuration:
+                    button_class: 'btn'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.header.navigation':
+            tabs:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation/tabs.html.twig'
+                priority: 100
+            locale_switcher:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation/locale_switcher.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.header.navigation.tabs':
+            content:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation/tabs/tab.html.twig'
+                configuration:
+                    tab: 'content'
+                    active: true
+                    elements_count: true
+                priority: 200
+            display:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation/tabs/tab.html.twig'
+                configuration:
+                    tab: 'display'
+                    label: 'sylius_cms.ui.block_form.tab.display'
+                priority: 100
+            settings:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/header/navigation/tabs/tab.html.twig'
+                configuration:
+                    tab: 'settings'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form.sections':
             general:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general.html.twig'
-                priority: 300
-            collections:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/collections.html.twig'
-                priority: 200
-            display_config:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config.html.twig'
-                priority: 100
+                enabled: false
             content:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content.html.twig'
-                priority: 0
-
-        'sylius_cms.admin.block.create.content.form.sections.general':
-            default:
-                enabled: false
-            code:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general/code.html.twig'
-                priority: 400
-            name:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general/name.html.twig'
-                priority: 300
-            enabled:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general/enabled.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content.html.twig'
+                configuration:
+                    active: true
                 priority: 200
-            channels:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/general/channels.html.twig'
+            display:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/display.html.twig'
                 priority: 100
-            preview:
-                template: '@SyliusCmsPlugin/admin/shared/preview/render.html.twig'
-                priority: 0
-
-        'sylius_cms.admin.block.create.content.form.sections.display_config':
-            default:
-                enabled: false
-            products:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/products.html.twig'
-                priority: 200
-            productsInTaxons:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/products_in_taxons.html.twig'
-                priority: 100
-            taxons:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/display_config/taxons.html.twig'
+            settings:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings.html.twig'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form.sections.content':
-            template:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content/template.html.twig'
-                priority: 100
             translations:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content/translations.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations.html.twig'
                 priority: 0
 
         'sylius_cms.admin.block.create.content.form.sections.content.translations':
+            structure:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations/structure.html.twig'
+                priority: 100
+            editor:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations/editor.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.content.translations.structure':
             elements_template:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content/translations/elements_template.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations/structure/elements_template.html.twig'
                 priority: 100
             elements:
-                template: '@SyliusCmsPlugin/admin/block/form/sections/content/translations/elements.html.twig'
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations/structure/elements.html.twig'
+                configuration:
+                    empty_message: 'sylius_cms.ui.block_form.content.no_elements'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.content.translations.editor':
+            elements:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/content/translations/editor/elements.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.display':
+            products:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/display/products.html.twig'
+                priority: 200
+            products_in_taxons:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/display/products_in_taxons.html.twig'
+                priority: 100
+            taxons:
+                template: '@SyliusCmsPlugin/admin/block/form/sections/display/taxons.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.settings':
+            general:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general.html.twig'
+                priority: 200
+            organization:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/organization.html.twig'
+                priority: 100
+            publishing:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/publishing.html.twig'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.settings.general':
+            code:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general/code.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.code_help'
+                priority: 100
+            name:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/general/name.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.name_help'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.settings.organization':
+            template:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/organization/template.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.template_help'
+                priority: 100
+            collections:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/organization/collections.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.collections_help'
+                priority: 0
+
+        'sylius_cms.admin.block.create.content.form.sections.settings.publishing':
+            enabled:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/publishing/enabled.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.enabled_help'
+                priority: 100
+            channels:
+                template: '@SyliusCmsPlugin/admin/shared/crud/common/content/form/sections/settings/publishing/channels.html.twig'
+                configuration:
+                    help: 'sylius_cms.ui.block_form.settings.channels_help'
                 priority: 0

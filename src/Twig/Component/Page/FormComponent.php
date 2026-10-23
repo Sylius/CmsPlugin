@@ -13,13 +13,16 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Twig\Component\Page;
 
-use Sylius\Bundle\UiBundle\Twig\Component\LiveCollectionTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponentTrait;
 use Sylius\Bundle\UiBundle\Twig\Component\TemplatePropTrait;
 use Sylius\CmsPlugin\Entity\PageInterface;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateConfiguration;
+use Sylius\CmsPlugin\Form\UiState\FormUiStateResolverInterface;
+use Sylius\CmsPlugin\Form\UiState\LocaleWarningsProviderInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Sylius\CmsPlugin\Twig\Component\Trait\ContentElementsCollectionFormComponentTrait;
+use Sylius\CmsPlugin\Twig\Component\Trait\FormUiStateComponentTrait;
 use Sylius\CmsPlugin\Twig\Component\Trait\PreviewComponentTrait;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\Component\Product\Generator\SlugGeneratorInterface;
@@ -35,13 +38,13 @@ use Twig\Environment;
 class FormComponent
 {
     use ComponentToolsTrait;
-    use LiveCollectionTrait;
     use TemplatePropTrait;
 
     /** @use ResourceFormComponentTrait<PageInterface> */
     use ResourceFormComponentTrait;
 
     use ContentElementsCollectionFormComponentTrait;
+    use FormUiStateComponentTrait;
     use PreviewComponentTrait;
 
     /**
@@ -60,10 +63,17 @@ class FormComponent
         LocaleProviderInterface $localeProvider,
         string $previewTemplate,
         protected readonly SlugGeneratorInterface $slugGenerator,
+        FormUiStateResolverInterface $formUiStateResolver,
+        LocaleWarningsProviderInterface $localeWarningsProvider,
     ) {
         $this->initialize($pageRepository, $formFactory, $resourceClass, $formClass);
         $this->initializeTemplateRepository($templateRepository);
         $this->initializePreview($twig, $localeProvider, $previewTemplate);
+        $this->initializeUiState($formUiStateResolver, new FormUiStateConfiguration(
+            ['translations', 'contentElements'],
+            'contentElements.%locale%.contentElements',
+            $localeWarningsProvider,
+        ));
     }
 
     #[LiveAction]

@@ -1,0 +1,9 @@
+{% set form = hookable_metadata.context.form %}
+{% set media_type = hookable_metadata.context.media_type %}
+
+<div class="col-12">
+    {{ form_row(form.content, sylius_test_form_attribute('content')|merge({
+        label: 'sylius_cms.ui.content',
+        help: 'sylius_cms.ui.media_form.content_help.' ~ (media_type in ['image', 'video'] ? media_type : 'file'),
+    })) }}
+</div>

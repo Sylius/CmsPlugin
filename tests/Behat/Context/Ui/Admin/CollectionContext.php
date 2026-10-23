@@ -14,11 +14,13 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Doctrine\ORM\EntityManagerInterface;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Collection\CreatePageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Collection\IndexPageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Collection\UpdatePageInterface;
@@ -35,6 +37,7 @@ final class CollectionContext implements Context
         private CreatePageInterface $createPage,
         private UpdatePageInterface $updatePage,
         private RandomStringGeneratorInterface $randomStringGenerator,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -97,6 +100,22 @@ final class CollectionContext implements Context
     public function iAddIt(): void
     {
         $this->createPage->create();
+    }
+
+    /**
+     * @When I change its type to :type
+     */
+    public function iChangeItsTypeTo(string $type): void
+    {
+        $this->updatePage->changeType($type);
+    }
+
+    /**
+     * @When I save my changes
+     */
+    public function iSaveMyChanges(): void
+    {
+        $this->updatePage->saveChanges();
     }
 
     /**
@@ -197,6 +216,27 @@ final class CollectionContext implements Context
     public function theCodeFieldShouldBeDisabled(): void
     {
         Assert::true($this->resolveCurrentPage()->isCodeDisabled());
+    }
+
+    /**
+     * @Then I should be notified that the collection has been successfully updated
+     */
+    public function iShouldBeNotifiedThatTheCollectionHasBeenSuccessfullyUpdated(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'Collection has been successfully updated.',
+            NotificationType::success(),
+        );
+    }
+
+    /**
+     * @Then /^(this collection) should not contain any pages$/
+     */
+    public function thisCollectionShouldNotContainAnyPages(CollectionInterface $collection): void
+    {
+        $this->entityManager->refresh($collection);
+
+        Assert::isEmpty($collection->getPages()?->toArray());
     }
 
     /**

@@ -1,7 +1,237 @@
 sylius_cms:
     ui:
+        form:
+            errors: '%count% error(s)'
+            untitled: Untitled
+            not_saved: Not saved yet
+            warnings:
+                tab: Some languages need attention
+            tab:
+                content: Content
+                settings: Settings
+            content:
+                structure: Structure
+                load_template: Load template
+                copy_from: Copy from
+                copy_from_hint: 'Or copy the content of another language:'
+                copy_from_confirm: 'This replaces %count% element(s) of this language. Continue?'
+                no_elements: No content elements yet.
+                editor_empty: Add the first element using the button on the left.
+                empty_element: Not filled in yet
+                new_element: New element
+                items: '%count% item(s)'
+                insert_here: Insert here
+                of: 'of %count%'
+                move_up: Move up
+                move_down: Move down
+                duplicate: Duplicate
+                type_help: Changing the type resets this element's fields.
+                products_selected: '%count% selected'
+                search_products: Search products by name or code to add…
+            settings:
+                help: Settings are shared by all languages.
+                general: General
+                organization: Organization
+                publishing: Publishing
+        block_form:
+            untitled: Untitled block
+            not_saved: Not saved yet
+            content:
+                no_elements: This block has no content elements yet.
+            display:
+                title: Display rules
+                help: Restricts the block to the selected product and taxon pages. Leave empty to display it wherever it is rendered.
+            settings:
+                code_help: Technical identifier used to render the block. Set when the block is created and cannot be changed.
+                name_help: Internal name, visible only in the admin.
+                template_help: Twig layout the block is rendered in.
+                collections_help: Groups blocks and lists them in the shop.
+                enabled_help: The block is visible in the selected channels.
+                channels_help: Channels in which the block is available.
+            tab:
+                display: Display
+        page_form:
+            untitled: Untitled page
+            not_saved: Not saved yet
+            warnings:
+                slug_missing: Slug missing
+            content:
+                no_elements: This page has no content elements yet.
+            teaser:
+                tile_preview: Tile preview
+                read_more: Read more
+                preview_hint: Approximate look. Real styling comes from the shop theme.
+            seo:
+                help: Used by search engines and in the page URL.
+                characters: '%count% / %max%'
+                keywords_help: Comma-separated.
+                search_preview: Search result preview
+                description_missing: Add a meta description to control this snippet.
+                translations: Translations
+                status_complete: Complete
+                status_empty: Not translated
+                generate_slug: Generate
+            settings:
+                code_help: Technical identifier. Set when the page is created and cannot be changed.
+                name_help: Internal name, visible only in the admin.
+                template_help: Twig layout the page is rendered in.
+                collections_help: Groups pages and lists them in the shop.
+                enabled_help: The page is visible in the selected channels.
+                publish_at_help: Leave empty to publish right after saving.
+                channels_help: Channels in which the page is available.
+            tab:
+                teaser: Teaser
+                seo: SEO
+        media_form:
+            detected: Detected from file
+            current: Current
+            new_file: New · not saved
+            open_original: Open original
+            replace: Replace file
+            drop_to_replace: 'Tip: drop a new file onto the preview to replace it.'
+            choose_another: Choose another
+            remove: Remove
+            keep_current: Keep current file
+            selected_note: 'Preview of the selected file. It is uploaded when you click %button%.'
+            replace_note: 'The current file is replaced when you click %button%. The path changes and pages using this media show the new file.'
+            type_mismatch: 'Type is set to %type%, but the selected file does not match it (%mime%). Change the type or choose another file.'
+            switch_to: 'Switch to %type%'
+            save_as: 'The file will be saved as %name%.'
+            save_with_original_name_help: Keeps the uploaded file name instead of a generated one.
+            save_with_original_name_update_help: Keeps the uploaded file name instead of a generated one. Applies to the next upload.
+            copy: Copy
+            copied: Copied
+            open: Open
+            download_requires_channel: The Download link is built from a channel's locale, so it needs at least one enabled channel. Select a channel in Publishing.
+            shop_preview: How it looks in the shop
+            alt_help: Read by screen readers and used by search engines.
+            alt_placeholder: Describe what the image shows
+            link_help: Optional. Makes the image clickable in the shop.
+            link_placeholder: https://… or /en_US/taxons/summer
+            images_only:
+                video: Alt text and Link apply to images only, so they are hidden for videos.
+                file: Alt text and Link apply to images only, so they are hidden for files.
+            content_help:
+                image: Optional description shown below the image.
+                video: Optional description shown below the video.
+                file: Optional description shown below the file name.
+            dropzone:
+                title: Drag a file here
+                or: or
+                browse: Browse files
+                help: Image, video or any file for download. The type is detected from the file.
+            details:
+                file_type: File type
+                size: Size
+                dimensions: Dimensions
+                resolution: Resolution
+                duration: Duration
+                file_name: File name
+            errors:
+                create: 'The media was not created. Fix %count% error(s) and click Create again.'
+                update: 'The media was not saved. Fix %count% error(s) and click Update again.'
+            collections:
+                search: Search collections to add…
+                empty: Not in any collection yet.
+                show_all: 'Show all %count%'
+                show_less: Show less
+            settings:
+                code_help: 'Letters, digits, _ and -. Set when the media is created and cannot be changed.'
+                name_help: Internal name. For videos and files it is also shown in the shop as a heading.
+                enabled_help: The media is available in the selected channels.
+                channels_help: Channels in which the media is available.
+                collections_help: Groups media in the CMS.
+        collection_form:
+            code_placeholder: e.g. black_friday
+            name_placeholder: e.g. Black Friday
+            errors:
+                create: 'The collection was not created. Fix %count% error(s) and click Create again.'
+                update: 'The collection was not saved. Fix %count% error(s) and click Update again.'
+            settings:
+                code_help: '2–250 characters: letters, digits, _ and -. Cannot be changed later.'
+                code_locked_help: Set on creation, cannot be changed.
+            elements:
+                title:
+                    page: Pages in this collection
+                    block: Blocks in this collection
+                    media: Media in this collection
+                search:
+                    page: Search pages to add…
+                    block: Search blocks to add…
+                    media: Search media to add…
+                empty:
+                    page: No pages yet
+                    block: No blocks yet
+                    media: No media yet
+                empty_help:
+                    page: Search above to add pages. You can also add this collection from the Page form.
+                    block: Search above to add blocks. You can also add this collection from the Block form.
+                    media: Search above to add media. You can also add this collection from the Media form.
+                showing:
+                    page: 'Showing %from%–%to% of %count% pages'
+                    block: 'Showing %from%–%to% of %count% blocks'
+                    media: 'Showing %from%–%to% of %count% media'
+                no_channel: No channel
+                remove: Remove from collection
+            type:
+                hint: Decides which elements can be added to this collection.
+                change_hint: 'Changing the type removes the %elements% added below.'
+                description:
+                    page: Pages listed together in the shop, e.g. Blog or FAQ
+                    block: Reusable content blocks rendered in templates
+                    media: Images, videos and files
+                elements:
+                    page: '%count% page|%count% pages'
+                    block: '%count% block|%count% blocks'
+                    media: '%count% media'
+                confirm:
+                    title: 'Change type to %type%?'
+                    message: 'This collection holds %elements%. A collection can contain only one type, so they will be removed from it when you click %button%.'
+                    keep: 'Keep %type%'
+                    apply: 'Change type and remove %elements%'
+                    not_deleted:
+                        page: The pages themselves are not deleted.
+                        block: The blocks themselves are not deleted.
+                        media: The media themselves are not deleted.
+            usage:
+                title: Usage
+                empty: Not used in any page or block yet.
+                help: Only the “Pages collection” content elements are listed; collections rendered in templates are not.
+                via:
+                    page: Page · “Pages collection” element
+                    block: Block · “Pages collection” element
+        template_form:
+            name_placeholder: e.g. Landing
+            name_help: Shown in the “Content elements template” select. Must be unique.
+            errors:
+                create: 'The template was not created. Fix %count% error(s) and click Create again.'
+                update: 'The template was not saved. Fix %count% error(s) and click Update again.'
+            type:
+                description:
+                    page: Available when editing pages
+                    block: Available when editing blocks
+            elements:
+                title: Content elements
+                note: Order matters. Choosing this template in a page or block inserts these elements, in this order, as empty elements. Content is filled in there.
+                update_note: Editing the template does not change pages or blocks already created from it.
+                hint: Use ↑ ↓ to change the order. Hover between elements to insert one there.
+                empty: No elements yet
+                empty_help:
+                    page: Add elements in the order they should appear on the page.
+                    block: Add elements in the order they should appear in the block.
+            element_descriptions:
+                heading: Section title
+                textarea: Rich text
+                single_media: One image, video or file
+                multiple_media: Several media items
+                products_carousel: Hand-picked products in a slider
+                products_carousel_by_taxon: Products from a taxon in a slider
+                products_grid: Hand-picked products in a grid
+                products_grid_by_taxon: Products from a taxon in a grid
+                taxons_list: Links to taxons
+                pages_collection: Teasers of pages from a collection
+                spacer: Vertical space
         add_element: Add element
-        elements: Elements
         blocks: Blocks
         block: Block
         pages: Pages
@@ -92,7 +322,6 @@ sylius_cms:
         display_for_taxons:
             label: Display for taxons
             help: Select taxons in which this block will be displayed
-        manage_block_display: Manage block display
         templates: Templates
         template: Template
         content_templates: Content Templates

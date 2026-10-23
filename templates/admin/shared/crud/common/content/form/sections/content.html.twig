@@ -1,0 +1,9 @@
+<div
+    id="form-tab-content"
+    role="tabpanel"
+    tabindex="0"
+    class="tab-pane mb-3 {{ hookable_metadata.configuration.active|default(false) ? 'show active' }}"
+    data-translatable
+>
+    {% hook 'content' %}
+</div>

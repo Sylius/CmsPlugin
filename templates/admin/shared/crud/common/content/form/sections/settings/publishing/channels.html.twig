@@ -1,0 +1,14 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="col-12">
+    {{ form_label(form.channels) }}
+
+    {% for channel in form.channels %}
+        {{ form_row(channel, sylius_test_form_attribute('channel-code', channel.vars.value)|merge({ row_attr: { class: 'cms-channel border rounded px-3 py-2 mb-2' } })) }}
+    {% endfor %}
+
+    {{ form_errors(form.channels) }}
+    {% if hookable_metadata.configuration.help is defined %}
+        {{ form_help(form.channels, { help: hookable_metadata.configuration.help }) }}
+    {% endif %}
+</div>

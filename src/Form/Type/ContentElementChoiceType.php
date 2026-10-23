@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Form\Type;
 
+use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementTypeLabels;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,14 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ContentElementChoiceType extends AbstractType
 {
     /** @var array<string, string> */
-    private array $contentElements = [];
+    private array $contentElements;
 
     /** @param iterable<string, string> $contentElementTypes */
     public function __construct(iterable $contentElementTypes)
     {
-        foreach ($contentElementTypes as $type => $formType) {
-            $this->contentElements['sylius_cms.ui.content_elements.type.' . $type] = $type;
-        }
+        $this->contentElements = array_flip(ContentElementTypeLabels::fromTypes($contentElementTypes));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

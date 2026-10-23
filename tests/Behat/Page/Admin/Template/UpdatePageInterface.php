@@ -22,4 +22,9 @@ interface UpdatePageInterface
     public function fillName(string $name): void;
 
     public function deleteContentElement(string $name): void;
+
+    public function moveContentElement(string $name, string $direction): void;
+
+    /** @return list<string> */
+    public function getContentElements(): array;
 }

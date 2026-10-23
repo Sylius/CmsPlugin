@@ -10,7 +10,7 @@
 
         <service
             id="sylius_cms.twig.component.template.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Template\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.template" />
             <argument type="service" id="form.factory" />
@@ -22,12 +22,13 @@
 
         <service
             id="sylius_cms.twig.component.collection.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Collection\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.collection" />
             <argument type="service" id="form.factory" />
             <argument>%sylius_cms.model.collection.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\CollectionType</argument>
+            <argument type="service" id="sylius_cms.repository.content_configuration" />
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:collection:form" />
         </service>
@@ -45,6 +46,7 @@
             <argument type="service" id="sylius.provider.locale" />
             <argument>@SyliusCmsPlugin/admin/block/preview.html.twig</argument>
             <argument type="service" id="sylius_cms.content_element_renderer_strategy" />
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
 
             <call method="setLiveResponder">
                 <argument type="service" id="ux.live_component.live_responder"/>
@@ -55,21 +57,15 @@
 
         <service
             id="sylius_cms.twig.component.media.form"
-            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+            class="Sylius\CmsPlugin\Twig\Component\Media\FormComponent"
         >
             <argument type="service" id="sylius_cms.repository.media" />
             <argument type="service" id="form.factory" />
             <argument>%sylius_cms.model.media.class%</argument>
             <argument>Sylius\CmsPlugin\Form\Type\MediaType</argument>
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
 
             <tag name="sylius.live_component.admin" key="sylius_cms:admin:media:form" />
-        </service>
-
-        <service
-            id="sylius_cms.twig.component.media.preview"
-            class="Sylius\CmsPlugin\Twig\Component\MediaPreviewComponent"
-        >
-            <tag name="sylius.twig_component" key="sylius_cms:admin:media:preview" />
         </service>
 
         <service
@@ -85,6 +81,8 @@
             <argument type="service" id="sylius.provider.locale" />
             <argument>@SyliusCmsPlugin/admin/page/preview.html.twig</argument>
             <argument type="service" id="sylius.generator.slug" />
+            <argument type="service" id="sylius_cms.form.ui_state.resolver" />
+            <argument type="service" id="sylius_cms.form.ui_state.page_slug_warnings_provider" />
 
             <call method="setLiveResponder">
                 <argument type="service" id="ux.live_component.live_responder"/>

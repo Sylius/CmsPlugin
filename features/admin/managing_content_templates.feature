@@ -33,3 +33,13 @@ Feature: Managing cms templates
         And I update it
         Then I should be notified that the template has been successfully updated
         And I should see only "Single media" content element in Content elements section
+
+    @ui @javascript
+    Scenario: Reordering content elements of a template
+        Given there is a template in the store with "Test template" name
+        And there are "Textarea" and "Single media" content elements in this template
+        When I go to the update "Test template" template page
+        And I move "Single media" content element up
+        And I update it
+        Then I should be notified that the template has been successfully updated
+        And the content elements should be in order "Single media" and "Textarea"

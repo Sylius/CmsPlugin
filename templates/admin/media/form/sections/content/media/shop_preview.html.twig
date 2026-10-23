@@ -1,0 +1,27 @@
+{% set form = hookable_metadata.context.form %}
+{% set media = hookable_metadata.context.media %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+{% if media.type == 'file' and media.path is not empty %}
+    <div class="col-12" {{ sylius_test_html_attribute('media-shop-preview') }}>
+        <div class="form-label">{{ 'sylius_cms.ui.media_form.shop_preview'|trans }}</div>
+        <div class="border rounded p-3 bg-light-subtle">
+            {% if form.name.vars.value is not empty %}
+                <div class="fs-3 fw-bold mb-1">{{ form.name.vars.value }}</div>
+            {% endif %}
+            {% for locale, translation in form.translations %}
+                <div
+                    class="text-secondary mb-2 {{ ui_state.active_locale != locale ? 'd-none' }}"
+                    data-ui-pane="activeLocale"
+                    data-ui-pane-value="{{ locale }}"
+                >
+                    {%- set content = translation.content.vars.value|striptags|trim -%}
+                    {{- content|length > 160 ? content|slice(0, 160) ~ '…' : content -}}
+                </div>
+            {% endfor %}
+            <span class="btn btn-sm btn-primary disabled" aria-disabled="true">
+                {{ ux_icon('tabler:download', { class: 'icon' }) }}{{ 'sylius_cms.ui.download'|trans }}
+            </span>
+        </div>
+    </div>
+{% endif %}

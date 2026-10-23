@@ -1,0 +1,11 @@
+{% set elements = hookable_metadata.context.elements %}
+{% set type = hookable_metadata.context.type %}
+
+<div class="card-body border-bottom cms-collections-picker">
+    {{ form_label(elements, null, { label_attr: { class: 'visually-hidden' } }) }}
+    <div class="input-icon">
+        <span class="input-icon-addon">{{ ux_icon('tabler:search', { class: 'icon' }) }}</span>
+        {{ form_widget(elements, { attr: { placeholder: ('sylius_cms.ui.collection_form.elements.search.' ~ type)|trans }|merge(sylius_test_form_attribute('collection-element-type').attr|default({})) }) }}
+    </div>
+    {{ form_errors(elements) }}
+</div>

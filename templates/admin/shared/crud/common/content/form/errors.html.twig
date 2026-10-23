@@ -1,0 +1,28 @@
+{% macro error_items(view, locale) %}
+    {% for error in view.vars.errors %}
+        <li>
+            {%- if view.parent is not null and view.vars.label is not same as(false) -%}
+                <strong>{{ (view.vars.label ?: view.vars.name|humanize)|trans({}, view.vars.translation_domain) }}{{ locale ? ' (' ~ locale|sylius_locale_name ~ ')' }}:</strong>
+            {% endif -%}
+            {{ error.message }}
+        </li>
+    {% endfor %}
+    {% for name, child in view.children %}
+        {{ _self.error_items(child, view.vars.name == 'translations' and view.parent is not null and view.parent.parent is null ? name : locale) }}
+    {% endfor %}
+{% endmacro %}
+
+{% set form = hookable_metadata.context.form %}
+
+{% if hookable_metadata.context.form_validated|default(false) and not form.vars.valid %}
+    {% set items = _self.error_items(form, null) %}
+    <div class="alert alert-danger" role="alert" {{ sylius_test_html_attribute('form-errors-summary') }}>
+        <div class="d-flex gap-2">
+            <div>{{ ux_icon('tabler:exclamation-circle', { class: 'icon alert-icon' }) }}</div>
+            <div>
+                <h4 class="alert-title">{{ hookable_metadata.configuration.message|trans({ '%count%': (items|split('<li>')|length) - 1 }) }}</h4>
+                <ul class="mb-0 ps-3">{{ items }}</ul>
+            </div>
+        </div>
+    </div>
+{% endif %}

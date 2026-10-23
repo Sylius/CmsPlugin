@@ -38,6 +38,7 @@
             <argument type="service" id="sylius_cms.behat.page.admin.collection.create"/>
             <argument type="service" id="sylius_cms.behat.page.admin.collection.update"/>
             <argument type="service" id="sylius_cms.behat.random_string_generator"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
 
         <service id="sylius_cms.behat.context.ui.shop.homepage_blocks" class="Tests\Sylius\CmsPlugin\Behat\Context\Ui\Shop\HomepageBlocksContext">

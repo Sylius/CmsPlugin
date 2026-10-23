@@ -1,0 +1,35 @@
+{% set form = hookable_metadata.context.form %}
+{% set ui_state = hookable_metadata.context.ui_state %}
+
+<div class="card" {{ sylius_test_html_attribute('teaser-tile-preview') }}>
+    <div class="card-header">
+        <h3 class="card-title">{{ 'sylius_cms.ui.page_form.teaser.tile_preview'|trans }}</h3>
+    </div>
+    <div class="card-body">
+        {% for locale, translation in form.translations %}
+            {% set title = translation.teaserTitle.vars.value ?: form.name.vars.value %}
+            {% set content = translation.teaserContent.vars.value|striptags|trim %}
+            <div
+                class="{{ ui_state.active_locale != locale ? 'd-none' }}"
+                data-ui-pane="activeLocale"
+                data-ui-pane-value="{{ locale }}"
+            >
+                <div class="border rounded overflow-hidden">
+                    <div class="ratio ratio-21x9 bg-surface-secondary">
+                        <div class="d-flex align-items-center justify-content-center text-secondary">
+                            {{ ux_icon(translation.teaserImage.vars.value is not empty ? 'tabler:photo-check' : 'tabler:photo', { class: 'icon icon-lg' }) }}
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="fw-bold">{{ title ?: 'sylius_cms.ui.page_form.untitled'|trans }}</div>
+                        {% if content is not empty %}
+                            <div class="text-secondary small mt-2">{{ content|length > 140 ? content|slice(0, 140) ~ '…' : content }}</div>
+                        {% endif %}
+                        <div class="subheader mt-2">{{ 'sylius_cms.ui.page_form.teaser.read_more'|trans }} →</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form-hint mt-2">{{ 'sylius_cms.ui.page_form.teaser.preview_hint'|trans }}</div>
+    </div>
+</div>

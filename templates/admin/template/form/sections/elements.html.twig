@@ -1,5 +1,11 @@
-<div class="card mb-3">
-    <div class="card-body">
-        {% hook 'elements' %}
+{% set collection = hookable_metadata.context.form.contentElements %}
+
+<div class="col-12 col-lg">
+    <div class="card" {{ sylius_test_html_attribute('template-elements') }}>
+        <div class="card-header">
+            <h3 class="card-title">{{ 'sylius_cms.ui.template_form.elements.title'|trans }}</h3>
+            <span class="badge bg-secondary-lt ms-2" {{ sylius_test_html_attribute('template-elements-count') }}>{{ collection|length }}</span>
+        </div>
+        {% hook 'elements' with { collection } %}
     </div>
 </div>

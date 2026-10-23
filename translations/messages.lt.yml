@@ -80,7 +80,6 @@ sylius_cms:
         display_for_taxons:
             label: Rodyti taksonams
             help: Pasirinkite taksonus, kuriuose šis blokas bus rodomas
-        manage_block_display: Bloko rodymo valdymas
         templates: Šablonai
         template: Šablonas
         content_templates: Turinio šablonai
@@ -96,7 +95,6 @@ sylius_cms:
             image: Anonso nuotrauka
             help: Tai maža puslapio peržiūra. Ji naudojama kuriant puslapių kolekciją.
         add_element: Pridėti elementą
-        elements: Elementai
         taxons: Taksonai
         path: Kelias
         collection: Kolekcija

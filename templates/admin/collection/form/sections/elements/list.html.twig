@@ -1,0 +1,132 @@
+{% set elements = hookable_metadata.context.elements %}
+{% set type = hookable_metadata.context.type %}
+{% set selected = elements.vars.value %}
+{% set choices = elements.vars.choices|filter(choice => choice.value in selected) %}
+{% set total = choices|length %}
+{% set per_page = constant('Sylius\\CmsPlugin\\Twig\\Component\\Collection\\FormComponent::ELEMENTS_PER_PAGE') %}
+{% set pages = max(1, (total / per_page)|round(0, 'ceil')) %}
+{% set page = min(hookable_metadata.context.component.elementsPage|default(1), pages) %}
+{% set icons = { page: 'tabler:file-text', block: 'tabler:template', media: 'tabler:photo' } %}
+
+{% if total == 0 %}
+    <div class="card-body text-center py-5" {{ sylius_test_html_attribute('collection-elements-empty') }}>
+        <span class="avatar avatar-lg rounded-circle bg-secondary-lt mb-3">{{ ux_icon(icons[type]|default('tabler:folder'), { class: 'icon' }) }}</span>
+        <div class="fw-bold">{{ ('sylius_cms.ui.collection_form.elements.empty.' ~ type)|trans }}</div>
+        <div class="text-secondary small">{{ ('sylius_cms.ui.collection_form.elements.empty_help.' ~ type)|trans }}</div>
+    </div>
+{% else %}
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
+            <thead>
+                <tr>
+                    {% if type == 'media' %}
+                        <th class="w-1"><span class="visually-hidden">{{ 'sylius_cms.ui.preview'|trans }}</span></th>
+                    {% endif %}
+                    <th>{{ ('sylius_cms.ui.' ~ type)|trans }}</th>
+                    {% if type == 'media' %}
+                        <th>{{ 'sylius_cms.ui.type'|trans }}</th>
+                    {% endif %}
+                    <th>{{ 'sylius.ui.channels'|trans }}</th>
+                    <th>{{ 'sylius.ui.status'|trans }}</th>
+                    <th class="w-1"><span class="visually-hidden">{{ 'sylius.ui.actions'|trans }}</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for choice in choices|slice((page - 1) * per_page, per_page) %}
+                    {% set element = choice.data %}
+                    {% set edit_url = path('sylius_cms_admin_' ~ type ~ '_update', { id: element.id }) %}
+                    <tr {{ sylius_test_html_attribute('collection-element', element.code) }}>
+                        {% if type == 'media' %}
+                            <td>
+                                {% if element.type == 'image' and element.path is not empty %}
+                                    <span class="avatar" style="background-image: url({{ element.path|imagine_filter('sylius_admin_product_thumbnail') }})"></span>
+                                {% elseif element.type == 'video' %}
+                                    <span class="avatar bg-dark text-white">{{ ux_icon('tabler:movie', { class: 'icon' }) }}</span>
+                                {% else %}
+                                    {% set file_name = (element.path ?? '')|split('/')|last %}
+                                    <span class="avatar bg-red-lt fw-bold">{{ '.' in file_name ? (file_name|split('.')|last)|upper|slice(0, 4) : ux_icon('tabler:file', { class: 'icon' }) }}</span>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ edit_url }}" class="fw-bold text-body">{{ choice.label }}</a>
+                            <div class="small text-secondary">{{ element.code }}</div>
+                        </td>
+                        {% if type == 'media' %}
+                            <td>{{ ('sylius_cms.ui.' ~ element.type)|trans }}</td>
+                        {% endif %}
+                        <td>
+                            {% for channel in element.channels %}
+                                <span class="badge bg-secondary-lt me-1">{{ channel.name }}</span>
+                            {% else %}
+                                <span class="small text-secondary">{{ 'sylius_cms.ui.collection_form.elements.no_channel'|trans }}</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if element.enabled %}
+                                <span class="badge bg-green-lt">{{ 'sylius.ui.enabled'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary-lt">{{ 'sylius.ui.disabled'|trans }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-end">
+                                <a
+                                    href="{{ edit_url }}"
+                                    class="btn btn-icon"
+                                    aria-label="{{ 'sylius.ui.edit'|trans }}: {{ choice.label }}"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="{{ 'sylius.ui.edit'|trans }}"
+                                    {{ stimulus_controller('@sylius-cms-plugin/admin/tooltip') }}
+                                >
+                                    {{ ux_icon('tabler:pencil') }}
+                                </a>
+                                <button
+                                    type="button"
+                                    class="btn btn-icon"
+                                    aria-label="{{ 'sylius_cms.ui.collection_form.elements.remove'|trans }}: {{ choice.label }}"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="{{ 'sylius_cms.ui.collection_form.elements.remove'|trans }}"
+                                    {{ stimulus_controller('@sylius-cms-plugin/admin/tooltip') }}
+                                    {{ stimulus_action('@sylius-cms-plugin/admin/widget-state', 'removeAutocompleteItem', 'click', { select: elements.vars.id, value: choice.value }) }}
+                                    {{ sylius_test_html_attribute('remove-collection-element', element.code) }}
+                                >
+                                    {{ ux_icon('tabler:x', { class: 'icon text-danger' }) }}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if pages > 1 %}
+        <div class="card-footer d-flex flex-wrap align-items-center gap-2" {{ sylius_test_html_attribute('collection-elements-pagination') }}>
+            <span class="small text-secondary">
+                {{ ('sylius_cms.ui.collection_form.elements.showing.' ~ type)|trans({
+                    '%from%': (page - 1) * per_page + 1,
+                    '%to%': min(page * per_page, total),
+                    '%count%': total,
+                }) }}
+            </span>
+            <ul class="pagination m-0 ms-auto">
+                {% for target in [{ page: page - 1, label: 'sylius.ui.previous'|trans, disabled: page == 1 }]
+                    |merge(range(1, pages)|map(number => { page: number, label: number, active: number == page }))
+                    |merge([{ page: page + 1, label: 'sylius.ui.next'|trans, disabled: page == pages }]) %}
+                    <li class="page-item {{ target.disabled|default(false) ? 'disabled' }} {{ target.active|default(false) ? 'active' }}">
+                        <button
+                            type="button"
+                            class="page-link"
+                            data-action="live#action"
+                            data-live-action-param="changeElementsPage"
+                            data-live-page-param="{{ target.page }}"
+                            {{ target.disabled|default(false) ? 'disabled' }}
+                            {% if target.active|default(false) %}aria-current="page"{% endif %}
+                        >{{ target.label }}</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}

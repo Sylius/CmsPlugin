@@ -15,6 +15,7 @@ namespace Sylius\CmsPlugin\Form\Type;
 
 use Sylius\Bundle\AdminBundle\Form\Type\AddButtonType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementConfigurationType;
+use Sylius\CmsPlugin\Form\Type\ContentElements\ContentElementTypeLabels;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -31,9 +32,7 @@ final class ContentConfigurationType extends AbstractType
     /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
     public function __construct(iterable $actionConfigurationTypes)
     {
-        foreach ($actionConfigurationTypes as $type => $formType) {
-            $this->availableElementTypes[$type] = 'sylius_cms.ui.content_elements.type.' . $type;
-        }
+        $this->availableElementTypes = ContentElementTypeLabels::fromTypes($actionConfigurationTypes);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
