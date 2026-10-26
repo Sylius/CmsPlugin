@@ -6,7 +6,5 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
-    stubFiles:
-        - phpstan-stubs/Symfony/Component/Form/DataMapperInterface.stub
     ignoreErrors:
         - '#Call to method \w+\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\(NodeBuilder|ArrayNodeDefinition|ScalarNodeDefinition)<.+>#'

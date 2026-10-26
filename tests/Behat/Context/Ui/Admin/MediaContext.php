@@ -20,6 +20,7 @@ use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
+use Sylius\Behat\Service\SharedStorageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Media\CreatePageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Media\IndexPageInterface;
 use Tests\Sylius\CmsPlugin\Behat\Page\Admin\Media\UpdatePageInterface;
@@ -29,6 +30,7 @@ use Webmozart\Assert\Assert;
 final class MediaContext implements Context
 {
     public function __construct(
+        private SharedStorageInterface $sharedStorage,
         private CurrentPageResolverInterface $currentPageResolver,
         private NotificationCheckerInterface $notificationChecker,
         private IndexPageInterface $indexPage,
@@ -75,11 +77,34 @@ final class MediaContext implements Context
         $this->resolveCurrentPage()->create();
     }
 
+    #[When('I want to edit this media')]
+    public function iWantToEditThisMedia(): void
+    {
+        $media = $this->sharedStorage->get('media');
+
+        $this->updatePage->open(['id' => $media->getId()]);
+    }
+
+    #[When('I update it')]
+    public function iUpdateIt(): void
+    {
+        $this->updatePage->saveChanges();
+    }
+
     #[Then('I should be notified that new media has been created')]
     public function iShouldBeNotifiedThatNewMediaHasBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
             'Media has been successfully created.',
+            NotificationType::success(),
+        );
+    }
+
+    #[Then('I should be notified that the media has been successfully updated')]
+    public function iShouldBeNotifiedThatTheMediaHasBeenSuccessfullyUpdated(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'Media has been successfully updated.',
             NotificationType::success(),
         );
     }

@@ -88,7 +88,7 @@ final class MediaController extends ResourceController
     private function getMediaForRequestCode(RequestConfiguration $configuration, Request $request): ?MediaInterface
     {
         $this->isGrantedOr403($configuration, ResourceActions::SHOW);
-        $code = $request->attributes->get('code') ?? $request->query->get('code') ?? $request->request->get('code');
+        $code = $request->attributes->get('code');
 
         return $this->mediaResourceResolver->findOrLog($code);
     }

@@ -19,9 +19,9 @@ use Symfony\Component\Validator\Constraint;
 
 final class FileMatchesType extends Constraint
 {
-    public string $messageImage = 'This file cannot be uploaded as an image';
+    public string $messageImage = 'sylius_cms.media.file.type_image';
 
-    public string $messageVideo = 'This file cannot be uploaded as an video';
+    public string $messageVideo = 'sylius_cms.media.file.type_video';
 
     public string $field;
 

@@ -43,6 +43,28 @@
    For backward compatibility, the old constructor signatures are still supported but deprecated.
    Passing repository interfaces will trigger a deprecation notice and will be removed in version 2.0.
 
+### Validation Constraints
+
+1. Validator constraint constructors have been updated to use named arguments instead of array-based options:
+
+   `Sylius\CmsPlugin\Validator\Constraint\CollectionMatchesType`
+    ```diff
+    - new CollectionMatchesType(['type' => SomeClass::class])
+    + new CollectionMatchesType(type: SomeClass::class)
+    ```
+
+   For backward compatibility, the old array-based constructor is still supported but **deprecated**.
+   The array-based approach will be removed in version 2.0.
+
+   When using attributes/annotations:
+    ```php
+    // Old (deprecated)
+    #[CollectionMatchesType(['type' => SomeClass::class])]
+
+    // New
+    #[CollectionMatchesType(type: SomeClass::class)]
+    ```
+
 ### New WYSIWYG editor: Quill
 
 A new Quill WYSIWYG editor is available alongside the existing Trix editor.

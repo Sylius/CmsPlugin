@@ -16,6 +16,7 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\CollectionMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\InvalidArgumentException;
 
 final class CollectionMatchesType extends Constraint
 {
@@ -23,13 +24,28 @@ final class CollectionMatchesType extends Constraint
 
     public string $type;
 
+    /**
+     * @param string|array<string, mixed>|null $type
+     */
     #[HasNamedArguments]
     public function __construct(
-        string $type,
+        array|string|null $type = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
     ) {
+        if (is_array($type)) {
+            if (!isset($type['type']) && !isset($type['value'])) {
+                throw new InvalidArgumentException('The "type" option is required when using array-based constructor.');
+            }
+
+            $options = $type;
+            $type = $options['type'] ?? $options['value'] ?? null;
+            $message = $options['message'] ?? $message;
+            $groups = $options['groups'] ?? $groups;
+            $payload = $options['payload'] ?? $payload;
+        }
+
         parent::__construct(null, $groups, $payload);
 
         $this->type = $type;

@@ -165,7 +165,9 @@ final class PageContext implements Context
     public function thisPageHasTheseCollectionsAssociatedWithIt(?TableNode $table = null): void
     {
         $page = $this->sharedStorage->get('page');
-        assert($page instanceof PageInterface);
+        if (!$page instanceof PageInterface) {
+            throw new \RuntimeException('Expected PageInterface instance in shared storage');
+        }
 
         if (null === $table) {
             $collections = $this->collectionRepository->findAll();

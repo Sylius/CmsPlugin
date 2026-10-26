@@ -26,6 +26,11 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         $this->getDocument()->fillField($field, $value);
     }
 
+    public function fillName(string $name): void
+    {
+        $this->getDocument()->fillField('Name', $name);
+    }
+
     public function uploadFile(string $file): void
     {
         $path = __DIR__ . '/../../../Resources/media/' . $file;

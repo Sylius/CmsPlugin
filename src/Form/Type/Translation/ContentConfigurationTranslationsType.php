@@ -56,7 +56,6 @@ final class ContentConfigurationTranslationsType extends AbstractType implements
         ]);
     }
 
-    /** @param \Traversable<array-key, FormInterface<mixed>> $forms */
     public function mapDataToForms(mixed $viewData, \Traversable $forms): void
     {
         $translationsData = [];
@@ -82,10 +81,10 @@ final class ContentConfigurationTranslationsType extends AbstractType implements
         }
     }
 
-    /** @param \Traversable<array-key, FormInterface<mixed>> $forms */
     public function mapFormsToData(\Traversable $forms, mixed &$viewData): void
     {
         $data = [];
+        /** @var array<string, FormInterface<mixed>> $formsArray */
         $formsArray = iterator_to_array($forms);
         foreach ($formsArray as $localeCode => $form) {
             foreach ($form->getData()['contentElements'] ?? [] as $elementData) {
