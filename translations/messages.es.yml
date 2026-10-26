@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Añadir elemento
+        elements: Elementos
         blocks: Bloques
         block: Bloque
         pages: Páginas
@@ -9,14 +11,13 @@ sylius_cms:
         enabled: Activo
         blocks_header: Bloques
         blocks_subheader: Gestiona tus bloques
-        text_block: Bloque de texto
-        html_block: Bloque HTML
-        image_block: Bloque de imagen
         pages_header: Página
         pages_subheader: Gestiona tus páginas
         products: Productos
+        taxons: Taxones
         page_related_products: Productos relacionados
         name: Nombre
+        path: Ruta
         slug: Slug
         meta_title: Meta título
         meta_keywords: Meta keywords
@@ -30,11 +31,38 @@ sylius_cms:
         link_content: Contenido del enlace
         question: Pregunta
         answer: Respuesta
+        collection: Colección
         collections: Colecciones
         collections_header: Colecciones
         collections_subheader: Gestiona tus colecciones
         position: Posición
+        channels: Canales
+        preview: Vista previa
+        download: Descargar
+        name_when_linked: Nombre al enlazar
+        description_when_linked: Descripción al enlazar
+        media: Medios
+        media_header: Medios
+        media_subheader: Gestiona tus recursos digitales
+        type: Tipo
+        file: Archivo
+        video: Vídeo
+        alt: Alt
+        description: Descripción
+        file_provider: Archivo
+        image_provider: Imagen
+        video_provider: Vídeo
+        read_more: Leer más
+        breadcrumb: Migas de pan
+        import: Importar
+        csv_file: Archivo CSV
+        successfully_imported: Los datos se han importado.
+        form_was_submitted_with_errors: "El formulario se envió con los siguientes errores:"
         title: Título
+        empty_name: Nombre vacío
+        publish_at: Publicar el
+        page_will_be_publish_at: Esta página se publicará el
+        save_with_original_name: Guardar con el nombre original
         content_elements:
             title: Contenido
             type:
@@ -52,7 +80,9 @@ sylius_cms:
                 spacer_height: Altura del separador en píxeles
             heading_type: Tipo de encabezado
             template: Plantilla de elementos de contenido
+            template_help: Proporciona una colección predefinida de elementos. Cambiarla borrará la configuración actual.
         taxon: Taxón
+        seo: SEO
         display_for_products:
             label: Mostrar para productos
             help: Seleccione productos en los que se mostrará este bloque
@@ -77,3 +107,7 @@ sylius_cms:
             content: Contenido del avance
             image: Imagen del avance
             help: Es una pequeña vista previa de la página. Se utiliza al renderizar una colección de páginas.
+        content_preview:
+            missing_template:
+                title: Plantilla no encontrada
+                content: La plantilla que intenta usar para la vista previa no existe. Se muestra la plantilla por defecto.

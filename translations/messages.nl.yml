@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Element toevoegen
+        elements: Elementen
         blocks: Blokken
         block: Blok
         pages: Pagina's
@@ -9,14 +11,13 @@ sylius_cms:
         enabled: Ingeschakeld
         blocks_header: Blokken
         blocks_subheader: Blokken beheren
-        text_block: Tekst blok
-        html_block: HTML blok
-        image_block: Afbeelding blok
         pages_header: Pagina's
         pages_subheader: Pagina's beheren
         products: Producten
+        taxons: Taxons
         page_related_products: Pagina gerelateerde producten
         name: Naam
+        path: Pad
         slug: Slug
         meta_title: Meta titel
         meta_keywords: Meta sleutelwoorden
@@ -25,15 +26,43 @@ sylius_cms:
         code: Code
         contents: Inhoud
         images: Afbeeldingen
+        image: Afbeelding
         link: Link
         link_content: Link inhoud
         question: Vraag
         answer: Antwoord
+        collection: Collectie
         collections: Collecties
         collections_header: Collecties
         collections_subheader: Beheer collecties
         position: Positie
+        channels: Kanalen
+        preview: Voorbeeld
+        download: Downloaden
+        name_when_linked: Naam bij link
+        description_when_linked: Omschrijving bij link
+        media: Media
+        media_header: Media
+        media_subheader: Digitale assets beheren
+        type: Type
+        file: Bestand
+        video: Video
+        alt: Alt
+        description: Omschrijving
+        file_provider: Bestand
+        image_provider: Afbeelding
+        video_provider: Video
+        read_more: Lees meer
+        breadcrumb: Kruimelpad
+        import: Importeren
+        csv_file: CSV-bestand
+        successfully_imported: De gegevens zijn geïmporteerd.
+        form_was_submitted_with_errors: "Het formulier is verzonden met de volgende fouten:"
         title: Titel
+        empty_name: Lege naam
+        publish_at: Publiceren op
+        page_will_be_publish_at: Deze pagina wordt gepubliceerd op
+        save_with_original_name: Opslaan met originele naam
         content_elements:
             title: Inhoud
             type:
@@ -51,7 +80,9 @@ sylius_cms:
                 spacer_height: Hoogte van de afstandhouder in pixels
             heading_type: Kop type
             template: Sjabloon voor inhoudselementen
+            template_help: Biedt een vooraf gedefinieerde verzameling elementen. Wijzigen wist de huidige configuratie.
         taxon: Taxon
+        seo: SEO
         display_for_products:
             label: Display voor producten
             help: Selecteer producten waarin dit blok wordt weergegeven
@@ -76,3 +107,7 @@ sylius_cms:
             content: Voorbeeldinhoud
             image: Voorbeeldafbeelding
             help: Dit is een kleine preview van de pagina. Het wordt gebruikt bij het renderen van een verzameling pagina's.
+        content_preview:
+            missing_template:
+                title: Ontbrekende sjabloon
+                content: De sjabloon die je voor de preview wilt gebruiken ontbreekt. De standaardsjabloon wordt weergegeven.

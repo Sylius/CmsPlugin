@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Добавить элемент
+        elements: Элементы
         blocks: Блоки
         block: Блок
         pages: Страницы
@@ -12,8 +14,10 @@ sylius_cms:
         pages_header: Страницы
         pages_subheader: Управление страницами
         products: Товары
+        taxons: Таксоны
         page_related_products: Cопутствующие товары
         name: Имя
+        path: Путь
         slug: Путь
         meta_title: Заголовок (мета)
         meta_keywords: Ключевые слова (мета)
@@ -27,6 +31,7 @@ sylius_cms:
         link_content: Содержимое ссылки
         question: Вопрос
         answer: Ответ
+        collection: Коллекция
         collections: Коллекции
         collections_header: Коллекции
         collections_subheader: Управляйте своими коллекциями
@@ -41,6 +46,7 @@ sylius_cms:
         media_subheader: Управление цифровым контентом
         type: Тип
         file: Файл
+        video: Видео
         alt: Альт
         description: Описание
         file_provider: Файл
@@ -51,7 +57,12 @@ sylius_cms:
         import: Импорт
         csv_file: CSV файл
         successfully_imported: Данные успешно импортированы
+        form_was_submitted_with_errors: "Форма отправлена со следующими ошибками:"
         title: заглавие
+        empty_name: Пустое имя
+        publish_at: Опубликовать
+        page_will_be_publish_at: Эта страница будет опубликована
+        save_with_original_name: Сохранить с исходным именем
         content_elements:
             title: Содержание
             type:
@@ -69,7 +80,9 @@ sylius_cms:
                 spacer_height: Высота пробела в пикселях
             heading_type: Тип заголовка
             template: Шаблон элементов контента
+            template_help: Предоставляет предопределённый набор элементов. Его изменение удалит текущую конфигурацию.
         taxon: Таксон
+        seo: SEO
         display_for_products:
             label: Отображать для товаров
             help: Выберите товары, для которых этот блок будет отображаться
@@ -94,3 +107,7 @@ sylius_cms:
             content: Содержание анонса
             image: Изображение анонса
             help: Это небольшой предварительный просмотр страницы. Он используется при отображении коллекции страниц.
+        content_preview:
+            missing_template:
+                title: Отсутствует шаблон
+                content: Шаблон, который вы пытаетесь использовать для предпросмотра, отсутствует. Отображается шаблон по умолчанию.

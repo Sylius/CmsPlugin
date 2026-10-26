@@ -8,6 +8,7 @@ sylius_cms:
             not_blank: Kód nesmie byť prázdny.
             min_length: Kód musí mať najmenej {{ limit }} znakov.
             max_length: Kód nesmie mať viac ako {{ limit }} znakov.
+            regex: Kód bloku môže obsahovať iba písmená, číslice, pomlčky a podčiarkovníky.
         name:
             min_length: Názov musí mať najmenej {{ limit }} znakov.
             max_length: Názov nesmie mať viac ako {{ limit }} znakov.
@@ -23,12 +24,13 @@ sylius_cms:
             not_blank: Kód nesmie byť prázdny.
             min_length: Kód musí mať najmenej {{ limit }} znakov.
             max_length: Kód nesmie mať viac ako {{ limit }} znakov.
+            regex: Kód stránky môže obsahovať iba písmená, číslice, pomlčky a podčiarkovníky.
         name:
             not_blank: Názov nemôže byť prázdny.
             min_length: Názov musí mať najmenej {{ limit }} znakov.
             max_length: Názov nesmie mať viac ako {{ limit }} znakov.
         slug:
-            not_blank:  Slug nesmie byť prázdny.
+            not_blank: Slug nesmie byť prázdny.
             min_length: Slug musí mať najmenej {{ limit }} znakov.
             max_length: Slug nesmie mať viac ako {{ limit }} znakov.
             unique: Slug musí byť unikátny.
@@ -47,6 +49,7 @@ sylius_cms:
             not_blank: Kód nesmie byť prázdny.
             min_length: Kód musí mať najmenej {{ limit }} znakov.
             max_length: Kód nesmie mať viac ako {{ limit }} znakov.
+            regex: Kód kolekcie môže obsahovať iba písmená, číslice, pomlčky a podčiarkovníky.
         name:
             not_blank: Názov nemôže byť prázdny.
             min_length: Názov musí mať najmenej {{ limit }} znakov.
@@ -58,8 +61,11 @@ sylius_cms:
             not_blank: Kód nesmie byť prázdny.
             min_length: Kód musí mať najmenej {{ limit }} znakov.
             max_length: Kód nesmie mať viac ako {{ limit }} znakov.
+            regex: Kód média môže obsahovať iba písmená, číslice, pomlčky a podčiarkovníky.
         file:
             not_blank: Súbor nemôže byť prázdny.
+            type_image: Nahraný súbor nie je možné označiť ako obrázok.
+            type_video: Nahraný súbor nie je možné označiť ako video.
         name:
             not_blank: Názov nemôže byť prázdny.
             min_length: Názov musí mať najmenej {{ limit }} znakov.

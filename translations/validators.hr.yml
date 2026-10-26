@@ -8,9 +8,13 @@ sylius_cms:
             not_blank: Kod ne može biti prazan.
             min_length: Kod mora sadržavati minimalno {{ limit }} znaka.
             max_length: Kod ne može biti duži od {{ limit }} znakova.
+            regex: Kod bloka može sadržavati samo slova, brojeve, crtice i podvlake.
         name:
             min_length: Naziv mora sadržavait minimalno {{ limit }} znaka.
             max_length: Naziv ne može biti duži od {{ limit }} znakova.
+        link:
+            min_length: Poveznica mora sadržavati minimalno {{ limit }} znakova.
+            max_length: Poveznica ne može biti duža od {{ limit }} znakova.
         content:
             not_blank: Sadržaj ne može biti prazan.
             min_length: Sadržaj mora imati minimalno {{ limit }} znaka.
@@ -19,15 +23,17 @@ sylius_cms:
             unique: Postoji stranica sa istim kodom..
             not_blank: Kod ne može biti prazan.
             min_length: Kod mora sadržavati minimalno {{ limit }} znaka.
-            max_length:  Kod ne može biti duži od {{ limit }} znakova.
+            max_length: Kod ne može biti duži od {{ limit }} znakova.
+            regex: Kod stranice može sadržavati samo slova, brojeve, crtice i podvlake.
         name:
             not_blank: Naziv ne može biti prazan.
             min_length: Naziv mora sadržavait minimalno {{ limit }} znaka.
             max_length: Naziv ne može biti duži od {{ limit }} znakova.
         slug:
-            not_blank:  Slug ne može biti prazan.
+            not_blank: Slug ne može biti prazan.
             min_length: Slug mora biti duži od {{ limit }} znaka.
             max_length: Slug ne može biti duži od {{ limit }} znakova.
+            unique: Slug mora biti jedinstven.
         meta_keywords:
             min_length: Meta ključne riječi moraju biti duže od {{ limit }} znaka.
             max_length: Meta ključne riječi ne mogu biti duže od {{ limit }} znakova.
@@ -43,11 +49,38 @@ sylius_cms:
             not_blank: Kod ne može biti prazan.
             min_length: Kod mora sadržavati minimalno {{ limit }} znaka.
             max_length: Kod ne može biti duži od {{ limit }} znakova.
+            regex: Kod kolekcije može sadržavati samo slova, brojeve, crtice i podvlake.
         name:
             not_blank: Naziv ne može biti prazan.
             min_length: Naziv mora sadržavati minimalno {{ limit }} znaka.
             max_length: Naziv mora biti duži od {{ limit }} znakova.
         invalid_type: "Kolekcija '{{ collection }}' ne može biti dodijeljena. Ne odgovara očekivanom tipu '{{ type }}'."
+    media:
+        code:
+            unique: Postoji medij sa istim kodom.
+            not_blank: Kod ne može biti prazan.
+            min_length: Kod mora sadržavati minimalno {{ limit }} znakova.
+            max_length: Kod ne može biti duži od {{ limit }} znakova.
+            regex: Kod medija može sadržavati samo slova, brojeve, crtice i podvlake.
+        file:
+            not_blank: Datoteka ne može biti prazna.
+            type_image: Učitana datoteka ne može biti označena kao slika.
+            type_video: Učitana datoteka ne može biti označena kao video.
+        name:
+            not_blank: Naziv ne može biti prazan.
+            min_length: Naziv mora sadržavati minimalno {{ limit }} znakova.
+            max_length: Naziv ne može biti duži od {{ limit }} znakova.
+        content:
+            min_length: Sadržaj mora sadržavati minimalno {{ limit }} znakova.
+        alt:
+            min_length: Alt mora sadržavati minimalno {{ limit }} znakova.
+            max_length: Alt ne može biti duži od {{ limit }} znakova.
+        link:
+            min_length: Poveznica mora sadržavati minimalno {{ limit }} znakova.
+            max_length: Poveznica ne može biti duža od {{ limit }} znakova.
+    import:
+        not_blank: Datoteka za uvoz ne može biti prazna.
+        invalid_format: Učitajte važeću CSV datoteku za uvoz.
     template:
         name:
             unique: Već postoji predložak s tim imenom.
