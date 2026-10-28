@@ -16,7 +16,6 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\CollectionMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\InvalidArgumentException;
 
 final class CollectionMatchesType extends Constraint
 {
@@ -34,19 +33,22 @@ final class CollectionMatchesType extends Constraint
         ?array $groups = null,
         mixed $payload = null,
     ) {
-        if (is_array($type)) {
-            if (!isset($type['type']) && !isset($type['value'])) {
-                throw new InvalidArgumentException('The "type" option is required when using array-based constructor.');
-            }
+        if (\is_array($type)) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.2',
+                'Passing an array of options to configure the "%s" constraint is deprecated and will be removed in CMS Plugin 2.0, use named arguments instead.',
+                static::class,
+            );
 
             $options = $type;
             $type = $options['type'] ?? $options['value'] ?? null;
-            $message = $options['message'] ?? $message;
-            $groups = $options['groups'] ?? $groups;
-            $payload = $options['payload'] ?? $payload;
+            $message ??= $options['message'] ?? null;
+            $groups ??= $options['groups'] ?? null;
+            $payload ??= $options['payload'] ?? null;
         }
 
-        parent::__construct(null, $groups, $payload);
+        parent::__construct(groups: $groups, payload: $payload);
 
         $this->type = $type;
         $this->message = $message ?? $this->message;

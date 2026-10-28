@@ -47,23 +47,35 @@
 
 1. Validator constraint constructors have been updated to use named arguments instead of array-based options:
 
-   `Sylius\CmsPlugin\Validator\Constraint\CollectionMatchesType`
-    ```diff
-    - new CollectionMatchesType(['type' => SomeClass::class])
-    + new CollectionMatchesType(type: SomeClass::class)
-    ```
+   **Deprecated array-based syntax:**
+   ```php
+   // Old (deprecated)
+   new CollectionMatchesType(['type' => SomeClass::class])
+   #[CollectionMatchesType(['type' => SomeClass::class])]
+   ```
 
-   For backward compatibility, the old array-based constructor is still supported but **deprecated**.
-   The array-based approach will be removed in version 2.0.
+   **New named argument syntax:**
+   ```php
+   // New
+   new CollectionMatchesType(type: SomeClass::class)
+   ```
 
-   When using attributes/annotations:
-    ```php
-    // Old (deprecated)
-    #[CollectionMatchesType(['type' => SomeClass::class])]
+   For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
+   A deprecation warning will be triggered when using the old syntax.
 
-    // New
-    #[CollectionMatchesType(type: SomeClass::class)]
-    ```
+2. Message constants in `FileMatchesType` have been updated to use translation keys:
+
+   **Before:**
+   ```php
+   new FileMatchesType(field: 'media', messageImage: 'This file cannot be uploaded as an image')
+   ```
+
+   **After:**
+   ```php
+   new FileMatchesType(field: 'media', messageImage: 'sylius_cms.media.file.type_image')
+   ```
+
+   For backward compatibility, the old hardcoded message strings are still accepted and automatically converted to the new translation keys.
 
 ### New WYSIWYG editor: Quill
 

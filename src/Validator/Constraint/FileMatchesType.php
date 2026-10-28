@@ -36,8 +36,13 @@ final class FileMatchesType extends Constraint
         parent::__construct(null, $groups, $payload);
 
         $this->field = $field;
-        $this->messageImage = $messageImage ?? $this->messageImage;
-        $this->messageVideo = $messageVideo ?? $this->messageVideo;
+        $this->messageImage = $this->normalizeMessage($messageImage ?? $this->messageImage, 'sylius_cms.media.file.type_image', 'This file cannot be uploaded as an image');
+        $this->messageVideo = $this->normalizeMessage($messageVideo ?? $this->messageVideo, 'sylius_cms.media.file.type_video', 'This file cannot be uploaded as an video');
+    }
+
+    private function normalizeMessage(string $message, string $newKey, string $oldValue): string
+    {
+        return $message === $oldValue ? $newKey : $message;
     }
 
     public function getTargets(): string

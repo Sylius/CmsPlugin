@@ -34,32 +34,24 @@ jobs:
                 sylius: ["~2.2.0"]
                 database: ["mysql:8.4", "mariadb:11.4", "postgres:16"]
                 node: ["22.x"]
-
-                exclude:
-                    # Symfony 8 requires PHP >= 8.4.1
-                    -
-                        php: "8.3"
-                        symfony: "^8.0"
-
-                    # Sylius 2.2 supports Symfony ^6.4 || ~7.4.0 only
-                    -
-                        sylius: "~2.2.0"
-                        symfony: "^8.0"
-
-                    # PHP 8.4 is only needed for the Symfony 8 combination
-                    -
-                        php: "8.4"
-                        symfony: "^6.4"
-                    -
-                        php: "8.4"
-                        symfony: "~7.4.0"
-
                 include:
                     # Lowest supported stack: PHP 8.2 requires Sylius <= 2.2
                     -
                         php: "8.2"
                         symfony: "^6.4"
                         sylius: "~2.2.0"
+                        database: "mysql:8.4"
+                        node: "22.x"
+                    -
+                        php: "8.4"
+                        symfony: "^6.4"
+                        sylius: "~2.3.0"
+                        database: "mysql:8.4"
+                        node: "22.x"
+                    -
+                        php: "8.4"
+                        symfony: "~7.4.0"
+                        sylius: "~2.3.0"
                         database: "mysql:8.4"
                         node: "22.x"
                     -
