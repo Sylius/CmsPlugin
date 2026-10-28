@@ -4,7 +4,7 @@
             <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-label="{{ 'sylius_cms.ui.form.content.insert_here'|trans }}">
                 {{ ux_icon('tabler:plus', { class: 'icon me-1' }) }}{{ 'sylius_cms.ui.form.content.insert_here'|trans }}
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu cms-element-type-menu">
                 {%- for type, type_label in types -%}
                     <li>
                         <button

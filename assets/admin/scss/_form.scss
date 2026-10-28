@@ -81,6 +81,12 @@
     }
 }
 
+.cms-element-type-menu {
+    max-height: min(20rem, 45vh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 .card.cms-structure {
     z-index: 990;
 
@@ -223,11 +229,11 @@
         z-index: 2;
     }
 
-    .ts-wrapper.multi .ts-control {
+    .input-icon .ts-wrapper.multi .ts-control {
         padding-left: 2.5rem;
     }
 
-    .ts-control > .item {
+    .ts-wrapper .ts-control > .item {
         display: none;
     }
 }
