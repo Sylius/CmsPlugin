@@ -20,6 +20,7 @@ use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 
 /**
@@ -35,6 +36,10 @@ trait ContentElementsCollectionFormComponentTrait
 
     /** @var array<int|string, TemplateInterface> */
     protected array $templatesCache = [];
+
+    /** @var array<array-key, mixed>|null */
+    #[LiveProp(writable: true)]
+    public ?array $clipboard = null;
 
     #[LiveAction]
     public function moveCollectionItem(
@@ -104,13 +109,69 @@ trait ContentElementsCollectionFormComponentTrait
 
         $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
         $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
-
-        if (!\is_array($data)) {
-            $data = [];
-        }
+        $data = \is_array($data) ? $data : [];
 
         $newItem = null === $type ? [] : ['type' => $type];
 
+        $propertyAccessor->setValue(
+            $this->formValues,
+            $propertyPath,
+            $this->insertIntoCollection($data, $newItem, $insertAfterIndex),
+        );
+    }
+
+    #[LiveAction]
+    public function copyCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        int $index,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+
+        if (!\is_array($data) || !\is_array($data[$index] ?? null)) {
+            return;
+        }
+
+        $this->clipboard = $data[$index];
+    }
+
+    #[LiveAction]
+    public function pasteCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        ?int $insertAfterIndex = null,
+    ): void {
+        if (null === $this->formName || null === $this->clipboard) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+        $data = \is_array($data) ? $data : [];
+
+        $propertyAccessor->setValue(
+            $this->formValues,
+            $propertyPath,
+            $this->insertIntoCollection($data, $this->clipboard, $insertAfterIndex),
+        );
+    }
+
+    /**
+     * @param array<int|string, mixed> $data
+     *
+     * @return array<int|string, mixed>
+     */
+    private function insertIntoCollection(array $data, mixed $newItem, ?int $insertAfterIndex): array
+    {
         $keys = array_keys($data);
         $items = array_values($data);
 
@@ -133,7 +194,15 @@ trait ContentElementsCollectionFormComponentTrait
             $keys[] = $nextKey + $i;
         }
 
-        $propertyAccessor->setValue($this->formValues, $propertyPath, array_combine($keys, $items));
+        return array_combine($keys, $items);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function contentElementsFormOptions(): array
+    {
+        return ['has_clipboard' => null !== $this->clipboard];
     }
 
     /** @param TemplateRepositoryInterface<TemplateInterface> $templateRepository */

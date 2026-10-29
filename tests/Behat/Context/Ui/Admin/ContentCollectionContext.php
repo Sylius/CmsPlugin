@@ -271,6 +271,46 @@ class ContentCollectionContext implements Context
     }
 
     /**
+     * @When I copy the :ordinal content element
+     */
+    public function iCopyTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->copyContentElement($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @When I paste the content element after the :ordinal content element
+     */
+    public function iPasteTheContentElementAfterTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->pasteContentElementAfterPosition($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @When I paste the content element before the :ordinal content element
+     */
+    public function iPasteTheContentElementBeforeTheContentElement(string $ordinal): void
+    {
+        $this->contentElementsCollectionElement->pasteContentElementBeforePosition($this->parseOrdinal($ordinal));
+    }
+
+    /**
+     * @Then the paste element buttons should be disabled
+     */
+    public function thePasteElementButtonsShouldBeDisabled(): void
+    {
+        Assert::true($this->contentElementsCollectionElement->arePasteContentElementButtonsDisabled());
+    }
+
+    /**
+     * @Then the paste element buttons should not be disabled
+     */
+    public function thePasteElementButtonsShouldNotBeDisabled(): void
+    {
+        Assert::false($this->contentElementsCollectionElement->arePasteContentElementButtonsDisabled());
+    }
+
+    /**
      * @When I move the :ordinal content element up
      */
     public function iMoveTheContentElementUp(string $ordinal): void

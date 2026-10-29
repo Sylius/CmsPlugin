@@ -19,7 +19,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
@@ -88,11 +90,19 @@ final class ContentConfigurationType extends AbstractType
         );
     }
 
+    /** The elements collection renders the "paste element" buttons, so it needs the clipboard state. */
+    public function finishView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view['contentElements']->vars['has_clipboard'] = $options['has_clipboard'];
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('template_type');
         $resolver->setAllowedValues('template_type', ['page', 'block']);
         $resolver->setDefault('data_class', null);
+        $resolver->setDefault('has_clipboard', false);
+        $resolver->setAllowedTypes('has_clipboard', 'bool');
     }
 
     public function getBlockPrefix(): string

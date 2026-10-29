@@ -8,6 +8,7 @@ sylius_cms:
         page: Page
         content_management: Content management
         cms: CMS
+        copy_element_tooltip: Copy Element
         enabled: Enabled
         blocks_header: Blocks
         blocks_subheader: Manage your blocks
@@ -16,6 +17,7 @@ sylius_cms:
         products: Products
         taxons: Taxons
         page_related_products: Page related products
+        paste_element: Paste element here
         name: Name
         path: Path
         slug: Slug

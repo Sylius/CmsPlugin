@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PageType extends AbstractResourceType
 {
@@ -87,11 +88,20 @@ final class PageType extends AbstractResourceType
                 'entry_type' => ContentConfigurationType::class,
                 'entry_options' => [
                     'template_type' => 'page',
+                    'has_clipboard' => $options['has_clipboard'],
                 ],
                 'by_reference' => false,
             ])
             ->addEventSubscriber(new AddCodeFormSubscriber())
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefault('has_clipboard', false);
+        $resolver->setAllowedTypes('has_clipboard', 'bool');
     }
 
     public function getBlockPrefix(): string

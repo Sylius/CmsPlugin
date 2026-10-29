@@ -38,6 +38,14 @@ interface ContentElementsCollectionElementInterface
 
     public function insertContentElementBeforePosition(string $type, int $beforePosition): void;
 
+    public function copyContentElement(int $position): void;
+
+    public function pasteContentElementAfterPosition(int $afterPosition): void;
+
+    public function pasteContentElementBeforePosition(int $beforePosition): void;
+
+    public function arePasteContentElementButtonsDisabled(): bool;
+
     public function moveContentElementUp(int $position): void;
 
     public function moveContentElementDown(int $position): void;
