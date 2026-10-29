@@ -63,19 +63,6 @@
    For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
    A deprecation warning will be triggered when using the old syntax.
 
-2. Message constants in `FileMatchesType` have been updated to use translation keys:
-
-   **Before:**
-   ```php
-   new FileMatchesType(field: 'media', messageImage: 'This file cannot be uploaded as an image')
-   ```
-
-   **After:**
-   ```php
-   new FileMatchesType(field: 'media', messageImage: 'sylius_cms.media.file.type_image')
-   ```
-
-   For backward compatibility, the old hardcoded message strings are still accepted and automatically converted to the new translation keys.
 
 ### New WYSIWYG editor: Quill
 

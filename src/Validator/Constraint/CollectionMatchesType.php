@@ -16,7 +16,9 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\CollectionMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use \Attribute;
 
+#[\Attribute]
 final class CollectionMatchesType extends Constraint
 {
     public string $message = 'sylius_cms.collection.invalid_type';

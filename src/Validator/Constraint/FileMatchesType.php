@@ -16,33 +16,36 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\FileMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use \Attribute;
 
+#[\Attribute]
 final class FileMatchesType extends Constraint
 {
-    public string $messageImage = 'sylius_cms.media.file.type_image';
-
-    public string $messageVideo = 'sylius_cms.media.file.type_video';
-
-    public string $field;
-
     #[HasNamedArguments]
     public function __construct(
-        string $field,
-        ?string $messageImage = null,
-        ?string $messageVideo = null,
+        ?array $options = null,
+        public string $field = '',
+        public string $messageImage = 'sylius_cms.media.file.type_image',
+        public string $messageVideo = 'sylius_cms.media.file.type_video',
         ?array $groups = null,
         mixed $payload = null,
     ) {
-        parent::__construct(null, $groups, $payload);
+        if (\is_array($options)) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.2',
+                'Passing an array of options to configure the "%s" constraint is deprecated and will be removed in CMS Plugin 2.0, use named arguments instead.',
+                static::class,
+            );
 
-        $this->field = $field;
-        $this->messageImage = $this->normalizeMessage($messageImage ?? $this->messageImage, 'sylius_cms.media.file.type_image', 'This file cannot be uploaded as an image');
-        $this->messageVideo = $this->normalizeMessage($messageVideo ?? $this->messageVideo, 'sylius_cms.media.file.type_video', 'This file cannot be uploaded as an video');
-    }
+            $this->field = $options['field'] ?? $this->field;
+            $this->messageImage = $options['messageImage'] ?? $this->messageImage;
+            $this->messageVideo = $options['messageVideo'] ?? $this->messageVideo;
+            $groups ??= $options['groups'] ?? null;
+            $payload ??= $options['payload'] ?? null;
+        }
 
-    private function normalizeMessage(string $message, string $newKey, string $oldValue): string
-    {
-        return $message === $oldValue ? $newKey : $message;
+        parent::__construct(groups: $groups, payload: $payload);
     }
 
     public function getTargets(): string
