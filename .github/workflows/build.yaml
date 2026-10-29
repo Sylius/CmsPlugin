@@ -29,37 +29,22 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ["8.3", "8.4"]
+                php: ["8.2", "8.3", "8.4"]
                 symfony: ["^6.4", "~7.4.0", "^8.0"]
-                sylius: ["~2.2.0"]
-                database: ["mysql:8.4", "mariadb:11.4", "postgres:16"]
+                sylius: ["~2.2.0", "~2.3.0"]
+                database: ["mysql:8.4", "mariadb:11.0", "postgres:16"]
                 node: ["22.x"]
-                include:
-                    # Lowest supported stack: PHP 8.2 requires Sylius <= 2.2
-                    -
-                        php: "8.2"
-                        symfony: "^6.4"
-                        sylius: "~2.2.0"
-                        database: "mysql:8.4"
-                        node: "22.x"
-                    -
-                        php: "8.4"
-                        symfony: "^6.4"
-                        sylius: "~2.3.0"
-                        database: "mysql:8.4"
-                        node: "22.x"
-                    -
-                        php: "8.4"
-                        symfony: "~7.4.0"
-                        sylius: "~2.3.0"
-                        database: "mysql:8.4"
-                        node: "22.x"
-                    -
-                        php: "8.4"
-                        symfony: "^8.0"
-                        sylius: "~2.3.0"
-                        database: "mysql:8.4"
-                        node: "22.x"
+
+                exclude:
+                    # PHP 8.2 not supported with Sylius 2.3
+                    - php: "8.2"
+                      sylius: "~2.3.0"
+                    # PHP 8.3 not supported with Symfony 8.0
+                    - php: "8.3"
+                      symfony: "^8.0"
+                    # Sylius 2.2 not supported with Symfony 8.0
+                    - sylius: "~2.2.0"
+                      symfony: "^8.0"
 
         env:
             APP_ENV: test
