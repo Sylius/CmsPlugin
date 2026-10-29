@@ -63,6 +63,25 @@
    For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
    A deprecation warning will be triggered when using the old syntax.
 
+2. The `FileMatchesType` constraint has also been updated to use named arguments:
+
+   **Deprecated array-based syntax:**
+   ```php
+   // Old (deprecated)
+   new FileMatchesType(['field' => 'cover'])
+   #[FileMatchesType(['field' => 'cover'])]
+   ```
+
+   **New named argument syntax:**
+   ```php
+   // New
+   new FileMatchesType(field: 'cover')
+   #[FileMatchesType(field: 'cover')]
+   ```
+
+   For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
+   A deprecation warning will be triggered when using the old syntax.
+
 
 ### New WYSIWYG editor: Quill
 

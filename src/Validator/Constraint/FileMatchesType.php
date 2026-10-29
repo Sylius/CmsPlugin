@@ -16,7 +16,6 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\FileMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
-use \Attribute;
 
 #[\Attribute]
 final class FileMatchesType extends Constraint
