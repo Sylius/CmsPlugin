@@ -34,6 +34,10 @@ interface ContentElementsCollectionElementInterface
 
     public function removeContentElement(string $type): void;
 
+    public function insertContentElementAfterPosition(string $type, int $afterPosition): void;
+
+    public function insertContentElementBeforePosition(string $type, int $beforePosition): void;
+
     public function moveContentElementUp(int $position): void;
 
     public function moveContentElementDown(int $position): void;

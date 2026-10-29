@@ -16,6 +16,8 @@ namespace Sylius\CmsPlugin\Form\Strategy\Wysiwyg;
 use Ehyiah\QuillJsBundle\DTO\Modules\FullScreenModule;
 use Ehyiah\QuillJsBundle\DTO\QuillGroup;
 use Ehyiah\QuillJsBundle\Form\QuillType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class QuillStrategy extends AbstractWysiwygStrategy
@@ -30,13 +32,20 @@ final class QuillStrategy extends AbstractWysiwygStrategy
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'quill_options' => QuillGroup::buildWithAllFields(),
-            'attr' => [
-                'data-model' => 'norender|*',
-            ],
             'modules' => [
                 new FullScreenModule(),
             ],
         ]);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        parent::buildView($view, $form, $options);
+        // data-model="norender|*" doesn't work on individual elements — Live Component
+        // treats "*" as a literal model name instead of substituting the field's name
+        // attribute. Use the actual full_name so the Quill content is included in the
+        // component's formValues when a LiveAction (e.g. moveCollectionItem) fires.
+        $view->vars['attr']['data-model'] = 'norender|' . $view->vars['full_name'];
     }
 
     public function getBlockPrefix(): string

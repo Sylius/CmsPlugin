@@ -1,7 +1,24 @@
 {% extends '@SyliusAdmin/shared/form_theme.html.twig' %}
 
 {%- block live_collection_widget -%}
-    {{ block('form_widget') }}
+    {%- import '@SyliusCmsPlugin/admin/macros/insert_element_divider.html.twig' as InsertElementButton -%}
+
+    {%- set collection_types = button_add is defined ? button_add.vars.types : {} -%}
+    {%- set collection_name = button_add is defined ? button_add.vars.attr['data-live-name-param'] : '' -%}
+
+    <div>
+        {%- for child in form -%}
+            {%- if loop.first and collection_types is not empty -%}
+                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, -1) }}
+            {%- endif -%}
+
+            {{ form_row(child) }}
+
+            {%- if not loop.last and collection_types is not empty -%}
+                {{ InsertElementButton.insert_element_divider(collection_types, collection_name, child.vars.name) }}
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
 {%- endblock live_collection_widget -%}
 
 {%- block live_collection_entry_row -%}
@@ -57,12 +74,17 @@
 
 {% block add_button_row %}
     {% if types is not empty %}
-        <div class="dropdown" data-bs-toggle="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
-            <button class="btn dropdown-toggle" type="button">{{ label|trans }}</button>
+        <div class="dropdown" {{ sylius_test_html_attribute('add-element-button') }}>
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{ label|trans }}</button>
             <ul class="dropdown-menu">
                 {% for type, label in types %}
                     <li>
-                        <button class="dropdown-item" type="button" {{ block('button_attributes') }} data-live-type-param="{{ type }}" {{ sylius_test_html_attribute('add-' ~ type) }}>
+                        <button class="dropdown-item" type="button"
+                            data-action="live#action"
+                            data-live-action-param="insertCollectionItem"
+                            data-live-name-param="{{ attr['data-live-name-param'] }}"
+                            data-live-type-param="{{ type }}"
+                            {{ sylius_test_html_attribute('add-' ~ type) }}>
                             {{ (label)|trans }}
                         </button>
                     </li>

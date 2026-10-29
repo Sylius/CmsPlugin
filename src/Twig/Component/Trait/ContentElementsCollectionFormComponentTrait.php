@@ -88,6 +88,54 @@ trait ContentElementsCollectionFormComponentTrait
         $this->populateElements($localeCode, $template);
     }
 
+    #[LiveAction]
+    public function insertCollectionItem(
+        PropertyAccessorInterface $propertyAccessor,
+        #[LiveArg]
+        string $name,
+        #[LiveArg]
+        ?string $type = null,
+        #[LiveArg]
+        ?int $insertAfterIndex = null,
+    ): void {
+        if (null === $this->formName) {
+            return;
+        }
+
+        $propertyPath = $this->fieldNameToPropertyPath($name, $this->formName);
+        $data = $propertyAccessor->getValue($this->formValues, $propertyPath);
+
+        if (!\is_array($data)) {
+            $data = [];
+        }
+
+        $newItem = null === $type ? [] : ['type' => $type];
+
+        $keys = array_keys($data);
+        $items = array_values($data);
+
+        if (null === $insertAfterIndex) {
+            $insertPosition = \count($items);
+        } elseif ($insertAfterIndex < 0) {
+            $insertPosition = 0;
+        } else {
+            $pos = array_search($insertAfterIndex, $keys, true);
+            $insertPosition = false !== $pos ? $pos + 1 : \count($items);
+        }
+
+        array_splice($items, $insertPosition, 0, [$newItem]);
+
+        $freshKeysNeeded = \count($items) - $insertPosition;
+        $nextKey = $this->provideNewCollectionItemIndex($data);
+
+        $keys = array_slice($keys, 0, $insertPosition);
+        for ($i = 0; $i < $freshKeysNeeded; ++$i) {
+            $keys[] = $nextKey + $i;
+        }
+
+        $propertyAccessor->setValue($this->formValues, $propertyPath, array_combine($keys, $items));
+    }
+
     /** @param TemplateRepositoryInterface<TemplateInterface> $templateRepository */
     protected function initializeTemplateRepository(TemplateRepositoryInterface $templateRepository): void
     {
