@@ -15,9 +15,17 @@ namespace Tests\Sylius\CmsPlugin\Unit\Validator\Constraint;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\CmsPlugin\Validator\Constraint\FileMatchesType;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 final class FileMatchesTypeTest extends TestCase
 {
+    public function testItRequiresTheField(): void
+    {
+        $this->expectException(MissingOptionsException::class);
+
+        new FileMatchesType();
+    }
+
     public function testItIsConfiguredWithNamedArguments(): void
     {
         $constraint = new FileMatchesType(field: 'cover', messageImage: 'image', messageVideo: 'video', groups: ['cms']);

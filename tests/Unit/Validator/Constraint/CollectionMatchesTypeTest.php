@@ -15,9 +15,17 @@ namespace Tests\Sylius\CmsPlugin\Unit\Validator\Constraint;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\CmsPlugin\Validator\Constraint\CollectionMatchesType;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 final class CollectionMatchesTypeTest extends TestCase
 {
+    public function testItRequiresTheType(): void
+    {
+        $this->expectException(MissingOptionsException::class);
+
+        new CollectionMatchesType();
+    }
+
     public function testItIsConfiguredWithNamedArguments(): void
     {
         $constraint = new CollectionMatchesType(type: 'page', message: 'custom', groups: ['cms']);

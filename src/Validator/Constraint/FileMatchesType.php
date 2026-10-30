@@ -16,22 +16,31 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\FileMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 #[\Attribute]
 final class FileMatchesType extends Constraint
 {
+    public string $field;
+
     /**
      * @param array<string, mixed>|null $options
      */
     #[HasNamedArguments]
     public function __construct(
         ?array $options = null,
-        public string $field = '',
+        ?string $field = null,
         public string $messageImage = 'sylius_cms.media.file.type_image',
         public string $messageVideo = 'sylius_cms.media.file.type_video',
         ?array $groups = null,
         mixed $payload = null,
     ) {
+        if (null === $field && !isset($options['field'])) {
+            throw new MissingOptionsException(sprintf('The option "field" must be set for constraint "%s".', self::class), ['field']);
+        }
+
+        $this->field = $field ?? $options['field'];
+
         if (\is_array($options)) {
             trigger_deprecation(
                 'sylius/cms-plugin',
@@ -40,7 +49,6 @@ final class FileMatchesType extends Constraint
                 static::class,
             );
 
-            $this->field = $options['field'] ?? $this->field;
             $this->messageImage = $options['messageImage'] ?? $this->messageImage;
             $this->messageVideo = $options['messageVideo'] ?? $this->messageVideo;
             $groups ??= $options['groups'] ?? null;

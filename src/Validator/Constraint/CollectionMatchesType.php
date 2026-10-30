@@ -16,21 +16,30 @@ namespace Sylius\CmsPlugin\Validator\Constraint;
 use Sylius\CmsPlugin\Validator\CollectionMatchesTypeValidator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 #[\Attribute]
 final class CollectionMatchesType extends Constraint
 {
+    public string $type;
+
     /**
      * @param array<string, mixed>|null $options
      */
     #[HasNamedArguments]
     public function __construct(
         ?array $options = null,
-        public string $type = '',
+        ?string $type = null,
         public string $message = 'sylius_cms.collection.invalid_type',
         ?array $groups = null,
         mixed $payload = null,
     ) {
+        if (null === $type && !isset($options['type'])) {
+            throw new MissingOptionsException(sprintf('The option "type" must be set for constraint "%s".', self::class), ['type']);
+        }
+
+        $this->type = $type ?? $options['type'];
+
         if (\is_array($options)) {
             trigger_deprecation(
                 'sylius/cms-plugin',
@@ -39,7 +48,6 @@ final class CollectionMatchesType extends Constraint
                 static::class,
             );
 
-            $this->type = $options['type'] ?? $this->type;
             $this->message = $options['message'] ?? $this->message;
             $groups ??= $options['groups'] ?? null;
             $payload ??= $options['payload'] ?? null;
