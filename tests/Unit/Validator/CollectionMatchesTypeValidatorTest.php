@@ -39,7 +39,7 @@ final class CollectionMatchesTypeValidatorTest extends TestCase
 
     public function testNoViolationWhenCollectionsMatchType(): void
     {
-        $constraint = new CollectionMatchesType(CollectionType::PAGE);
+        $constraint = new CollectionMatchesType(type: CollectionType::PAGE);
 
         $collection = $this->createMock(CollectionInterface::class);
         $collection->method('getType')->willReturn(CollectionType::PAGE);
@@ -54,7 +54,7 @@ final class CollectionMatchesTypeValidatorTest extends TestCase
 
     public function testViolationWhenCollectionTypeDoesNotMatch(): void
     {
-        $constraint = new CollectionMatchesType(CollectionType::PAGE);
+        $constraint = new CollectionMatchesType(type: CollectionType::PAGE);
 
         $collection = $this->createMock(CollectionInterface::class);
         $collection->method('getType')->willReturn(CollectionType::BLOCK);
@@ -78,7 +78,7 @@ final class CollectionMatchesTypeValidatorTest extends TestCase
 
     public function testNoViolationWhenCollectionsAreEmpty(): void
     {
-        $constraint = new CollectionMatchesType(CollectionType::PAGE);
+        $constraint = new CollectionMatchesType(type: CollectionType::PAGE);
 
         $collectible = $this->createMock(CollectibleInterface::class);
         $collectible->method('getCollections')->willReturn(new ArrayCollection());
@@ -90,7 +90,7 @@ final class CollectionMatchesTypeValidatorTest extends TestCase
 
     public function testViolationForEachInvalidCollection(): void
     {
-        $constraint = new CollectionMatchesType(CollectionType::MEDIA);
+        $constraint = new CollectionMatchesType(type: CollectionType::MEDIA);
 
         $validCollection = $this->createMock(CollectionInterface::class);
         $validCollection->method('getType')->willReturn(CollectionType::MEDIA);

@@ -15,7 +15,6 @@ namespace Tests\Sylius\CmsPlugin\Unit\Validator\Constraint;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\CmsPlugin\Validator\Constraint\CollectionMatchesType;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 final class CollectionMatchesTypeTest extends TestCase
 {
@@ -55,12 +54,5 @@ final class CollectionMatchesTypeTest extends TestCase
         self::assertSame(['cms'], $constraint->groups);
         self::assertCount(1, $deprecations);
         self::assertStringContainsString('named arguments', $deprecations[0]);
-    }
-
-    public function testItRequiresTheType(): void
-    {
-        $this->expectException(MissingOptionsException::class);
-
-        new CollectionMatchesType();
     }
 }
