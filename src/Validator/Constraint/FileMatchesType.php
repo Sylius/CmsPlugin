@@ -14,15 +14,41 @@ declare(strict_types=1);
 namespace Sylius\CmsPlugin\Validator\Constraint;
 
 use Sylius\CmsPlugin\Validator\FileMatchesTypeValidator;
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
+#[\Attribute]
 final class FileMatchesType extends Constraint
 {
-    public string $messageImage = 'This file cannot be uploaded as an image';
+    /**
+     * @param array<string, mixed>|null $options
+     */
+    #[HasNamedArguments]
+    public function __construct(
+        ?array $options = null,
+        public string $field = '',
+        public string $messageImage = 'sylius_cms.media.file.type_image',
+        public string $messageVideo = 'sylius_cms.media.file.type_video',
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        if (\is_array($options)) {
+            trigger_deprecation(
+                'sylius/cms-plugin',
+                '1.2',
+                'Passing an array of options to configure the "%s" constraint is deprecated and will be removed in CMS Plugin 2.0, use named arguments instead.',
+                static::class,
+            );
 
-    public string $messageVideo = 'This file cannot be uploaded as an video';
+            $this->field = $options['field'] ?? $this->field;
+            $this->messageImage = $options['messageImage'] ?? $this->messageImage;
+            $this->messageVideo = $options['messageVideo'] ?? $this->messageVideo;
+            $groups ??= $options['groups'] ?? null;
+            $payload ??= $options['payload'] ?? null;
+        }
 
-    public string $field;
+        parent::__construct(groups: $groups, payload: $payload);
+    }
 
     public function getTargets(): string
     {
