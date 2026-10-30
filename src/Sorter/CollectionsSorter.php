@@ -22,7 +22,6 @@ final class CollectionsSorter implements CollectionsSorterInterface
     {
         $result = [];
 
-        /** @var PageInterface $page */
         foreach ($pages as $page) {
             $result = $this->updateCollectionsArray($page, $result);
         }
@@ -31,9 +30,9 @@ final class CollectionsSorter implements CollectionsSorterInterface
     }
 
     /**
-     * @param array<array-key, array<string, mixed>> $currentResult
+     * @param array<string, array<array-key, mixed>> $currentResult
      *
-     * @return array<array-key, array<string, mixed>>
+     * @return array<string, array<array-key, mixed>>
      */
     private function updateCollectionsArray(PageInterface $page, array $currentResult): array
     {

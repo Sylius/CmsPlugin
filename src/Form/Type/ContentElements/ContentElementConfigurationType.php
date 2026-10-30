@@ -31,7 +31,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
 
     private string $defaultElementType;
 
-    /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
+    /** @param iterable<string, FormTypeInterface<mixed>> $actionConfigurationTypes */
     public function __construct(
         string $dataClass,
         array $validationGroups,
@@ -113,6 +113,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
         return 'sylius_cms_content_element_configuration';
     }
 
+    /** @param FormInterface<mixed> $form */
     private function resolveElementType(FormInterface $form, mixed $data = null): ?string
     {
         if ($data instanceof ContentConfigurationInterface && null !== $data->getType()) {
@@ -126,6 +127,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
         return null;
     }
 
+    /** @param FormInterface<mixed> $form */
     private function addElementFields(FormInterface $form, string $elementType): void
     {
         $elementFromType = $this->elementTypes[$elementType] ?? $this->elementTypes[$this->defaultElementType] ?? null;
