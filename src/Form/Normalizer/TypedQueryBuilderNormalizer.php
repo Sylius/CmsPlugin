@@ -24,6 +24,7 @@ use Symfony\Component\OptionsResolver\Options;
  */
 final class TypedQueryBuilderNormalizer
 {
+    /** @param Options<array<string, mixed>> $options */
     public static function normalize(Options $options, callable|QueryBuilder|null $queryBuilder): QueryBuilder
     {
         if (\is_callable($queryBuilder)) {
@@ -50,6 +51,7 @@ final class TypedQueryBuilderNormalizer
         ;
     }
 
+    /** @param Options<array<string, mixed>> $options */
     private static function resolveType(Options $options): ?string
     {
         if (isset($options['type'])) {

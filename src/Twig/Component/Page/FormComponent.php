@@ -47,7 +47,7 @@ class FormComponent
     /**
      * @param RepositoryInterface<PageInterface> $pageRepository
      * @param class-string<PageInterface> $resourceClass
-     * @param class-string<AbstractType> $formClass
+     * @param class-string<AbstractType<mixed>> $formClass
      * @param TemplateRepositoryInterface<TemplateInterface> $templateRepository
      */
     public function __construct(

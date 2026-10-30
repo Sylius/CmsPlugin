@@ -21,7 +21,10 @@ use Symfony\Component\Form\FormEvents;
 
 final class ContentElementDataTransformerChecker
 {
-    /** @param RepositoryInterface<covariant ResourceInterface> $repository */
+    /**
+     * @param FormBuilderInterface<mixed> $builder
+     * @param RepositoryInterface<covariant ResourceInterface> $repository
+     */
     public function check(FormBuilderInterface $builder, RepositoryInterface $repository, string $field): void
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($repository, $field): void {

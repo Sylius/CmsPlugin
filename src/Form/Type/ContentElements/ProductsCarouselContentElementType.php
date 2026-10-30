@@ -17,6 +17,7 @@ use Sylius\Bundle\AdminBundle\Form\Type\CatalogPromotionScope\ForProductsScopeCo
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 final class ProductsCarouselContentElementType extends AbstractType
 {
     public const TYPE = 'products_carousel';

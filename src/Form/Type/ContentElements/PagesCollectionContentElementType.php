@@ -23,6 +23,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\ReversedTransformer;
 
+/** @extends AbstractType<mixed> */
 final class PagesCollectionContentElementType extends AbstractType
 {
     public const TYPE = 'pages_collection';

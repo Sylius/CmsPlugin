@@ -30,6 +30,7 @@ trait ResourceDataProcessingTrait
             $this->factory->createNew();
     }
 
+    /** @return FormInterface<mixed> */
     private function getFormForResource(RequestConfiguration $configuration, ResourceInterface $resource): FormInterface
     {
         return $this->resourceFormFactory->create($configuration, $resource);

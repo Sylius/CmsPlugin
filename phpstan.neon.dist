@@ -5,3 +5,12 @@ parameters:
         - src
     ignoreErrors:
         - '#Call to method \w+\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\(NodeBuilder|ArrayNodeDefinition|ScalarNodeDefinition)<.+>#'
+        -
+            identifier: trait.unused
+            path: src/Entity/Trait/LocaleAwareTrait.php
+        # DataMapperInterface declares $forms as Traversable<FormInterface> without TData,
+        # so specifying it here breaks parameter contravariance instead.
+        -
+            identifier: missingType.generics
+            path: src/Form/Type/Translation/ContentConfigurationTranslationsType.php
+            count: 2
