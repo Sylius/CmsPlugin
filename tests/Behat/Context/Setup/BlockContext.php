@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Entity\ContentConfiguration;
@@ -35,10 +36,8 @@ final class BlockContext implements Context
     ) {
     }
 
-    /**
-     * @Given there is a dynamic content block
-     * @Given there is a block in the store
-     */
+    #[Given('there is a dynamic content block')]
+    #[Given('there is a block in the store')]
     public function thereIsADynamicContentBlock(): void
     {
         $block = $this->createBlock();
@@ -46,10 +45,8 @@ final class BlockContext implements Context
         $this->saveBlock($block);
     }
 
-    /**
-     * @Given there is a block :name
-     * @Given there is a block :name with code :code
-     */
+    #[Given('there is a block :name')]
+    #[Given('there is a block :name with code :code')]
     public function thereIsABlockWithCodeAndContent(string $name, ?string $code = null): void
     {
         $block = $this->createBlock($name, $code);
@@ -57,9 +54,7 @@ final class BlockContext implements Context
         $this->saveBlock($block);
     }
 
-    /**
-     * @Given there is a block :name with :contentElement content element
-     */
+    #[Given('there is a block :name with :contentElement content element')]
     public function thereIsABlockWithContentElement(string $code, string $contentElement): void
     {
         $block = $this->createBlockWithContentElement($code, $contentElement);

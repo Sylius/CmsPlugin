@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
 use Tests\Sylius\CmsPlugin\Behat\Element\Admin\QuillEditorElementInterface;
 use Webmozart\Assert\Assert;
 
@@ -24,9 +25,7 @@ final class QuillWysiwygContext implements Context
     ) {
     }
 
-    /**
-     * @Then I should see the Quill WYSIWYG editor initialized
-     */
+    #[Then('I should see the Quill WYSIWYG editor initialized')]
     public function iShouldSeeTheQuillWysiwygEditorInitialized(): void
     {
         Assert::true($this->quillEditor->isInitialized(), 'Quill WYSIWYG editor is not initialized.');

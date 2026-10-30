@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Api;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\Client\ApiClientInterface;
 use Sylius\Behat\Client\ResponseCheckerInterface;
 use Sylius\Bundle\CoreBundle\Application\Kernel as SyliusKernel;
@@ -29,17 +31,13 @@ final class PageContext implements Context
     ) {
     }
 
-    /**
-     * @When /^I want to browse pages$/
-     */
+    #[When('/^I want to browse pages$/')]
     public function iWantToBrowsePages(): void
     {
         $this->apiClient->index(Resources::PAGES);
     }
 
-    /**
-     * @Then /^I should see (\d+) page(?:s)? in the list$/
-     */
+    #[Then('/^I should see (\\d+) page(?:s)? in the list$/')]
     public function iShouldSeePageInTheList(int $count): void
     {
         Assert::count(
@@ -51,9 +49,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @Then /^I should see the "([^"]*)" page$/
-     */
+    #[Then('/^I should see the "([^"]*)" page$/')]
     public function iShouldSeeThePage(string $page): void
     {
         Assert::true(
@@ -66,9 +62,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @When I view page with code :page
-     */
+    #[When('I view page with code :page')]
     public function iOpenPage(PageInterface $page): void
     {
         if (SyliusKernel::MINOR_VERSION === '11') {
@@ -78,9 +72,7 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Then /^I should see the page name "([^"]*)"$/
-     */
+    #[Then('/^I should see the page name "([^"]*)"$/')]
     public function iShouldSeeThePageName(string $name): void
     {
         Assert::true(
@@ -93,9 +85,7 @@ final class PageContext implements Context
         );
     }
 
-    /**
-     * @Then /^I should see the page content "([^"]*)"$/
-     */
+    #[Then('/^I should see the page content "([^"]*)"$/')]
     public function iShouldSeeThePageContent(string $content): void
     {
         Assert::true(

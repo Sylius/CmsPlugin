@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
+use Behat\Transformation\Transform;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\MediaInterface;
 use Sylius\CmsPlugin\Repository\MediaRepositoryInterface;
@@ -27,12 +28,10 @@ final class MediaContext implements Context
     ) {
     }
 
-    /**
-     * @Transform /^media(?:|s) "([^"]+)"$/
-     * @Transform /^"([^"]+)" media(?:|s)$/
-     * @Transform /^(?:a|an) "([^"]+)"$/
-     * @Transform :media
-     */
+    #[Transform('/^media(?:|s) "([^"]+)"$/')]
+    #[Transform('/^"([^"]+)" media(?:|s)$/')]
+    #[Transform('/^(?:a|an) "([^"]+)"$/')]
+    #[Transform(':media')]
     public function getMediaByCode(string $mediaCode): MediaInterface
     {
         $media = $this->mediaRepositoryInterface->findOneEnabledByCode(
