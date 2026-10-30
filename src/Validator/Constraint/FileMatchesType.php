@@ -20,6 +20,9 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute]
 final class FileMatchesType extends Constraint
 {
+    /**
+     * @param array<string, mixed>|null $options
+     */
     #[HasNamedArguments]
     public function __construct(
         ?array $options = null,
