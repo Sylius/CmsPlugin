@@ -15,6 +15,7 @@ namespace Tests\Sylius\CmsPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\CmsPlugin\Form\Type\ContentElements\HeadingContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\MultipleMediaContentElementType;
 use Sylius\CmsPlugin\Form\Type\ContentElements\ProductsCarouselByTaxonContentElementType;
@@ -34,9 +35,7 @@ class ContentCollectionContext implements Context
     ) {
     }
 
-    /**
-     * @When I add a textarea content element with :content content
-     */
+    #[When('I add a textarea content element with :content content')]
     public function iAddATextareaContentElementWithContent(string $content): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -45,9 +44,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a single media content element with name :name
-     */
+    #[When('I add a single media content element with name :name')]
     public function iAddASingleMediaContentElementWithName(string $name): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -56,9 +53,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a multiple media content element with names :firstMediaName and :secondMediaName
-     */
+    #[When('I add a multiple media content element with names :firstMediaName and :secondMediaName')]
     public function iAddAMultipleMediaContentElementWithNames(string ...$mediaNames): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -67,9 +62,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a heading content element with type :type and :content content
-     */
+    #[When('I add a heading content element with type :type and :content content')]
     public function iAddAHeadingContentElementWithTypeAndContent(string $type, string $content): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -81,9 +74,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a products carousel content element with :firstProductName and :secondProductName products
-     */
+    #[When('I add a products carousel content element with :firstProductName and :secondProductName products')]
     public function iAddAProductsCarouselContentElementWithProducts(string ...$productsNames): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -92,9 +83,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a products carousel by taxon content element with :taxon taxonomy
-     */
+    #[When('I add a products carousel by taxon content element with :taxon taxonomy')]
     public function iAddAProductsCarouselByTaxonContentElementWithTaxon(string $taxon): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -103,9 +92,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a products grid content element with :firstProductName and :secondProductName products
-     */
+    #[When('I add a products grid content element with :firstProductName and :secondProductName products')]
     public function iAddAProductsGridContentElementWithProducts(string ...$productsNames): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -114,9 +101,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a products grid by taxon content element with :taxon taxonomy
-     */
+    #[When('I add a products grid by taxon content element with :taxon taxonomy')]
     public function iAddAProductsGridByTaxonContentElementWithTaxon(string $taxon): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -125,9 +110,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I add a taxons list content element with :firstTaxon and :secondTaxon taxonomy
-     */
+    #[When('I add a taxons list content element with :firstTaxon and :secondTaxon taxonomy')]
     public function iAddATaxonsListContentElementWithTaxons(string ...$taxons): void
     {
         $this->contentElementsCollectionElement->addContentElementOfTypeWithContent(
@@ -136,9 +119,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I change textarea content element value to :value
-     */
+    #[When('I change textarea content element value to :value')]
     public function iChangeTextareaContentElementValueTo(string $value): void
     {
         $this->contentElementsCollectionElement->updateContentElementOfType(
@@ -147,25 +128,19 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I select :templateName content template
-     */
+    #[When('I select :templateName content template')]
     public function iSelectContentTemplate(string $templateName): void
     {
         $this->contentElementsCollectionElement->selectTemplate($templateName);
     }
 
-    /**
-     * @When I confirm that I want to use this template
-     */
+    #[When('I confirm that I want to use this template')]
     public function iConfirmThatIWantToUseThisTemplate(): void
     {
         $this->contentElementsCollectionElement->applyTemplate();
     }
 
-    /**
-     * @Then I should see :content in the textarea content element
-     */
+    #[Then('I should see :content in the textarea content element')]
     public function iShouldSeeNewContentInTheTextareaContentElement(string $content): void
     {
         Assert::true($this->contentElementsCollectionElement->hasContentElementWithContent(
@@ -174,42 +149,32 @@ class ContentCollectionContext implements Context
         ));
     }
 
-    /**
-     * @Then I should see newly created :contentElement content element in Content elements section
-     */
+    #[Then('I should see newly created :contentElement content element in Content elements section')]
     public function iShouldSeeNewlyCreatedContentElementInContentElementsSection(string $contentElement): void
     {
         Assert::true($this->contentElementsCollectionElement->hasContentElement($contentElement));
     }
 
-    /**
-     * @Then I should see a :type element with :content content
-     * @Then I should see a :type element with :firstContent and :secondContent content
-     */
+    #[Then('I should see a :type element with :content content')]
+    #[Then('I should see a :type element with :firstContent and :secondContent content')]
     public function iShouldSeeATypeElementWithContent(string $type, string ...$content): void
     {
         Assert::true($this->contentElementsCollectionElement->hasContentElementWithContent($type, $content));
     }
 
-    /**
-     * @When I delete the :contentElement content element
-     */
+    #[When('I delete the :contentElement content element')]
     public function iDeleteTheContentElement(string $contentElement): void
     {
         $this->contentElementsCollectionElement->removeContentElement($contentElement);
     }
 
-    /**
-     * @Then I should not see :contentElement content element in the Content elements section
-     */
+    #[Then('I should not see :contentElement content element in the Content elements section')]
     public function iShouldNotSeeContentElementInTheContentElementsSection(string $contentElement): void
     {
         Assert::false($this->contentElementsCollectionElement->hasContentElement($contentElement));
     }
 
-    /**
-     * @Then the :ordinal content element should be a :type element
-     */
+    #[Then('the :ordinal content element should be a :type element')]
     public function theContentElementAtPositionShouldBeOfType(string $ordinal, string $type): void
     {
         Assert::same(
@@ -228,9 +193,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @Then the move up button of the :ordinal content element should be disabled
-     */
+    #[Then('the move up button of the :ordinal content element should be disabled')]
     public function theMoveUpButtonOfTheContentElementShouldBeDisabled(string $ordinal): void
     {
         Assert::true(
@@ -238,9 +201,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @Then the move down button of the :ordinal content element should be disabled
-     */
+    #[Then('the move down button of the :ordinal content element should be disabled')]
     public function theMoveDownButtonOfTheContentElementShouldBeDisabled(string $ordinal): void
     {
         Assert::true(
@@ -248,9 +209,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I insert a textarea content element after the :ordinal content element
-     */
+    #[When('I insert a textarea content element after the :ordinal content element')]
     public function iInsertATextareaContentElementAfterTheContentElement(string $ordinal): void
     {
         $this->contentElementsCollectionElement->insertContentElementAfterPosition(
@@ -259,9 +218,7 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I insert a textarea content element before the :ordinal content element
-     */
+    #[When('I insert a textarea content element before the :ordinal content element')]
     public function iInsertATextareaContentElementBeforeTheContentElement(string $ordinal): void
     {
         $this->contentElementsCollectionElement->insertContentElementBeforePosition(
@@ -270,17 +227,13 @@ class ContentCollectionContext implements Context
         );
     }
 
-    /**
-     * @When I move the :ordinal content element up
-     */
+    #[When('I move the :ordinal content element up')]
     public function iMoveTheContentElementUp(string $ordinal): void
     {
         $this->contentElementsCollectionElement->moveContentElementUp($this->parseOrdinal($ordinal));
     }
 
-    /**
-     * @When I move the :ordinal content element down
-     */
+    #[When('I move the :ordinal content element down')]
     public function iMoveTheContentElementDown(string $ordinal): void
     {
         $this->contentElementsCollectionElement->moveContentElementDown($this->parseOrdinal($ordinal));

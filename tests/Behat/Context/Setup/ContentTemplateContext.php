@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\TemplateInterface;
 use Sylius\CmsPlugin\Repository\TemplateRepositoryInterface;
@@ -29,10 +30,8 @@ final class ContentTemplateContext implements Context
     ) {
     }
 
-    /**
-     * @Given there is a template in the store with :name name
-     * @Given there is a template in the store with :name name and :type type
-     */
+    #[Given('there is a template in the store with :name name')]
+    #[Given('there is a template in the store with :name name and :type type')]
     public function thereIsATemplate(string $name, ?string $type = null): void
     {
         $template = $this->createTemplate($name, $type);
@@ -40,9 +39,7 @@ final class ContentTemplateContext implements Context
         $this->saveTemplate($template);
     }
 
-    /**
-     * @Given there are :firstContentElement and :secondContentElement content elements in this template
-     */
+    #[Given('there are :firstContentElement and :secondContentElement content elements in this template')]
     public function thereAreContentElementsInThisTemplate(string $firstContentElement, string $secondContentElement): void
     {
         /** @var TemplateInterface $template */
@@ -55,9 +52,7 @@ final class ContentTemplateContext implements Context
         $this->saveTemplate($template);
     }
 
-    /**
-     * @Given there is an existing content template named :templateName with :type type that contains :contentElements content elements
-     */
+    #[Given('there is an existing content template named :templateName with :type type that contains :contentElements content elements')]
     public function thereIsAnExistingTemplateThatContainsContentElements(string $templateName, string $type, string $contentElements): void
     {
         $template = $this->createTemplate($templateName, $type);

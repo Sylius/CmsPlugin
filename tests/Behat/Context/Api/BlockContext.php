@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Api;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
 use Sylius\Behat\Client\ApiClientInterface;
 use Sylius\Behat\Client\ResponseCheckerInterface;
 use Tests\Sylius\CmsPlugin\Behat\Resources;
@@ -27,17 +29,13 @@ final class BlockContext implements Context
     ) {
     }
 
-    /**
-     * @Given /^I want to browse blocks$/
-     */
+    #[Given('/^I want to browse blocks$/')]
     public function iWantToBrowseBlocks(): void
     {
         $this->apiClient->index(Resources::BLOCKS);
     }
 
-    /**
-     * @Then /^I should see (\d+) blocks in the list$/
-     */
+    #[Then('/^I should see (\\d+) blocks in the list$/')]
     public function iShouldSeeBlocksInTheList(int $count): void
     {
         Assert::count(
@@ -48,10 +46,8 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Given I view block with code :block
-     * @Then I should see block with code :block
-     */
+    #[Given('I view block with code :block')]
+    #[Then('I should see block with code :block')]
     public function iShouldSeeBlockWithCode(string $code): void
     {
         Assert::true(
@@ -64,9 +60,7 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Then /^I should see block name$/
-     */
+    #[Then('/^I should see block name$/')]
     public function iShouldSeeBlockName(): void
     {
         Assert::false(
@@ -80,9 +74,7 @@ final class BlockContext implements Context
         );
     }
 
-    /**
-     * @Then /^I should see block content$/
-     */
+    #[Then('/^I should see block content$/')]
     public function iShouldSeeBlockContent(): void
     {
         Assert::true(
