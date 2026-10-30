@@ -11,7 +11,7 @@
 
 .phpunit.result.cache
 
-/behat.yaml
+/behat.php
 /phpstan.neon
 
 /tests/TestApplication/.env.local
