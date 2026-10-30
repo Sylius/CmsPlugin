@@ -51,7 +51,7 @@ jobs:
 
         steps:
             -
-                uses: actions/checkout@v4
+                uses: actions/checkout@v4.2.0
 
             -
                 name: Parse database string
@@ -134,7 +134,7 @@ jobs:
 
             -
                 name: Upload Behat logs
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v4.4.0
                 if: failure()
                 with:
                     name: "Behat logs - Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, ${{ env.DB_TYPE }}-${{ env.DB_VERSION }}"
