@@ -30,7 +30,7 @@ final class BlockController extends ResourceController
 
         $this->isGrantedOr403($configuration, ResourceActions::SHOW);
 
-        $code = $request->get('code');
+        $code = $request->attributes->get('code');
         /** @var BlockResourceResolverInterface $blockResourceResolver */
         $blockResourceResolver = $this->get('sylius_cms.resolver.block_resource');
         $block = $blockResourceResolver->findOrLog($code);
