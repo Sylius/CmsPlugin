@@ -31,7 +31,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
 
     private string $defaultElementType;
 
-    /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
+    /** @param iterable<string, FormTypeInterface<mixed>> $actionConfigurationTypes */
     public function __construct(
         string $dataClass,
         array $validationGroups,
@@ -97,6 +97,11 @@ final class ContentElementConfigurationType extends AbstractResourceType
         $view->vars['content_signature'] = $signature;
     }
 
+    public function finishView(FormView $view, FormInterface $form, array $options): void
+    {
+        $this->propagateContentElementSignature($view, $view->vars['content_signature']);
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -113,6 +118,7 @@ final class ContentElementConfigurationType extends AbstractResourceType
         return 'sylius_cms_content_element_configuration';
     }
 
+    /** @param FormInterface<mixed> $form */
     private function resolveElementType(FormInterface $form, mixed $data = null): ?string
     {
         if ($data instanceof ContentConfigurationInterface && null !== $data->getType()) {
@@ -126,6 +132,15 @@ final class ContentElementConfigurationType extends AbstractResourceType
         return null;
     }
 
+    private function propagateContentElementSignature(FormView $view, string $signature): void
+    {
+        foreach ($view->children as $child) {
+            $child->vars['content_element_signature'] = $signature;
+            $this->propagateContentElementSignature($child, $signature);
+        }
+    }
+
+    /** @param FormInterface<mixed> $form */
     private function addElementFields(FormInterface $form, string $elementType): void
     {
         $elementFromType = $this->elementTypes[$elementType] ?? $this->elementTypes[$this->defaultElementType] ?? null;

@@ -194,6 +194,14 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
     public function getContentElementContentAtPosition(int $position): string
     {
         $element = $this->getContentElementAtPosition($position);
+        $autocompleteItems = $element->findAll('css', '.ts-control .item');
+        if ([] !== $autocompleteItems) {
+            return implode(', ', array_map(
+                static fn (NodeElement $item): string => trim($item->getText(), " \u{00D7}\n\t"),
+                $autocompleteItems,
+            ));
+        }
+
         $autocomplete = $element->find('css', 'select[data-controller*="autocomplete"]');
         if ($autocomplete instanceof NodeElement) {
             $selectedOptions = $autocomplete->findAll('css', 'option[selected]');
@@ -202,6 +210,11 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
                 static fn (NodeElement $option): string => trim($option->getText()),
                 $selectedOptions,
             ));
+        }
+
+        $wysiwygEditor = $element->find('css', 'trix-editor, .ql-editor');
+        if ($wysiwygEditor instanceof NodeElement) {
+            return trim($wysiwygEditor->getText());
         }
 
         $wysiwygInput = $element->find('css', 'input[type="hidden"][name$="[textarea]"]');

@@ -22,8 +22,23 @@ interface UpdatePageInterface extends BaseUpdatePageInterface, ChecksCodeImmutab
 
     public function fillField(string $field, string $value): void;
 
+    public function fillName(string $name): void;
+
+    public function getName(): ?string;
+
+    public function fillSlug(string $slug): void;
+
+    public function fillMetaKeywords(string $metaKeywords): void;
+
+    public function fillMetaDescription(string $metaDescription): void;
+
     public function chooseImage(string $code): void;
 
     /** @return string[] */
     public function getCollections(): array;
+
+    /** @param string[] $collectionsNames */
+    public function associateCollections(array $collectionsNames): void;
+
+    public function getHeadingType(): ?string;
 }

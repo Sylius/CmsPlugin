@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
+use Behat\Transformation\Transform;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
 use Sylius\CmsPlugin\Repository\CollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -26,12 +27,10 @@ final class CollectionContext implements Context
     ) {
     }
 
-    /**
-     * @Transform /^collection(?:|s) "([^"]+)"$/
-     * @Transform /^"([^"]+)" collection(?:|s)$/
-     * @Transform /^(?:a|an) "([^"]+)"$/
-     * @Transform :collection
-     */
+    #[Transform('/^collection(?:|s) "([^"]+)"$/')]
+    #[Transform('/^"([^"]+)" collection(?:|s)$/')]
+    #[Transform('/^(?:a|an) "([^"]+)"$/')]
+    #[Transform(':collection')]
     public function getCollectionByCode(string $collectionCode): CollectionInterface
     {
         $collection = $this->collectionRepository->findOneByCode($collectionCode, $this->locale);

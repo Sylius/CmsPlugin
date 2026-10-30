@@ -23,12 +23,13 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
+/** @extends AbstractType<mixed> */
 final class ContentConfigurationType extends AbstractType
 {
     /** @var array<string, string> */
     private array $availableElementTypes;
 
-    /** @param iterable<string, FormTypeInterface> $actionConfigurationTypes */
+    /** @param iterable<string, FormTypeInterface<mixed>> $actionConfigurationTypes */
     public function __construct(iterable $actionConfigurationTypes)
     {
         foreach ($actionConfigurationTypes as $type => $formType) {

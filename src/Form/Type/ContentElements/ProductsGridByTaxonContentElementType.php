@@ -22,6 +22,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\ReversedTransformer;
 
+/** @extends AbstractType<mixed> */
 final class ProductsGridByTaxonContentElementType extends AbstractType
 {
     public const TYPE = 'products_grid_by_taxon';

@@ -13,12 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\CmsPlugin\Sorter;
 
+use Sylius\CmsPlugin\Entity\PageInterface;
+
 interface CollectionsSorterInterface
 {
     /**
-     * @param array<int, array<string, mixed>> $pages
+     * @param array<int, PageInterface> $pages
      *
-     * @return array<int, array<string, mixed>>
+     * @return array<string, array<array-key, mixed>>
      */
     public function sortByCollections(array $pages): array;
 }

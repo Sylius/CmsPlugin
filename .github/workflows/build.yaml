@@ -29,18 +29,29 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ["8.3"]
-                symfony: ["^6.4", "~7.4.0"]
-                sylius: ["~2.2.0"]
+                php: ["8.2", "8.3", "8.4"]
+                symfony: ["^6.4", "~7.4.0", "^8.0"]
+                sylius: ["~2.2.0", "~2.3.0"]
                 database: ["mysql:8.4", "mariadb:11.4", "postgres:16"]
                 node: ["22.x"]
+
+                exclude:
+                    # PHP 8.2 not supported with Sylius 2.3
+                    - php: "8.2"
+                      sylius: "~2.3.0"
+                    # PHP 8.3 not supported with Symfony 8.0
+                    - php: "8.3"
+                      symfony: "^8.0"
+                    # Sylius 2.2 not supported with Symfony 8.0
+                    - sylius: "~2.2.0"
+                      symfony: "^8.0"
 
         env:
             APP_ENV: test
 
         steps:
             -
-                uses: actions/checkout@v4
+                uses: actions/checkout@v4.2.0
 
             -
                 name: Parse database string
@@ -123,7 +134,7 @@ jobs:
 
             -
                 name: Upload Behat logs
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v4.4.0
                 if: failure()
                 with:
                     name: "Behat logs - Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, ${{ env.DB_TYPE }}-${{ env.DB_VERSION }}"

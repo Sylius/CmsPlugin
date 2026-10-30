@@ -15,12 +15,9 @@ namespace Sylius\CmsPlugin\Entity\Trait;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\CmsPlugin\Entity\Block;
 use Sylius\CmsPlugin\Entity\BlockInterface;
 use Sylius\CmsPlugin\Entity\CollectionInterface;
-use Sylius\CmsPlugin\Entity\Media;
 use Sylius\CmsPlugin\Entity\MediaInterface;
-use Sylius\CmsPlugin\Entity\Page;
 use Sylius\CmsPlugin\Entity\PageInterface;
 
 trait CollectibleTrait
@@ -48,7 +45,6 @@ trait CollectibleTrait
         if (false === $this->hasCollection($collection)) {
             $this->collections->add($collection);
 
-            /** @phpstan-var Block|Page|Media $this */
             if ($this instanceof PageInterface) {
                 $collection->addPage($this);
             } elseif ($this instanceof BlockInterface) {
@@ -63,7 +59,6 @@ trait CollectibleTrait
     {
         if (true === $this->hasCollection($collection)) {
             $this->collections->removeElement($collection);
-            /** @phpstan-var Block|Page|Media $this */
             if ($this instanceof PageInterface) {
                 $collection->removePage($this);
             } elseif ($this instanceof BlockInterface) {

@@ -61,6 +61,9 @@
             "migrations/.gitignore"
         ]
     },
+    "ehyiah/ux-quill": {
+        "version": "3.10.0"
+    },
     "friends-of-behat/symfony-extension": {
         "version": "2.6",
         "recipe": {

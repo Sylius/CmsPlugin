@@ -15,7 +15,6 @@ namespace Sylius\CmsPlugin\DependencyInjection;
 
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -27,6 +26,11 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
 
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $fileLocator = new FileLocator(__DIR__ . '/../../config');
+
+        $phpLoader = new PhpFileLoader($container, $fileLocator);
+        $phpLoader->load('services.php');
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
@@ -69,7 +73,6 @@ final class SyliusCmsExtension extends AbstractResourceExtension implements Prep
     /** @return array<array-key, mixed> */
     private function getCurrentConfiguration(ContainerBuilder $container): array
     {
-        /** @var ConfigurationInterface $configuration */
         $configuration = $this->getConfiguration([], $container);
         $configs = $container->getExtensionConfig($this->getAlias());
 

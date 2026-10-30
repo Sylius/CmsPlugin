@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Given;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\CmsPlugin\Entity\ContentConfiguration;
@@ -46,9 +48,7 @@ final class PageContext implements Context
     ) {
     }
 
-    /**
-     * @Given there is a page in the store
-     */
+    #[Given('there is a page in the store')]
     public function thereIsAPageInTheStore(): void
     {
         $page = $this->createPage();
@@ -56,9 +56,7 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given there is a page in the store with :contentElement content element
-     */
+    #[Given('there is a page in the store with :contentElement content element')]
     public function thereIsAPageInTheStoreWithTextareaContentElement(string $contentElement): void
     {
         $page = $this->createPageWithContentElements([$contentElement]);
@@ -66,9 +64,7 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given there is a page in the store with ":contentElements" content elements
-     */
+    #[Given('there is a page in the store with ":contentElements" content elements')]
     public function thereIsAPageInTheStoreWithContentElements(string $contentElements): void
     {
         $contentElements = explode(',', $contentElements);
@@ -78,10 +74,8 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given there is a page in the store with a textarea content element with :firstContent content and a textarea content element with :secondContent content
-     * @Given there is a page in the store with textarea content elements with :firstContent, :secondContent and :thirdContent content
-     */
+    #[Given('there is a page in the store with a textarea content element with :firstContent content and a textarea content element with :secondContent content')]
+    #[Given('there is a page in the store with textarea content elements with :firstContent, :secondContent and :thirdContent content')]
     public function thereIsAPageInTheStoreWithTextareaContentElements(string ...$contents): void
     {
         $page = $this->createPage();
@@ -100,9 +94,7 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given there is an existing page with :name name
-     */
+    #[Given('there is an existing page with :name name')]
     public function thereIsAPageWithName(string $name): void
     {
         $page = $this->createPage(strtolower(StringInflector::nameToCode($name)), $name);
@@ -110,9 +102,7 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given there are :number pages in the store
-     */
+    #[Given('there are :number pages in the store')]
     public function thereArePagesInTheStore(int $number): void
     {
         for ($i = 0; $i < $number; ++$i) {
@@ -122,9 +112,7 @@ final class PageContext implements Context
         }
     }
 
-    /**
-     * @Given there is an existing page with :code code
-     */
+    #[Given('there is an existing page with :code code')]
     public function thereIsAnExistingPageWithCode(string $code): void
     {
         $page = $this->createPage($code);
@@ -132,9 +120,7 @@ final class PageContext implements Context
         $this->savePage($page);
     }
 
-    /**
-     * @Given this page has :code code
-     */
+    #[Given('this page has :code code')]
     public function thisPageHasCode(string $code): void
     {
         $this->sharedStorage->get('page')->setCode($code);
@@ -142,9 +128,7 @@ final class PageContext implements Context
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given this page has :name name
-     */
+    #[Given('this page has :name name')]
     public function thisPageHasName(string $name): void
     {
         $this->sharedStorage->get('page')->setName($name);
@@ -152,9 +136,7 @@ final class PageContext implements Context
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given this page also has :slug slug
-     */
+    #[Given('this page also has :slug slug')]
     public function thisPageAlsoHasSlug(string $slug): void
     {
         $this->sharedStorage->get('page')->setSlug($slug);
@@ -162,9 +144,7 @@ final class PageContext implements Context
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given this page also has :content content
-     */
+    #[Given('this page also has :content content')]
     public function thisPageAlsoHasContent(string $content): void
     {
         $this->sharedStorage->get('page')->setContent($content);
@@ -172,9 +152,7 @@ final class PageContext implements Context
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given this page also has :title title
-     */
+    #[Given('this page also has :title title')]
     public function thisPageAlsoHasTitle(string $title): void
     {
         $this->sharedStorage->get('page')->setTitle($title);
@@ -182,23 +160,33 @@ final class PageContext implements Context
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given this page has these collections associated with it
-     */
-    public function thisPageHasTheseCollectionsAssociatedWithIt(): void
+    #[Given('this page has these collections associated with it')]
+    #[Given('this page has these collections associated with it:')]
+    public function thisPageHasTheseCollectionsAssociatedWithIt(?TableNode $table = null): void
     {
-        $collections = $this->collectionRepository->findAll();
+        $page = $this->sharedStorage->get('page');
+        if (!$page instanceof PageInterface) {
+            throw new \RuntimeException('Expected PageInterface instance in shared storage');
+        }
 
-        foreach ($collections as $collection) {
-            $this->sharedStorage->get('page')->addCollection($collection);
+        if (null === $table) {
+            $collections = $this->collectionRepository->findAll();
+            foreach ($collections as $collection) {
+                $page->addCollection($collection);
+            }
+        } elseif ($table instanceof TableNode) {
+            foreach ($table->getColumn(0) as $collectionName) {
+                $collection = $this->collectionRepository->findOneBy(['name' => $collectionName]);
+                if (null !== $collection) {
+                    $page->addCollection($collection);
+                }
+            }
         }
 
         $this->entityManager->flush();
     }
 
-    /**
-     * @Given these pages have this collection associated with it
-     */
+    #[Given('these pages have this collection associated with it')]
     public function thesePagesHaveThisCollectionAssociatedWithIt(): void
     {
         $collection = $this->sharedStorage->get('collection');

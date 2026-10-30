@@ -43,6 +43,46 @@
    For backward compatibility, the old constructor signatures are still supported but deprecated.
    Passing repository interfaces will trigger a deprecation notice and will be removed in version 2.0.
 
+### Validation Constraints
+
+1. Validator constraint constructors have been updated to use named arguments instead of array-based options:
+
+   **Deprecated array-based syntax:**
+   ```php
+   // Old (deprecated)
+   new CollectionMatchesType(['type' => SomeClass::class])
+   #[CollectionMatchesType(['type' => SomeClass::class])]
+   ```
+
+   **New named argument syntax:**
+   ```php
+   // New
+   new CollectionMatchesType(type: SomeClass::class)
+   ```
+
+   For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
+   A deprecation warning will be triggered when using the old syntax.
+
+2. The `FileMatchesType` constraint has also been updated to use named arguments:
+
+   **Deprecated array-based syntax:**
+   ```php
+   // Old (deprecated)
+   new FileMatchesType(['field' => 'cover'])
+   #[FileMatchesType(['field' => 'cover'])]
+   ```
+
+   **New named argument syntax:**
+   ```php
+   // New
+   new FileMatchesType(field: 'cover')
+   #[FileMatchesType(field: 'cover')]
+   ```
+
+   For backward compatibility, the old array-based constructor is still supported but **deprecated** and will be removed in CMS Plugin 2.0.
+   A deprecation warning will be triggered when using the old syntax.
+
+
 ### New WYSIWYG editor: Quill
 
 A new Quill WYSIWYG editor is available alongside the existing Trix editor.

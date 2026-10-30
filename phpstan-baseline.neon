@@ -1,0 +1,17 @@
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Trait Sylius\\CmsPlugin\\Entity\\Trait\\LocaleAwareTrait is used zero times and is not analysed\.$#'
+            identifier: trait.unused
+            count: 1
+            path: src/Entity/Trait/LocaleAwareTrait.php
+        -
+            message: '#^Method Sylius\\CmsPlugin\\Form\\Type\\Translation\\ContentConfigurationTranslationsType::mapDataToForms\(\) has parameter \$forms with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types: TData$#'
+            identifier: missingType.generics
+            count: 1
+            path: src/Form/Type/Translation/ContentConfigurationTranslationsType.php
+        -
+            message: '#^Method Sylius\\CmsPlugin\\Form\\Type\\Translation\\ContentConfigurationTranslationsType::mapFormsToData\(\) has parameter \$forms with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types: TData$#'
+            identifier: missingType.generics
+            count: 1
+            path: src/Form/Type/Translation/ContentConfigurationTranslationsType.php

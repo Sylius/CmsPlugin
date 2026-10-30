@@ -43,6 +43,31 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         $this->getDocument()->fillField($field, $value);
     }
 
+    public function fillName(string $name): void
+    {
+        $this->getDocument()->fillField('Name', $name);
+    }
+
+    public function getName(): ?string
+    {
+        return $this->getDocument()->findField('Name')->getValue();
+    }
+
+    public function fillSlug(string $slug): void
+    {
+        $this->getDocument()->fillField('Slug', $slug);
+    }
+
+    public function fillMetaKeywords(string $metaKeywords): void
+    {
+        $this->getDocument()->fillField('Meta keywords', $metaKeywords);
+    }
+
+    public function fillMetaDescription(string $metaDescription): void
+    {
+        $this->getDocument()->fillField('Meta description', $metaDescription);
+    }
+
     public function chooseImage(string $code): void
     {
         FormHelper::fillHiddenInput($this->getSession(), self::IMAGE_FORM_ID, $code);
@@ -58,6 +83,21 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         );
     }
 
+    public function associateCollections(array $collectionsNames): void
+    {
+        Assert::true(DriverHelper::isJavascript($this->getDriver()));
+
+        $collectionsElementXpath = $this->getElement('collections')->getXpath();
+
+        foreach ($collectionsNames as $collectionName) {
+            $this->autocompleteHelper->selectByName(
+                $this->getDriver(),
+                $collectionsElementXpath,
+                $collectionName,
+            );
+        }
+    }
+
     public function selectOptionFrom(string $element, string $option): void
     {
         $element = $this
@@ -66,6 +106,16 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
         ;
 
         $element->selectOption($option);
+    }
+
+    public function getHeadingType(): ?string
+    {
+        $element = $this
+            ->getElement('form')
+            ->find('css', 'select[id*="heading_type"]')
+        ;
+
+        return $element?->getValue();
     }
 
     public function hasTrixToolbarChildren(): bool
@@ -92,13 +142,10 @@ class UpdatePage extends BaseUpdatePage implements UpdatePageInterface
 
     public function fillTextareaContentElement(string $value): void
     {
-        $element = $this
-            ->getElement('form')
-            ->find('css', 'trix-editor')
-            ->find('css', 'div')
-        ;
+        $editorElement = $this->getElement('form')->find('css', 'trix-editor');
+        Assert::notNull($editorElement, 'The Trix editor was not found in the form.');
 
-        $element->setValue($value);
+        $editorElement->setValue($value);
     }
 
     public function getTextareaContent(): ?string
