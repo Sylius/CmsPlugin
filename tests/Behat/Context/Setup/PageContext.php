@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\CmsPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Step\Given;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
@@ -32,6 +33,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\Sylius\CmsPlugin\Behat\Helpers\ContentElementHelper;
 use Tests\Sylius\CmsPlugin\Behat\Service\RandomStringGeneratorInterface;
+use Webmozart\Assert\Assert;
 
 final class PageContext implements Context
 {
@@ -160,12 +162,25 @@ final class PageContext implements Context
     }
 
     #[Given('this page has these collections associated with it')]
-    public function thisPageHasTheseCollectionsAssociatedWithIt(): void
+    #[Given('this page has these collections associated with it:')]
+    public function thisPageHasTheseCollectionsAssociatedWithIt(?TableNode $table = null): void
     {
-        $collections = $this->collectionRepository->findAll();
+        $page = $this->sharedStorage->get('page');
+
+        $collections = null === $table
+            ? $this->collectionRepository->findAll()
+            : array_map(
+                function (string $name): object {
+                    $collection = $this->collectionRepository->findOneBy(['name' => $name]);
+                    Assert::notNull($collection, sprintf('Collection "%s" does not exist.', $name));
+
+                    return $collection;
+                },
+                $table->getColumn(0),
+            );
 
         foreach ($collections as $collection) {
-            $this->sharedStorage->get('page')->addCollection($collection);
+            $page->addCollection($collection);
         }
 
         $this->entityManager->flush();
