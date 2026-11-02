@@ -13,7 +13,10 @@
                 "main": "dist/controller.js",
                 "webpackMode": "eager",
                 "fetch": "eager",
-                "enabled": true
+                "enabled": true,
+                "autoimport": {
+                    "quill/dist/quill.snow.css": true
+                }
             }
         }
     },
