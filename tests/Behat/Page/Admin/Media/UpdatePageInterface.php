@@ -20,5 +20,7 @@ interface UpdatePageInterface extends BaseUpdatePageInterface, ChecksCodeImmutab
 {
     public function fillField(string $field, string $value): void;
 
+    public function fillName(string $name): void;
+
     public function uploadFile(string $file): void;
 }

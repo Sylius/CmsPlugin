@@ -79,6 +79,7 @@ return static function (ContainerConfigurator $container) {
 
     $services->set('sylius_cms.behat.context.ui.admin.media', MediaContext::class)
         ->args([
+            service('sylius.behat.shared_storage'),
             service('sylius.behat.current_page_resolver'),
             service('sylius.behat.notification_checker.admin'),
             service('sylius_cms.behat.page.admin.media.index'),
