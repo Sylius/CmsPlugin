@@ -35,6 +35,11 @@ final class QuillStrategy extends AbstractWysiwygStrategy
             'modules' => [
                 new FullScreenModule(),
             ],
+            // The Quill widget is data-live-ignore, so a morph would leave a stale editor behind:
+            // rebuild the whole row from the server HTML whenever it changes (same as the Trix editor).
+            'row_attr' => [
+                'data-skip-morph' => '',
+            ],
         ]);
     }
 
