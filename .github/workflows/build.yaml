@@ -29,11 +29,18 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ["8.3"]
-                symfony: ["^6.4", "~7.4.0"]
+                php: ["8.3", "8.4"]
+                symfony: ["^6.4", "~7.4.0", "^8.0"]
                 sylius: ["~2.2.0", "~2.3.0"]
                 database: ["mysql:8.4", "mariadb:11.4", "postgres:16"]
                 node: ["22.x"]
+                exclude:
+                    # Symfony 8 requires PHP 8.4
+                    - php: "8.3"
+                      symfony: "^8.0"
+                    # Sylius 2.2 does not support Symfony 8
+                    - sylius: "~2.2.0"
+                      symfony: "^8.0"
 
         env:
             APP_ENV: test
