@@ -68,5 +68,30 @@
 A new Quill WYSIWYG editor is available alongside the existing Trix editor.
 The default remains `trix`, so no action is required to keep the previous behavior.
 
+To use Quill, register its Stimulus controller together with its stylesheet in your `assets/admin/controllers.json`
+(Webpack Encore only picks up the `autoimport` entries listed there):
+
+```json
+{
+    "controllers": {
+        "@ehyiah/ux-quill": {
+            "quill": {
+                "main": "dist/controller.js",
+                "webpackMode": "eager",
+                "fetch": "eager",
+                "enabled": true,
+                "autoimport": {
+                    "quill/dist/quill.snow.css": true
+                }
+            }
+        }
+    }
+}
+```
+
+`quill.snow.css` is the theme the plugin uses by default. Any other Quill stylesheet, for example `quill/dist/quill.bubble.css`
+or the module styles listed under `symfony.controllers.quill.autoimport` in the `package.json` of `@ehyiah/ux-quill`,
+can be added to the same `autoimport` section.
+
 See the documentation for setup and configuration details:
 https://docs.sylius.com/cms-plugin/development/wysiwyg-editors

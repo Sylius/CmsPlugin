@@ -204,6 +204,13 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
             ));
         }
 
+        // Read what the editor displays, not the hidden input: Live Component syncs the hidden
+        // input from its model after every render, so it can be right while the editor is stale.
+        $wysiwygEditor = $element->find('css', 'trix-editor, .ql-editor');
+        if ($wysiwygEditor instanceof NodeElement) {
+            return trim($wysiwygEditor->getText());
+        }
+
         $wysiwygInput = $element->find('css', 'input[type="hidden"][name$="[textarea]"]');
         if ($wysiwygInput instanceof NodeElement) {
             $value = $wysiwygInput->getValue();
