@@ -8,9 +8,13 @@ sylius_cms:
             not_blank: Code is verplicht en mag niet leeg zijn.
             min_length: Code moet minstens {{ limit }} tekens lang zijn.
             max_length: Code mag niet langer zijn dan {{ limit }} tekens.
+            regex: Blokcode mag alleen letters, cijfers, streepjes en underscores bevatten.
         name:
             min_length: Naam moet minstens {{ limit }} tekens lang zijn.
             max_length: Naam mag niet langer zijn dan {{ limit }} tekens.
+        link:
+            min_length: Link moet minstens {{ limit }} tekens lang zijn.
+            max_length: Link mag niet langer zijn dan {{ limit }} tekens.
         content:
             not_blank: Inhoud is verplicht en mag niet leeg zijn.
             min_length: Inhoud moet minstens {{ limit }} tekens lang zijn.
@@ -20,6 +24,7 @@ sylius_cms:
             not_blank: Code is verplicht en mag niet leeg zijn.
             min_length: Code moet minstens {{ limit }} tekens lang zijn.
             max_length: Code mag niet langer zijn dan {{ limit }} tekens.
+            regex: Paginacode mag alleen letters, cijfers, streepjes en underscores bevatten.
         name:
             not_blank: Naam is verplicht en mag niet leeg zijn.
             min_length: Naam moet minstens {{ limit }} tekens lang zijn.
@@ -28,6 +33,7 @@ sylius_cms:
             not_blank: Slug is verplicht en mag niet leeg zijn.
             min_length: Slug moet minstens {{ limit }} tekens lang zijn.
             max_length: Slug mag niet langer zijn dan {{ limit }} tekens.
+            unique: Slug moet uniek zijn.
         meta_keywords:
             min_length: Meta sleutelwoorden moeten minstens {{ limit }} tekens lang zijn.
             max_length: Meta sleutelwoorden mogen niet langer zijn dan {{ limit }} tekens.
@@ -43,11 +49,38 @@ sylius_cms:
             not_blank: Code is verplicht en mag niet leeg zijn.
             min_length: Code moet minstens {{ limit }} tekens lang zijn.
             max_length: Code mag niet langer zijn dan {{ limit }} tekens.
+            regex: Collectiecode mag alleen letters, cijfers, streepjes en underscores bevatten.
         name:
             not_blank: Naam is verplicht en mag niet leeg zijn.
             min_length: Naam moet minstens {{ limit }} tekens lang zijn.
             max_length: Naam mag niet langer zijn dan {{ limit }} tekens.
         invalid_type: "Collectie '{{ collection }}' kan niet worden toegewezen. Het komt niet overeen met het verwachte type '{{ type }}'."
+    media:
+        code:
+            unique: Er bestaat al media met deze code.
+            not_blank: Code is verplicht en mag niet leeg zijn.
+            min_length: Code moet minstens {{ limit }} tekens lang zijn.
+            max_length: Code mag niet langer zijn dan {{ limit }} tekens.
+            regex: Mediacode mag alleen letters, cijfers, streepjes en underscores bevatten.
+        file:
+            not_blank: Bestand is verplicht en mag niet leeg zijn.
+            type_image: Het geüploade bestand kan niet als afbeelding worden gemarkeerd.
+            type_video: Het geüploade bestand kan niet als video worden gemarkeerd.
+        name:
+            not_blank: Naam is verplicht en mag niet leeg zijn.
+            min_length: Naam moet minstens {{ limit }} tekens lang zijn.
+            max_length: Naam mag niet langer zijn dan {{ limit }} tekens.
+        content:
+            min_length: Inhoud moet minstens {{ limit }} tekens lang zijn.
+        alt:
+            min_length: Alt moet minstens {{ limit }} tekens lang zijn.
+            max_length: Alt mag niet langer zijn dan {{ limit }} tekens.
+        link:
+            min_length: Link moet minstens {{ limit }} tekens lang zijn.
+            max_length: Link mag niet langer zijn dan {{ limit }} tekens.
+    import:
+        not_blank: Importbestand is verplicht en mag niet leeg zijn.
+        invalid_format: Upload een geldig CSV-importbestand.
     template:
         name:
             unique: Er bestaat al een sjabloon met deze naam.

@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Ajouter un élément
+        elements: Éléments
         blocks: Blocs
         block: Bloc
         pages: Pages
@@ -12,8 +14,10 @@ sylius_cms:
         pages_header: Pages
         pages_subheader: Gérer vos pages
         products: Produits
+        taxons: Taxons
         page_related_products: Produits liés à la page
         name: Nom
+        path: Chemin
         slug: Slug
         meta_title: Meta Titre
         meta_keywords: Meta Mots-clés
@@ -27,6 +31,7 @@ sylius_cms:
         link_content: Contenu du lien
         question: Question
         answer: Réponse
+        collection: Collection
         collections: Collections
         collections_header: Collections
         collections_subheader: Gérer vos collections
@@ -41,6 +46,7 @@ sylius_cms:
         media_subheader: Gérer vos médias
         type: Type
         file: Fichier
+        video: Vidéo
         alt: Alt
         description: Description
         file_provider: Fichier
@@ -53,6 +59,10 @@ sylius_cms:
         successfully_imported: Les données ont été importées.
         form_was_submitted_with_errors: "Le formulaire a les erreurs suivantes :"
         title: Titre
+        empty_name: Nom vide
+        publish_at: Publier le
+        page_will_be_publish_at: Cette page sera publiée le
+        save_with_original_name: Enregistrer avec le nom d'origine
         content_elements:
             title: Contenu
             type:
@@ -70,7 +80,9 @@ sylius_cms:
                 spacer_height: Hauteur de l'espacement en pixels
             heading_type: Type d'en-tête
             template: Modèle d'éléments de contenu
+            template_help: Fournit une collection prédéfinie d'éléments. La modifier effacera la configuration actuelle.
         taxon: Taxon
+        seo: SEO
         display_for_products:
             label: Afficher pour les produits
             help: Ce bloc sera affiché pour les produits sélectionnés
@@ -95,3 +107,7 @@ sylius_cms:
             content: Contenu de l'aperçu
             image: Image de l'aperçu
             help: Il s'agit d'un petit aperçu de la page. Il est utilisé lors du rendu d'une collection de pages.
+        content_preview:
+            missing_template:
+                title: Modèle manquant
+                content: Le modèle que vous essayez d'utiliser pour la prévisualisation est introuvable. Affichage du modèle par défaut.

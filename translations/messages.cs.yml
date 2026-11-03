@@ -1,11 +1,68 @@
 sylius_cms:
     ui:
-        collections: Kolekce
+        add_element: Přidat prvek
+        elements: Prvky
         blocks: Bloky
         block: Blok
         pages: Stránky
         page: Stránka
+        content_management: Obsahový management
+        cms: Obsahový management
+        enabled: Povoleno
+        blocks_header: Bloky
+        blocks_subheader: Správa bloků
+        pages_header: Stránky
+        pages_subheader: Správa stránek
+        products: Produkty
+        taxons: Taxony
+        page_related_products: Produkty související se stránkou
+        name: Název
+        path: Cesta
+        slug: Slug
+        meta_title: Meta titul
+        meta_keywords: Meta klíčová slova
+        meta_description: Meta popis
+        content: Obsah
+        code: Kód
+        contents: Obsahy
+        images: Obrázky
+        image: Obrázek
+        link: Odkaz
+        link_content: Obsah odkazu
+        question: Otázka
+        answer: Odpověď
+        collection: Kolekce
+        collections: Kolekce
+        collections_header: Kolekce
+        collections_subheader: Správa kolekcí
+        position: Pozice
+        channels: Kanály
+        preview: Náhled
+        download: Stáhnout
+        name_when_linked: Název v odkazu
+        description_when_linked: Popis v odkazu
+        media: Média
+        media_header: Média
+        media_subheader: Správa digitálních médií
+        type: Typ
+        file: Soubor
+        video: Video
+        alt: Alt
+        description: Popis
+        file_provider: Soubor
+        image_provider: Obrázek
+        video_provider: Video
+        read_more: Číst více
+        breadcrumb: Navigační drobečky
+        import: Import
+        csv_file: CSV soubor
+        successfully_imported: Data byla importována.
+        form_was_submitted_with_errors: "Formulář obsahuje následující chyby:"
         title: Titul
+        empty_name: Prázdný název
+        publish_at: Publikovat
+        page_will_be_publish_at: Tato stránka bude publikována
+        save_with_original_name: Uložit s původním názvem
         content_elements:
             title: Obsah
             type:
@@ -23,7 +80,9 @@ sylius_cms:
                 spacer_height: Výška oddělovače v pixelech
             heading_type: Typ nadpisu
             template: Šablona prvků obsahu
+            template_help: Poskytuje předdefinovanou kolekci prvků. Její změna vymaže aktuální konfiguraci.
         taxon: Taxon
+        seo: SEO
         display_for_products:
             label: Zobrazit pro produkty
             help: Vyberte produkty, ve kterých se bude tento blok zobrazovat
@@ -48,31 +107,7 @@ sylius_cms:
             content: Obsah ukázky
             image: Obrázek ukázky
             help: Jedná se o malý náhled stránky. Používá se při vykreslování kolekce stránek.
-    cms:
-        content_management: Obsahový management
-        cms: Obsahový management
-        enabled: Povoleno
-        blocks: Bloky
-        pages: Stránky
-        blocks_header: Bloky
-        blocks_subheader: Správa bloků
-        text_block: Textový blok
-        html_block: HTML blok
-        image_block: Obrázkový blok
-        pages_header: Stránka
-        pages_subheader: Správa stránek
-        products: Produkty
-        name: Název
-        slug: Slug
-        meta_title: Meta titul
-        meta_keywords: Meta klíčová slova
-        meta_description: Meta popis
-        content: Obsah
-        form:
-            code: Kód
-            enabled: Povoleno
-            name: Název
-            contents: Obsahy
-            content: Obsah
-            images: Obrázky
-            link: Odkaz
+        content_preview:
+            missing_template:
+                title: Chybějící šablona
+                content: Šablona, kterou se snažíte použít pro náhled, chybí. Zobrazuje se výchozí šablona.

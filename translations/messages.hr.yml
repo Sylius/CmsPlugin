@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Dodaj element
+        elements: Elementi
         blocks: Blokovi
         block: Blok
         pages: Stranice
@@ -9,14 +11,13 @@ sylius_cms:
         enabled: Omogućeno
         blocks_header: Blokovi
         blocks_subheader: Uredi blokove
-        text_block: Tekstualni blok
-        html_block: HTML blok
-        image_block: Slikovni blok
         pages_header: Stranice
         pages_subheader: Uredi stranice
         products: Proizvodi
+        taxons: Taksoni
         page_related_products: Vezani proizvodi
         name: Naslov
+        path: Putanja
         slug: Slug
         meta_title: Meta naslov
         meta_keywords: Meta ključne riječi
@@ -30,11 +31,38 @@ sylius_cms:
         link_content: Sadržaj poveznice (linka)
         question: Pitanje
         answer: Odgovor
+        collection: Kolekcija
         collections: Kolekcije
         collections_header: Kolekcije
         collections_subheader: Uredi kolekcije
         position: Pozicija (redosljed)
+        channels: Kanali
+        preview: Pregled
+        download: Preuzmi
+        name_when_linked: Naslov u poveznici
+        description_when_linked: Opis u poveznici
+        media: Mediji
+        media_header: Mediji
+        media_subheader: Upravljanje digitalnim sadržajem
+        type: Tip
+        file: Datoteka
+        video: Video
+        alt: Alt
+        description: Opis
+        file_provider: Datoteka
+        image_provider: Slika
+        video_provider: Video
+        read_more: Pročitaj više
+        breadcrumb: Navigacijski putokaz
+        import: Uvoz
+        csv_file: CSV datoteka
+        successfully_imported: Podaci su uvezeni.
+        form_was_submitted_with_errors: "Obrazac je poslan sa sljedećim greškama:"
         title: Titula
+        empty_name: Prazan naslov
+        publish_at: Objavi
+        page_will_be_publish_at: Ova stranica bit će objavljena
+        save_with_original_name: Spremi s izvornim naslovom
         content_elements:
             title: Sadržaj
             type:
@@ -52,7 +80,9 @@ sylius_cms:
                 spacer_height: Visina razmaka u pikselima
             heading_type: Tip naslova
             template: Predložak elemenata sadržaja
+            template_help: Pruža unaprijed definiranu kolekciju elemenata. Njezina promjena izbrisat će trenutnu konfiguraciju.
         taxon: Takson
+        seo: SEO
         display_for_products:
             label: Prikaz za proizvode
             help: Ovaj blok će biti prikazan za odabrane proizvode
@@ -77,3 +107,7 @@ sylius_cms:
             content: Sadržaj pregleda
             image: Slika pregleda
             help: Ovo je mali pregled stranice. Koristi se prilikom prikazivanja zbirke stranica.
+        content_preview:
+            missing_template:
+                title: Predložak nije pronađen
+                content: Predložak koji pokušavate koristiti za pregled ne postoji. Prikazuje se zadani predložak.

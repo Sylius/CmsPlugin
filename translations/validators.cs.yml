@@ -30,7 +30,7 @@ sylius_cms:
             min_length: Název musí mít alespoň {{ limit }} znaků.
             max_length: Název nesmí být delší než {{ limit }} znaků.
         slug:
-            not_blank:  Slug nemůže být prázdný.
+            not_blank: Slug nemůže být prázdný.
             min_length: Slug musí mít alespoň {{ limit }} znaků.
             max_length: Slug nemůže být delší než {{ limit }} znaků.
             unique: Slug musí být jedinečný.

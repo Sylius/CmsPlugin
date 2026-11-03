@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Pridať prvok
+        elements: Prvky
         blocks: Bloky
         block: Blok
         pages: Stránky
@@ -12,8 +14,10 @@ sylius_cms:
         pages_header: Stránky
         pages_subheader: Spravujte vaše stránky
         products: Produkty
+        taxons: Taxóny
         page_related_products: Produkty relevantné ku stránke
         name: Meno
+        path: Cesta
         slug: Slug
         meta_title: Meta titulok
         meta_keywords: Meta keywords
@@ -27,6 +31,7 @@ sylius_cms:
         link_content: Obsah odkazu
         question: Otázka
         answer: Odpoveď
+        collection: Kolekcia
         collections: Kolekcie
         collections_header: Kolekcie
         collections_subheader: Spravujte své sbírky
@@ -41,6 +46,7 @@ sylius_cms:
         media_subheader: Spravujte vaše médiá
         type: Typ
         file: Súbor
+        video: Video
         alt: Alt
         description: Popis
         file_provider: Súbor
@@ -53,6 +59,10 @@ sylius_cms:
         successfully_imported: Dáta boli naimportované
         form_was_submitted_with_errors: "Formulár obsahuje nasledovné chyby:"
         title: Titulok
+        empty_name: Prázdny názov
+        publish_at: Publikovať
+        page_will_be_publish_at: Táto stránka bude publikovaná
+        save_with_original_name: Uložiť s originálnym názvom
         content_elements:
             title: Obsah
             type:
@@ -70,7 +80,9 @@ sylius_cms:
                 spacer_height: Výška medzery v pixeloch
             heading_type: Typ nadpisu
             template: Šablóna prvkov obsahu
+            template_help: Poskytuje preddefinovanú kolekciu prvkov. Jej zmena vymaže aktuálnu konfiguráciu.
         taxon: Taxón
+        seo: SEO
         display_for_products:
             label: Zobraziť pre produkty
             help: Tento blok bude zobrazený pre vybrané produkty
@@ -95,3 +107,7 @@ sylius_cms:
             content: Obsah ukážky
             image: Obrázok ukážky
             help: Toto je malý náhľad stránky. Používa sa pri vykresľovaní zbierky stránok.
+        content_preview:
+            missing_template:
+                title: Chýbajúca šablóna
+                content: Šablóna, ktorú sa pokúšate použiť na náhľad, chýba. Zobrazuje sa predvolená šablóna.

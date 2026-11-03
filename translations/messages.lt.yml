@@ -1,5 +1,7 @@
 sylius_cms:
     ui:
+        add_element: Pridėti elementą
+        elements: Elementai
         blocks: Blokai
         block: Blokas
         pages: Puslapiai
@@ -12,8 +14,10 @@ sylius_cms:
         pages_header: Puslapiai
         pages_subheader: Puslapių tvarkymas
         products: Produktai
+        taxons: Taksonai
         page_related_products: Su puslapiu susiję produktai
         name: Pavadinimas
+        path: Kelias
         slug: Adreso identifikatorius (nuorodos dalis)
         meta_title: Meta pavadinimas
         meta_keywords: Meta raktiniai žodžiai
@@ -27,6 +31,7 @@ sylius_cms:
         link_content: Nuorodos turinys
         question: Klausimas
         answer: Atsakymas
+        collection: Kolekcija
         collections: Kolekcijos
         collections_header: Kolekcijos
         collections_subheader: Tvarkykite savo kolekcijas
@@ -41,6 +46,7 @@ sylius_cms:
         media_subheader: Įterptinių failų valdymas
         type: Tipas
         file: Failas
+        video: Vaizdo įrašas
         alt: Alternatyvusis tekstas
         description: Aprašymas
         file_provider: Failas
@@ -52,6 +58,11 @@ sylius_cms:
         csv_file: CSV failas
         successfully_imported: Duomenys sėkmingai importuoti.
         form_was_submitted_with_errors: "Forma pateikta su klaidomis:"
+        title: Pavadinimas
+        empty_name: Tušias pavadinimas
+        publish_at: Publikavimo data
+        page_will_be_publish_at: Puslapis bus publikuotas nuo šios datos
+        save_with_original_name: Išsaugoti su pirminiu pavadinimu
         content_elements:
             title: Turinys
             type:
@@ -71,6 +82,7 @@ sylius_cms:
             template: Turinio elementų šablonas
             template_help: Turinio elementų šablonas pateikia iš anksto nustatytą elementų kolekciją. Pakeitus jį bus ištrinta dabartinė konfigūracija.
         taxon: Taksonas
+        seo: SEO
         display_for_products:
             label: Rodyti produktams
             help: Pasirinkite produktus, kuriuose šis blokas bus rodomas
@@ -95,18 +107,6 @@ sylius_cms:
             content: Anonso turinys
             image: Anonso nuotrauka
             help: Tai maža puslapio peržiūra. Ji naudojama kuriant puslapių kolekciją.
-        add_element: Pridėti elementą
-        elements: Elementai
-        taxons: Taksonai
-        path: Kelias
-        collection: Kolekcija
-        video: Vaizdo įrašas
-        title: Pavadinimas
-        empty_name: Tušias pavadinimas
-        publish_at: Publikavimo data
-        page_will_be_publish_at: Puslapis bus publikuotas nuo šios datos
-        save_with_original_name: Išsaugoti su pirminiu pavadinimu
-        seo: SEO
         content_preview:
             missing_template:
                 title: Nėra šablono

@@ -8,6 +8,7 @@ sylius_cms:
             not_blank: Kodą įvesti privaloma.
             min_length: Kodo ilgis turi būti bent {{ limit }} simb.
             max_length: Kodas negali būti ilgesnis nei {{ limit }} simb.
+            regex: Bloko kodą gali sudaryti tik raidės, skaitmenys, brūkšneliai ir pabraukimai.
         name:
             min_length: Pavadinimo ilgis turi būti bent {{ limit }} simb.
             max_length: Pavadinimas negali būti ilgesnis nei {{ limit }} simb.
@@ -23,12 +24,13 @@ sylius_cms:
             not_blank: Kodą įvesti privaloma.
             min_length: Kodo ilgis turi būti bent {{ limit }} simb.
             max_length: Kodas negali būti ilgesnis nei {{ limit }} simb.
+            regex: Puslapio kodą gali sudaryti tik raidės, skaitmenys, brūkšneliai ir pabraukimai.
         name:
             not_blank: Pavadinimą įvesti privaloma.
             min_length: Pavadinimo ilgis turi būti bent {{ limit }} simb.
             max_length: Pavadinimas negali būti ilgesnis nei {{ limit }} simb.
         slug:
-            not_blank:  Šliužą įvesti privaloma.
+            not_blank: Šliužą įvesti privaloma.
             min_length: Šliužo ilgis turi būti bent {{ limit }} simb.
             max_length: Šliužas negali būti ilgesnis nei {{ limit }} simb.
             unique: Šliužas turi būti unikalus.
@@ -47,6 +49,7 @@ sylius_cms:
             not_blank: Kodą įvesti privaloma.
             min_length: Kodo ilgis turi būti bent {{ limit }} simb.
             max_length: Kodas negali būti ilgesnis nei {{ limit }} simb.
+            regex: Kolekcijos kodą gali sudaryti tik raidės, skaitmenys, brūkšneliai ir pabraukimai.
         name:
             not_blank: Pavadinimą įvesti privaloma.
             min_length: Pavadinimo ilgis turi būti bent {{ limit }} simb.
@@ -58,8 +61,11 @@ sylius_cms:
             not_blank: Kodą įvesti privaloma.
             min_length: Kodo ilgis turi būti bent {{ limit }} simb.
             max_length: Kodas negali būti ilgesnis nei {{ limit }} simb.
+            regex: Failo kodą gali sudaryti tik raidės, skaitmenys, brūkšneliai ir pabraukimai.
         file:
             not_blank: Failą pasirinkti privaloma.
+            type_image: Įkelto failo negalima pažymėti kaip paveikslo.
+            type_video: Įkelto failo negalima pažymėti kaip vaizdo įrašo.
         name:
             not_blank: Pavadinimą įvesti privaloma.
             min_length: Pavadinimo ilgis turi būti bent {{ limit }} simb.
