@@ -167,6 +167,15 @@ class ContentElementsCollectionElement extends FormElement implements ContentEle
         $this->insertContentElementAtDividerIndex($type, $beforePosition - 1);
     }
 
+    public function duplicateContentElement(int $position): void
+    {
+        $duplicateButton = $this->getContentElementAtPosition($position)->find('css', '[data-test-duplicate-element]');
+        Assert::isInstanceOf($duplicateButton, NodeElement::class, sprintf('Duplicate button not found at position %d.', $position));
+        $duplicateButton->click();
+
+        $this->waitForFormUpdate();
+    }
+
     public function moveContentElementUp(int $position): void
     {
         $button = $this->getSortButton($position, 'up');

@@ -29,7 +29,7 @@
     <div class="sortable-item" id="{{ id }}" {{ block('attributes') }} {{ sylius_test_html_attribute('entry-row') }}>
         {{- form_errors(form) -}}
 
-        <div class="alert text-body d-flex align-items-center gap-4">
+        <div class="alert text-body d-flex align-items-start gap-4">
             <div class="flex-grow-1">
                 {{- form_row(form.type) -}}
                 <div id="{{ id }}_element_configuration">
@@ -37,6 +37,19 @@
                 </div>
             </div>
             <div class="d-flex flex-column align-items-center gap-2">
+                <button
+                    type="button"
+                    class="btn p-1 btn-outline-primary d-flex align-items-center justify-content-center mt-5 mb-3"
+                    data-action="live#action"
+                    data-live-action-param="duplicateCollectionItem"
+                    data-live-name-param="{{ form.parent.vars.full_name }}"
+                    data-live-index-param="{{ form.vars.name }}"
+                    title="{{ 'sylius_cms.ui.duplicate_element'|trans }}"
+                    aria-label="{{ 'sylius_cms.ui.duplicate_element'|trans }}"
+                    {{ sylius_test_html_attribute('duplicate-element') }}
+                >
+                    {{ ux_icon('tabler:copy', {style: 'display: block; margin: auto'}) }}
+                </button>
                 <button
                     type="button"
                     class="btn p-1 btn-outline-primary d-flex align-items-center justify-content-center"
